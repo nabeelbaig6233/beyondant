@@ -1,0 +1,175 @@
+/*Profile Heaer CSS Start*/
+.headerProfile{
+    background: #fff;
+    padding: 10px 0
+}
+/*Profile Heaer CSS End*/
+
+/*Profile Main Banner CSS Start*/
+.beyondantProfileMain{
+    background: url(../images/profile-mainbanner-bg.png) repeat-x top center #be0103;
+    padding: 0;
+}
+.beyondantProfileMain img{
+    width: 100%
+}
+.beyondantProfileInfo{
+    background: #fff;
+    padding:0;
+    overflow: visible;
+}
+.beyondantProfileInfo .profile-img {
+    height: 257px;
+    width: 258px;
+    border-radius: 100px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    top: -140px;
+    margin-bottom: -100px;
+    background: url(../images/profile-img-bg.png) no-repeat;
+}
+.beyondantProfileInfo .profile-img img {
+    height: 217px; 
+    width: 218px;
+    margin: 20px;
+    border-radius: 100%;
+}
+.beyondantProfileInfo h2 {
+    font-size: 30px;
+    color: #252525;
+    margin:55px 0 15px
+}
+.beyondantProfileInfo p {
+    font-size: 15px;
+    color: #be0103;
+    margin:0;
+    font-weight: 600
+}
+.beyondantProfileInfo .btn-default.saveContact {
+    background: #be0103;
+    border-color: #be0103;
+    color: #fff;
+     padding: 7px 25px;
+     border-radius: 100px;
+     margin:55px 0 0;
+     width: 100%;
+     font-size:15px;
+}
+.beyondantProfileInfo .btn-default.saveContact:hover, .beyondantProfileInfo .btn-default.saveContact:focus, .beyondantProfileInfo .btn-default.saveContact:active {
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    background-color: #970507;
+    border: 2px solid #970507;
+    color: #fff !important;
+}
+.beyondantProfileInfo .btn-default.saveContact:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.fa-download:before {
+    content: "\f019";
+}
+@media only screen and (max-width: 991px) {
+    .beyondantProfileInfo .profile-img {
+        height: 200px;
+        width: 200px;
+        border-radius: 100px;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+        top: -70px;
+        margin-bottom: -100px;
+        background: url(../images/profile-img-bg.png) no-repeat;
+        background-size: cover
+    }
+    .beyondantProfileInfo .profile-img img {
+        height: 167px; 
+        width: 167px;
+        margin: 17px;
+        border-radius: 100%;
+    } 
+}
+@media only screen and (max-width:767px) {
+    .textCenter_mob{
+        text-align: center
+    }
+    .beyondantProfileInfo .btn-default.saveContact {
+        margin: 17px 0 25px;
+    }
+}
+/*Profile Main Banner CSS End*/
+
+/*Profile Contaent CSS Start*/
+.profileContent_area{
+    margin: 45px 0;
+}
+.profileContent_area .pCd{
+    padding: 25px; 
+    background: #fff;
+    border-radius:20px;
+    -webkit-box-shadow: 0px 0px 12px -2px #ccc;
+    box-shadow: 0px 0px 12px -2px #ccc;
+    border-bottom: 10px solid #d0d0d0
+}
+.profileContent_area span.title{
+    font-size: 12px;
+    color: #be0103;
+    font-weight: 600;
+    display: block;
+    margin: 0 0 6px 
+}
+.profileContent_area span.Subtitle{
+    font-size: 13px;
+    color: #111111;
+    display: block;
+}
+.profileContent_area p{
+    font-size: 11px;
+    color: #959595;
+    margin: 10px 0;
+    line-height: 20px;
+}
+.profileContent_area .pCd_right{
+    padding: 25px; 
+    background: #fff;
+    border-radius:20px;
+    -webkit-box-shadow: 0px 0px 12px -2px #ccc;
+    box-shadow: 0px 0px 12px -2px #ccc;
+    border-bottom: 10px solid #d0d0d0
+}
+.profileContent_area .pCd_col{
+    padding: 25px 0; 
+    background: #fff;
+    border-bottom: 1px solid #d8d8d8
+}
+.profileContent_area .pCd_col.noBordercol{
+    border-bottom: 0px solid #d8d8d8
+}
+.profileContent_area .pCd_col span.title{
+    font-size: 12px;
+    color: #be0103;
+    font-weight: 600;
+    display: block;
+    margin: 0 0 6px 
+}
+.profileContent_area .pCd_col span.Subtitle{
+    font-size: 13px;
+    color: #111111;
+    display: block;
+}
+/*Profile Contaent CSS End*/
+
+
+/*Profile Footer CSS Start*/
+footer.profileFooter{
+    background: #191919;
+    padding: 30px 0;
+    border-bottom: 22px solid #be0103;
+    color: #fff;
+    font-size: 13px
+}
+footer.profileFooter img{
+    width: 100px
+}
+/*Profile Footer CSS Start*/
