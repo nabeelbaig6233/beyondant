@@ -30,7 +30,7 @@
     background: url(../images/profile-img-bg.png) no-repeat;
 }
 .beyondantProfileInfo .profile-img img {
-    height: 217px; 
+    height: 217px;
     width: 218px;
     margin: 20px;
     border-radius: 100%;
@@ -50,11 +50,11 @@
     background: #be0103;
     border-color: #be0103;
     color: #fff;
-     padding: 7px 25px;
-     border-radius: 100px;
-     margin:55px 0 0;
-     width: 100%;
-     font-size:15px;
+    padding: 7px 25px;
+    border-radius: 100px;
+    margin:55px 0 0;
+    width: 100%;
+    font-size:15px;
 }
 .beyondantProfileInfo .btn-default.saveContact:hover, .beyondantProfileInfo .btn-default.saveContact:focus, .beyondantProfileInfo .btn-default.saveContact:active {
     -webkit-transition: 0.5s;
@@ -84,11 +84,11 @@
         background-size: cover
     }
     .beyondantProfileInfo .profile-img img {
-        height: 167px; 
+        height: 167px;
         width: 167px;
         margin: 17px;
         border-radius: 100%;
-    } 
+    }
 }
 @media only screen and (max-width:767px) {
     .textCenter_mob{
@@ -105,7 +105,7 @@
     margin: 45px 0;
 }
 .profileContent_area .pCd{
-    padding: 25px; 
+    padding: 25px;
     background: #fff;
     border-radius:20px;
     -webkit-box-shadow: 0px 0px 12px -2px #ccc;
@@ -117,7 +117,7 @@
     color: #be0103;
     font-weight: 600;
     display: block;
-    margin: 0 0 6px 
+    margin: 0 0 6px
 }
 .profileContent_area span.Subtitle{
     font-size: 13px;
@@ -131,7 +131,7 @@
     line-height: 20px;
 }
 .profileContent_area .pCd_right{
-    padding: 25px; 
+    padding: 25px;
     background: #fff;
     border-radius:20px;
     -webkit-box-shadow: 0px 0px 12px -2px #ccc;
@@ -139,7 +139,7 @@
     border-bottom: 10px solid #d0d0d0
 }
 .profileContent_area .pCd_col{
-    padding: 25px 0; 
+    padding: 25px 0;
     background: #fff;
     border-bottom: 1px solid #d8d8d8
 }
@@ -151,7 +151,7 @@
     color: #be0103;
     font-weight: 600;
     display: block;
-    margin: 0 0 6px 
+    margin: 0 0 6px
 }
 .profileContent_area .pCd_col span.Subtitle{
     font-size: 13px;
@@ -173,3 +173,85 @@ footer.profileFooter img{
     width: 100px
 }
 /*Profile Footer CSS Start*/
+
+
+.profileWrapper_Mob{
+    display: none;
+}
+@media only screen and (max-width:767px) {
+    .profileWrapper{
+        display: none;
+    }
+    .profileWrapper_Mob{
+        display: block;
+    }
+    .headerProfile_mob {
+        background: #fff;
+        padding: 30px 0;
+    }
+    .headerProfile_mob .mainTitle {
+        font-size: 18px;
+        color: #252525;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .ProfileName_mob{
+        padding: 25px;
+        background: #cd1b17;
+    }
+    .ProfileName_mob .name{
+        font-size: 18px;
+        color: #fff;
+        font-weight: 600;
+        line-height:30px;
+    }
+    .ProfileName_mob .name span{
+        font-size: 15px;
+        font-weight: 500;
+        display: block;
+    }
+    .ProfileContactInfo_mob{
+        padding: 0 25px
+    }
+    .ProfileContactInfo_mob .contactInfo_child{
+        padding: 15px 0;
+        border-bottom: 1px solid #e1e1e1;
+        min-height: 74px;
+        align-items: center;
+        font-size: 14px;
+        color: #555555;
+        line-height: normal;
+    }
+    .profileFooter_mob{
+        background: #cd1b17;
+        padding: 25px 0;
+        text-align: center;
+        font-size: 12px;
+        color: #fff;
+        position: relative;
+    }
+    .profileFooter_mob .btn-default.saveContact {
+        background: #00aef0;
+        border-color: #00aef0;
+        color: #fff;
+        padding: 7px 25px;
+        border-radius: 10px;
+        margin:0;
+        width: auto;
+        font-size: 12px;
+        position: absolute;
+        right: 10px;
+        top: -20px
+    }
+    .profileFooter_mob .btn-default.saveContact:hover,
+    .profileFooter_mob .btn-default.saveContact:focus,
+    .profileFooter_mob .btn-default.saveContact:active {
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        background-color: #047099;
+        border: 2px solid #047099;
+        color: #fff !important;
+    }
+
+}

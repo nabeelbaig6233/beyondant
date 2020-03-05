@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 29, 2020 at 01:01 AM
+-- Generation Time: Mar 05, 2020 at 03:37 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -81,12 +81,15 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `profiles` (
   `id` int(11) NOT NULL,
-  `header_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bio_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cover_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `company_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone_number` decimal(10,0) DEFAULT NULL,
+  `company_description` text COLLATE utf8mb4_unicode_ci,
+  `phone_number` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile_number` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fax_number` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` text COLLATE utf8mb4_unicode_ci,
   `website` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -98,6 +101,13 @@ CREATE TABLE `profiles` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `profiles`
+--
+
+INSERT INTO `profiles` (`id`, `profile_image`, `cover_image`, `name`, `title`, `company_name`, `company_description`, `phone_number`, `mobile_number`, `fax_number`, `email`, `address`, `website`, `linkedin`, `instagram`, `facebook`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, 'assets/uploads/profile/user-img-1.jpg', 'assets/uploads/profile/profile-main-img.jpg', 'Nick', 'Chief Executive Officer', 'Mick & Associates, LLC', '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>', '+1 365 987 6321', '+1 5698 6362 563', '+1 365 987 6321', 'johnny.mick@demo.com', '777 Brockton Avenue,\r\nAbington MA 2351', 'http://localhost/laravel/beyondant/public/profile', 'https://pk.linkedin.com/', 'https://www.instagram.com/', 'http://facebook.com/', '2020-03-04 21:41:11', NULL, '2020-03-04 21:41:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -121,10 +131,10 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `permission`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 'admin', '[\"createUser\",\"updateUser\",\"viewUser\",\"deleteUser\",\"viewCustomer\",\"deleteCustomer\",\"createCategory\",\"updateCategory\",\"viewCategory\",\"deleteCategory\",\"createSubCategory\",\"updateSubCategory\",\"viewSubCategory\",\"deleteSubCategory\",\"createAttribute\",\"updateAttribute\",\"viewAttribute\",\"deleteAttribute\",\"createVariant\",\"updateVariant\",\"viewVariant\",\"deleteVariant\",\"createProduct\",\"updateProduct\",\"viewProduct\",\"deleteProduct\",\"createProductVariant\",\"updateProductVariant\",\"viewProductVariant\",\"deleteProductVariant\",\"createInventory\",\"updateInventory\",\"viewInventory\",\"deleteInventory\",\"createCurrency\",\"updateCurrency\",\"viewCurrency\",\"deleteCurrency\",\"createHome\",\"updateHome\",\"viewHome\",\"deleteHome\",\"createLocation\",\"updateLocation\",\"viewLocation\",\"deleteLocation\",\"updateContent\",\"viewOrder\",\"viewMarket\",\"updateSetting\",\"updateProfile\"]', 1, NULL, 1, '2020-02-28 16:30:40', NULL),
+(1, 'admin', '[\"createUser\",\"updateUser\",\"viewUser\",\"deleteUser\",\"viewCustomer\",\"deleteCustomer\",\"viewUserProfile\",\"deleteUserProfile\",\"createHome\",\"updateHome\",\"viewHome\",\"deleteHome\",\"updateSetting\",\"updateProfile\"]', 1, NULL, 14, '2020-03-04 18:48:56', NULL),
 (2, 'customer', '', 1, NULL, NULL, NULL, NULL),
 (3, 'vendor', '[\"createRole\",\"updateRole\",\"viewRole\",\"deleteRole\",\"createCategory\",\"updateCategory\",\"deleteCategory\"]', 1, NULL, 12, '2020-02-12 22:44:18', NULL),
-(4, 'master admin', '[\"createUser\",\"updateUser\",\"viewUser\",\"deleteUser\",\"createRole\",\"updateRole\",\"viewRole\",\"deleteRole\",\"viewCustomer\",\"deleteCustomer\",\"createHome\",\"updateHome\",\"viewHome\",\"deleteHome\",\"updateSetting\",\"updateProfile\"]', 1, '2020-02-27 18:39:15', 1, '2020-02-27 18:39:15', NULL);
+(4, 'master admin', '[\"createUser\",\"updateUser\",\"viewUser\",\"deleteUser\",\"createRole\",\"updateRole\",\"viewRole\",\"deleteRole\",\"viewCustomer\",\"deleteCustomer\",\"viewUserProfile\",\"deleteUserProfile\",\"createHome\",\"updateHome\",\"viewHome\",\"deleteHome\",\"updateSetting\",\"updateProfile\"]', 1, '2020-02-27 18:39:15', 14, '2020-03-04 18:48:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -187,7 +197,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `contact_number`, `occupation`, `profile_picture`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 1, 'Beyondant Web', 'admin@demo.com', NULL, '$2y$10$ZZ7Gg3uwoULlNSTG3WC3DeO52SSwIP4nrG4oopqDPixrTpYy4TY9i', 'eNAUNfYE5wCYJ3so6RCzUZplAyCM6yLmDSL3CrkNUXqmSxx5AhzeH3aZjB4y', 1234567890, 'C.E.O', 'assets/admin/images/790368965.png', '2020-01-14 14:45:20', NULL, '2020-02-28 17:13:46', NULL),
+(1, 1, 'Beyondant Web', 'admin@demo.com', NULL, '$2y$10$ZZ7Gg3uwoULlNSTG3WC3DeO52SSwIP4nrG4oopqDPixrTpYy4TY9i', 'XFdf1m02BRFeno4j9wqnVH54wsKEZyik5UIFlVbWWAwLRHonCoAei6McbwVi', 1234567890, 'C.E.O', 'assets/admin/images/790368965.png', '2020-01-14 14:45:20', NULL, '2020-02-28 17:13:46', NULL),
 (2, 2, 'Testing Fname Lname', 'nb@nadocrm.com', NULL, '$2y$10$c5fg4t6cmsZrn1J.wQT3JuoaH/ICLtLMk1Y1PvolnNp/7P/MgDque', NULL, NULL, NULL, NULL, '2020-01-16 17:08:00', NULL, '2020-01-16 17:08:00', NULL),
 (3, 0, 'Testing Fname Lname', 'nbs@nadocrm.com', NULL, '$2y$10$5FP3FaUNvZnGIYgtPWAyEuAn950F8DnB6JlqpKAOcuNYaqSG41LHi', NULL, NULL, NULL, NULL, '2020-01-16 17:15:00', NULL, '2020-01-16 17:15:00', NULL),
 (4, 0, 'Testing Fname Lname', 'asnb@nadocrm.com', NULL, '$2y$10$BQ/gj/33RRgxxn9WOlY3PuLU8G.1iSKAcFhnH8nShkd1ANXmRt83K', NULL, NULL, NULL, NULL, '2020-01-16 17:52:49', NULL, '2020-01-16 17:52:49', NULL),
@@ -200,7 +210,7 @@ INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `email_verified_at`, `pas
 (11, 1, 'Albert Custom', 'albert@gmail.com', NULL, '$2y$10$98RO0l9cpedqIgB.fh6sEu0ikc/YoCdDEFmGlAV1MwSE8kQcmE/6S', NULL, 12345678910, 'Developer', 'assets/admin/images/1209642735.png', '2020-01-23 16:23:09', NULL, '2020-01-23 16:23:09', NULL),
 (12, 3, 'Nick PHP', 'nick@mnb.com', NULL, '$2y$10$dFtCYSQk0saLbkrOywAR2.Ids8QSta1JDfz1y2IYdRrYfdo5PA5d2', NULL, 12345678910, 'Developer', 'assets/admin/images/2021132860.png', '2020-01-23 18:05:34', NULL, '2020-01-23 18:05:34', NULL),
 (13, 3, 'Testing Fname Testing Lname', 'test@mnb.com', NULL, '$2y$10$y.XNfo5R4VVgzwo3c0GGGuVnP155rekUVVOE22OoJY/MKLnldKDRq', NULL, 1234567891, 'Developer', 'assets/admin/images/14354318.png', '2020-01-23 18:30:12', NULL, '2020-01-23 18:30:12', NULL),
-(14, 4, 'Master Admin', 'admin@admin.com', NULL, '$2y$10$MS8j/EHKg1SJXofp3wGAcuzF.ysib8odDMwsxc8X4UlCvYssxGO6W', NULL, 3333906233, 'PHP Developer', 'assets/admin/images/1784678676.png', '2020-02-27 17:37:28', NULL, '2020-02-28 14:59:04', NULL);
+(14, 4, 'Master Admin', 'admin@admin.com', NULL, '$2y$10$MS8j/EHKg1SJXofp3wGAcuzF.ysib8odDMwsxc8X4UlCvYssxGO6W', NULL, 3333906233, 'PHP Developer', 'assets/admin/images/1611976308.png', '2020-02-27 17:37:28', NULL, '2020-02-28 14:59:04', NULL);
 
 --
 -- Indexes for dumped tables
@@ -269,7 +279,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `roles`

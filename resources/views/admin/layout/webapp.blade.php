@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="icon" href="{{asset('assets/admin/images/favicon.ico')}}" type="image/ico" />
+        <link rel="icon" href="{{asset(($setting->favico)? $setting->favico :'assets/admin/images/favicon.ico')}}" type="image/ico" />
 
         <title>{{$setting->title??""}}</title>
 
@@ -61,7 +61,7 @@
                     <ul class="nav side-menu">
                       <li><a><i class="fa fa-desktop"></i> Users <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="page_403.html">Total Orders</a></li>
+                            <li><a href="{{route('profile')}}">Profiles</a></li>
                         </ul>
                       </li>
 
@@ -75,18 +75,6 @@
                             <li><a><i class="fa fa-clone"></i> CMS <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="#level1_1">Home</a>
-                                    <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                                            </li>
-                                            <li><a href="#level2_1">Level Two</a>
-                                            </li>
-                                            <li><a href="#level2_2">Level Two</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#level1_2">Level One</a>
-                                    </li>
                                 </ul>
                             </li>
 

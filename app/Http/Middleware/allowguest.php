@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\models\setting;
 use Closure;
 
 class allowguest
@@ -15,6 +16,10 @@ class allowguest
      */
     public function handle($request, Closure $next)
     {
+        $setting = setting::findOrFail(1);
+        view()->share(
+            'setting',$setting
+        );
         return $next($request);
     }
 }

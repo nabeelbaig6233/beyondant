@@ -80,61 +80,13 @@
                                         <td><input type="checkbox" name="permission[]" id="permission" value="deleteCustomer" <?php echo (in_array('deleteCustomer', $record))?'checked':'' ?>></td>
                                     </tr>
                                     <tr>
-                                        <td>Category</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createCategory" <?php echo (in_array('createCategory', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateCategory" <?php echo (in_array('updateCategory', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewCategory" <?php echo (in_array('viewCategory', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteCategory" <?php echo (in_array('deleteCategory', $record))?'checked':'' ?>></td>
+                                        <td>User Profile</td>
+                                        <td> - </td>
+                                        <td> - </td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewUserProfile" <?php echo (in_array('viewUserProfile', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteUserProfile" <?php echo (in_array('deleteUserProfile', $record))?'checked':'' ?>></td>
                                     </tr>
-                                    <tr>
-                                        <td>Sub Category</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createSubCategory" <?php echo (in_array('createSubCategory', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateSubCategory" <?php echo (in_array('updateSubCategory', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewSubCategory" <?php echo (in_array('viewSubCategory', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteSubCategory" <?php echo (in_array('deleteSubCategory', $record))?'checked':'' ?>></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Attribute</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createAttribute" <?php echo (in_array('createAttribute', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateAttribute" <?php echo (in_array('updateAttribute', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewAttribute" <?php echo (in_array('viewAttribute', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteAttribute" <?php echo (in_array('deleteAttribute', $record))?'checked':'' ?>></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Variant</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createVariant" <?php echo (in_array('createVariant', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateVariant" <?php echo (in_array('updateVariant', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewVariant" <?php echo (in_array('viewVariant', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteVariant" <?php echo (in_array('deleteVariant', $record))?'checked':'' ?>></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Products</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createProduct" <?php echo (in_array('createProduct', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateProduct" <?php echo (in_array('updateProduct', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewProduct" <?php echo (in_array('viewProduct', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteProduct" <?php echo (in_array('deleteProduct', $record))?'checked':'' ?>></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Product Variants</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createProductVariant" <?php echo (in_array('createProductVariant', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateProductVariant" <?php echo (in_array('updateProductVariant', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewProductVariant" <?php echo (in_array('viewProductVariant', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteProductVariant" <?php echo (in_array('deleteProductVariant', $record))?'checked':'' ?>></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Inventory</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createInventory" <?php echo (in_array('createInventory', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateInventory" <?php echo (in_array('updateInventory', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewInventory" <?php echo (in_array('viewInventory', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteInventory" <?php echo (in_array('deleteInventory', $record))?'checked':'' ?>></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Currency</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createCurrency" <?php echo (in_array('createCurrency', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateCurrency" <?php echo (in_array('updateCurrency', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewCurrency" <?php echo (in_array('viewCurrency', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteCurrency" <?php echo (in_array('deleteCurrency', $record))?'checked':'' ?>></td>
-                                    </tr>
+
                                     <tr>
                                         <td>Home Page</td>
                                         <td><input type="checkbox" name="permission[]" id="permission" value="createHome" <?php echo (in_array('createHome', $record))?'checked':'' ?>></td>
@@ -142,34 +94,8 @@
                                         <td><input type="checkbox" name="permission[]" id="permission" value="viewHome" <?php echo (in_array('viewHome', $record))?'checked':'' ?>></td>
                                         <td><input type="checkbox" name="permission[]" id="permission" value="deleteHome" <?php echo (in_array('deleteHome', $record))?'checked':'' ?>></td>
                                     </tr>
-                                    <tr>
-                                        <td>Store Location</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createLocation" <?php echo (in_array('createLocation', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateLocation" <?php echo (in_array('updateLocation', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewLocation" <?php echo (in_array('viewLocation', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteLocation" <?php echo (in_array('deleteLocation', $record))?'checked':'' ?>></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Site Content</td>
-                                        <td> - </td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateContent" <?php echo (in_array('updateContent', $record))?'checked':'' ?>></td>
-                                        <td> - </td>
-                                        <td> - </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Orders</td>
-                                        <td> - </td>
-                                        <td> - </td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewOrder" <?php echo (in_array('viewOrder', $record))?'checked':'' ?>></td>
-                                        <td> - </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Marketing</td>
-                                        <td> - </td>
-                                        <td> - </td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewMarket" <?php echo (in_array('viewMarket', $record))?'checked':'' ?>></td>
-                                        <td> - </td>
-                                    </tr>
+
+
                                     <tr>
                                         <td>Setting</td>
                                         <td>-</td>

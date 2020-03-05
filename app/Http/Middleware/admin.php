@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\models\setting;
 use Auth;
 use Closure;
 
@@ -30,9 +31,8 @@ class admin
         elseif (Auth::check() === true && $role->name == "customer") {
             return redirect('/profile');
         }
-        view()->share([
-            'permissions' => $permissions
-        ]);
+        $setting = setting::findOrFail(1);
+        view()->share('setting',$setting);
         return $next($request);
     }
 }
