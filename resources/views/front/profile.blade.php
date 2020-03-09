@@ -39,7 +39,11 @@
                         <h2>{{$record->name ?? ''}}</h2> <p>{{$record->title ?? ''}}</p>
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
+<<<<<<< HEAD
                         <a class="btn btn-default saveContact link" href="javascript:void(0);"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
+=======
+                        <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}" title="Export to VCard"> SAVE TO CONTACT <i class="fas fa-download"></i></a>
+>>>>>>> ce7306d196aa3362098543309e1abdd53d18d398
                     </div>
                 </div>
             </div>

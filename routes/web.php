@@ -21,6 +21,7 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::get('/user/register','UserController@register')->name('user.register');
     Route::get('/user/edit/{id}','UserController@edit')->name('user.edit');
     Route::put('/user/update/{id}','UserController@update')->name('post.update');
+    Route::post('/users/delete_all','UserController@delete_all')->name('users.delete_all');
 
 //    Setting
     Route::get('/setting','SettingController@index')->name('setting');
@@ -48,6 +49,7 @@ Auth::routes();
 Route::middleware(['allowguest'])->group(function (){
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/profile/{id}','ProfileController@index')->name('pro');
+    Route::get('/vcards','ProfileController@vcards')->name('vcards');
 });
 
 Route::fallback(function(){
