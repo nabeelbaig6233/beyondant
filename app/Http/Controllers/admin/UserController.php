@@ -86,4 +86,9 @@ class UserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    public function delete_all(Request $request)
+    {
+        dd($request);
+    }
 }
