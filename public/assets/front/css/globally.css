@@ -351,6 +351,8 @@ body {
     color: #071828;
     overflow-x: hidden;
     background: url(../images/body-bg.jpg);
+    word-break: break-word;
+    word-break: break-all;
 }
 body.event {
     font-family: 'montserratmedium', sans-serif;

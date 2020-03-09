@@ -248,11 +248,11 @@
                 <img alt="" class="wow fadeInRight m-t-40" src="{{asset('assets/front/images/')}}/email-icon.png">
                 <p class="wow fadeInRight contactDetails">info@colossusmedigroup.com <span>908.242.3056</span></p>
                 <h5 class="wow fadeInDown">Follow Us On</h5>
-                <a href="javascript:void(0);" title="Vimeo" class="link"> <i class="fab fa-vimeo-v"></i></a>
-                <a href="javascript:void(0);" title="Facebook" class="link"><i class="fab fa-facebook-f"></i></a>
-                <a href="javascript:void(0);" title="Instagram" class="link"><i class="fab fa-instagram"></i></a>
-                <a href="javascript:void(0);" title="Youtube" class="link"><i class="fab fa-youtube"></i></a>
-                <p class="wow fadeInRight copyright">Copyright © 2020 Beyondan | All Rights Reserved</p>
+                <a href="javascript:void(0);" title="Instagram" class="link"> <img src="{{asset('assets/front/images/')}}/instagram-icon-3d.png" title="Instagramm"></a>
+                <a href="javascript:void(0);" title="Linkedin" class="link"> <img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png" title="Linkedin"></a>
+                <a href="javascript:void(0);" title="Facebook" class="link"> <img src="{{asset('assets/front/images/')}}/facebook-icon-3d.png" title="Facebook"></a>
+                <a href="javascript:void(0);" title="Twitter" class="link"> <img src="{{asset('assets/front/images/')}}/twitter-icon-3d.png" title="Twitter"></a>
+                <p class="wow fadeInRight copyright">Copyright © 2020 Beyondant | All Rights Reserved - Powered by Beyondant</p>
             </div>
         </div>
     </div>

@@ -39,7 +39,7 @@
                         <h2>{{$record->name ?? ''}}</h2> <p>{{$record->title ?? ''}}</p>
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
-                        <a class="btn btn-default saveContact link" href="javascript:void(0);"> SAVE TO CONTACT <i class="fas fa-download"></i></a>
+                        <a class="btn btn-default saveContact link" href="javascript:void(0);"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
                     </div>
                 </div>
             </div>
@@ -60,50 +60,100 @@
                     <div class="col-lg-8 wow fadeInRight">
                         <div class="pCd_right">
                             <div class="pCd_col">
-                                <span class="title">Company Name</span>
-                                <span class="Subtitle">{{$record->company_name ?? ''}}</span>
-                            </div>
-                            <div class="pCd_col">
                                 <div class="row">
-                                    <div class="col-lg-6">
-                                        <span class="title">Phone Number</span>
-                                        <span class="Subtitle">{{$record->phone_number ?? ''}}</span>
+                                    <div class="col-lg-1 col-1 col-R-paddN">
+                                        <img alt="" src="{{asset('assets/front/images/')}}/company-icon.png">
                                     </div>
-                                    <div class="col-lg-6">
-                                        <span class="title">Mobile Number</span>
-                                        <span class="Subtitle">{{$record->mobile_number ?? ''}}</span>
+                                    <div class="col-lg-11 col-11 col-L-paddN">
+                                        <span class="title">Company Name</span>
+                                        <span class="Subtitle">{{$record->company_name ?? ''}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="pCd_col">
                                 <div class="row">
-                                    <div class="col-lg-6">
-                                        <span class="title">Fax Number</span>
-                                        <span class="Subtitle">{{$record->fax_number ?? ''}}</span>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-1 col-R-paddN">
+                                                <img alt="" src="{{asset('assets/front/images/')}}/phone-icon.png">
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
+                                                <span class="title">Office Phone</span>
+                                                <span class="Subtitle">{{$record->phone_number ?? ''}}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <span class="title">Email Address</span>
-                                        <span class="Subtitle">{{$record->email ?? ''}}</span>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-1 col-R-paddN">
+                                                <img alt="" src="{{asset('assets/front/images/')}}/mobile-icon.png">
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
+                                                <span class="title">Mobile Number</span>
+                                                <span class="Subtitle">{{$record->mobile_number ?? ''}}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="pCd_col">
                                 <div class="row">
-                                    <div class="col-lg-6">
-                                        <span class="title">Physical Address</span>
-                                        <span class="Subtitle">{{$record->address ?? ''}}</span>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-1 col-R-paddN">
+                                                <img alt="" src="{{asset('assets/front/images/')}}/fax-icon.png">
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
+                                                <span class="title">Fax Number</span>
+                                                <span class="Subtitle">{{$record->fax_number ?? ''}}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <span class="title">Company Website</span>
-                                        <span class="Subtitle">{{$record->website ?? ''}}</span>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-1 col-R-paddN">
+                                                <img alt="" src="{{asset('assets/front/images/')}}/envelope-icon.png">
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
+                                                <span class="title">Email Address</span>
+                                                <span class="Subtitle">{{$record->email ?? ''}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pCd_col">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-1 col-R-paddN">
+                                                <img alt="" src="{{asset('assets/front/images/')}}/location-icon.png">
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
+                                                <span class="title">Physical Address</span>
+                                                <span class="Subtitle">{{$record->address ?? ''}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 col-1 col-R-paddN">
+                                                <img alt="" src="{{asset('assets/front/images/')}}/globe-icon.png">
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
+                                                <span class="title">Company Website</span>
+                                                <span class="Subtitle">{{$record->website ?? ''}}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="pCd_col noBordercol">
                                 <span class="title">Social Media Profiles</span>
-                                <a href="{{$record->instagram ?? ''}}" title="Instagram"> <img src="{{asset('assets/front/images/')}}/instagram-icon.jpg" title="Instagramm"></a>
-                                <a href="{{$record->linkedin ?? ''}}" title="Linkedin"><img src="{{asset('assets/front/images/')}}/linkedin-icon.jpg" title="Linkedin"></a>
-                                <a href="{{$record->facebook ?? ''}}" title="Facebook"><img src="{{asset('assets/front/images/')}}/facebook-icon.jpg" title="Facebook"></a>
+                                <a href="{{$record->instagram ?? ''}}" title="Instagram"> <img src="{{asset('assets/front/images/')}}/instagram-icon-3d.png" title="Instagramm"></a>
+                                <a href="{{$record->linkedin ?? ''}}" title="Linkedin"><img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png" title="Linkedin"></a>
+                                <a href="{{$record->facebook ?? ''}}" title="Facebook"><img src="{{asset('assets/front/images/')}}/facebook-icon-3d.png" title="Facebook"></a>
+                                <a href="{{$record->twitter ?? ''}}" title="Twitter"><img src="{{asset('assets/front/images/')}}/twitter-icon-3d.png" title="Twitter"></a>
                             </div>
                         </div>
                     </div>
@@ -117,7 +167,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10  wow fadeInLeft">
-                        Copyright © {{date('Y')}} Beyondan | All Rights Reserved
+                        Copyright © {{date('Y')}} Beyondant | All Rights Reserved - Powered by Beyondant
                     </div>
                     <div class="col-lg-2  wow fadeInRight">
                         <img alt="" class="img-fluid" src="{{asset($setting->logo?? '')}}">
@@ -150,10 +200,20 @@
         <!-- Profile Mobile Main Banner End -->
 
         <!-- Profile Mobile User Name Start -->
-        <div class="ProfileName_mob">
-            <div class="name"> {{$record->name ?? ''}} <span>{{$record->title ?? ''}}</span></div>
+        <div class="ProfileName_mob text-center">
+            <div class="row">
+                <div class="col-12">
+                    <div class="profile-img">
+                        <img src="{{asset('assets/front/images/')}}/user-img-1.jpg">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="name"> {{$record->name ?? ''}} <span>{{$record->title ?? ''}}</span></div>
+                </div>
+            </div>
         </div>
         <!-- Profile Mobile User Name End -->
+        
         <!-- Profile Mobile Contact Info Start -->
         <div class="ProfileContactInfo_mob">
             <div class="row contactInfo_child">

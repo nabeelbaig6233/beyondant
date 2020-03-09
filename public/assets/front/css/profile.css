@@ -143,6 +143,12 @@
     background: #fff;
     border-bottom: 1px solid #d8d8d8
 }
+.col-R-paddN{
+    padding-right:0;
+}
+.col-L-paddN{
+    padding-left:0;
+}
 .profileContent_area .pCd_col.noBordercol{
     border-bottom: 0px solid #d8d8d8
 }
@@ -197,9 +203,25 @@ footer.profileFooter img{
     }
 
     .ProfileName_mob{
-        padding: 25px;
+        padding:0 25px 25px;
         background: #cd1b17;
     }
+    .ProfileName_mob .profile-img {
+        height: 120px;
+        width: 120px;
+        border-radius: 100px;
+        margin: -50px auto 10px;
+        overflow: hidden;
+        background: url(../images/profile-img-bg.png) no-repeat;
+        background-size: cover
+    }
+    .ProfileName_mob .profile-img img {
+            height: 96px;
+        width: 96px;
+        margin: 12px;
+        border-radius: 100%;
+    }
+    
     .ProfileName_mob .name{
         font-size: 18px;
         color: #fff;
