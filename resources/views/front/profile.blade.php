@@ -204,7 +204,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="profile-img">
-                        <img src="{{asset('assets/front/images/')}}/user-img-1.jpg">
+                        <img src="{{asset(($record->profile_picture?$record->profile_picture:'assets/admin/images/profile.jpg'))}}">
                     </div>
                 </div>
                 <div class="col-lg-12">
