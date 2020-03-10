@@ -50,6 +50,7 @@ Route::middleware(['allowguest'])->group(function (){
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/profile/{id}','ProfileController@index')->name('pro');
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
+    Route::post('/profile/register','ProfileController@register')->name('profile-register');
 });
 
 Route::fallback(function(){

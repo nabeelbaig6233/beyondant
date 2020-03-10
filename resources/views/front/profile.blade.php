@@ -32,18 +32,14 @@
                 <div class="row">
                     <div class="col-md-4 wow fadeInDown">
                         <div class="profile-img">
-                            <img src="{{asset(($record->profile_image?$record->profile_image:'assets/admin/images/profile.jpg'))}}">
+                            <img src="{{asset(($record->profile_picture?$record->profile_picture:'assets/admin/images/profile.jpg'))}}">
                         </div>
                     </div>
                     <div class="col-md-4 col-lg-5 textCenter_mob wow fadeInLeft">
-                        <h2>{{$record->name ?? ''}}</h2> <p>{{$record->title ?? ''}}</p>
+                        <h2>{{$record->name ?? ''}}</h2> <p>{{$record->job_title ?? ''}}</p>
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
-<<<<<<< HEAD
-                        <a class="btn btn-default saveContact link" href="javascript:void(0);"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
-=======
                         <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}" title="Export to VCard"> SAVE TO CONTACT <i class="fas fa-download"></i></a>
->>>>>>> ce7306d196aa3362098543309e1abdd53d18d398
                     </div>
                 </div>
             </div>
@@ -57,7 +53,7 @@
                     <div class="col-lg-4  wow fadeInLeft">
                         <div class="pCd">
                             <span class="title">Company Description</span>
-                            <span class="Subtitle">{{$record->title ?? ''}}</span>
+                            <span class="Subtitle">{{$record->job_title ?? ''}}</span>
                             {!! $record->company_description?? '' !!}
                         </div>
                     </div>
@@ -212,12 +208,12 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <div class="name"> {{$record->name ?? ''}} <span>{{$record->title ?? ''}}</span></div>
+                    <div class="name"> {{$record->name ?? ''}} <span>{{$record->job_title ?? ''}}</span></div>
                 </div>
             </div>
         </div>
         <!-- Profile Mobile User Name End -->
-        
+
         <!-- Profile Mobile Contact Info Start -->
         <div class="ProfileContactInfo_mob">
             <div class="row contactInfo_child">

@@ -1,4 +1,12 @@
 @extends('admin.layout.webapp')
+<style>
+    .role-table {
+        width: 48% !important;
+        margin-bottom: 1rem !important;
+        color: #212529 !important;
+        margin: 0 auto !important;
+    }
+</style>
 @section('content')
     @php
         $action = url('admin/'.request()->segment(2).'/form/'.request()->segment(4));
@@ -47,7 +55,7 @@
                                     $record = [];
                                 }
                                 ?>
-                                <table class="table table-responsive">
+                                <table class="table role-table">
                                     <thead>
                                     <tr>
                                         <th></th>
@@ -115,7 +123,7 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 offset-md-3">
-                                        <button type="submit" class="btn btn-primary">Cancel</button>
+                                        <a href="javascript:histroy.back()" class="btn btn-primary">Cancel</a>
                                         <button id="send" type="submit" class="btn btn-success">Submit</button>
                                     </div>
                                 </div>

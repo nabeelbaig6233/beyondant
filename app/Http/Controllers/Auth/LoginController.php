@@ -50,7 +50,7 @@ class LoginController extends Controller
 //        Check User Roles
         switch ($role) {
             case 'customer':
-                return '/profile';
+                return '/profile/'.Auth::user()->id;
                 break;
             default:
                 return 'admin';

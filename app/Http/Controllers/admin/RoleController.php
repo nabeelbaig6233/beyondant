@@ -16,7 +16,7 @@ class RoleController extends Controller
         }
         $content['title'] = ucwords(str_replace('-',' ',request()->segment(2)));
         if (request()->ajax()) {
-            return datatables()->of(role::latest()->get())
+            return datatables()->of(role::latest()->where([['id','<>',2],['id','<>',\Auth::user()->role_id]])->get())
                 ->addColumn('checkbox',function($data){
                     return '<input type="checkbox" class="delete_checkbox flat" value="'.$data->id.'">';
                 })->addColumn('action',function($data){

@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $content['title'] = $this->title;
         if (request()->ajax()) {
-            return datatables()->of(User::latest()->get())
+            return datatables()->of(User::latest()->where('role_id','<>',2)->get())
                 ->addColumn('image',function($data){
                     return '<img width="65" src="'.asset(!empty($data->profile_picture)?$data->profile_picture:'assets/admin/images/placeholder.png').'">';
                 })->addColumn('checkbox',function($data){

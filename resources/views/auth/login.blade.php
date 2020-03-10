@@ -1,73 +1,66 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
+    <!-- Login page -->
+    <div class="login_wrapper">
+        <div class="container">
+            <div class="col-md-12 pad-0">
+                <div class="row login-box-12">
+                    <div class="col-lg-6 col-md-12 col-sm-12 px-0">
+                        <div class="login_right">
+                            <a href="index.html" class="logo_text">
+                                <img alt="" class="img-fluid" src="{{asset('assets/front/images/')}}/logo2.png">
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt Lorem Ipsum</p>
+                            <a href="#" class="btn-outline">Read More</a>
+                            <ul class="social-list clearfix">
+                                <li><a href="javascript:void(0);" title="Instagram" class="link"> <img src="{{asset('assets/front/images/')}}/instagram-icon-3d.png"></a></li>
+                                <li><a href="javascript:void(0);" title="Facebook" class="link"> <img src="{{asset('assets/front/images/')}}/facebook-icon-3d.png"></a></li>
+                                <li><a href="javascript:void(0);" title="Twitter" class="link"> <img src="{{asset('assets/front/images/')}}/twitter-icon-3d.png"></a></li>
+                                <li><a href="javascript:void(0);" title="Linkedin" class="link"> <img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="login-inner-form">
+                            <div class="details">
+                                <h3>Login to <span>Your Account</span></h3>
+                                <form action="{{route('login')}}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <input type="email" id="email" name="email" class="input-text @error('is-invalid') @enderror" value="{{ old('email') }}" required autocomplete="email" placeholder="Email Address">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" class="input-text @error('password') is-invalid @enderror" required autocomplete="current-password" placeholder="Password">
+                                    </div>
+                                    <div class="checkbox clearfix">
+                                        <div class="form-check checkbox-theme">
+                                            <input class="form-check-input" type="checkbox" value="" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="remember">
+                                                Remember me
+                                            </label>
+                                        </div>
+                                        <a href="forgot-password.blade.php">Forgot Password</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn-md btn-theme btn-block">Login Now</button>
+                                    </div>
+                                </form>
+                                <p class="m-t-20">Don't have an account?<a href="{{route('register')}}"> Register here</a></p>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- /. Login page -->
+
+
 @endsection

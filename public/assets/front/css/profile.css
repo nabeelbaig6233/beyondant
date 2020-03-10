@@ -216,12 +216,12 @@ footer.profileFooter img{
         background-size: cover
     }
     .ProfileName_mob .profile-img img {
-            height: 96px;
+        height: 96px;
         width: 96px;
         margin: 12px;
         border-radius: 100%;
     }
-    
+
     .ProfileName_mob .name{
         font-size: 18px;
         color: #fff;

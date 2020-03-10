@@ -46,7 +46,7 @@
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','profile_image'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','profile_picture'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','name'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','title'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','email'))}}</th>
@@ -87,8 +87,8 @@
                         <table class="table table-hover table-striped">
                             <tbody>
                             <tr>
-                                <th>{{ucwords(str_replace('_',' ','profile_image'))}}</th>
-                                <td id="profile_image" align="center"></td>
+                                <th>{{ucwords(str_replace('_',' ','profile_picture'))}}</th>
+                                <td id="profile_picture" align="center"></td>
                             </tr>
                             <tr>
                                 <th>{{ucwords(str_replace('_',' ','cover_image'))}}</th>
@@ -99,8 +99,8 @@
                                 <td id="name" align="center"></td>
                             </tr>
                             <tr>
-                                <th>{{ucwords(str_replace('_',' ','title'))}}</th>
-                                <td id="title" align="center"></td>
+                                <th>{{ucwords(str_replace('_',' ','job_title'))}}</th>
+                                <td id="job_title" align="center"></td>
                             </tr>
                             <tr>
                                 <th>{{ucwords(str_replace('_',' ','company_name'))}}</th>
@@ -223,7 +223,7 @@
                     {data: 'id', name: 'id'},
                     {data: 'image', name: 'image', orderable: false},
                     {data: 'name', name: 'name'},
-                    {data: 'title', name: 'title'},
+                    {data: 'job_title', name: 'job_title'},
                     {data: 'email', name: 'email'},
                     {data: 'company_name', name: 'company_name'},
                     {data: 'phone_number', name: 'phone_number'},
@@ -240,12 +240,12 @@
                     url:`{{url('admin/'.request()->segment(2).'/view/')}}/${id}`,
                     dataType:"json",
                     success: function (data) {
-                        let profile_image = (data.profile_image != undefined) ? `{{asset('')}}/${data.profile_image}` : `{{asset('assets/admin/images/profile.jpg')}}`;
+                        let profile_picture = (data.profile_picture != undefined) ? `{{asset('')}}/${data.profile_picture}` : `{{asset('assets/admin/images/profile.jpg')}}`;
                         let cover_image = (data.cover_image != undefined) ? `{{asset('')}}/${data.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
-                        $("#profile_image").html(`<img width="100" src="${profile_image}">`);
+                        $("#profile_picture").html(`<img width="100" src="${profile_picture}">`);
                         $("#cover_image").html(`<img width="100" src="${cover_image}">`);
                         $("#name").html(data.name);
-                        $("#title").html(data.title);
+                        $("#job_title").html(data.job_title);
                         $("#company_name").html(data.company_name);
                         $("#company_description").html(data.company_description);
                         $("#phone_number").html(data.phone_number);

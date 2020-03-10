@@ -29,7 +29,7 @@ class admin
             return redirect('login');
         }
         elseif (Auth::check() === true && $role->name == "customer") {
-            return redirect('/profile');
+            return redirect('/profile/'.Auth::user()->id);
         }
         $setting = setting::findOrFail(1);
         view()->share('setting',$setting);

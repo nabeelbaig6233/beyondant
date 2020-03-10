@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\models\profile;
+use App\User;
 use Illuminate\Http\Request;
-use File;
 
 class ProfileController extends Controller
 {
@@ -16,9 +15,9 @@ class ProfileController extends Controller
         }
         $content['title'] = ucwords(str_replace('-',' ',request()->segment(2)));
         if (request()->ajax()) {
-            return datatables()->of(profile::latest()->get())
+            return datatables()->of(User::latest()->where('role_id',2)->get())
                 ->addColumn('image',function ($data){
-                    return '<img width="65" src="'.asset(!empty($data->profile_image)?$data->profile_image:'assets/admin/images/placeholder.png').'">';
+                    return '<img width="65" src="'.asset(!empty($data->profile_picture)?$data->profile_picture:'assets/admin/images/placeholder.png').'">';
                 })
                 ->addColumn('checkbox',function($data){
                     return '<input type="checkbox" class="delete_checkbox flat" value="'.$data->id.'">';
@@ -32,7 +31,7 @@ class ProfileController extends Controller
     public function view($id)
     {
         if (request()->ajax()) {
-            $data = profile::findOrFail($id);
+            $data = User::findOrFail($id);
             return response()->json($data);
         }
     }
@@ -42,7 +41,7 @@ class ProfileController extends Controller
         if (!in_array('deleteUserProfile',\Request::get('permission'))) {
             return redirect('admin');
         }
-        $data = profile::findOrFail($id);
+        $data = User::findOrFail($id);
         $data->delete();
         echo "Deleted Successfully.";
     }
@@ -55,7 +54,7 @@ class ProfileController extends Controller
         if ($request->input('checkbox_value')) {
             $id = $request->input('checkbox_value');
             for ($i=0; $i < count($id); $i++) {
-                $data = profile::findorFail($id[$i]);
+                $data = User::findorFail($id[$i]);
                 $data->delete();
             }
             echo "Selected records Deleted Successfully.";

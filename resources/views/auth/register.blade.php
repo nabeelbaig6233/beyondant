@@ -1,77 +1,241 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <!-- Login page -->
+    <div class="login_wrapper">
+        <div class="container">
+            <div class="col-md-12 pad-0">
+                <div class="row login-box-12">
+                    <div class="col-lg-4 col-md-12 col-sm-12 px-0">
+                        <div class="login_right">
+                            <a href="index.html" class="logo_text">
+                                <img alt="" class="img-fluid" src="{{asset('assets/front/images/')}}/logo2.png">
+                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt Lorem Ipsum</p>
+                            <a href="#" class="btn-outline">Read More</a>
+                            <ul class="social-list clearfix">
+                                <li><a href="javascript:void(0);" title="Instagram" class="link"> <img src="{{asset('assets/front/images/')}}/instagram-icon-3d.png"></a></li>
+                                <li><a href="javascript:void(0);" title="Facebook" class="link"> <img src="{{asset('assets/front/images/')}}/facebook-icon-3d.png"></a></li>
+                                <li><a href="javascript:void(0);" title="Twitter" class="link"> <img src="{{asset('assets/front/images/')}}/twitter-icon-3d.png"></a></li>
+                                <li><a href="javascript:void(0);" title="Linkedin" class="link"> <img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="login-inner-form">
+                            <div class="details">
+                                <h3>Create <span>Your Account</span></h3>
+                                <form action="{{ route('profile-register') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="name" class="input-text @error('name') is-invalid @enderror" id="name" name="name" placeholder="Name *" data-validation="required name" value="{{ old('name') }}" required autocomplete="name">
+                                                @error('name')
+                                                    <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('job_title') is-invalid @enderror" id="job_title" name="job_title" data-validation="required" placeholder="Title *" value="{{ old('job_title') }}" required autocomplete="job_title">
+                                                @error('job_title')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="password" class="input-text @error('password') is-invalid @enderror" id="password" name="password" data-validate-length="6,8" placeholder="Password *" required="required" autocomplete="new-password">
+                                                @error('password')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="password" class="input-text @error('password-confirm') is-invalid @enderror" id="password-confirm" name="password_confirmation" data-validate-linked="password" placeholder="Password Confirm *"  required="required" autocomplete="new-password">
+                                            </div>
+                                        </div>
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('company_name') is-invalid @enderror" id="company_name" name="company_name" data-validation="required" placeholder="Company Name *" value="{{ old('company_name') }}" required autocomplete="company_name">
+                                                @error('company_name')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('company_description') is-invalid @enderror" id="company_description" name="company_description" data-validation="required" placeholder="Company Description *" value="{{ old('company_description') }}" required autocomplete="company_description">
+                                                @error('company_description')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('phone_number') is-invalid @enderror" id="phone_number" name="phone_number" data-validation="required number" placeholder="Phone Number *" value="{{ old('phone_number') }}" required autocomplete="phone_number">
+                                                @error('phone_number')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('mobile_number') is-invalid @enderror" id="mobile_number" name="mobile_number" data-validation="required number" placeholder="Mobile Number *" value="{{ old('mobile_number') }}" required autocomplete="mobile_number">
+                                                @error('mobile_number')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('fax_number') is-invalid @enderror" id="fax_number" name="fax_number" data-validation="required number" placeholder="Fax Number *" value="{{ old('fax_number') }}" required autocomplete="fax_number">
+                                                @error('fax_number')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="email" class="input-text @error('email') is-invalid @enderror" id="email" data-validation="required email" placeholder="Email Address *" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                                @error('email')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('address') is-invalid @enderror" id="address" name="address" data-validation="required" placeholder="Address *" value="{{ old('address') }}" required autocomplete="address">
+                                                @error('address')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text" id="website" name="website" placeholder="Website (url) *">
+                                                <div class="form-check sm checkbox-input">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="website_check" name="website_check">
+                                                    <label class="form-check-label" for="website_check">
+                                                        Enter your Website (url)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text" id="linkedin" name="linkedin" placeholder="Linkedin (url) *">
+                                                <div class="form-check sm checkbox-input">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="linkedin_check" name="linkedin_check">
+                                                    <label class="form-check-label" for="linkedin_check">
+                                                        Enter your Linkedin (url)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text" id="instagram" name="instagram" placeholder="Instagram (url) *">
+                                                <div class="form-check sm checkbox-input">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="instagram_check" name="instagram_check">
+                                                    <label class="form-check-label" for="instagram_check">
+                                                        Enter your Instagram (url)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text" id="facebook" name="facebook" placeholder="Facebook (url) *">
+                                                <div class="form-check sm checkbox-input">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="facebook_check" name="facebook_check">
+                                                    <label class="form-check-label" for="facebook_check">
+                                                        Enter your Facebook (url)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="cover_image" name="cover_image">
+                                                    <label class="custom-file-label" for="cover_image">Choose Cover Image</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="profile_picture" name="profile_picture">
+                                                    <label class="custom-file-label" for="profile_picture">Choose Profile Image</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-lr">
+                                            <div class="checkbox clearfix m-t-20">
+                                                <div class="form-check checkbox-input">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="termServices" name="termServices">
+                                                    <label class="form-check-label" for="termServices">
+                                                        I agree to the terms of service
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-lr">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn-md btn-theme btn-block">Register Now</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                                <p class="m-t-20">Already a member?<a href="{{route('login')}}"> Login here</a></p>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+    <!-- /. Login page -->
+    @section('pageJs')
+        <script src="{{asset('assets/front/js/jquery.form-validator.min.js')}}"></script>
+        <script>
+            $(document).ready(() => {
+                $.validate({
+                    lang: 'en'
+                })
+            })
+        </script>
+    @stop
