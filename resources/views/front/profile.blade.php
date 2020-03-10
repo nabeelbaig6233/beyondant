@@ -217,8 +217,8 @@
         <!-- Profile Mobile Contact Info Start -->
         <div class="ProfileContactInfo_mob">
             <div class="row contactInfo_child">
-                <div class="col-2"><img src="{{asset('assets/front/images/')}}/phone-icon.png"></div>
-                <div class="col-10">{{$record->phone_number ?? ''}}</div>
+                <div class="col-2"><img src="{{asset('assets/front/images/')}}/mobile-icon.png"></div>
+                <div class="col-10">{{$record->mobile_number ?? ''}}</div>
             </div>
             <div class="row contactInfo_child">
                 <div class="col-2"><img src="{{asset('assets/front/images/')}}/envelope-icon.png"></div>
