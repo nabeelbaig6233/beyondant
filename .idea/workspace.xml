@@ -2,42 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0e185e7-d0ae-4dd3-8487-8f91bbbfdd45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/admin/images/168713681.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/admin/images/266944074.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/admin/images/806950238.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/admin/images/859125283.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/images/logo2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/js/bootstrap-filestyle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/js/jquery-2.2.0.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/js/jquery.form-validator.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/uploads/setting/profile-main-img.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/uploads/setting/user-img-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/auth/login.blade - Copy.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/auth/register.blade - Copy.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/front/forgot-password.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/front/login.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/front/register.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/RoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/front/css/globally.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/front/css/globally.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/front/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/front/css/profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/profile/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/profile/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/role/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/role/form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beyondant.sql" beforeDir="false" afterPath="$PROJECT_DIR$/beyondant.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/front/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/front/layout/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/layout/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/front/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +222,7 @@
       <workItem from="1583426953587" duration="9090000" />
       <workItem from="1583513549582" duration="19028000" />
       <workItem from="1583783523451" duration="17358000" />
-      <workItem from="1583854957815" duration="11955000" />
+      <workItem from="1583854957815" duration="17100000" />
     </task>
     <servers />
   </component>

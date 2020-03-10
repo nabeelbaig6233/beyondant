@@ -87,17 +87,13 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('phone_number') is-invalid @enderror" id="phone_number" name="phone_number" data-validation="required number" placeholder="Phone Number *" value="{{ old('phone_number') }}" required autocomplete="phone_number">
-                                                @error('phone_number')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="number" class="input-text" id="phone_number" name="phone_number" placeholder="Phone Number *" value="{{ old('phone_number') }}" autocomplete="phone_number">
+
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('mobile_number') is-invalid @enderror" id="mobile_number" name="mobile_number" data-validation="required number" placeholder="Mobile Number *" value="{{ old('mobile_number') }}" required autocomplete="mobile_number">
+                                                <input type="number" class="input-text @error('mobile_number') is-invalid @enderror" id="mobile_number" name="mobile_number" data-validation="required number" placeholder="Mobile Number *" value="{{ old('mobile_number') }}" required autocomplete="mobile_number">
                                                 @error('mobile_number')
                                                 <span class="text-danger" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -108,12 +104,7 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('fax_number') is-invalid @enderror" id="fax_number" name="fax_number" data-validation="required number" placeholder="Fax Number *" value="{{ old('fax_number') }}" required autocomplete="fax_number">
-                                                @error('fax_number')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="number" class="input-text" id="fax_number" name="fax_number" placeholder="Fax Number *" value="{{ old('fax_number') }}" autocomplete="fax_number">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
@@ -163,7 +154,7 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="instagram" name="instagram" placeholder="Instagram (url) *">
+                                                <input type="text" class="input-text" id="instagram" name="instagram" placeholder="Instagram (url) *" data-validation="url">
                                                 <div class="form-check sm checkbox-input">
                                                     <input class="form-check-input" type="checkbox" value="1" id="instagram_check" name="instagram_check">
                                                     <label class="form-check-label" for="instagram_check">
@@ -203,7 +194,7 @@
                                         <div class="col-lg-12 col-lr">
                                             <div class="checkbox clearfix m-t-20">
                                                 <div class="form-check checkbox-input">
-                                                    <input class="form-check-input" type="checkbox" value="1" id="termServices" name="termServices">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="termServices" name="termServices" data-validation="required" required>
                                                     <label class="form-check-label" for="termServices">
                                                         I agree to the terms of service
                                                     </label>
