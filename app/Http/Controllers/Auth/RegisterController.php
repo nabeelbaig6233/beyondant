@@ -31,6 +31,11 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    /*public function __construct()
+    {
+        $this->middleware('guest');
+    }*/
+
     /**
      * Create a new controller instance.
      *

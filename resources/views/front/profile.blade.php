@@ -233,7 +233,7 @@
 
         <!-- Profile Mobile Footer Start -->
         <footer class="profileFooter_mob">
-            <a class="btn btn-default saveContact link" href="javascript:void(0);"> Save Contact</a>
+            <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> Save Contact</a>
             Digital Business Card Powered By Beyondant
         </footer>
         <!-- Profile Mobile Footer End -->

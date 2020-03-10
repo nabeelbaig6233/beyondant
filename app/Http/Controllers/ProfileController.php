@@ -13,6 +13,7 @@ class ProfileController extends Controller
     public function index($id)
     {
         $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->first();
+        if (!empty($content['record'])) {
         if ($content['record']->facebook_check == '1') {
             return redirect($content['record']->facebook);
         } elseif ($content['record']->linkedin_check == '1') {
@@ -21,6 +22,9 @@ class ProfileController extends Controller
             return redirect($content['record']->instagram);
         } else {
             return view('front.profile',$content);
+        }
+        } else {
+            return redirect('/');
         }
     }
 
@@ -51,9 +55,7 @@ class ProfileController extends Controller
             'job_title' => ['required','string','max:255'],
             'company_name' => ['required','string','max:255'],
             'company_description' => ['required','string'],
-            'phone_number' => ['required','string','max:255'],
             'mobile_number' => ['required','string','max:255'],
-            'fax_number' => ['required','string','max:255'],
             'email' => ['required','string','email','max:255','unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'address' => ['required', 'string', 'max:255'],
@@ -81,23 +83,23 @@ class ProfileController extends Controller
 
         return User::create([
             'role_id' => 2,
-            'name' => $data['name'],
-            'job_title' => $data['job_title'],
-            'company_name' => $data['company_name'],
-            'company_description' => $data['company_description'],
-            'phone_number' => $data['phone_number'],
-            'mobile_number' => $data['mobile_number'],
-            'fax_number' => $data['fax_number'],
-            'email' => $data['email'],
-            'address' => $data['address'],
-            'website' => $data['website'],
-            'website_check' => $data['website_check'],
-            'linkedin' => $data['linkedin'],
-            'linkedin_check' => $data['linkedin_check'],
-            'instagram' => $data['instagram'],
-            'instagram_check' => $data['instagram_check'],
-            'facebook' => $data['facebook'],
-            'facebook_check' => $data['facebook_check'],
+            'name' => $data['name']??"",
+            'job_title' => $data['job_title']??"",
+            'company_name' => $data['company_name']??"",
+            'company_description' => $data['company_description']??"",
+            'phone_number' => $data['phone_number']??"",
+            'mobile_number' => $data['mobile_number']??"",
+            'fax_number' => $data['fax_number']??"",
+            'email' => $data['email']??"",
+            'address' => $data['address']??"",
+            'website' => $data['website']??"",
+            'website_check' => $data['website_check']??"",
+            'linkedin' => $data['linkedin']??"",
+            'linkedin_check' => $data['linkedin_check']??"",
+            'instagram' => $data['instagram']??"",
+            'instagram_check' => $data['instagram_check']??"",
+            'facebook' => $data['facebook']??"",
+            'facebook_check' => $data['facebook_check']??"",
             'cover_image' => $cover_image,
             'profile_picture' => $profile_picture,
         ]);
@@ -109,7 +111,6 @@ class ProfileController extends Controller
 
     public function redirectTo($user)
     {
-//        dd($user->id);
         return route('pro',$user->id);
     }
 }
