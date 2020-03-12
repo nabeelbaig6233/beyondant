@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2020 at 09:49 PM
+-- Generation Time: Mar 12, 2020 at 03:39 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -183,18 +183,18 @@ CREATE TABLE `users` (
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `contact_number` bigint(20) DEFAULT NULL,
+  `fax_number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile_number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile_check` enum('Mobile','Phone','Fax') COLLATE utf8mb4_unicode_ci DEFAULT 'Mobile',
   `occupation` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `profile_picture` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cover_image` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `job_title` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `company_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `company_description` text COLLATE utf8mb4_unicode_ci,
-  `phone_number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mobile_number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fax_number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `website` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `website_check` tinyint(1) DEFAULT '0',
+  `website_address` enum('Website','Address') COLLATE utf8mb4_unicode_ci DEFAULT 'Address',
   `linkedin` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `linkedin_check` tinyint(1) DEFAULT '0',
   `instagram` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -212,20 +212,21 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `contact_number`, `occupation`, `profile_picture`, `cover_image`, `job_title`, `company_name`, `company_description`, `phone_number`, `mobile_number`, `fax_number`, `address`, `website`, `website_check`, `linkedin`, `linkedin_check`, `instagram`, `instagram_check`, `facebook`, `facebook_check`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 1, 'Beyondant Web', 'admin@demo.com', NULL, '$2y$10$ZZ7Gg3uwoULlNSTG3WC3DeO52SSwIP4nrG4oopqDPixrTpYy4TY9i', 'XFdf1m02BRFeno4j9wqnVH54wsKEZyik5UIFlVbWWAwLRHonCoAei6McbwVi', 1234567890, 'C.E.O', 'assets/admin/images/790368965.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-14 14:45:20', NULL, '2020-02-28 17:13:46', NULL),
-(2, 2, 'Testing Fname Lname', 'nb@nadocrm.com', NULL, '$2y$10$ZZ7Gg3uwoULlNSTG3WC3DeO52SSwIP4nrG4oopqDPixrTpYy4TY9i', NULL, 1234567890, NULL, 'assets/uploads/profile/user-img-1.jpg', 'assets/uploads/profile/profile-main-img.jpg', 'Chief Executive Officer', 'Mick & Associates, LLC', '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>', '56986362563', '56986362563', '56986362563', '777 Brockton Avenue, Abington MA 2351', 'http://myprojectstaging.com/custom/beyondant/public', NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-16 17:08:00', NULL, '2020-01-16 17:08:00', NULL),
-(11, 1, 'Albert Custom', 'albert@gmail.com', NULL, '$2y$10$98RO0l9cpedqIgB.fh6sEu0ikc/YoCdDEFmGlAV1MwSE8kQcmE/6S', NULL, 12345678910, 'Developer', 'assets/admin/images/1209642735.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-23 16:23:09', NULL, '2020-01-23 16:23:09', NULL),
-(12, 3, 'Nick PHP', 'nick@mnb.com', NULL, '$2y$10$dFtCYSQk0saLbkrOywAR2.Ids8QSta1JDfz1y2IYdRrYfdo5PA5d2', NULL, 12345678910, 'Developer', 'assets/admin/images/2021132860.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-23 18:05:34', NULL, '2020-01-23 18:05:34', NULL),
-(13, 3, 'Testing Fname Testing Lname', 'test@mnb.com', NULL, '$2y$10$y.XNfo5R4VVgzwo3c0GGGuVnP155rekUVVOE22OoJY/MKLnldKDRq', NULL, 1234567891, 'Developer', 'assets/admin/images/14354318.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-23 18:30:12', NULL, '2020-01-23 18:30:12', NULL),
-(14, 4, 'Master Admin', 'admin@admin.com', NULL, '$2y$10$MS8j/EHKg1SJXofp3wGAcuzF.ysib8odDMwsxc8X4UlCvYssxGO6W', NULL, 3333906233, 'PHP Developer', 'assets/admin/images/1611976308.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-02-27 17:37:28', NULL, '2020-02-28 14:59:04', NULL),
-(15, 0, 'Testing Fname Testing Lname', 'test@masdsanb.com', NULL, '', NULL, NULL, NULL, '', '', 'asdsad', 'sadsad', 'dasdsad', '123213213', '123213213', '123213213213', 'street2', NULL, 0, NULL, 0, NULL, 0, NULL, 0, 1, '2020-03-10 12:59:18', NULL, '2020-03-10 12:59:18', NULL),
-(16, 2, 'Testing Fname Testing Lname', 'test@sdfsanb.com', NULL, '', NULL, NULL, NULL, '', '', 'asdsad', 'sadsad', 'dasdsad', '123213213', '123213213', '123213213213', 'street2', NULL, 0, NULL, 0, NULL, 0, NULL, 0, 1, '2020-03-10 13:01:51', NULL, '2020-03-10 13:01:51', NULL),
-(17, 2, 'Testing Fname Testing Lname', 'test@sdfsasnb.com', NULL, '', NULL, NULL, NULL, '', '', 'asdsad', 'sadsad', 'dasdsad', '123213213', '123213213', '123213213213', 'street2', NULL, 0, NULL, 0, NULL, 0, NULL, 0, 1, '2020-03-10 13:42:13', NULL, '2020-03-10 13:42:13', NULL),
-(18, 2, 'Testing Fname Testing Lname', 'test@sdfsassnb.com', NULL, '', NULL, NULL, NULL, '', '', 'asdsad', 'sadsad', 'dasdsad', '123213213', '123213213', '123213213213', 'street2', NULL, 0, NULL, 0, NULL, 0, NULL, 0, 1, '2020-03-10 13:42:40', NULL, '2020-03-10 13:42:40', NULL),
-(19, 2, 'Testing Fname Testing Lname', 'test@mnfffb.com', NULL, '', NULL, NULL, NULL, '', '', 'dsadas', 'dfsdf', 'fdsfdsf', '32432432432', '432432432', '432432432', 'street2', 'addd', 0, 'sfds', 0, 'Testing Fname Lname', 0, 'www.facebook.com', 0, 1, '2020-03-10 15:19:24', NULL, '2020-03-10 15:19:24', NULL),
-(20, 2, 'Testing Fname Testing Lname', 'test@mndfdfb.com', NULL, '', NULL, NULL, NULL, 'assets/admin/images/266944074.PNG', 'assets/admin/images/859125283.PNG', 'dsfdsfsd', 'dsadsa', 'sdfsdf', '324324324', '324234324', '234324324324', 'street2', 'addd', 0, 'asdasdsad', 0, 'Testing Fname', 0, 'ww.sd', 0, 1, '2020-03-10 15:24:19', NULL, '2020-03-10 15:24:19', NULL),
-(21, 2, 'Testing Fname Testing Lname', 'test@masdndfdfb.com', NULL, '', NULL, NULL, NULL, 'assets/admin/images/806950238.PNG', 'assets/admin/images/168713681.PNG', 'dsfdsfsd', 'dsadsa', 'sdfsdf', '324324324', '324234324', '234324324324', 'street2', 'addd', 1, 'asdasdsad', 1, 'Testing Fname', 1, 'ww.sd', 1, 1, '2020-03-10 15:26:00', NULL, '2020-03-10 15:26:00', NULL);
+INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `contact_number`, `fax_number`, `mobile_number`, `mobile_check`, `occupation`, `profile_picture`, `cover_image`, `job_title`, `company_name`, `company_description`, `address`, `website`, `website_address`, `linkedin`, `linkedin_check`, `instagram`, `instagram_check`, `facebook`, `facebook_check`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, 1, 'Beyondant Web', 'admin@demo.com', NULL, '$2y$10$tra5AbjDt9FFmLC8itFAAONxHkCFtG62u3iXyzLYeuqfIDgwjfiVC', 'XFdf1m02BRFeno4j9wqnVH54wsKEZyik5UIFlVbWWAwLRHonCoAei6McbwVi', 1234567890, NULL, NULL, '', 'C.E.O', 'assets/admin/images/1162149681.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-14 14:45:20', NULL, '2020-03-11 20:50:54', NULL),
+(2, 2, 'Testing Fname Lname', 'nb@nadocrm.com', NULL, '$2y$10$ZZ7Gg3uwoULlNSTG3WC3DeO52SSwIP4nrG4oopqDPixrTpYy4TY9i', NULL, 1234567890, '56986362563', '56986362563', 'Mobile', NULL, 'assets/uploads/profile/user-img-1.jpg', 'assets/uploads/profile/profile-main-img.jpg', 'Chief Executive Officer', 'Mick & Associates, LLC', '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>', '777 Brockton Avenue, Abington MA 2351', 'http://facebook.com', 'Website', NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-16 17:08:00', NULL, '2020-01-16 17:08:00', NULL),
+(11, 1, 'Albert Custom', 'albert@gmail.com', NULL, '$2y$10$98RO0l9cpedqIgB.fh6sEu0ikc/YoCdDEFmGlAV1MwSE8kQcmE/6S', NULL, 12345678910, NULL, NULL, '', 'Developer', 'assets/admin/images/1209642735.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-23 16:23:09', NULL, '2020-01-23 16:23:09', NULL),
+(12, 3, 'Nick PHP', 'nick@mnb.com', NULL, '$2y$10$dFtCYSQk0saLbkrOywAR2.Ids8QSta1JDfz1y2IYdRrYfdo5PA5d2', NULL, 12345678910, NULL, NULL, '', 'Developer', 'assets/admin/images/2021132860.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-23 18:05:34', NULL, '2020-01-23 18:05:34', NULL),
+(13, 3, 'Testing Fname Testing Lname', 'test@mnb.com', NULL, '$2y$10$y.XNfo5R4VVgzwo3c0GGGuVnP155rekUVVOE22OoJY/MKLnldKDRq', NULL, 1234567891, NULL, NULL, '', 'Developer', 'assets/admin/images/14354318.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-23 18:30:12', NULL, '2020-01-23 18:30:12', NULL),
+(14, 4, 'Master Admin', 'admin@admin.com', NULL, '$2y$10$MS8j/EHKg1SJXofp3wGAcuzF.ysib8odDMwsxc8X4UlCvYssxGO6W', NULL, 3333906233, NULL, NULL, '', 'PHP Developer', 'assets/admin/images/1611976308.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-02-27 17:37:28', NULL, '2020-02-28 14:59:04', NULL),
+(15, 0, 'Testing Fname Testing Lname', 'test@masdsanb.com', NULL, '', NULL, NULL, '123213213213', '123213213', '', NULL, '', '', 'asdsad', 'sadsad', 'dasdsad', 'street2', NULL, '', NULL, 0, NULL, 0, NULL, 0, 1, '2020-03-10 12:59:18', NULL, '2020-03-10 12:59:18', NULL),
+(17, 2, 'Testing Fname Testing Lname', 'test@sdfsasnb.com', NULL, '', NULL, NULL, '123213213213', '123213213', '', NULL, '', '', 'asdsad', 'sadsad', 'dasdsad', 'street2', NULL, '', NULL, 0, NULL, 0, NULL, 0, 1, '2020-03-10 13:42:13', NULL, '2020-03-10 13:42:13', NULL),
+(18, 2, 'Testing Fname Testing Lname', 'test@sdfsassnb.com', NULL, '', NULL, NULL, '123213213213', '123213213', '', NULL, '', '', 'asdsad', 'sadsad', 'dasdsad', 'street2', NULL, '', NULL, 0, NULL, 0, NULL, 0, 1, '2020-03-10 13:42:40', NULL, '2020-03-10 13:42:40', NULL),
+(19, 2, 'Testing Fname Testing Lname', 'test@mnfffb.com', NULL, '', NULL, NULL, '432432432', '432432432', '', NULL, '', '', 'dsadas', 'dfsdf', 'fdsfdsf', 'street2', 'addd', '', 'sfds', 0, 'Testing Fname Lname', 0, 'www.facebook.com', 0, 1, '2020-03-10 15:19:24', NULL, '2020-03-10 15:19:24', NULL),
+(20, 2, 'Testing Fname Testing Lname', 'test@mndfdfb.com', NULL, '', NULL, NULL, '234324324324', '324234324', '', NULL, 'assets/admin/images/266944074.PNG', 'assets/admin/images/859125283.PNG', 'dsfdsfsd', 'dsadsa', 'sdfsdf', 'street2', 'addd', '', 'asdasdsad', 0, 'Testing Fname', 0, 'ww.sd', 0, 1, '2020-03-10 15:24:19', NULL, '2020-03-10 15:24:19', NULL),
+(21, 2, 'Testing Fname Testing Lname', 'test@masdndfdfb.com', NULL, '', NULL, NULL, '234324324324', '324234324', '', NULL, 'assets/admin/images/806950238.PNG', 'assets/admin/images/168713681.PNG', 'dsfdsfsd', 'dsadsa', 'sdfsdf', 'street2', 'addd', 'Website', 'asdasdsad', 1, 'Testing Fname', 1, 'ww.sd', 1, 1, '2020-03-10 15:26:00', NULL, '2020-03-10 15:26:00', NULL),
+(22, 2, 'Testing Fname Testing Lname', 'test@mnsdfdsfb.com', NULL, '', NULL, NULL, '', '343432432432', '', NULL, '', '', 'sdfsdf', 'fsdf', 'sdfsdfsdf', 'street2', '', '', '', 0, '', 0, '', 0, 1, '2020-03-10 18:20:51', NULL, '2020-03-10 18:20:51', NULL),
+(23, 2, 'Jordan', 'nb@nadocrms.com', NULL, '', NULL, 2134635078, '123456789', '03333906233', 'Mobile', NULL, 'assets/admin/images/373380592.jpg', 'assets/admin/images/1328457617.jpg', 'Developer', 'OIP', 'Out Source in Pakistan', 'street2', 'https://outsourceinpakistan.com/', 'Address', 'https://www.linked.com/', 0, 'https://www.instagram.com/', 0, 'https://www.facebook.com/', 0, 1, '2020-03-11 21:14:20', NULL, '2020-03-11 21:14:20', NULL);
 
 --
 -- Indexes for dumped tables
@@ -312,7 +313,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
