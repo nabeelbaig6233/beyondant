@@ -2,6 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0e185e7-d0ae-4dd3-8487-8f91bbbfdd45" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/assets/front/images/company-icon-red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/front/images/envelope-icon-red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/front/images/fax-icon-red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/front/images/globe-icon-red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/front/images/location-icon-red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/front/images/mobile-icon-red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/front/images/phone-icon-red.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/RoleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/front/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/front/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/front/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/front/js/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/profile/form.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/profile/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/profile/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/front/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/front/layout/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/layout/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/front/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/profile.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -217,7 +237,8 @@
       <workItem from="1583426953587" duration="9090000" />
       <workItem from="1583513549582" duration="19028000" />
       <workItem from="1583783523451" duration="17358000" />
-      <workItem from="1583854957815" duration="18390000" />
+      <workItem from="1583854957815" duration="20292000" />
+      <workItem from="1583946115000" duration="14057000" />
     </task>
     <servers />
   </component>
@@ -280,18 +301,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1582848831664" />
-    <state x="636" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1583354411148">
+    <state x="636" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1583946183846">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="636" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583354411148" />
+    <state x="636" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583946183846" />
     <state x="519" y="126" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581472297189">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="519" y="126" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1581472297189" />
-    <state x="328" y="57" width="758" height="942" key="find.popup" timestamp="1581109221829">
+    <state x="328" y="57" width="758" height="942" key="find.popup" timestamp="1583968988565">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="328" y="57" width="758" height="942" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1581109221829" />
+    <state x="328" y="57" width="758" height="942" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583968988565" />
     <state width="600" height="440" key="javadoc.popup" timestamp="1582828687782">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -300,10 +321,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="363" y="246" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583859560410" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1583861538382">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1583950691473">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583861538382" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583950691473" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
