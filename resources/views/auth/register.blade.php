@@ -87,8 +87,7 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="number" class="input-text" id="phone_number" name="phone_number" placeholder="Phone Number *" value="{{ old('phone_number') }}" autocomplete="phone_number">
-
+                                                <input type="number" class="input-text" id="contact_number" name="contact_number" placeholder="Phone Number *" value="{{ old('contact_number') }}" autocomplete="contact_number">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
@@ -99,6 +98,17 @@
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <select name="mobile_check" id="mobile_check" class="input-text" data-validation="required">
+                                                    <option value="">Select which one you want to show</option>
+                                                    <option value="Mobile">Mobile</option>
+                                                    <option value="Phone">Phone</option>
+                                                    <option value="Fax">Fax</option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -118,7 +128,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-12 col-lr">
+                                        <div class="col-lg-6 col-lr">
                                             <div class="form-group">
                                                 <input type="text" class="input-text @error('address') is-invalid @enderror" id="address" name="address" data-validation="required" placeholder="Address *" value="{{ old('address') }}" required autocomplete="address">
                                                 @error('address')
@@ -131,18 +141,22 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="website" name="website" placeholder="Website (url) *">
-                                                <div class="form-check sm checkbox-input">
-                                                    <input class="form-check-input" type="checkbox" value="1" id="website_check" name="website_check">
-                                                    <label class="form-check-label" for="website_check">
-                                                        Enter your Website (url)
-                                                    </label>
-                                                </div>
+                                                <input type="text" class="input-text" id="website" name="website" placeholder="Website (url)">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <select name="website_address" id="website_address" class="input-text" data-validation="required">
+                                                    <option value="">Select which one you want to show</option>
+                                                    <option value="Address">Address</option>
+                                                    <option value="Website">Website</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="linkedin" name="linkedin" placeholder="Linkedin (url) *">
+                                                <input type="text" class="input-text" id="linkedin" name="linkedin" placeholder="Linkedin (url)">
                                                 <div class="form-check sm checkbox-input">
                                                     <input class="form-check-input" type="checkbox" value="1" id="linkedin_check" name="linkedin_check">
                                                     <label class="form-check-label" for="linkedin_check">
@@ -154,7 +168,7 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="instagram" name="instagram" placeholder="Instagram (url) *" data-validation="url">
+                                                <input type="text" class="input-text" id="instagram" name="instagram" placeholder="Instagram (url)" data-validation="url">
                                                 <div class="form-check sm checkbox-input">
                                                     <input class="form-check-input" type="checkbox" value="1" id="instagram_check" name="instagram_check">
                                                     <label class="form-check-label" for="instagram_check">
@@ -165,7 +179,7 @@
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="facebook" name="facebook" placeholder="Facebook (url) *">
+                                                <input type="text" class="input-text" id="facebook" name="facebook" placeholder="Facebook (url)">
                                                 <div class="form-check sm checkbox-input">
                                                     <input class="form-check-input" type="checkbox" value="1" id="facebook_check" name="facebook_check">
                                                     <label class="form-check-label" for="facebook_check">

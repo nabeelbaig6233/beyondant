@@ -23,15 +23,13 @@
 
 
 </head>
-<body data-offset="80" data-spy="scroll" data-target=".navbar">
+<body>
 @yield('content')
 <!-- latest jquery-->
 <script src="{{asset('assets/front/js/')}}/jquery-3.3.1.min.js"></script>
 <script src="{{asset('assets/front/js/')}}/popper.min.js"></script>
 <!-- Bootstrap js-->
 <script src="{{asset('assets/front/js/')}}/bootstrap.js"></script>
-<!--owl js-->
-<script src="{{asset('assets/front/js/')}}/owl.carousel.min.js"></script>
 <!-- tween max animation -->
 <script src="{{asset('assets/front/js/')}}/TweenMax.min.js"></script>
 <!-- wow animation -->

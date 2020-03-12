@@ -51,7 +51,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','title'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','email'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','company_name'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','phone_number'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','contact_number'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','mobile_number'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','fax_number'))}}</th>
                                                 <th>Action</th>
@@ -110,8 +110,8 @@
                                 <th>{{ucwords(str_replace('_',' ','company_description'))}}</th>
                                 <td id="company_description" align="center"></td>
                             </tr><tr>
-                                <th>{{ucwords(str_replace('_',' ','phone_number'))}}</th>
-                                <td id="phone_number" align="center"></td>
+                                <th>{{ucwords(str_replace('_',' ','contact_number'))}}</th>
+                                <td id="contact_number" align="center"></td>
                             </tr>
                             <tr>
                                 <th>{{ucwords(str_replace('_',' ','mobile_number'))}}</th>
@@ -226,7 +226,7 @@
                     {data: 'job_title', name: 'job_title'},
                     {data: 'email', name: 'email'},
                     {data: 'company_name', name: 'company_name'},
-                    {data: 'phone_number', name: 'phone_number'},
+                    {data: 'contact_number', name: 'contact_number'},
                     {data: 'mobile_number', name: 'mobile_number'},
                     {data: 'fax_number', name: 'fax_number'},
                     {data: 'action', name: 'action', orderable: false}
@@ -248,7 +248,7 @@
                         $("#job_title").html(data.job_title);
                         $("#company_name").html(data.company_name);
                         $("#company_description").html(data.company_description);
-                        $("#phone_number").html(data.phone_number);
+                        $("#contact_number").html(data.contact_number);
                         $("#mobile_number").html(data.mobile_number);
                         $("#fax_number").html(data.fax_number);
                         $("#email").html(data.email);

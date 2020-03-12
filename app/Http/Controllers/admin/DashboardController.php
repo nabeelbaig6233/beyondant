@@ -11,8 +11,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $content['profile'] = profile::count();
-        $content['user'] = User::count();
+        $content['profile'] = User::where('role_id',2)->count();
+        $content['user'] = User::where('role_id','<>',2)->count();
         return view('admin.welcome',$content);
     }
 }

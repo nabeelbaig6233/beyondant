@@ -280,6 +280,8 @@
     <!-- Tap On Top Ends -->
 @endsection
 @section('pageJs')
+    <!--owl js-->
+    <script src="{{asset('assets/front/js/')}}/owl.carousel.min.js"></script>
     <!-- script js-->
     <script src="{{asset('assets/front/js/')}}/main.js"></script>
 @endsection
