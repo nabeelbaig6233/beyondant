@@ -80,7 +80,7 @@
                                             </div>
                                             <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 <span class="title">Office Phone</span>
-                                                <span class="Subtitle">{{ $record->phone_number ?? '' }}</span>
+                                                <span class="Subtitle">{{ $record->contact_number ?? '' }}</span>
                                             </div>
                                         </div>
                                     </div>
