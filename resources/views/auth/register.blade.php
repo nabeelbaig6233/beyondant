@@ -234,6 +234,7 @@
         </div>
     </div>
     <!-- /. Login page -->
+@endsection
     @section('pageJs')
         <script src="{{asset('assets/front/js/jquery.form-validator.min.js')}}"></script>
         <script>

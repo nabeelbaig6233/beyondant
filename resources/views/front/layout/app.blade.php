@@ -12,7 +12,7 @@
     <title>Beyondant</title>
 
     <!-- Fav icon -->
-    <link href="{{asset('assets/front/images/')}}/favicon.png" rel="shortcut icon">
+    <link href="{{asset('assets/front/images/favicon.png')}}" rel="shortcut icon">
     <!-- Animate -->
     <link href="{{asset('assets/front/css/animate.css')}}" rel="stylesheet" type="text/css">
     <!--bootstrap css-->

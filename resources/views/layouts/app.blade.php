@@ -8,14 +8,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Beyondant Login</title>
+    <!-- Fav icon -->
+    <link href="{{asset('assets/front/images/favicon.png')}}" rel="shortcut icon">
     <!--bootstrap css-->
     <link href="{{asset('assets/front/css/bootstrap.css')}}" rel="stylesheet" type="text/css">
 
     <!-- Globally css -->
     <link href="{{asset('assets/front/css/globally.css')}}" rel="stylesheet" type="text/css">
 
-    <!-- Fav icon -->
-    <link href="{{asset('assets/front/images/')}}/favicon.png" rel="shortcut icon">
     <!-- Custom Stylesheet -->
     <link type="text/css" rel="stylesheet" href="{{asset('assets/front/css/login.css')}}">
 
