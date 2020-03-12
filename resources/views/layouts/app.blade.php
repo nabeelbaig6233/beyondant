@@ -18,6 +18,8 @@
 
     <!-- Custom Stylesheet -->
     <link type="text/css" rel="stylesheet" href="{{asset('assets/front/css/login.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 
     @yield('pageCss')
 </head>
@@ -36,6 +38,14 @@
 
 <!-- Bootstrap js-->
 <script src="{{asset('assets/front/js/')}}/bootstrap.js"></script>
+<script src="{{ asset('js/sweetalert.min.js') }}"></script>
+<script src="{{ asset('js/alert.js') }}"></script>
+@if(session()->has('success'))
+    <script type="text/javascript">js_success("{{ session('success') }}")</script>
+@endif
+@if(session()->has('error'))
+    <script type="text/javascript">js_error("{{ session('error') }}")</script>
+@endif
 
 @yield('pageJs')
 <!-- Custom JS Script -->

@@ -38,9 +38,76 @@ class ProfileController extends Controller
             exit;
         }
     }
-    public function register(Request $request)
+
+    public function editProfile(Request $request, $id)
+    {
+        $content['record'] = User::findOrFail($id);
+        return view('auth.register-edit',$content);
+    }
+
+    public function updateProfile(Request $request, $id)
     {
 //        dd($request->all());
+        $this->updateValidator($request->all())->validate();
+
+        event(new Registered($user = $this->updated($request->all(),$id)));
+
+        return redirect()->route('pro',$id)->with('success','Updated Successfully');
+    }
+
+    protected function updateValidator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'contact_number' => ['required','numeric'],
+        ]);
+    }
+    protected function updated(array $data,$id)
+    {
+        $request = request();
+        $profile_picture = '';
+        if (!empty($request->file('profile_picture'))) {
+            $profile_picture = $request->file('profile_picture');
+            $image = rand().'.'.$profile_picture->getClientOriginalExtension();
+            $profile_picture->move(public_path('assets/admin/images'),$image);
+            $profile_picture = 'assets/admin/images/'.$image;
+        }
+        $cover_image = "";
+        if (!empty($request->file('cover_image'))) {
+            $cover_image = $request->file('cover_image');
+            $image = rand().'.'.$cover_image->getClientOriginalExtension();
+            $cover_image->move(public_path('assets/admin/images'),$image);
+            $cover_image = 'assets/admin/images/'.$image;
+        }
+
+        return User::where('id',$id)->update([
+            'role_id' => 2,
+            'name' => $data['name']??"",
+            'job_title' => $data['job_title']??"",
+            'company_name' => $data['company_name']??"",
+            'company_description' => $data['company_description']??"",
+            'contact_number' => $data['contact_number']??"",
+            'mobile_number' => $data['mobile_number']??"",
+            'fax_number' => $data['fax_number']??"",
+            'email' => $data['email']??"",
+            'address' => $data['address']??"",
+            'website' => $data['website']??"",
+            'website_address' => $data['website_address']??"",
+            'linkedin' => $data['linkedin']??"",
+            'linkedin_check' => $data['linkedin_check']??"",
+            'instagram' => $data['instagram']??"",
+            'instagram_check' => $data['instagram_check']??"",
+            'facebook' => $data['facebook']??"",
+            'facebook_check' => $data['facebook_check']??"",
+            'cover_image' => $cover_image ?? $data['cover_image'],
+            'profile_picture' => $profile_picture ?? $data['profile_picture'],
+            'password' => Hash::make($data['password'])
+        ]);
+    }
+    public function register(Request $request)
+    {
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));

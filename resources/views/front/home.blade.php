@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col">
                     <nav>
-                        <a class="d-inline-block m-r-auto" href="index.html">
+                        <a class="d-inline-block m-r-auto" href="{{ url('/') }}">
                             <img alt="" class="img-fluid img-fluidw70 m-t-10 m-b-10 link linkNav" src="{{asset('assets/front/images/')}}/logo.png">
                         </a>
                         <!-- <div class="responsive-btn">
@@ -27,6 +27,7 @@
                                 @guest
                                     <li><a href="{{route('login')}}" class="link linkNav">LOGIN</a></li>
                                 @else
+                                    <li><a href="{{route('pro',auth()->user()->id)}}" class="link linkNav">Profile</a></li>
                                     <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="link linkNav">Logout</a></li>
                                     <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                                 @endguest
@@ -61,7 +62,13 @@
                                     <div class="navbarMob">
                                         <ul class="text-center">
                                             <li><i class="fas fa-phone-volume"></i> 1 800 970-5877 <span class="lineSep">|</span></li>
-                                            <li><a href="JavaScript:void(0);" class="link linkNav">LOGIN</a></li>
+                                            @guest
+                                                <li><a href="{{route('login')}}" class="link linkNav">LOGIN</a></li>
+                                            @else
+                                                <li><a href="{{route('pro',auth()->user()->id)}}" class="link linkNav">Profile</a></li>
+                                                <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-forms').submit();" class="link linkNav">LOGOUT</a></li>
+                                                <form id="logout-forms" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
+                                            @endguest
                                             <a class="btn btn-default buyNow link" href="javascript:void(0);">Buy Now</a>
                                         </ul>
                                     </div>
@@ -74,7 +81,11 @@
                                     <div class="wow fadeInDown m-b-40 m-t-40">
                                         <a class="btn btn-default watchVideo link" href="javascript:void(0);">
                                             <i class="far fa-play-circle"></i> Watch Video</a>
-                                        <a class="btn btn-default transparent registerNow link" href="{{route('register')}}">Register Now</a>
+                                        @guest
+                                            <a class="btn btn-default transparent registerNow link" href="{{route('register')}}">Register Now</a>
+                                        @else
+                                            <a class="btn btn-default transparent registerNow link" href="{{route('pro',auth()->user()->id)}}">Profile</a>
+                                        @endguest
                                     </div>
                                 </div>
                             </div>
