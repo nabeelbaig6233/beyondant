@@ -36,6 +36,7 @@
     border-radius: 100%;
 }
 .beyondantProfileInfo h2 {
+    line-height: 1.2;
     font-size: 30px;
     color: #252525;
     margin:55px 0 15px
@@ -197,6 +198,23 @@ footer.profileFooter img{
 .profileWrapper_Mob{
     display: none;
 }
+/*mnb css start*/
+.cover-image {
+    width: 1250px;
+    height: 416px;
+    object-fit: cover;
+}
+
+.user-logout {
+    background: #be0103;
+    color: #fff;
+    padding: 7px 25px;
+    border-radius: 100px;
+    font-size: 15px;
+}
+
+/*mnb css end*/
+
 @media only screen and (max-width:767px) {
     .profileWrapper{
         display: none;

@@ -15,6 +15,13 @@
                             <img alt="" class="img-fluid m-t-10 m-b-10 link" src="{{asset('assets/front/images/')}}/logo-dark.png">
                         </a>
                     </div>
+                    <div class="col-sm-2 col-4">
+                        @guest
+                        @else
+                            <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-inline-block m-r-auto user-logout">Logout</a>
+                            <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
+                        @endguest
+                    </div>
                 </div>
             </div>
         </header>
@@ -23,7 +30,7 @@
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container">
-                <img src="{{asset(($record->cover_image?$record->cover_image:'assets/admin/images/placeholder.png'))}}">
+                <img class="cover-image" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}">
             </div>
         </section>
 
@@ -40,6 +47,7 @@
                         <p>{{ $record->job_title ?? '' }}</p>
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
+                        <a class="btn btn-primary" href="{{route('edit-profile',$record->id)}}"> Edit <i class="fa fa-pencil"></i></a>
                         <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
                     </div>
                 </div>
@@ -191,6 +199,13 @@
                             <img alt="" class="img-fluid m-t-10 m-b-10 link" src="{{asset('assets/front/images/')}}/logo-dark.png">
                         </a>
                     </div>
+                    <div class="col-sm-2 col-4">
+                        @guest
+                        @else
+                            <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-inline-block m-r-auto user-logout">Logout</a>
+                            <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
+                        @endguest
+                    </div>
                 </div>
             </div>
         </header>
@@ -199,7 +214,7 @@
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container">
-                <img src="{{asset(($record->cover_image?$record->cover_image:'assets/admin/images/placeholder.png'))}}">
+                <img src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}">
             </div>
         </section>
 
@@ -216,6 +231,7 @@
                         <p>{{ $record->job_title ?? '' }}</p>
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
+                        <a class="btn btn-primary" href="{{route('edit-profile',$record->id)}}"> Edit <i class="fa fa-pencil"></i></a>
                         <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
                     </div>
                 </div>

@@ -53,6 +53,10 @@ Route::middleware(['allowguest'])->group(function (){
     Route::post('/profile/register','ProfileController@register')->name('profile-register');
 });
 
+Route::middleware(['customer'])->group(function () {
+    Route::get('/edit-profile/{id}','ProfileController@editProfile')->name('edit-profile');
+    Route::put('/update-profile/{id}', 'ProfileController@updateProfile')->name('update-profile');
+});
 Route::fallback(function(){
     return "404 not found";
 });
