@@ -102,6 +102,7 @@ class ProfileController extends Controller
             'facebook_check' => $data['facebook_check']??"",
             'cover_image' => $cover_image,
             'profile_picture' => $profile_picture,
+            'password' => Hash::make($data['password'])
         ]);
     }
 

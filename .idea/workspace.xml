@@ -2,27 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0e185e7-d0ae-4dd3-8487-8f91bbbfdd45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/front/images/company-icon-red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/images/envelope-icon-red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/images/fax-icon-red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/images/globe-icon-red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/images/location-icon-red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/images/mobile-icon-red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/front/images/phone-icon-red.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/RoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/role.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/role.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/front/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/front/css/profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/front/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/front/js/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/profile/form.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/profile/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/profile/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/front/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/front/layout/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/layout/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/front/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/profile.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,7 +219,7 @@
       <workItem from="1583513549582" duration="19028000" />
       <workItem from="1583783523451" duration="17358000" />
       <workItem from="1583854957815" duration="20292000" />
-      <workItem from="1583946115000" duration="14057000" />
+      <workItem from="1583946115000" duration="14697000" />
     </task>
     <servers />
   </component>
