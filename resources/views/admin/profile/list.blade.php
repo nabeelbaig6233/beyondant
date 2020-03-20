@@ -47,13 +47,13 @@
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','profile_picture'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','name'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','first_name'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','title'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','email'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','company_name'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','contact_number'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','mobile_number'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','fax_number'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','profile_link'))}}</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -95,8 +95,12 @@
                                 <td id="cover_image" align="center"></td>
                             </tr>
                             <tr>
-                                <th>{{ucwords(str_replace('_',' ','name'))}}</th>
-                                <td id="name" align="center"></td>
+                                <th>{{ucwords(str_replace('_',' ','first_name'))}}</th>
+                                <td id="first_name" align="center"></td>
+                            </tr>
+                            <tr>
+                                <th>{{ucwords(str_replace('_',' ','last_name'))}}</th>
+                                <td id="last_name" align="center"></td>
                             </tr>
                             <tr>
                                 <th>{{ucwords(str_replace('_',' ','job_title'))}}</th>
@@ -118,8 +122,8 @@
                                 <td id="mobile_number" align="center"></td>
                             </tr>
                             <tr>
-                                <th>{{ucwords(str_replace('_',' ','fax_number'))}}</th>
-                                <td id="fax_number" align="center"></td>
+                                <th>{{ucwords(str_replace('_',' ','profile_link'))}}</th>
+                                <td id="profile_link" align="center"></td>
                             </tr>
                             <tr>
                                 <th>{{ucwords(str_replace('_',' ','email'))}}</th>
@@ -222,13 +226,13 @@
                     {data: 'checkbox', name: 'checkbox', orderable: false},
                     {data: 'id', name: 'id'},
                     {data: 'image', name: 'image', orderable: false},
-                    {data: 'name', name: 'name'},
+                    {data: 'first_name', name: 'first_name'},
                     {data: 'job_title', name: 'job_title'},
                     {data: 'email', name: 'email'},
                     {data: 'company_name', name: 'company_name'},
                     {data: 'contact_number', name: 'contact_number'},
                     {data: 'mobile_number', name: 'mobile_number'},
-                    {data: 'fax_number', name: 'fax_number'},
+                    {data: 'profile_link', name: 'profile_link', orderable: false},
                     {data: 'action', name: 'action', orderable: false}
                 ]
             });
@@ -244,13 +248,14 @@
                         let cover_image = (data.cover_image != undefined) ? `{{asset('')}}/${data.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
                         $("#profile_picture").html(`<img width="100" src="${profile_picture}">`);
                         $("#cover_image").html(`<img width="100" src="${cover_image}">`);
-                        $("#name").html(data.name);
+                        $("#first_name").html(data.first_name);
+                        $("#last_name").html(data.last_name);
                         $("#job_title").html(data.job_title);
                         $("#company_name").html(data.company_name);
                         $("#company_description").html(data.company_description);
                         $("#contact_number").html(data.contact_number);
                         $("#mobile_number").html(data.mobile_number);
-                        $("#fax_number").html(data.fax_number);
+                        $("#profile_link").html(`{{route('pro')}}/${data.id}`);
                         $("#email").html(data.email);
                         $("#address").html(data.address);
                         $("#website").html(data.website);

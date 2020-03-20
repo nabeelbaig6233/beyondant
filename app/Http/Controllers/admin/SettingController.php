@@ -23,7 +23,6 @@ class SettingController extends Controller
                 $request->request->remove('_token');
             }
             $record = setting::find(1);
-            $record->language_id = \Auth::user()->language_id;
             foreach ($request->input() as $key => $value) {
                 $record->$key = $value;
             }

@@ -7,15 +7,15 @@
                 <div class="row login-box-12">
                     <div class="col-lg-4 col-md-12 col-sm-12 px-0">
                         <div class="login_right">
-                            <a href="index.html" class="logo_text">
+                            <a href="{{url('/')}}" class="logo_text">
                                 <img alt="" class="img-fluid" src="{{asset('assets/front/images/')}}/logo2.png">
                             </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt Lorem Ipsum</p>
-                            <a href="#" class="btn-outline">Read More</a>
+                            <p>At no cost to you utilize our platform (YES IT’S FREE) for an effective timely management of a global business presence or growth of your social media following. Make your mark in today's digitized world with minimum efforts on your part.</p>
+
                             <ul class="social-list clearfix">
                                 <li><a href="javascript:void(0);" title="Instagram" class="link"> <img src="{{asset('assets/front/images/')}}/instagram-icon-3d.png"></a></li>
                                 <li><a href="javascript:void(0);" title="Facebook" class="link"> <img src="{{asset('assets/front/images/')}}/facebook-icon-3d.png"></a></li>
-                                <li><a href="javascript:void(0);" title="Twitter" class="link"> <img src="{{asset('assets/front/images/')}}/twitter-icon-3d.png"></a></li>
+                                <li><a href="javascript:void(0);" title="Tiktok" class="link"> <img src="{{asset('assets/front/images/')}}/tiktok-icon-3d.png"></a></li>
                                 <li><a href="javascript:void(0);" title="Linkedin" class="link"> <img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png"></a></li>
                             </ul>
                         </div>
@@ -23,15 +23,26 @@
                     <div class="col-lg-8 col-sm-12">
                         <div class="login-inner-form">
                             <div class="details">
-                                <h3>Create <span>Your Account</span></h3>
+                                <h3>Create Your <span>Free Account</span></h3>
                                 <form action="{{ route('profile-register') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="name" class="input-text @error('name') is-invalid @enderror" id="name" name="name" placeholder="Name *" data-validation="required name" value="{{ old('name') }}" required autocomplete="name">
-                                                @error('name')
+                                                <input type="text" class="input-text @error('first_name') is-invalid @enderror" id="first_name" name="first_name" placeholder="First Name *" data-validation="required name" value="{{ old('first_name') }}" required autocomplete="name">
+                                                @error('first_name')
                                                     <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="name" class="input-text @error('last_name') is-invalid @enderror" id="last_name" name="last_name" placeholder="Last Name *" data-validation="required name" value="{{ old('last_name') }}" required autocomplete="last_name">
+                                                @error('last_name')
+                                                <span class="text-danger" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
@@ -76,23 +87,26 @@
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('company_description') is-invalid @enderror" id="company_description" name="company_description" data-validation="required" placeholder="Company Description *" value="{{ old('company_description') }}" required autocomplete="company_description">
+                                                <input type="text" class="input-text @error('company_description') is-invalid @enderror" id="company_description" name="company_description" data-validation="required" placeholder="Company Description" value="{{ old('company_description') }}" required autocomplete="company_description">
                                                 @error('company_description')
                                                 <span class="text-danger" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
+                                                <div class="checkBox_p helpC">
+                                                    <i class="fas fa-question helpc" data-toggle="tooltip" data-placement="top" title="Up To 255 Characters" ></i>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="number" class="input-text" id="contact_number" name="contact_number" placeholder="Phone Number *" value="{{ old('contact_number') }}" autocomplete="contact_number">
+                                                <input type="text" class="input-text" id="contact_number" name="contact_number" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" placeholder="Phone Number *" value="{{ old('contact_number') }}" autocomplete="contact_number">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="number" class="input-text @error('mobile_number') is-invalid @enderror" id="mobile_number" name="mobile_number" data-validation="required number" placeholder="Mobile Number *" value="{{ old('mobile_number') }}" required autocomplete="mobile_number">
+                                                <input type="text" class="input-text @error('mobile_number') is-invalid @enderror" id="mobile_number" name="mobile_number" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" data-validation="required" placeholder="Mobile Number *" value="{{ old('mobile_number') }}" required autocomplete="mobile_number">
                                                 @error('mobile_number')
                                                 <span class="text-danger" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -103,20 +117,15 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <select name="mobile_check" id="mobile_check" class="input-text" data-validation="required">
-                                                    <option value="">Select which one you want to show</option>
+                                                <select name="mobile_check" id="mobile_check" class="input-text" data-validation="required" required>
+                                                    <option value="">Select To Display</option>
                                                     <option value="Mobile">Mobile</option>
                                                     <option value="Phone">Phone</option>
-                                                    <option value="Fax">Fax</option>
+                                                    <option value="Office Number">Office Number</option>
                                                 </select>
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-6 col-lr">
-                                            <div class="form-group">
-                                                <input type="number" class="input-text" id="fax_number" name="fax_number" placeholder="Fax Number *" value="{{ old('fax_number') }}" autocomplete="fax_number">
-                                            </div>
-                                        </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
                                                 <input type="email" class="input-text @error('email') is-invalid @enderror" id="email" data-validation="required email" placeholder="Email Address *" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -141,14 +150,62 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
+                                                <input type="text" class="input-text @error('city') is-invalid @enderror" id="city" name="city" data-validation="required" placeholder="City *" value="{{ old('city') }}" required autocomplete="city">
+                                                @error('city')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('state') is-invalid @enderror" id="state" name="state" data-validation="required" placeholder="State *" value="{{ old('state') }}" required autocomplete="state">
+                                                @error('state')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('province') is-invalid @enderror" id="province" name="province" placeholder="Province" autocomplete="province">
+                                                @error('province')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text @error('zipcode') is-invalid @enderror" id="zipcode" name="zipcode" data-validation="required" placeholder="Zip Code *" value="{{ old('zipcode') }}" required autocomplete="zipcode">
+                                                @error('zipcode')
+                                                <span class="text-danger" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
                                                 <input type="text" class="input-text" id="website" name="website" placeholder="Website (url)">
+                                                <div class="form-check sm checkbox-input checkBox_p">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="website_check" name="website_check">
+                                                    <label class="form-check-label" for="website_check" data-toggle="tooltip" data-placement="top" title="Make this my primary contact page"></label>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
                                                 <select name="website_address" id="website_address" class="input-text" data-validation="required">
-                                                    <option value="">Select which one you want to show</option>
+                                                    <option value="">Select To Display</option>
                                                     <option value="Address">Address</option>
                                                     <option value="Website">Website</option>
                                                 </select>
@@ -156,53 +213,63 @@
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="linkedin" name="linkedin" placeholder="Linkedin (url)">
-                                                <div class="form-check sm checkbox-input">
+                                                <input type="text" class="input-text" id="linkedin" name="linkedin" placeholder="Paste your Linkedin (url)">
+                                                <div class="form-check sm checkbox-input checkBox_p">
                                                     <input class="form-check-input" type="checkbox" value="1" id="linkedin_check" name="linkedin_check">
-                                                    <label class="form-check-label" for="linkedin_check">
-                                                        Enter your Linkedin (url)
-                                                    </label>
+                                                    <label class="form-check-label" for="linkedin_check" data-toggle="tooltip" data-placement="top" title="Make this my primary contact page"></label>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="instagram" name="instagram" placeholder="Instagram (url)" data-validation="url">
-                                                <div class="form-check sm checkbox-input">
+                                                <input type="text" class="input-text" id="tiktok" name="tiktok" placeholder="Paste your Tiktok (url)">
+                                                <div class="form-check sm checkbox-input checkBox_p">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="tiktok_check" name="tiktok_check">
+                                                    <label class="form-check-label" for="tiktok_check" data-toggle="tooltip" data-placement="top" title="Make this my primary contact page"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text" id="instagram" name="instagram" placeholder="Paste your Instagram (url)">
+                                                <div class="form-check sm checkbox-input checkBox_p">
                                                     <input class="form-check-input" type="checkbox" value="1" id="instagram_check" name="instagram_check">
-                                                    <label class="form-check-label" for="instagram_check">
-                                                        Enter your Instagram (url)
-                                                    </label>
+                                                    <label class="form-check-label" for="instagram_check" data-toggle="tooltip" data-placement="top" title="Make this my primary contact page"></label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="facebook" name="facebook" placeholder="Facebook (url)">
-                                                <div class="form-check sm checkbox-input">
-                                                    <input class="form-check-input" type="checkbox" value="1" id="facebook_check" name="facebook_check">
-                                                    <label class="form-check-label" for="facebook_check">
-                                                        Enter your Facebook (url)
-                                                    </label>
+                                                <input type="text" class="input-text" id="facebook" name="facebook" placeholder="Paste your Facebook (url)">
+                                                <div class="form-check sm checkbox-input checkBox_p">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="facebook_check" name="facebook_check" >
+                                                    <label class="form-check-label" for="facebook_check" data-toggle="tooltip" data-placement="top" title="Make this my primary contact page"></label>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="cover_image" name="cover_image">
-                                                    <label class="custom-file-label" for="cover_image">Choose Cover Image</label>
-                                                </div>
+                                                 <div class="circle">
+                                                   <img class="profile-picFour" src="{{ asset('assets/front/images/choosecoverphoto-n.jpg') }}">
+                                                 </div>
+                                                 <div class="p-image">
+                                                   <i class="fa fa-image upload-buttonFour"></i>
+                                                    <input class="file-uploadFour" id="cover_image" name="cover_image" type="file" accept="image/*"/>
+                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="profile_picture" name="profile_picture">
-                                                    <label class="custom-file-label" for="profile_picture">Choose Profile Image</label>
-                                                </div>
+                                                <div class="circle">
+                                                   <img class="profile-picFive" src="{{ asset('assets/front/images/chooseprofileimage-n.jpg') }}">
+                                                 </div>
+                                                 <div class="p-image">
+                                                   <i class="fa fa-image upload-buttonFive"></i>
+                                                    <input class="file-uploadFive" id="profile_picture" name="profile_picture" type="file" accept="image/*"/>
+                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-lr">
@@ -237,11 +304,65 @@
 @endsection
     @section('pageJs')
         <script src="{{asset('assets/front/js/jquery.form-validator.min.js')}}"></script>
+        <!-- InputMask -->
+        <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.js')}}"></script>
+        <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+        <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
         <script>
             $(document).ready(() => {
                 $.validate({
                     lang: 'en'
-                })
+                });
+                //Money Euro
+                $('[data-mask]').inputmask()
             })
+            $(function () {
+              $('[data-toggle="tooltip"]').tooltip();
+            });
+
+            $(document).ready(function() {
+                var readURL = function(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('.profile-picFour').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                $(".file-uploadFour").on('change', function(){
+                    readURL(this);
+                });
+
+                $(".upload-buttonFour").on('click', function() {
+                   $(".file-uploadFour").click();
+                });
+            });
+            $(document).ready(function() {
+                var readURL = function(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('.profile-picFive').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                $(".file-uploadFive").on('change', function(){
+                    readURL(this);
+                });
+
+                $(".upload-buttonFive").on('click', function() {
+                   $(".file-uploadFive").click();
+                });
+            });
+
+
         </script>
     @stop

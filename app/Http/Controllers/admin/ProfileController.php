@@ -14,6 +14,7 @@ class ProfileController extends Controller
             return redirect('admin');
         }
         $content['title'] = ucwords(str_replace('-',' ',request()->segment(2)));
+//        dd(User::latest()->where('role_id',2)->get());
         if (request()->ajax()) {
             return datatables()->of(User::latest()->where('role_id',2)->get())
                 ->addColumn('image',function ($data){
@@ -21,9 +22,12 @@ class ProfileController extends Controller
                 })
                 ->addColumn('checkbox',function($data){
                     return '<input type="checkbox" class="delete_checkbox flat" value="'.$data->id.'">';
+                })
+                ->addColumn('profile_link', function ($data) {
+                    return '<a target="_blank" href="' . route('pro',$data->id) . '">'. $data->first_name .'</a>';
                 })->addColumn('action',function($data){
                     return '<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
-                })->rawColumns(['checkbox','action','image'])->make(true);
+                })->rawColumns(['checkbox','action','image','profile_link'])->make(true);
         }
         return view('admin.'.request()->segment(2).'.list')->with($content);
     }

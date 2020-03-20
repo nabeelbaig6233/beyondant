@@ -59,7 +59,7 @@
                   <div class="menu_section">
                     <h3>Users Profile</h3>
                     <ul class="nav side-menu">
-                      <li><a><i class="fa fa-desktop"></i> Users <span class="fa fa-chevron-down"></span></a>
+                      <li><a><i class="fa fa-user"></i> Users <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('profile')}}">Profiles</a></li>
                         </ul>
@@ -74,7 +74,23 @@
                         <ul class="nav side-menu">
                             <li><a><i class="fa fa-clone"></i> CMS <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="#level1_1">Home</a>
+                                    @if(in_array('viewHome',\Request::get('permission')))
+                                        <li><a href="{{ route('admin.home') }}">Home</a>
+                                    @endif
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="menu_section">
+                        <h3>Inquiry</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-clone"></i> Reseller <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    @if (in_array('viewReseller',\Request::get('permission')))
+                                        <li><a href="{{ route('admin.reseller') }}">Reseller</a>
+                                    @endif
                                 </ul>
                             </li>
 
@@ -105,7 +121,7 @@
                   <a href="{{route('setting')}}" data-toggle="tooltip" data-placement="top" title="Settings">
                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                   </a>
-                  <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                  <a data-toggle="tooltip" data-placement="top" title="Logout" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
                     <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                   </a>
                 </div>

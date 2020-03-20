@@ -11,12 +11,11 @@
                             <a href="index.html" class="logo_text">
                                 <img alt="" class="img-fluid" src="{{asset('assets/front/images/')}}/logo2.png">
                             </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt Lorem Ipsum</p>
-                            <a href="#" class="btn-outline">Read More</a>
+                            <p>At no cost to you utilize our platform (YES IT’S FREE) for an effective timely management of a global business presence or growth of your social media following. Make your mark in today's digitized world with minimum efforts on your part.</p>
                             <ul class="social-list clearfix">
                                 <li><a href="javascript:void(0);" title="Instagram" class="link"> <img src="{{asset('assets/front/images/')}}/instagram-icon-3d.png"></a></li>
                                 <li><a href="javascript:void(0);" title="Facebook" class="link"> <img src="{{asset('assets/front/images/')}}/facebook-icon-3d.png"></a></li>
-                                <li><a href="javascript:void(0);" title="Twitter" class="link"> <img src="{{asset('assets/front/images/')}}/twitter-icon-3d.png"></a></li>
+                                <li><a href="javascript:void(0);" title="Tiktok" class="link"> <img src="{{asset('assets/front/images/')}}/tiktok-icon-3d.png"></a></li>
                                 <li><a href="javascript:void(0);" title="Linkedin" class="link"> <img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png"></a></li>
                             </ul>
                         </div>
@@ -30,7 +29,7 @@
                                     <div class="form-group">
                                         <input type="email" id="email" name="email" class="input-text @error('is-invalid') @enderror" value="{{ old('email') }}" required autocomplete="email" placeholder="Email Address">
                                         @error('email')
-                                        <span class="invalid-feedback" role="alert">
+                                        <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                         @enderror

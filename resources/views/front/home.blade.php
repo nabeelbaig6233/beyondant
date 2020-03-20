@@ -14,16 +14,12 @@
                 <div class="col">
                     <nav>
                         <a class="d-inline-block m-r-auto" href="{{ url('/') }}">
-                            <img alt="" class="img-fluid img-fluidw70 m-t-10 m-b-10 link linkNav" src="{{asset('assets/front/images/')}}/logo.png">
+                            <img alt="" class="img-fluid img-fluidw70 m-t-10 m-b-10 link linkNav" src="{{asset($setting->logo??'')}}">
                         </a>
-                        <!-- <div class="responsive-btn">
-                            <a class="toggle-nav" href="JavaScript:void(0);">
-                                <i aria-hidden="true" class="fa fa-bars text-white"></i>
-                            </a>
-                        </div> -->
+
                         <div class="navbar m-l-auto">
                             <ul class="">
-                                <li><i class="fas fa-phone-volume"></i> 1 800 970-5877 <span class="lineSep">|</span></li>
+                                <li><i class="fas fa-phone-volume"></i> {{ $setting->phone ?? '' }} <span class="lineSep">|</span></li>
                                 @guest
                                     <li><a href="{{route('login')}}" class="link linkNav">LOGIN</a></li>
                                 @else
@@ -31,7 +27,7 @@
                                     <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="link linkNav">Logout</a></li>
                                     <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                                 @endguest
-                                <a class="btn btn-default buyNow link" href="javascript:void(0);">Buy Now</a>
+                                <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all">Buy Now</a>
                             </ul>
                         </div>
 
@@ -61,7 +57,7 @@
                                 <div class="">
                                     <div class="navbarMob">
                                         <ul class="text-center">
-                                            <li><i class="fas fa-phone-volume"></i> 1 800 970-5877 <span class="lineSep">|</span></li>
+                                            <li><i class="fas fa-phone-volume"></i> {{ $setting->phone ?? '' }} <span class="lineSep">|</span></li>
                                             @guest
                                                 <li><a href="{{route('login')}}" class="link linkNav">LOGIN</a></li>
                                             @else
@@ -69,20 +65,23 @@
                                                 <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-forms').submit();" class="link linkNav">LOGOUT</a></li>
                                                 <form id="logout-forms" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                                             @endguest
-                                            <a class="btn btn-default buyNow link" href="javascript:void(0);">Buy Now</a>
+                                            <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all">Buy Now</a>
                                         </ul>
                                     </div>
+
                                     <div class="header-text">
-                                        <h1 class="mainheadtop wow fadeInLeft link">Digital Business Cards, Profile Sharing Bracelets & More</h1>
+                                        <h2 class="headtop">SEE ME | SCAN ME</h2>
+                                        <h1 class="mainheadtop wow fadeInLeft link">{{ $home->heading1 ?? '' }}</h1>
                                     </div>
                                     <div class="wow fadeInRight link">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit nihil tenetur minus quidem est deserunt molestias accusamus harum ullam tempore debitis et, expedita, repellat delectus aspernatur neque itaque qui quod.</p>
+                                        <p>{{ $home->text1 ?? '' }} </p>
                                     </div>
                                     <div class="wow fadeInDown m-b-40 m-t-40">
-                                        <a class="btn btn-default watchVideo link" href="javascript:void(0);">
+                                        <a class="btn btn-default watchVideo link" href="#myModal" data-toggle="modal">
                                             <i class="far fa-play-circle"></i> Watch Video</a>
+
                                         @guest
-                                            <a class="btn btn-default transparent registerNow link" href="{{route('register')}}">Register Now</a>
+                                            <a class="btn btn-default transparent registerNow link" href="{{route('register')}}">Register Now For Free</a>
                                         @else
                                             <a class="btn btn-default transparent registerNow link" href="{{route('pro',auth()->user()->id)}}">Profile</a>
                                         @endguest
@@ -99,6 +98,19 @@
         </div>
     </section>
     <!-- Main Header End -->
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="Vids" width="100%" height="315" src="https://www.youtube.com/embed/2ljxxQy8zHI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Grow Your Business Start -->
@@ -108,9 +120,9 @@
                 <div class="col-md-10 offset-md-1">
                     <div class="title">
                         <div class="main-title">
-                            <h2 class="wow fadeInDown">A Smoother Way To Grow Your Business <span>Through Networking or Simply Grow Your Social Following</span></h2>
+                            <h2 class="wow fadeInDown">{{ $home->heading2 ?? '' }}</span></h2>
                             <img src="{{asset('assets/front/images/')}}/red-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                            <p class="wow fadeInRight">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
+                            <p class="wow fadeInRight">{{ $home->text2 ?? '' }}</p>
                         </div>
                     </div>
                 </div>
@@ -122,55 +134,26 @@
                 <div class="owl-carousel owl-theme" id="business_slider">
                     <div class="item">
                         <img src="{{asset('assets/front/images/')}}/b-icon-1.png">
-                        <h3>Beyondant will save you time and money</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
+                        <h3>{{ $home->section_heading1 ?? '' }}</h3>
+                        <p>{{ $home->section_text1 ?? '' }} </p>
                     </div>
                     <div class="item">
                         <img src="{{asset('assets/front/images/')}}/b-icon-2.png">
-                        <h3>Target leads more efficiently</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
+                        <h3>{{ $home->section_heading2 ?? '' }}</h3>
+                        <p>{{ $home->section_text2 ?? '' }}</p>
                     </div>
                     <div class="item">
                         <img src="{{asset('assets/front/images/')}}/b-icon-3.png">
-                        <h3>Export your contacts to any CRM</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
+                        <h3>{{ $home->section_heading3 ?? '' }}</h3>
+                        <p>{{ $home->section_text3 ?? '' }}</p>
                     </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-1.png">
-                        <h3>Beyondant will save you time and money</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
-                    </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-2.png">
-                        <h3>Target leads more efficiently</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
-                    </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-3.png">
-                        <h3>Export your contacts to any CRM</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
-                    </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-1.png">
-                        <h3>Beyondant will save you time and money</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
-                    </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-2.png">
-                        <h3>Target leads more efficiently</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
-                    </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-3.png">
-                        <h3>Export your contacts to any CRM</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.</p>
-                    </div>
+
 
                 </div>
             </div>
         </div>
         <div class="container wow fadeInLeft text-center">
-            <h4 class="babr">Become An Authorize <span>Beyondant Reseller</span></h4>
+            <h4 class="babr"><a href="{{ route('reseller') }}" title="Instagram" class="link">Become An Authorized Reseller <span>Click here to Apply</span></a></h4>
         </div>
     </section>
     <!-- Grow Your Business End -->
@@ -181,12 +164,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <img src="{{asset('assets/front/images/')}}/our-product-img.png" class="pro_img ">
+                    <img src="{{asset( $home->section_image4 ?? '' )}}" class="pro_img ">
                 </div>
                 <div class="col-lg-6">
-                    <h2 class="wow fadeInLeft">Our Products</h2>
+                    <h2 class="wow fadeInLeft">{{ $home->section_heading4 ?? '' }}</h2>
                     <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                    <p class="wow fadeInRight">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p class="wow fadeInRight">{{ $home->section_text4 ?? '' }}</p>
                 </div>
             </div>
         </div>
@@ -200,13 +183,13 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="createDesign_text">
-                        <h2 class="wow fadeInLeft">Design your first <span>digital business card</span> in seconds.</h2>
+                        <h2 class="wow fadeInLeft"> {{ $home->section_heading5 ?? '' }}</h2>
                         <img src="{{asset('assets/front/images/')}}/red-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                        <p class="wow fadeInRight">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <p class="wow fadeInRight">{{ $home->section_text5 ?? '' }}</p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="createDesign_img"></div>
+                    <div class="createDesign_img" style="background-image: url('{{ $home->section_image5 ?? '' }}')"></div>
                 </div>
             </div>
         </div>
@@ -259,15 +242,16 @@
                     </form>
                 </div>
                 <div class="col-lg-6 ">
-                    <img alt="" class="wow fadeInRight" src="{{asset('assets/front/images/')}}/logo.png">
-                    <p class="wow fadeInRight">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not </p>
+                    <img alt="" class="wow fadeInRight" src="{{asset( $setting->logo ?? '' )}}">
+                    <p class="wow fadeInRight">{{ $setting->footer_text ?? '' }} </p>
                     <img alt="" class="wow fadeInRight m-t-40" src="{{asset('assets/front/images/')}}/email-icon.png">
-                    <p class="wow fadeInRight contactDetails">info@colossusmedigroup.com <span>908.242.3056</span></p>
+                    <p class="wow fadeInRight contactDetails">{{ $setting->email ?? '' }} <span>{{ $setting->phone ?? '' }}</span></p>
+                    <p class="wow fadeInRight contactDetails">{{ $setting->address ?? '' }}</p>
                     <h5 class="wow fadeInDown">Follow Us On</h5>
-                    <a href="javascript:void(0);" title="Instagram" class="link"> <img src="{{asset('assets/front/images/')}}/instagram-icon-3d.png" title="Instagramm"></a>
-                    <a href="javascript:void(0);" title="Linkedin" class="link"> <img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png" title="Linkedin"></a>
-                    <a href="javascript:void(0);" title="Facebook" class="link"> <img src="{{asset('assets/front/images/')}}/facebook-icon-3d.png" title="Facebook"></a>
-                    <a href="javascript:void(0);" title="Twitter" class="link"> <img src="{{asset('assets/front/images/')}}/twitter-icon-3d.png" title="Twitter"></a>
+                    <a href="{{ $setting->instagram ?? '' }}" title="Instagram" class="link"> <img src="{{asset('assets/front/images/')}}/instagram-icon-3d.png" title="Instagramm"></a>
+                    <a href="{{ $setting->tiktok ?? '' }}" title="Linkedin" class="link"> <img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png" title="Linkedin"></a>
+                    <a href="{{ $setting->facebook ?? '' }}" title="Facebook" class="link"> <img src="{{asset('assets/front/images/')}}/facebook-icon-3d.png" title="Facebook"></a>
+                    <a href="javascript:void(0);" title="Tiktok" class="link"> <img src="{{asset('assets/front/images/')}}/tiktok-icon-3d.png" title="Tiktok"></a>
                     <p class="wow fadeInRight copyright">Copyright © 2020 Beyondant | All Rights Reserved - Powered by Beyondant</p>
                 </div>
             </div>
@@ -295,4 +279,23 @@
     <script src="{{asset('assets/front/js/')}}/owl.carousel.min.js"></script>
     <!-- script js-->
     <script src="{{asset('assets/front/js/')}}/main.js"></script>
+    <script>
+        $(document).ready(function(){
+    /* Get iframe src attribute value i.e. YouTube video url
+    and store it in a variable */
+    var url = $("#Vids").attr('src');
+
+    /* Assign empty url value to the iframe src attribute when
+    modal hide, which stop the video playing */
+    $("#myModal").on('hide.bs.modal', function(){
+        $("#Vids").attr('src', '');
+    });
+
+    /* Assign the initially stored url back to the iframe src
+    attribute when modal is displayed again */
+    $("#myModal").on('show.bs.modal', function(){
+        $("#Vids").attr('src', url);
+    });
+});
+    </script>
 @endsection

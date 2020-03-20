@@ -102,7 +102,10 @@
                                                     Picture
                                                 </th>
                                                 <th>
-                                                    Name
+                                                    First Name
+                                                </th>
+                                                <th>
+                                                    Last Name
                                                 </th>
                                                 <th>
                                                     Email
@@ -119,7 +122,7 @@
                                                 </th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="action-buttons">
                                             </tbody>
                                         </table>
                                     </div>
@@ -130,6 +133,25 @@
                 </div>
 
 
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"  style="background-color: #343a40;
+            color: #fff;">
+                    <h2 class="modal-title">Confirmation</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin: 0;">Are you sure you want to delete this ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="ok_delete" name="ok_delete" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -193,8 +215,12 @@
                         name: 'image'
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'first_name',
+                        name: 'first_name'
+                    },
+                    {
+                        data: 'last_name',
+                        name: 'last_name'
                     },
                     {
                         data: 'email',
@@ -244,6 +270,23 @@
                     ajax();
                 }
             });
-        })
+        });
+        (function(){
+            let action_buttons = document.querySelector('#action-buttons');
+            action_buttons.addEventListener('click', event => {
+                if (Number(event.target.parentElement.getAttribute('data-col')) === 3 || event.target.getAttribute('data-col') == 3) {
+                    alert(event.target.parentElement.id ?? event.target.id);
+                } else if (event.target.parentElement.getAttribute('data-col') == 2 || event.target.getAttribute('data-col') == 2) {
+                    alert(event.target.id ?? event.target.parentElement.id);
+                }
+            });
+            /*const views = document.querySelectorAll('.views');
+            Array.from(views).forEach(event => {
+                event.addEventListener('click',function() {
+                    // let id = e.getAttribute('id');
+                    alert(1);
+                })
+            });*/
+        })();
     </script>
 @endsection

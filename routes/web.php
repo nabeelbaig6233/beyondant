@@ -27,6 +27,10 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::get('/setting','SettingController@index')->name('setting');
     Route::post('/setting/edit','SettingController@update')->name('setting.edit');
 
+    //    Home
+    Route::get('/home','HomeController@index')->name('admin.home');
+    Route::post('/home/edit','HomeController@update')->name('home.edit');
+
     // Role
     Route::get('/role','RoleController@index')->name('role');
     Route::any('/role/form/{form}','RoleController@form');
@@ -37,25 +41,35 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
 
     // Profile
     Route::get('/profile','ProfileController@index')->name('profile');
-    Route::any('/profile/form/{form}','ProfileController@form');
-    Route::any('/profile/form/{form}/{id}','ProfileController@form');
     Route::get('/profile/view/{id}','ProfileController@view');
     Route::delete('/profile/destroy/{id}','ProfileController@destroy');
     Route::post('/profile/delete_all','ProfileController@delete_all')->name('profile.delete_all');
+
+    // Reseller
+    Route::get('/reseller','ResellerController@index')->name('admin.reseller');
+    Route::get('/reseller/view/{id}','ResellerController@view');
+    Route::delete('/reseller/destroy/{id}','ResellerController@destroy');
+    Route::post('/reseller/delete_all','ResellerController@delete_all')->name('reseller.delete_all');
 
 });
 Auth::routes();
 
 Route::middleware(['allowguest'])->group(function (){
     Route::get('/', 'HomeController@index')->name('home');
-    Route::get('/profile/{id}','ProfileController@index')->name('pro');
+    Route::get('/profile/{id?}','ProfileController@index')->name('pro');
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
     Route::post('/profile/register','ProfileController@register')->name('profile-register');
+    Route::post('/upload-cover-pic/{id}','ProfileController@uploadCoverPic')->name('upload-cover-pic');
+    Route::post('/upload-profile-pic/{id}','ProfileController@uploadProfilePic')->name('upload-profile-pic');
+    Route::view('/reseller','front.reseller')->name('reseller');
+    Route::post('/reseller-submit', 'ResellerController@index')->name('reseller.submit');
 });
 
 Route::middleware(['customer'])->group(function () {
     Route::get('/edit-profile/{id}','ProfileController@editProfile')->name('edit-profile');
-    Route::put('/update-profile/{id}', 'ProfileController@updateProfile')->name('update-profile');
+    Route::patch('/update-profile/{id}', 'ProfileController@updateProfile')->name('update-profile');
+    Route::get('/changepassword/{id}','ProfileController@viewChangePassword')->name('changepassword');
+    Route::put('/change-password/{id}', 'ProfileController@changePassword')->name('change-password');
 });
 Route::fallback(function(){
     return "404 not found";

@@ -14,7 +14,7 @@ class VcardExport
         // add personal data
         $vcardObj->addName($contactResult->name);
         $vcardObj->addEmail($contactResult->email);
-        $vcardObj->addPhoneNumber($contactResult->mobile_number);
+        $vcardObj->addPhoneNumber($contactResult->mobile_number,'CELL');
         $vcardObj->addAddress($contactResult->address);
         $vcardObj->addCompany($contactResult->company_name);
         $vcardObj->addJobtitle($contactResult->title);

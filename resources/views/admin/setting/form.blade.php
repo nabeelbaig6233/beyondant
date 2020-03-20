@@ -41,17 +41,24 @@
                                     </div>
                                 </div>
                                 <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="reseller_email">Reseller Email <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="reseller_email" class="form-control" name="reseller_email" value="{{ !empty($record->reseller_email)?$record->reseller_email:'' }}" placeholder="Reseller Email" required="required" autofocus type="email" autocomplete="email">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="phone">Site Phone <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="phone" class="form-control" name="phone" value="{{ !empty($record->phone)?$record->phone:'' }}" placeholder="Site Phone" required="required" autofocus type="number" data-validate-length-range="10,15">
+                                        <input id="phone" class="form-control" name="phone" value="{{ !empty($record->phone)?$record->phone:'' }}" placeholder="Site Phone" required="required" autofocus type="text" data-validate-length-range="10,15">
                                     </div>
                                 </div>
                                 <div class="item form-group">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="fax">Site Fax <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="fax" class="form-control" name="fax" value="{{ !empty($record->fax)?$record->fax:'' }}" placeholder="Site Fax" required="required" autofocus type="number" data-validate-length-range="10,15">
+                                        <input id="fax" class="form-control" name="fax" value="{{ !empty($record->fax)?$record->fax:'' }}" placeholder="Site Fax" required="required" autofocus type="text" data-validate-length-range="10,15">
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -84,6 +91,22 @@
                                 </div>
 
                                 <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="tiktok">Tik Tok <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="tiktok" class="form-control" name="tiktok" value="{{ !empty($record->tiktok)?$record->tiktok:'' }}" placeholder="Tik Tok" required="required" autofocus type="url">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="footer_text">Footer Text <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <textarea name="footer_text" class="form-control" id="footer_text" rows="3" placeholder="Footer Text" required="required">{{ !empty($record->footer_text)?$record->footer_text:'' }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="logo">Logo <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -108,7 +131,7 @@
                                                 <img src="{{asset(!empty($record->favico)?$record->favico:'assets/admin/images/placeholder.png')}}" class="img-responsive">
                                                 <div class="file-btn">
                                                     <input type="file" id="favico" name="favico" accept=".jpg,.png">
-                                                    <input type="text" id="favico" name="favico" value="{{ !empty($record->logo) ? $record->logo : '' }}" hidden="">
+                                                    <input type="text" id="favico" name="favico" value="{{ !empty($record->favico) ? $record->favico : '' }}" hidden="">
                                                     <label class="btn btn-info">Upload</label>
                                                 </div>
                                             </div>
@@ -132,11 +155,4 @@
 @endsection
 @section('page_js')
     <script src="{{asset('assets/admin/validator/validator.js')}}"></script>
-    <script>
-        // Slug
-        function mySlug() {
-            let slug = document.getElementById('name').value;
-            document.getElementById('slug').value = slug.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'');
-        }
-    </script>
 @endsection

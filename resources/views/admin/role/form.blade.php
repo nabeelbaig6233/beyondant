@@ -97,10 +97,18 @@
 
                                     <tr>
                                         <td>Home Page</td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="createHome" <?php echo (in_array('createHome', $record))?'checked':'' ?>></td>
+                                        <td> - </td>
                                         <td><input type="checkbox" name="permission[]" id="permission" value="updateHome" <?php echo (in_array('updateHome', $record))?'checked':'' ?>></td>
                                         <td><input type="checkbox" name="permission[]" id="permission" value="viewHome" <?php echo (in_array('viewHome', $record))?'checked':'' ?>></td>
-                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteHome" <?php echo (in_array('deleteHome', $record))?'checked':'' ?>></td>
+                                        <td> - </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Reseller</td>
+                                        <td> - </td>
+                                        <td> - </td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewReseller" <?php echo (in_array('viewReseller', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteReseller" <?php echo (in_array('deleteReseller', $record))?'checked':'' ?>></td>
                                     </tr>
 
 

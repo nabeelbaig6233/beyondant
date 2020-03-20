@@ -26,7 +26,7 @@ class UserController extends Controller
                 })->addColumn('checkbox',function($data){
                     return '<input type="checkbox" class="delete_checkbox" value="'.$data->id.'">';
                 })->addColumn('action',function($data){
-                    return '<a title="Edit" href="user/edit/'.$data->id.'" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>&nbsp;<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                    return '<a data-col="1" title="Edit" href="user/edit/'.$data->id.'" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>&nbsp;<button data-col="2" data-row="' . $data->id . '" title="View" type="button" name="view" id="'.$data->id.'" class="views btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button data-col="3" data-row="' . $data->id . '" title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
                 })->rawColumns(['checkbox','action','image'])->make(true);
         }
         return view('admin.'.request()->segment(2).'.list')->with($content);
@@ -89,6 +89,6 @@ class UserController extends Controller
 
     public function delete_all(Request $request)
     {
-        dd($request);
+        dd($request->input('checkboxValue'));
     }
 }
