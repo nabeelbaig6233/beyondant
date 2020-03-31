@@ -23,7 +23,7 @@
                                 @guest
                                     <li><a href="{{route('login')}}" class="link linkNav">LOGIN</a></li>
                                 @else
-                                    <li><a href="{{route('pro',auth()->user()->id)}}" class="link linkNav">Profile</a></li>
+                                    <li><a href="{{route('pro',auth()->user()->id)}}" class="link linkNav">View Profile</a></li>
                                     <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="link linkNav">Logout</a></li>
                                     <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                                 @endguest
@@ -61,7 +61,7 @@
                                             @guest
                                                 <li><a href="{{route('login')}}" class="link linkNav">LOGIN</a></li>
                                             @else
-                                                <li><a href="{{route('pro',auth()->user()->id)}}" class="link linkNav">Profile</a></li>
+                                                <li><a href="{{route('pro',auth()->user()->id)}}" class="link linkNav">View Profile</a></li>
                                                 <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-forms').submit();" class="link linkNav">LOGOUT</a></li>
                                                 <form id="logout-forms" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                                             @endguest
@@ -83,7 +83,7 @@
                                         @guest
                                             <a class="btn btn-default transparent registerNow link" href="{{route('register')}}">Register Now For Free</a>
                                         @else
-                                            <a class="btn btn-default transparent registerNow link" href="{{route('pro',auth()->user()->id)}}">Profile</a>
+                                            <a class="btn btn-default transparent registerNow link" href="{{route('pro',auth()->user()->id)}}">View Profile</a>
                                         @endguest
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <iframe id="Vids" width="100%" height="315" src="https://www.youtube.com/embed/2ljxxQy8zHI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe id="Vids" width="100%" height="315" src="{{ $home->iframe  }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -249,9 +249,9 @@
                     <p class="wow fadeInRight contactDetails">{{ $setting->address ?? '' }}</p>
                     <h5 class="wow fadeInDown">Follow Us On</h5>
                     <a href="{{ $setting->instagram ?? '' }}" title="Instagram" class="link"> <img src="{{asset('assets/front/images/')}}/instagram-icon-3d.png" title="Instagramm"></a>
-                    <a href="{{ $setting->tiktok ?? '' }}" title="Linkedin" class="link"> <img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png" title="Linkedin"></a>
+                    <a href="{{ $setting->linkedin ?? '' }}" title="Linkedin" class="link"> <img src="{{asset('assets/front/images/')}}/linkedin-icon-3d.png" title="Linkedin"></a>
                     <a href="{{ $setting->facebook ?? '' }}" title="Facebook" class="link"> <img src="{{asset('assets/front/images/')}}/facebook-icon-3d.png" title="Facebook"></a>
-                    <a href="javascript:void(0);" title="Tiktok" class="link"> <img src="{{asset('assets/front/images/')}}/tiktok-icon-3d.png" title="Tiktok"></a>
+                    <a href="{{ $setting->tiktok ?? '' }}" title="Tiktok" class="link"> <img src="{{asset('assets/front/images/')}}/tiktok-icon-3d.png" title="Tiktok"></a>
                     <p class="wow fadeInRight copyright">Copyright © 2020 Beyondant | All Rights Reserved - Powered by Beyondant</p>
                 </div>
             </div>

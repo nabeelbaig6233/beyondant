@@ -1025,3 +1025,18 @@ section {
     }
 }
 
+.silc-btn-button-close {
+    background-color: #222c4b !important;
+}
+
+.silc-btn-button-color {
+    background-color: #222c4b !important;
+}
+
+a .title-font {
+    background: linear-gradient(to right, #0e1733, #515e7c) !important;
+}
+
+.si-msg-profile {
+    background-color: #be0103 !important;
+}

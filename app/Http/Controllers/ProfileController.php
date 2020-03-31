@@ -28,9 +28,9 @@ class ProfileController extends Controller
             return redirect($content['record']->linkedin);
         }
         elseif ((int)$content['record']->instagram_check == 1) {
-            return redirect('https://'.$content['record']->instagram);
+            return redirect($content['record']->instagram);
         } elseif ((int)$content['record']->tiktok_check == 1) {
-            return redirect('https://'.$content['record']->tiktok);
+            return redirect($content['record']->tiktok);
         } else {
             return view('front.profile',$content);
         }

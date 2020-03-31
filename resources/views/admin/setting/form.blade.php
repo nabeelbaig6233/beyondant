@@ -76,10 +76,10 @@
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="twitter">Twitter <span class="required">*</span>
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="linkedin">Linked In <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="twitter" class="form-control" name="twitter" value="{{ !empty($record->twitter)?$record->twitter:'' }}" placeholder="Twitter" required="required" autofocus type="url">
+                                        <input id="linkedin" class="form-control" name="linkedin" value="{{ !empty($record->linkedin)?$record->linkedin:'' }}" placeholder="Linked In" required="required" autofocus type="url">
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -103,6 +103,14 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6">
                                         <textarea name="footer_text" class="form-control" id="footer_text" rows="3" placeholder="Footer Text" required="required">{{ !empty($record->footer_text)?$record->footer_text:'' }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="reseller_text">Reseller Text <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <textarea name="reseller_text" class="form-control" id="reseller_text" rows="3" placeholder="Reseller Text" required="required">{{ !empty($record->reseller_text)?$record->reseller_text:'' }}</textarea>
                                     </div>
                                 </div>
 

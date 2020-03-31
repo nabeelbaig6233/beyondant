@@ -115,10 +115,11 @@
                                             <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 @if($record->mobile_check == 'Phone')
                                                     <span class="title">Phone Number</span>
-                                                    @else
+                                                    <span class="Subtitle">@php $ext = explode(" ",$record->contact_number); echo $ext[0].' '.$ext[1]; @endphp</span>
+                                                @else
                                                     <span class="title">Office Phone</span>
+                                                    <span class="Subtitle">@php $ext = explode(" ",$record->contact_number); echo $ext[0].' '.$ext[1]; echo !empty($ext[2])? ' Ext. '.$ext[2] : '' @endphp</span>
                                                 @endif
-                                                <span class="Subtitle">{{ $record->contact_number ?? '' }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -157,7 +158,7 @@
                                             </div>
                                             <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 <span class="title">Company Website</span>
-                                                <span class="Subtitle">{{ $record->website ?? '' }}</span>
+                                                <span class="Subtitle" style="word-wrap: break-word">{{ $record->website ?? '' }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -174,7 +175,7 @@
                                             </div>
                                             <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 <span class="title">Physical Address</span>
-                                                <span class="Subtitle">{{ $record->address ?? '' }}, {{ $record->city ?? '' }},  {{ $record->state ?? '' }}, {{ $record->province ?? '' }}, {{ $record->zipcode ?? '' }}</span>
+                                                <span class="Subtitle">{{ $record->address ?? '' }}, {{ $record->city ?? '' }},  {{ $record->state ?? '' }} {{ $record->zipcode ?? '' }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -302,10 +303,10 @@
             <div class="row contactInfo_child">
                 @if ($record->website_address == 'Website')
                     <div class="col-3"><img src="{{ asset('assets/front/images/globe-icon-red.png') }}" class="img-fluid"></div>
-                    <div class="col-9"><p>{{ $record->website_address ?? '' }}</p>{{ $record->website ?? '' }}</div>
+                    <div class="col-9" style="word-wrap: break-word"><p>{{ $record->website_address ?? '' }}</p>{{ $record->website ?? '' }}</div>
                 @else
                     <div class="col-3"><img src="{{ asset('assets/front/images/location-icon-red.png') }}" class="img-fluid"></div>
-                    <div class="col-9"><p>{{ $record->website_address ?? '' }}</p>{{ $record->address ?? '' }}, {{ $record->city ?? '' }}, {{ $record->state ?? '' }}, {{ $record->province ?? '' }}, {{ $record->zipcode ?? '' }}</div>
+                    <div class="col-9"><p>{{ $record->website_address ?? '' }}</p>{{ $record->address ?? '' }}, {{ $record->city ?? '' }}, {{ $record->state ?? '' }} {{ $record->zipcode ?? '' }}</div>
                 @endif
 
             </div>

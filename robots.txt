@@ -1,0 +1,1 @@
+sitemap: https://www.beyondant.com/sitemap.xml

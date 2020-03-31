@@ -86,7 +86,11 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="contact_number" name="contact_number" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" placeholder="Phone Number *" value="{{ $record->contact_number ?? '' }}" autocomplete="contact_number">
+                                                <input type="text" class="input-text" id="contact_number" name="contact_number" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999 @php $ext = explode(" ",$record->contact_number); echo !empty($ext[2])? '999' : '' @endphp&quot;" data-mask="" placeholder="Phone Number *" value="{{ $record->contact_number ?? '' }}" autocomplete="contact_number">
+                                                <div class="form-check sm checkbox-input checkBox_p">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="office_check" name="office_check">
+                                                    <label class="form-check-label" for="office_check" data-toggle="tooltip" data-placement="top" title="Check here for Office Extension"></label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
@@ -277,7 +281,12 @@
             $('[data-mask]').inputmask()
         })
         $(function () {
-              $('[data-toggle="tooltip"]').tooltip();
-            });
+          $('[data-toggle="tooltip"]').tooltip();
+          $(document).on('click','#office_check',function() {
+              if($('input#office_check').is(':checked')) {
+                  $('input#contact_number').inputmask({mask: '(999) 999-9999 999'});
+              }
+          });
+        });
     </script>
 @stop

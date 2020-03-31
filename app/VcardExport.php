@@ -12,7 +12,7 @@ class VcardExport
         // define vcard
         $vcardObj = new VCard();
         // add personal data
-        $vcardObj->addName($contactResult->name);
+        $vcardObj->addName($contactResult->first_name.' '.$contactResult->last_name);
         $vcardObj->addEmail($contactResult->email);
         $vcardObj->addPhoneNumber($contactResult->mobile_number,'CELL');
         $vcardObj->addAddress($contactResult->address);
