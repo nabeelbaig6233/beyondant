@@ -62,8 +62,12 @@
                       <li><a><i class="fa fa-user"></i> Users <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('profile')}}">Profiles</a></li>
+
+                            <li><a href="{{route('company')}}">Company Profiles</a></li>
                         </ul>
+
                       </li>
+
 
 
                     </ul>

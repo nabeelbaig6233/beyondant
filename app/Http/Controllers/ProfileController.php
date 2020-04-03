@@ -248,7 +248,7 @@ class ProfileController extends Controller
             'company_name' => "",
             'company_description' => "",
             'contact_number' => request()->get("phone")??"",
-            'mobile_number' => request()->get("f_name")??"",
+            'mobile_number' => request()->get("phone")??"",
             'mobile_check' => "Mobile",
             'email' => request()->get("email")??"",
             'address' => request()->get("location")??"wetewt",
@@ -267,7 +267,7 @@ class ProfileController extends Controller
             'facebook_check' => "",
             'password' => Hash::make($password),
             'acc_type' => request()->get("acc_type")??"personal",
-             'paren_id'=>request()->get("parent_id"),
+             'parent_id'=>request()->get("parent_id"),
         ]);
          $user=User::find(request()->get("parent_id"));
          Mail::to(request()->get("email"))->send(new CreateEmployeeMail($user->company_name,request()->get("email"),$password));
