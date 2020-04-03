@@ -1,6 +1,64 @@
 @extends('layouts.app')
 @section('content')
+
+{{--Emplyee Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="employeeModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="post" id="employeeForm">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle"><strong>Add Employee</strong></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="form-group col-6">
+                        <input type="text" class="form-control" name="f_name" placeholder="First Name" required />
+                        </div>
+                        <div class="form-group col-6">
+                        <input type="text" class="form-control" name="l_name" placeholder="Last Name" required />
+                        </div>
+                        <div class="form-group col-6">
+                            <input type="email" class="form-control" name="email" placeholder="Employee E-mail" required />
+                        </div>
+                        <div class="form-group col-6">
+                        <input type="text" class="form-control" name="title" placeholder="Title" required />
+                        </div>
+                        <div class="form-group col-12">
+                        <input type="text" class="form-control" name="ext" placeholder="Ext." required />
+                        </div>
+                        <div class="form-group col-6">
+                            <input type="text" class="form-control" id="phone" name="phone" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999 @php $ext = explode(" ",$record->contact_number); echo !empty($ext[2])? '999' : '' @endphp&quot;" data-mask="" placeholder="Phone Number *"  autocomplete="contact_number">
+                        </div>
+                        <div class="form-group col-6">
+                        <input type="text" class="form-control" name="location" placeholder="Location"  required />
+                        </div>
+
+                        <div class="col-12"  id="employee">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn text-dark" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" id="save_emp" style="background-color: #be0103">
+                        <span>Save</span>
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{{--End Employee Modal--}}
     <!-- Login page -->
+
     <div class="login_wrapper">
         <div class="container">
             <div class="col-md-12 pad-0">
@@ -20,10 +78,16 @@
                             </ul>
                         </div>
                     </div>
+
+
+
+
+
                     <div class="col-lg-8 col-sm-12">
                         <div class="login-inner-form">
                             <div class="details">
-                                <h3>Update <span>Your Account</span></h3>
+                                <h3>Update<span>Your {{$record->acc_type}} Account</span></h3>
+                                <p class="p-3"><strong>Desktop Display Is Preferred</strong></p>
                                 <form action="{{ route('update-profile',$record->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('patch')
@@ -242,25 +306,54 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-lg-12 col-lr">
+                                            <div class="form-group">
+                                                <select name="acc_type" id="acc_typ" class="input-text" data-validation="required">
+                                                    <option value="">Change Account Type</option>
+                                                    <option value="company" {{ (($record->acc_type == 'company') ? 'selected' : '' ) }}>Company</option>
+                                                    <option value="personal" {{ (($record->acc_type == 'personal') ? 'selected' : '' ) }}>Personal</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
                                         <div class="col-lg-12 col-lr">
                                             <div class="form-group">
+
                                                 <button type="submit" class="btn-md btn-theme btn-block">Update Now</button>
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </form>
+                                @can("add_employee",auth()->user())
+                                <div class="col-lg-6 col-lr offset-lg-3">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn-md btn-theme btn-block" data-toggle="modal" data-target="#employeeModal">Add Emplyee</button>
+                                    </div>
+                                </div>
+                                @endcan
+
+
+
+
                                 <a href="{{ route('changepassword',$record->id) }}"> Change Password</a>
                                 <p class="m-t-20"><a href="{{ route('pro',auth()->user()->id) }}"> Back</a></p>
                             </div>
+
+
+
                         </div>
                     </div>
 
+
+
                 </div>
             </div>
+
+
+
+
         </div>
+
     </div>
     <!-- /. Login page -->
 
@@ -272,14 +365,83 @@
     <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
     <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
     <script>
+        //  var id=0;
+        // //
+        // function addForms() {
+        //     var formElements=`<form name="${id}" id="${id}" class="form-inline form-horizontal p-3" >
+        //                             <input type="text" class="form-control col-2" name="f_name" placeholder="First Name" required />
+        //                             <input type="text" class="form-control col-2" name="l_name" placeholder="Last Name" required />
+        //                             <input type="text" class="form-control col-2" name="title" placeholder="Title" required />
+        //                             <input type="text" class="form-control col-2" name="ext" placeholder="Ext." required />
+        //                             <input type="text" class="col-2 form-control"  name="phone" placeholder="phone"  required />
+        //                             <input type="text" class="form-control col-2 " name="location" placeholder="Location"  required />
+        //                       </form>`;
+        //     $("#forms").append(formElements);
+        //     id++;
+        // }
+
+        async function readFormsAndAdd(){
+
+            $.ajaxSetup({
+
+                headers: {
+
+                    'X-CSRF-TOKEN': "{{csrf_token()}}"
+
+                }
+
+            });
+                var data1=$(`#employeeForm`).serializeArray();
+
+                var value={};
+                value["parent_id"]="{{$record->id}}";
+                data1.forEach((input)=>{
+                    value[input.name]=input.value;
+
+                });
+                var response=await $.ajax({
+                    url: "{{route("save-employees")}}",
+                    type: "POST",
+                    data: value
+                });
+            return response;
+        }
+
         $(document).ready(() => {
             $.validate({
                 lang: 'en'
             });
 
+
             //Money Euro
-            $('[data-mask]').inputmask()
-        })
+            $('[data-mask]').inputmask();
+
+            //Employee Form Deeling
+
+            //addForms();
+            // $("#emplyee_form_btn").click(function () {
+            //     addForms();
+            // });
+
+            $("#employeeForm").submit(function (e) {
+                e.preventDefault();
+                $("#employee").empty();
+                $("#employee").append("<p class='text-dark' id='msg'>Please Wait</p>");
+                $("#save_emp").addClass("disabled");
+                var result=readFormsAndAdd();
+                result.then((res)=>{
+                    $("#employee").empty();
+                    $("#employee").append("<p class='text-success'>Your employee got an email for his profile</p>");
+                    $("#save_emp").removeClass("disabled");
+                    $(':input','#employeeForm') .not(':button, :submit, :reset, :hidden') .val('')
+                        .removeAttr('checked') .removeAttr('selected');
+                }).catch((err)=>{
+                    console.log(err);
+                });
+            });
+
+
+        });
         $(function () {
           $('[data-toggle="tooltip"]').tooltip();
           $(document).on('click','#office_check',function() {

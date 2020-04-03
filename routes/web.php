@@ -57,13 +57,24 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::post('/reseller/delete_all','ResellerController@delete_all')->name('reseller.delete_all');
 
 });
-Auth::routes();
+Route::get("register",function (){
+    return redirect("/");
+})->name("register");
+
+
+Route::post('/save_emp', "ProfileController@save_employees")->name("save-employees");
+
+Auth::routes(["register"=>false]);
 
 
 
 Route::middleware(['allowguest'])->group(function (){
     Route::get('/', 'HomeController@index')->name('home');
+<<<<<<< HEAD
     Route::post('/subscribe', 'HomeController@subscribe');
+=======
+    Route::post("/register","HomeController@select_account")->name("account_select");
+>>>>>>> 55a6f458b2b25aca5e3749b1c9e96179c12da190
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
     Route::post('/profile/register','ProfileController@register')->name('profile-register');

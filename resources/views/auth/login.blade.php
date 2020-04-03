@@ -44,7 +44,7 @@
                                                 Remember me
                                             </label>
                                         </div>
-                                        <a href="forgot-password.blade.php">Forgot Password</a>
+                                        <a href="{{route("password.request")}}">Forgot Password</a>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn-md btn-theme btn-block">Login Now</button>

@@ -14,8 +14,17 @@ class HomeController extends Controller
         return view('front.home')->with('home',$home);
     }
 
+<<<<<<< HEAD
     public function subscribe(){
         return "HelloWorld";
     }
 
+=======
+    public function select_account(){
+        request()->validate([
+            "account_type"=>"required"
+        ]);
+        return view("auth.register",["type"=>request()->get("account_type")]);
+    }
+>>>>>>> 55a6f458b2b25aca5e3749b1c9e96179c12da190
 }

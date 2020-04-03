@@ -81,7 +81,9 @@
                                             <i class="far fa-play-circle"></i> Watch Video</a>
 
                                         @guest
-                                            <a class="btn btn-default transparent registerNow link" href="{{route('register')}}">Register Now For Free</a>
+                                            <button type="button" class="btn btn-default transparent registerNow link" data-toggle="modal" data-target="#selectionmodal">
+                                                Register Now For Free
+                                            </button>
                                         @else
                                             <a class="btn btn-default transparent registerNow link" href="{{route('pro',auth()->user()->id)}}">View Profile</a>
                                         @endguest
@@ -97,6 +99,44 @@
             </div>
         </div>
     </section>
+{{--Modal For Selection--}}
+
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="selectionmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><strong>What type of profile are you creating today?</strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{{route("account_select")}}" >
+                <div class="modal-body">
+
+                        {{csrf_field()}}
+                        <div class="form-check form-check-inline p-3">
+                            <input type="radio" class="form-check-input" name="account_type" value="personal" checked />
+                            <label class="form-check-label" >Personal Account</label>
+                            <input type="radio" name="account_type" class="form-check-input ml-2" value="company" />
+                            <label class="form-check-label">Company Account</label>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103" value="Continue" />
+{{--                    <button type="button" form="type" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103">Continue</button>--}}
+{{--                    <a class="btn transparent btn-danger " style="background-color: #be0103" href="{{route('register')}}">Continue</a>--}}
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {{--Modal selection ends--}}
+
     <!-- Main Header End -->
     <!-- Modal HTML -->
     <div id="myModal" class="modal fade">
