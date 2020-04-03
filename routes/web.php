@@ -44,11 +44,20 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::delete('/role/destroy/{id}','RoleController@destroy');
     Route::post('/role/delete_all','RoleController@delete_all')->name('role.delete_all');
 
+// Company
+    Route::get('/company','CompanyProfileController@index')->name('company');
+    Route::get('/company/view/{id}','CompanyProfileController@view');
+    Route::get('/company/showemp/{id}','CompanyProfileController@view_employees');
+    Route::delete('/company/destroy/{id}','CompanyProfileController@destroy');
+    Route::post('/company/delete_all','CompanyProfileController@delete_all')->name('company.delete_all');
+
     // Profile
     Route::get('/profile','ProfileController@index')->name('profile');
     Route::get('/profile/view/{id}','ProfileController@view');
     Route::delete('/profile/destroy/{id}','ProfileController@destroy');
     Route::post('/profile/delete_all','ProfileController@delete_all')->name('profile.delete_all');
+
+
 
     // Reseller
     Route::get('/reseller','ResellerController@index')->name('admin.reseller');
@@ -71,9 +80,11 @@ Auth::routes(["register"=>false]);
 Route::middleware(['allowguest'])->group(function (){
     Route::get('/', 'HomeController@index')->name('home');
 
-    Route::post('/subscribe', 'HomeController@subscribe');
 
     Route::post("/register","HomeController@select_account")->name("account_select");
+
+    Route::post('/subscribe', 'HomeController@subscribe')->name("subscribe");
+
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
     Route::post('/profile/register','ProfileController@register')->name('profile-register');

@@ -246,18 +246,31 @@
                     <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
                     <p class="wow fadeInRight">Subscribe to our newsletter for Updates & Offers</p>
 
-                    <form class="wow fadeInDown" method="POST" action="/public/subscribe">
-                        {{ csrf_field() }}
+                    <form  class="wow fadeInDown" method="post" action="{{route("subscribe")}}">
+                        {{csrf_field()}}
                         <div class="input-group">
+                            <input type="email" name="email" class="form-control" placeholder="Email Address" required="">
 
-                            <input type="email" class="form-control" placeholder="Email Address" required="">
                             <span class="input-group-btn">
                             <input type="submit" class="btn btn-default subscribe" value="Subscribe">
-                            
+
                         </span>
                         </div>
+                        <div class="pt-4">
+                            @error("email")
+                                <h4 class="text-danger">{{$message}}</h4>
+                            @enderror
+
+                            @if (session("subscribed"))
+                                    <h4 class="text-success">{{session("subscribed")}}</h4>
+
+                            @endif
+                        </div>
+
                     </form>
                 </div>
+
+
             </div>
         </div>
     </div>
