@@ -183,7 +183,7 @@
                                     <div class="card-box table-responsive">
                                         <table id="employee" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
-                                            <button type="button" class="btn btn-danger btn-xs" id="delete_all">Delete</button>
+
                                             <tr>
                                                 <th>{{ucwords(str_replace('_',' ','First Name'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','Last Name'))}}</th>
@@ -193,7 +193,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','Location'))}}</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="emp_body">
                                             </tbody>
                                         </table>
                                     </div>
@@ -322,34 +322,47 @@
                     }
                 })
             });
-            function table(id,data) {
-                return $("#employee").DataTable({
-                   data:data,
-                    columns: [
 
-                        {data: 'first_name', name: 'first_name'},
-                        {data: 'last_name', name: 'last_name'},
-                        {data: 'email', name: 'email'},
-                        {data: 'phone', name: 'phone'},
-                        {data: 'job_title', name: 'title'},
-                        {data: 'address', name: 'location'},
-                    ]
-                });
-            }
+
+
+
+           var tableForEmp = $("#employee").DataTable({
+               dom: "Blfrtip",
+               buttons: [{
+                   extend: "copy",
+                   className: "btn-sm"
+               }, {
+                   extend: "csv",
+                   className: "btn-sm"
+               }, {
+                   extend: "excel",
+                   className: "btn-sm"
+               }, {
+                   extend: "pdfHtml5",
+                   className: "btn-sm"
+               }, {
+                   extend: "print",
+                   className: "btn-sm"
+               }],
+               responsive: true,
+               columns:[{data: 'first_name', name: 'first_name'},
+                   {data: 'last_name', name: 'last_name'},
+                   {data: 'email', name: 'email'},
+                   {data: 'contact_number', name: 'phone'},
+                   {data: 'job_title', name: 'title'},
+                   {data: 'address', name: 'location'}]});
 
             //Show Employees
             $(document,this).on('click','.show_emp',function(){
                 let id = $(this).attr('id');
-
                 $.ajax({
                     url:`{{url('admin/'.request()->segment(2).'/showemp/')}}/${id}`,
                     dataType:"json",
                     success: function (data) {
-                        console.log(data);
-                        table(id,data.data);
-
+                        tableForEmp.clear().draw();
+                        tableForEmp.rows.add(data.data);
+                        tableForEmp.columns.adjust().draw();
                         $("#showEmpModal").modal('show');
-
                     }
                 })
             });
