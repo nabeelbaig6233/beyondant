@@ -245,6 +245,7 @@
                     <h2 class="wow fadeInLeft">Stay Connected</h2>
                     <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
                     <p class="wow fadeInRight">Subscribe to our newsletter for Updates & Offers</p>
+
                     <form  class="wow fadeInDown" method="post" action="{{route("subscribe")}}">
                         {{csrf_field()}}
                         <div class="input-group">
@@ -252,6 +253,7 @@
 
                             <span class="input-group-btn">
                             <input type="submit" class="btn btn-default subscribe" value="Subscribe">
+
                         </span>
                         </div>
                         <div class="pt-4">

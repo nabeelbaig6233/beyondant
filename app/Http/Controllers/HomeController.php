@@ -15,6 +15,7 @@ class HomeController extends Controller
         return view('front.home')->with('home',$home);
     }
 
+
     public function select_account(){
         request()->validate([
             "account_type"=>"required"
