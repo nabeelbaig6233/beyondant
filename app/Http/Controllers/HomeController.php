@@ -13,4 +13,9 @@ class HomeController extends Controller
         $home = home::findOrFail(1);
         return view('front.home')->with('home',$home);
     }
+
+    public function subscribe(){
+        return "HelloWorld";
+    }
+
 }

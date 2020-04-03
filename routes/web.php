@@ -15,6 +15,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+
+
+
+
 Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(function(){
     Route::get('/', 'DashboardController@index');
     Route::get('/users','UserController@index')->name('users');
@@ -54,8 +59,11 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
 });
 Auth::routes();
 
+
+
 Route::middleware(['allowguest'])->group(function (){
     Route::get('/', 'HomeController@index')->name('home');
+    Route::post('/subscribe', 'HomeController@subscribe');
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
     Route::post('/profile/register','ProfileController@register')->name('profile-register');
