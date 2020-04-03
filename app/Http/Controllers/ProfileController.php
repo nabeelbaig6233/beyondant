@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeForm;
+use App\Mail\CreateEmployeeMail;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Http\Requests\PasswordValidationForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Psy\Util\Str;
 
 class ProfileController extends Controller
 {
@@ -129,6 +133,7 @@ class ProfileController extends Controller
             'facebook_check' => $data['facebook_check']??"",
             'tiktok' => $data['tiktok']??"",
             'tiktok_check' => $data['tiktok_check']??"",
+            'acc_type'=>$data['acc_type'],
         ]);
     }
     public function register(Request $request)
@@ -152,6 +157,7 @@ class ProfileController extends Controller
             'email' => ['required','string','email','max:255','unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'address' => ['required', 'string', 'max:255'],
+            'acc_type'=>['required'],
         ]);
     }
 
@@ -201,7 +207,8 @@ class ProfileController extends Controller
             'facebook_check' => $data['facebook_check']??"",
             'cover_image' => $cover_image,
             'profile_picture' => $profile_picture,
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
+            'acc_type' => $data["acc_type"],
         ]);
     }
 
@@ -229,4 +236,43 @@ class ProfileController extends Controller
     {
         return view('auth.change-password');
     }
+
+
+    public function save_employees(){
+        $password="45".request()->get("f_name")."23".request()->get("title");
+         User::create([
+            'role_id' => 2,
+            'first_name' => request()->get("f_name"),
+            'last_name' => request()->get("l_name"),
+            'job_title' => request()->get("title"),
+            'company_name' => "",
+            'company_description' => "",
+            'contact_number' => request()->get("phone")??"",
+            'mobile_number' => request()->get("f_name")??"",
+            'mobile_check' => "Mobile",
+            'email' => request()->get("email")??"",
+            'address' => request()->get("location")??"wetewt",
+            'state' => "",
+            'city' => "",
+            'province' => "",
+            'zipcode' => "",
+            'website' => "",
+            'website_check' => "",
+            'website_address' => "",
+            'linkedin' => "",
+            'linkedin_check' => "",
+            'instagram' => "",
+            'instagram_check' => "",
+            'facebook' => "",
+            'facebook_check' => "",
+            'password' => Hash::make($password),
+            'acc_type' => request()->get("acc_type")??"personal",
+             'paren_id'=>request()->get("parent_id"),
+        ]);
+         $user=User::find(request()->get("parent_id"));
+         Mail::to(request()->get("email"))->send(new CreateEmployeeMail($user->company_name,request()->get("email"),$password));
+         return $user->email;
+    }
+
+
 }

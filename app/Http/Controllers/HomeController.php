@@ -13,4 +13,11 @@ class HomeController extends Controller
         $home = home::findOrFail(1);
         return view('front.home')->with('home',$home);
     }
+
+    public function select_account(){
+        request()->validate([
+            "account_type"=>"required"
+        ]);
+        return view("auth.register",["type"=>request()->get("account_type")]);
+    }
 }

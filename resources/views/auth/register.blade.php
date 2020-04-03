@@ -23,9 +23,10 @@
                     <div class="col-lg-8 col-sm-12">
                         <div class="login-inner-form">
                             <div class="details">
-                                <h3>Create Your <span>Free Account</span></h3>
+                                <h3>Create Your <span>Free {{$type}} Account</span></h3>
                                 <form action="{{ route('profile-register') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
+                                    <input type="hidden" name="acc_type" value="{{strtolower($type)}}">
                                     <div class="row">
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
