@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2020 at 09:56 PM
+-- Generation Time: Apr 06, 2020 at 09:05 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -21,6 +21,46 @@ SET time_zone = "+00:00";
 --
 -- Database: `beyoundant`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `entrepreneurs`
+--
+
+CREATE TABLE `entrepreneurs` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `f_name` varchar(255) NOT NULL,
+  `l_name` varchar(255) NOT NULL,
+  `company` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `address` varchar(255) NOT NULL,
+  `address_line_two` varchar(255) DEFAULT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `postal_code` varchar(10) NOT NULL,
+  `fed_tax_id` varchar(255) DEFAULT NULL,
+  `business_phone` varchar(20) DEFAULT NULL,
+  `business_status` enum('Corporation','Partnership','Individual','No Business Formed','Other (Please Specify)') NOT NULL,
+  `business_status_description` text,
+  `date_organized` datetime DEFAULT NULL,
+  `name_of_owner` varchar(255) DEFAULT NULL,
+  `about_beyondant` text NOT NULL,
+  `num_of_websites` int(5) UNSIGNED DEFAULT NULL,
+  `total_employees` int(11) UNSIGNED DEFAULT NULL,
+  `sales_employees` int(11) UNSIGNED DEFAULT NULL,
+  `current_primary_web_url` varchar(255) NOT NULL,
+  `brands` varchar(255) DEFAULT NULL,
+  `approx_turnover` enum('$0 - $1 Million','$1 - $10 Million','$10+ Million','Others (Please Specify)') DEFAULT NULL,
+  `approx_turnover_description` text,
+  `beyondant_promotion` datetime NOT NULL,
+  `short_paragraph` text NOT NULL,
+  `agreement` int(1) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -208,7 +248,8 @@ INSERT INTO `reseller` (`id`, `f_name`, `l_name`, `company`, `email`, `website`,
 (20, 'dsf', 'sdaf', 'sdfsd', 'mathswithnabeesl@gmail.com', NULL, 'street2', NULL, 'asd', 'sadsad', 'DE', '234', '3333', '34324', 'Corporation', NULL, NULL, NULL, 'dsfas', 213, NULL, NULL, 'asdf', NULL, '$1 - $10 Million', NULL, '2020-03-27 00:00:00', 'asdf', 0, NULL, NULL),
 (21, 'fd', 'dfsg', 'dsf', 'nb@nadorrcrm.com', 'dsfg', 'street2', NULL, 'ds', 'dfs', 'DE', '234', '5555', '534534', 'Individual', NULL, NULL, NULL, 'dfg', 435, 435, NULL, 'dfg', NULL, '$10+ Million', NULL, '2020-03-21 00:00:00', 'dfg', 0, NULL, NULL),
 (22, 'Bob', 'Antoville', NULL, 'bantov@gmail.com', NULL, '13924 Via Flora', 'Unit G', 'Delray Beach', 'FL', 'USA', '33484', '4416', '9146491300', 'Individual', NULL, NULL, NULL, 'M Rubin', 1, NULL, NULL, 'USA Select Clients', NULL, '$0 - $1 Million', NULL, '2020-04-01 00:00:00', 'ASAP', 0, NULL, NULL),
-(23, 'Kurt', 'Eisinger', NULL, 'eisingerk2@gmail.com', NULL, '93 Erie Ave', NULL, 'Rockaway', 'NJ', 'US', '07866', '0000', '9733494146', 'No Business Formed', 'LLC', NULL, NULL, 'Regel Group', 1, NULL, NULL, 'Any', NULL, '$0 - $1 Million', NULL, '2020-03-26 00:00:00', 'As soon as possible', 0, NULL, NULL);
+(23, 'Kurt', 'Eisinger', NULL, 'eisingerk2@gmail.com', NULL, '93 Erie Ave', NULL, 'Rockaway', 'NJ', 'US', '07866', '0000', '9733494146', 'No Business Formed', 'LLC', NULL, NULL, 'Regel Group', 1, NULL, NULL, 'Any', NULL, '$0 - $1 Million', NULL, '2020-03-26 00:00:00', 'As soon as possible', 0, NULL, NULL),
+(24, 'erqwr', 'weqrwer', 'eqwrqwer', 'alisyedamir2018@gmail.com', 'weqrwe', 'gdfgdsg', 'werqw', 'weefsa', 'ewfw', 'wefwqf', '324234', '2342', '32432423432', 'Corporation', NULL, '2019-03-04 00:00:00', '232', 'ssdafasdfsdfsdfsd', 12, 12, 12, 'vdfsdfsdfaasdf', 'safsadfsd', '$0 - $1 Million', NULL, '2019-02-03 00:00:00', 'asfsdfsdfsdfsdffd', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -252,6 +293,7 @@ CREATE TABLE `setting` (
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `footer_text` text COLLATE utf8mb4_unicode_ci,
   `reseller_text` text COLLATE utf8mb4_unicode_ci,
+  `internet_entrepreneurs_text` text COLLATE utf8mb4_unicode_ci,
   `reseller_email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `facebook` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `linkedin` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -270,8 +312,8 @@ CREATE TABLE `setting` (
 -- Dumping data for table `setting`
 --
 
-INSERT INTO `setting` (`id`, `language_id`, `title`, `email`, `phone`, `fax`, `address`, `footer_text`, `reseller_text`, `reseller_email`, `facebook`, `linkedin`, `instagram`, `tiktok`, `logo`, `favico`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 1, 'Beyondant', 'info@beyondant.com', '800 970-5877', '800 970-5877', '342 East 53rd Street, Suite #4EF\r\n\r\nNew York, NY 10022', 'A Smoother Way to Grow Your Business through Networking or Simply Grow Your Social Following.\r\nCreate your Custom Digital Business Cards with us and increase your customer interaction despite social distancing.', 'Calling qualified entrepreneurs! Join a growing network of Authorized Resellers and build a solid stream of income. Earn 20% or more in monthly commissions. Allow 7 business days for your application to be reviewed. We will be in touch soon and look forward to working with you!', 'resellers@beyondant.com', 'https://www.facebook.com/', 'https://www.linked.com', 'https://www.instagram.com/', 'https://www.tiktok.com/', 'assets/uploads/setting/1648940280.png', 'assets/uploads/setting/1530317221.png', 1, '2020-03-24 04:49:10', 1, '2020-03-24 04:49:10', NULL);
+INSERT INTO `setting` (`id`, `language_id`, `title`, `email`, `phone`, `fax`, `address`, `footer_text`, `reseller_text`, `internet_entrepreneurs_text`, `reseller_email`, `facebook`, `linkedin`, `instagram`, `tiktok`, `logo`, `favico`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, 1, 'Beyondant', 'info@beyondant.com', '800 970-5877', '800 970-5877', '342 East 53rd Street, Suite #4EF\r\n\r\nNew York, NY 10022', 'A Smoother Way to Grow Your Business through Networking or Simply Grow Your Social Following.\r\nCreate your Custom Digital Business Cards with us and increase your customer interaction despite social distancing.', 'Calling qualified entrepreneurs! Join a growing network of Authorized Resellers and build a solid stream of income. Earn 20% or more in monthly commissions. Allow 7 business days for your application to be reviewed. We will be in touch soon and look forward to working with you!', 'Calling all internet entrepreneurs! Join a growing network of\r\nAuthorized resellers and build a solid stream of income. Work from home\r\nAnd earn 15% or more in monthly commissions. Please allow 7 business\r\nDays for your application to be reviewed. We will be in touch with you\r\nSoon and look forward to working with you!', 'resellers@beyondant.com', 'https://www.facebook.com/', 'https://www.linked.com', 'https://www.instagram.com/', 'https://www.tiktok.com/', 'assets/uploads/setting/1648940280.png', 'assets/uploads/setting/1530317221.png', 1, '2020-04-06 15:57:53', 1, '2020-04-06 15:57:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -292,7 +334,8 @@ CREATE TABLE `subscribers` (
 
 INSERT INTO `subscribers` (`id`, `email`, `created_at`, `updated_at`) VALUES
 (1, 'alisyedamir2018@gmail.com', '2020-04-03 11:30:02', '2020-04-03 11:30:02'),
-(2, 'diana123@gmail.com', '2020-04-03 11:32:33', '2020-04-03 11:32:33');
+(2, 'diana123@gmail.com', '2020-04-03 11:32:33', '2020-04-03 11:32:33'),
+(3, 'alisyed@yus.com', '2020-04-03 15:05:08', '2020-04-03 15:05:08');
 
 -- --------------------------------------------------------
 
@@ -348,7 +391,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `first_name`, `last_name`, `email`, `email_verified_at`, `password`, `remember_token`, `contact_number`, `mobile_number`, `mobile_check`, `occupation`, `profile_picture`, `cover_image`, `job_title`, `company_name`, `company_description`, `address`, `state`, `city`, `province`, `zipcode`, `website`, `website_check`, `website_address`, `linkedin`, `linkedin_check`, `instagram`, `instagram_check`, `facebook`, `facebook_check`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`, `tiktok`, `tiktok_check`, `acc_type`, `parent_id`) VALUES
-(1, 1, 'Beyondant Web', NULL, 'admin@demo.com', NULL, '$2y$10$tra5AbjDt9FFmLC8itFAAONxHkCFtG62u3iXyzLYeuqfIDgwjfiVC', 'ZWH4yzZxCSdo4jPLGz68htpKreFzfqi5EMvYmIB5c6HbXNnYHXwushSmLwC7', '1234567890', NULL, '', 'C.E.O', 'assets/admin/images/1162149681.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-14 14:45:20', NULL, '2020-03-11 20:50:54', NULL, NULL, 0, 'personal', 0),
+(1, 1, 'Beyondant Web', NULL, 'admin@demo.com', NULL, '$2y$10$tra5AbjDt9FFmLC8itFAAONxHkCFtG62u3iXyzLYeuqfIDgwjfiVC', 'Wb3IjdcvIU0orc9hNvSASwvnLaLi6zA6gEpCBvrrTeivC5lOGtSJAOIszoUU', '1234567890', NULL, '', 'C.E.O', 'assets/admin/images/1162149681.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-14 14:45:20', NULL, '2020-03-11 20:50:54', NULL, NULL, 0, 'personal', 0),
 (11, 1, 'Albert Custom', NULL, 'albert@gmail.com', NULL, '$2y$10$98RO0l9cpedqIgB.fh6sEu0ikc/YoCdDEFmGlAV1MwSE8kQcmE/6S', NULL, '12345678910', NULL, '', 'Developer', 'assets/admin/images/1209642735.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-01-23 16:23:09', NULL, '2020-01-23 16:23:09', NULL, NULL, 0, 'personal', 0),
 (12, 2, 'Testing Fname Lname', 'qwerty', 'nb@nadocrm.com', NULL, '$2y$10$tra5AbjDt9FFmLC8itFAAONxHkCFtG62u3iXyzLYeuqfIDgwjfiVC', NULL, '(031) 232-1329 ___', '(234) 324-3243', 'Office Number', 'Developer', 'assets/admin/images/767582880.jpg', 'assets/admin/images/770345224.jpg', 'qwerty', 'qwerty', 'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero\'s De Finibus Bonorum et Malorum for use in a type specimen book.', 'street2', 'Newyork State', 'Newyork', 'USA', '32213', 'https://outsourceinpakistan.com/profile/12324234324234234234234234', 0, 'Website', 'https://outsourceinpakistan.com/', 0, 'https://myprojectstaging.com/custom/beyondant/public/edit-profile/12', 0, 'https://outsourceinpakistan.com/', 0, 1, '2020-01-23 18:05:34', NULL, '2020-03-24 02:22:06', NULL, 'https://myprojectstaging.com/custom/beyondant/public/edit-profile/12', 0, 'personal', 0),
 (14, 4, 'Master Admin', NULL, 'admin@admin.com', NULL, '$2y$10$MS8j/EHKg1SJXofp3wGAcuzF.ysib8odDMwsxc8X4UlCvYssxGO6W', NULL, '3333906233', NULL, '', 'PHP Developer', 'assets/admin/images/1611976308.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, '2020-02-27 17:37:28', NULL, '2020-02-28 14:59:04', NULL, NULL, 0, 'personal', 0),
@@ -408,13 +451,13 @@ INSERT INTO `users` (`id`, `role_id`, `first_name`, `last_name`, `email`, `email
 (81, 2, 'Chris', 'Viotti', 'Cviotti6@vetservices.com', NULL, '$2y$10$x1EZ3Q3p50R8qafZUmeAXOevQjnMW.oPNWPgFD1.tWTACi8WXMyu2', NULL, '(954) 869-4371', '(954) 869-4371', 'Phone', NULL, '', '', 'Owner', 'Oakland Animal Medical Center', 'Veterinarian Services', '1009 E. Commerical Blvd', 'FL', 'Oakland Park', '', '33334', 'http://bit.ly/oaklandgoogle', 1, 'Website', '', 0, '', 0, '', 0, 1, '2020-04-01 16:09:59', NULL, '2020-04-01 16:10:14', NULL, '', 0, 'personal', 0),
 (82, 2, 'Shunya', 'Roytman', 'Shunya@Finessecollection.com', NULL, '$2y$10$ByXYgAF0vW42i1X4kO9ssunl3A0Z/YjJIq3FHXOGtHl936T.zFHt.', NULL, '', '(561) 302-7351', 'Mobile', NULL, '', '', 'N/A', 'N/A', 'N/A', '9220 SW 14th Street  Apt. 3401', 'Fl', 'Boca Raton', '', '33428', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-01 17:53:02', NULL, '2020-04-01 17:53:02', NULL, NULL, 0, 'personal', 0),
 (83, 2, 'Chris', 'Viotti', 'CViotti@personal.com', NULL, '$2y$10$U49osEf5aycfYca2iPtbQ.Uc1dR1ag46Tw/N36Ltjvm43dkg3fqQ2', NULL, '(222) 222-2222', '(222) 222-2222', 'Phone', NULL, '', '', 'Owner', 'Sample', 'Sample', 'Sample', 'FL', 'Sample', '', '222222', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-01 19:55:15', NULL, '2020-04-01 19:55:15', NULL, NULL, 0, 'personal', 0),
-(84, 2, 'igigigi', 'igigiog', 'alisyedamir2018@gmail.com', NULL, '$2y$10$rMiOMNPOMZAIkRlqG4QiquWmzIq7EQb8rBBebRE6FEaW1YJKZaG3e', NULL, '(030) 450-9449', '(030) 450-9442', 'Mobile', NULL, '', '', 'jhgjjfjhfjsdasdsd', 'sdfs', 'hgcghch hgjhdcghc', 'sdfsdfasdaf', 'sdf', 'Karacho', 'dersdsdf', 'sdfsdf', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-02 13:55:43', NULL, '2020-04-03 06:16:42', NULL, '', 0, 'company', 0),
+(84, 2, 'igigigi', 'igigiog', 'alisyedamir2018@gmail.com', NULL, '$2y$10$rMiOMNPOMZAIkRlqG4QiquWmzIq7EQb8rBBebRE6FEaW1YJKZaG3e', NULL, '(030) 450-9449', '(030) 450-9442', 'Mobile', NULL, '', '', 'jhgjjfjhfjsdasdsd', 'sdfs', 'hgcghch hgjhdcghc', 'sdfsdfasdaf', 'sdf', 'Karacho', 'dersdsdf', 'sdfsdf', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-02 13:55:43', NULL, '2020-04-03 06:16:42', NULL, '', 0, 'personal', 0),
 (85, 2, 'Syed Faizan Ali', 'ali', 'diana123@gmail.com', NULL, '$2y$10$LqDGs31Ewsn/fNmQ9WfeteSYpsI58dCbSPauPPVAC.f/nGFM2NcdW', NULL, '(313) 209-9657', '(313) 209-9657', 'Mobile', NULL, '', '', 'Abu Ban Kababb', 'HP', 'df', 'gdfgdsg', 'dfg', 'dfsg', 'd', 'dfgsdfgdfsg', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-02 14:02:30', NULL, '2020-04-02 14:02:30', NULL, NULL, 0, 'personal', 0),
 (86, 2, 'ASHGSVADJCa', 'ausDVUAYD', 'diana@gmail.com', NULL, '$2y$10$Tp07aNQM.uv0DkrxRahtv.Y1qi4Sy8u7V2y8bAtk08L.Shoq0EwqS', NULL, '(031) 313-1313', '(213) 132-1313', 'Mobile', NULL, '', '', 'ASHDVAHGCD', 'SHGFJ', 'DSFAS', 'gdfgdsg', 'JSALFBKDBF', 'kARACHI', 'DSAFSDAF', 'SDFS', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-02 15:36:40', NULL, '2020-04-02 15:36:40', NULL, NULL, 0, 'personal', 0),
-(87, 2, 'ASHGSVADJCa', 'ausDVUAYD', 'diana23@gmail.com', NULL, '$2y$10$0DnKX90pk1T.lb0.mlFKB.X4dScXQWPcPixlQZWTaC/Gm4/Qg57a2', NULL, '(252) 525-2525', '(211) 212-3531', 'Mobile', NULL, '', '', 'ASHDVAHGCD', 'SHGFJ', 'DSFAS', 'gdfgdsg', 'JSALFBKDBF', 'kARACHI', 'DSAFSDAF', 'SDFS', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-02 15:41:20', NULL, '2020-04-02 15:41:20', NULL, NULL, 0, 'company', 0),
+(87, 2, 'ASHGSVADJCa', 'ausDVUAYD', 'diana23@gmail.com', NULL, '$2y$10$0DnKX90pk1T.lb0.mlFKB.X4dScXQWPcPixlQZWTaC/Gm4/Qg57a2', NULL, '(252) 525-2525', '(211) 212-3531', 'Mobile', NULL, '', '', 'ASHDVAHGCD', 'SHGFJ', 'DSFAS', 'gdfgdsg', 'JSALFBKDBF', 'kARACHI', 'DSAFSDAF', 'SDFS', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-02 15:41:20', NULL, '2020-04-02 15:41:20', NULL, NULL, 0, 'personal', 0),
 (88, 2, 'ASHGSVADJCa', 'ausDVUAYD', 'diana33@gmail.com', NULL, '$2y$10$ViCRTg9XfhInDB5MXxck4em3Sfo8tk3o/MuCko4WZSJG9ab3sc18m', NULL, '(233) 145-6456', '(456) 456-4564', 'Mobile', NULL, '', '', 'ASHDVAHGCD', 'SHGFJ', 'DSFAS', 'gdfgdsg', 'JSALFBKDBF', 'kARACHI', 'DSAFSDAF', 'SDFS', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-02 15:46:16', NULL, '2020-04-02 15:46:16', NULL, NULL, 0, 'personal', 0),
-(89, 2, 'ASHGSVADJCa', 'ausDVUAYD', 'diana43@gmail.com', NULL, '$2y$10$fXdS3hbsA98u2deJkT1Js.YunZnpQQhqfIMPIfmBByx6QgkWmfSx6', NULL, '(312) 313-1231', '(123) 123-1231', 'Mobile', NULL, '', '', 'ASHDVAHGCD', 'SHGFJ', 'DSFAS', 'gdfgdsg', 'JSALFBKDBF', 'kARACHI', 'DSAFSDAF', 'SDFS', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-02 15:51:14', NULL, '2020-04-02 15:51:14', NULL, NULL, 0, 'company', 0),
-(90, 2, 'Syed Aamir', 'Ali', 'alisyed@yus.com', NULL, '$2y$10$wQsELLdIJkrtZHG04s0A.ux4E89WqVIW0ietB5ioYWYd/ZNRalTLK', NULL, '(345) 345-345_', '(345) 345-3453', 'Mobile', NULL, '', '', 'sds', 'fsdfsd', 'sfsdfs', 'ertegsdg', 'erterter', 'rete', 'ert', 'ertertert', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-02 16:08:52', NULL, '2020-04-02 17:00:48', NULL, '', 0, 'company', 0),
+(89, 2, 'ASHGSVADJCa', 'ausDVUAYD', 'diana43@gmail.com', NULL, '$2y$10$fXdS3hbsA98u2deJkT1Js.YunZnpQQhqfIMPIfmBByx6QgkWmfSx6', NULL, '(312) 313-1231', '(123) 123-1231', 'Mobile', NULL, '', '', 'ASHDVAHGCD', 'SHGFJ', 'DSFAS', 'gdfgdsg', 'JSALFBKDBF', 'kARACHI', 'DSAFSDAF', 'SDFS', '', 0, 'Address', '', 0, '', 0, '', 0, 1, '2020-04-02 15:51:14', NULL, '2020-04-02 15:51:14', NULL, NULL, 0, 'personal', 0),
+(90, 2, 'Syed Aamir', 'Ali', 'alisyed@yus.com', NULL, '$2y$10$wQsELLdIJkrtZHG04s0A.ux4E89WqVIW0ietB5ioYWYd/ZNRalTLK', NULL, '(345) 345-345_', '(345) 345-3453', 'Mobile', NULL, '', '', 'sds', 'fsdfsd', 'sfsdfs', 'ertegsdg', 'erterter', 'rete', 'ert', 'ertertert', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-02 16:08:52', NULL, '2020-04-02 17:00:48', NULL, '', 0, 'personal', 0),
 (91, 2, 'fgdsfg', 'dsgdfgs', 'wetwett@uasd.com', NULL, '$2y$10$pQPyS5gizYGs46N0e3jKge.r9WwU16p5Aw7hBQeamSc9Y9dfhNj6O', NULL, 'ewtert', '435345345345', 'Mobile', NULL, NULL, NULL, 'dfsgdf', 'etertwet', 'ewtert', 'wetewt', 'werwrqrwq', 'eqrqwrwer', 'weqrqwrwr', 'wqrweqr', 'wqerqer', 0, '', 'weqwe', 0, '', 0, '', 0, 1, '2020-04-03 06:36:09', NULL, '2020-04-03 06:36:09', NULL, NULL, 0, 'personal', 0),
 (95, 2, 'dsfa', 'sdf', 'alisyedamir20183@gmail.com', NULL, '$2y$10$Cn60Skdn8.y2NhAXmDCIx.xJmIp10nERQNP7nsU2EZ3zaWkrxkOGG', NULL, '(324) 242-3424', 'dsfa', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 06:48:08', NULL, '2020-04-03 06:48:08', NULL, NULL, 0, 'personal', 0),
 (96, 2, 'dsfa', 'sdf', 'dianasdasd23423@gmail.com', NULL, '$2y$10$oRnyGRrQefuXW9v.2u6AqeFWJkmB9lrXrDEGWbaXl9I/PeLtVhEey', NULL, '(324) 234-2342', 'dsfa', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 07:13:25', NULL, '2020-04-03 07:13:25', NULL, NULL, 0, 'personal', 0),
@@ -433,16 +476,22 @@ INSERT INTO `users` (`id`, `role_id`, `first_name`, `last_name`, `email`, `email
 (116, 2, 'dsfa', 'gdsfg', 'eweqrerqwrfqefe@gmaisa.com', NULL, '$2y$10$Uv8Ejd3OLNyKtsOvx9Uo4.Lt6XedEc9QUYZvRGyq/S.Hhhiew.20i', NULL, '(234) 242-3424', 'dsfa', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 07:41:31', NULL, '2020-04-03 07:41:31', NULL, NULL, 0, 'personal', 0),
 (117, 2, 'dsfa', 'sdf', 'diana123q21313w@gmail.com', NULL, '$2y$10$B1c6TBRfnXUFWd4ZcVKcA.dR06D3tAWsiRVFH4IbgBfLzs16l0HGq', NULL, '(123) 123-1231', 'dsfa', 'Mobile', NULL, NULL, NULL, 'eeqweq', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 07:48:18', NULL, '2020-04-03 07:48:18', NULL, NULL, 0, 'personal', 0),
 (118, 2, 'dsfa', 'sdf', 'alisyedamirwqerwe2018@gmail.com', NULL, '$2y$10$zst/M8Ns2KkFeQjoKXVJGuq4G.DmWxl7ZZiczh.2KXAOfTKRN4bxu', NULL, '(123) 214-3434', 'dsfa', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'gdsfgdgdfg', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 07:49:26', NULL, '2020-04-03 07:49:26', NULL, NULL, 0, 'personal', 0),
-(119, 2, 'dfsgsdf', 'sdf', 'alisyedweqeamir2018@gmail.com', NULL, '$2y$10$EjWmXfuWak/splBdUSglx.dUMldEQhDZiKx2HxQplg0ktV70z1u/q', NULL, '(231) 231-2312', 'dfsgsdf', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 07:51:28', NULL, '2020-04-03 07:51:28', NULL, NULL, 0, 'personal', 90),
-(122, 2, 'Syed Faizan Ali', 'safsdf', 'alisyedfaiz1234@gmail.com', NULL, '$2y$10$wiXgC7uzogrYgmcphwSYsOP8SFZWNOZ1cDwq1ctx6Ov7kTiCboOTy', NULL, '(212) 312-3123', 'Syed Faizan Ali', 'Mobile', NULL, NULL, NULL, 'Faizan Post', '', '', 'werwer3qerqwr', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 08:01:03', NULL, '2020-04-03 08:01:03', NULL, NULL, 0, 'personal', 90),
+(119, 2, 'dfsgsdf', 'sdf', 'alisyedweqeamir2018@gmail.com', NULL, '$2y$10$EjWmXfuWak/splBdUSglx.dUMldEQhDZiKx2HxQplg0ktV70z1u/q', NULL, '(231) 231-2312', 'dfsgsdf', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 07:51:28', NULL, '2020-04-03 07:51:28', NULL, NULL, 0, 'company', 90),
+(122, 2, 'Syed Faizan Ali', 'safsdf', 'alisyedfaiz1234@gmail.com', NULL, '$2y$10$wiXgC7uzogrYgmcphwSYsOP8SFZWNOZ1cDwq1ctx6Ov7kTiCboOTy', NULL, '(212) 312-3123', 'Syed Faizan Ali', 'Mobile', NULL, NULL, NULL, 'Faizan Post', '', '', 'werwer3qerqwr', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 08:01:03', NULL, '2020-04-03 08:01:03', NULL, NULL, 0, 'company', 90),
 (123, 2, 'fsdafs', 'sdf', 'alisyedaamir123@hotmail.com', NULL, '$2y$10$zqRgQX2R4hfXbxAjUSmeFuLzzJ5hUFhZwqfKI.NHtBncXiXoya9d6', NULL, '(324) 242-3423', 'fsdafs', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 08:03:35', NULL, '2020-04-03 08:03:35', NULL, NULL, 0, 'personal', 0),
 (124, 2, 'werqwr', 'qwerqwe', 'wqer@jwheje.com', NULL, '$2y$10$440OXrG/GFt2dyJjE2i0eusW2z8M03CbGyGO9dtMTWQWFCCPwF2da', NULL, '(324) 234-2342', '(324) 234-2342', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 13:45:49', NULL, '2020-04-03 13:45:49', NULL, NULL, 0, 'personal', 0),
 (125, 2, 'dsfa', 'sdf', 'alisyedamewrqwerir2018@gmail.com', NULL, '$2y$10$EbtFt.2.cxpm0rv1BQHyo.NCe6ZoCHoqGzcwgJhiZa0lSTlZ/6eYC', NULL, '(342) 423-4234', '(342) 423-4234', 'Mobile', NULL, NULL, NULL, 'Faizan Post Changed', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 13:47:27', NULL, '2020-04-03 13:47:27', NULL, NULL, 0, 'personal', 0),
-(126, 2, 'dsfa', 'sdf', 'alisyewqrdamewrqir2018@gmail.com', NULL, '$2y$10$1o0lLr0lq80KWn81pngIO.xzksYuW/hpDTM8mw1Tkh4ZCWT57igVG', NULL, '(324) 234-2342', '(324) 234-2342', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 13:49:05', NULL, '2020-04-03 13:49:05', NULL, NULL, 0, 'personal', 84);
+(126, 2, 'dsfa', 'sdf', 'alisyewqrdamewrqir2018@gmail.com', NULL, '$2y$10$1o0lLr0lq80KWn81pngIO.xzksYuW/hpDTM8mw1Tkh4ZCWT57igVG', NULL, '(324) 234-2342', '(324) 234-2342', 'Mobile', NULL, NULL, NULL, 'New Post', '', '', 'sdaf', '', '', '', '', '', 0, '', '', 0, '', 0, '', 0, 1, '2020-04-03 13:49:05', NULL, '2020-04-03 13:49:05', NULL, NULL, 0, 'company', 84);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `entrepreneurs`
+--
+ALTER TABLE `entrepreneurs`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -512,6 +561,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `entrepreneurs`
+--
+ALTER TABLE `entrepreneurs`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -539,7 +594,7 @@ ALTER TABLE `profiles`
 -- AUTO_INCREMENT for table `reseller`
 --
 ALTER TABLE `reseller`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -557,7 +612,7 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `subscribers`
 --
 ALTER TABLE `subscribers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
