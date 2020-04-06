@@ -65,6 +65,12 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::delete('/reseller/destroy/{id}','ResellerController@destroy');
     Route::post('/reseller/delete_all','ResellerController@delete_all')->name('reseller.delete_all');
 
+    // Entrepreneurs
+    Route::get('/entrepreneurs','EntrepreneursController@index')->name('admin.entrepreneurs');
+    Route::get('/entrepreneurs/view/{id}','EntrepreneursController@view');
+    Route::delete('/entrepreneurs/destroy/{id}','EntrepreneursController@destroy');
+    Route::post('/entrepreneurs/delete_all','EntrepreneursController@delete_all')->name('entrepreneurs.delete_all');
+
 });
 Route::get("register",function (){
     return redirect("/");
@@ -79,12 +85,10 @@ Auth::routes(["register"=>false]);
 
 Route::middleware(['allowguest'])->group(function (){
     Route::get('/', 'HomeController@index')->name('home');
-
-
     Route::post("/register","HomeController@select_account")->name("account_select");
-
     Route::post('/subscribe', 'HomeController@subscribe')->name("subscribe");
-
+    Route::view('/entrepreneurs','front.internet_entrepreneurs')->name("entrepreneurs");
+    Route::post('/entrepreneurs','EntrepreneursController@store')->name("entrepreneurs.submit");
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
     Route::post('/profile/register','ProfileController@register')->name('profile-register');
