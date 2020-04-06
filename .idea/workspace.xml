@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0e185e7-d0ae-4dd3-8487-8f91bbbfdd45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/all())" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/EntrepreneursController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/EntrepreneursController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Requests/EntrepreneursRequest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Mail/EntrepreneursMail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/remove('_token')" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reseller_email" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/entrepreneurs/list.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/emails/entrepreneurs.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/front/internet_entrepreneurs.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/send(new" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/with('success'" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/front/reseller.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/reseller.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EntrepreneursController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EntrepreneursController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +229,7 @@
       <workItem from="1586162656885" duration="53000" />
       <workItem from="1586162954011" duration="29000" />
       <workItem from="1586163227010" duration="309000" />
-      <workItem from="1586186141969" duration="11815000" />
+      <workItem from="1586186141969" duration="12230000" />
     </task>
     <servers />
   </component>

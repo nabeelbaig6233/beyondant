@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Mail;
 class EntrepreneursController extends Controller
 {
     public function store(EntrepreneursRequest $request){
-        $reseller_email=DB::table("entrepreneurs")->find(1);
+        $reseller_email = DB::table('setting')->where('id',1)->first()->reseller_email;
         $request->request->remove("_token");
-        Mail::to('alisyedamir2018@gmail.com')->send(new EntrepreneursMail($request->all()));
+        Mail::to($reseller_email)->send(new EntrepreneursMail($request->all()));
         DB::table("entrepreneurs")->insert($request->all());
         return redirect()->route('home')->with('success','Thank you for your submission! Please allow 5 to 7 business days for processing.');
     }
