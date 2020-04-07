@@ -223,12 +223,8 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('zipcode') is-invalid @enderror" id="zipcode" name="zipcode" data-validation="required" placeholder="Zip Code *" value="{{ $record->zipcode ?? '' }}" required autocomplete="zipcode">
-                                                @error('zipcode')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text" id="zipcode" name="zipcode"  placeholder="Zip Code *" value="{{ $record->zipcode ?? '' }}"  autocomplete="zipcode">
+
                                             </div>
                                         </div>
 
