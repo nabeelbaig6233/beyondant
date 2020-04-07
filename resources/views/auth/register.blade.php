@@ -144,12 +144,14 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('address') is-invalid @enderror" id="address" name="address" data-validation="required" placeholder="Address *" value="{{ old('address') }}" required autocomplete="address">
-                                                @error('address')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text " id="address" name="address"  placeholder="Address *" value="{{ old('address') }}"  autocomplete="address">
+{{--@error('address') is-invalid @enderror
+    @error('address')--}}
+
+{{--                                                <span class="text-danger" role="alert">--}}
+{{--                                                        <strong>{{ $message }}</strong>--}}
+{{--                                                    </span>--}}
+{{--                                                @enderror--}}
                                             </div>
                                         </div>
 
