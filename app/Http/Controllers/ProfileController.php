@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ViewErrorBag;
 use Psy\Util\Str;
 
 class ProfileController extends Controller
@@ -138,12 +139,20 @@ class ProfileController extends Controller
     }
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $check=$this->validator($request->all());
+        if($check->fails()) {
 
+            $request->session()->flashInput($request->input());
+            return view("auth.register",["type"=>request()->session()->get("acc_type")])->with(
+                'errors',
+                (new ViewErrorBag())->put('default', $check->getMessageBag())
+            );
+        }
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
         return redirect($this->redirectTo($user));
+
     }
 
     public function validator(array $data)
@@ -156,7 +165,6 @@ class ProfileController extends Controller
             'mobile_number' => ['required','string','max:255'],
             'email' => ['required','string','email','max:255','unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'address' => ['required', 'string', 'max:255'],
             'acc_type'=>['required'],
         ]);
     }

@@ -21,6 +21,7 @@ class HomeController extends Controller
         request()->validate([
             "account_type"=>"required"
         ]);
+        request()->session()->put("acc_type",request()->get("account_type"));
         return view("auth.register",["type"=>request()->get("account_type")]);
     }
 
