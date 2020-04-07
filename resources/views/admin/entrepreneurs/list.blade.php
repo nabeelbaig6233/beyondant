@@ -50,6 +50,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','company'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','email'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','website'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','current_primary_web_url'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','address'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','address_line_two'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','country'))}}</th>
@@ -159,7 +160,7 @@
                                 <td id="about_beyondant" align="center"></td>
                             </tr>
                             <tr>
-                                <th>{{ucwords(str_replace('_',' ','num_of_locations'))}}</th>
+                                <th>{{ucwords(str_replace('_',' ','num_of_websites'))}}</th>
                                 <td id="num_of_websites" align="center"></td>
                             </tr>
                             <tr>
@@ -265,7 +266,7 @@
                 serverSide: true,
                 pageLength: 10,
                 ajax: {
-                    url: `{{route('admin.reseller')}}`,
+                    url: `{{route('admin.entrepreneurs')}}`,
                 },
                 columns: [
                     {data: 'checkbox', name: 'checkbox', orderable: false},
@@ -274,6 +275,7 @@
                     {data: 'company', name: 'company'},
                     {data: 'email', name: 'email'},
                     {data: 'website', name: 'website'},
+                    {data: 'current_primary_web_url', name: 'current_primary_web_url'},
                     {data: 'address', name: 'address'},
                     {data: 'address_line_two', name: 'address_line_two'},
                     {data: 'country', name: 'country'},
@@ -308,10 +310,10 @@
                         $("#date_organized").html(data.date_organized);
                         $("#name_of_owner").html(data.name_of_owner);
                         $("#about_beyondant").html(data.about_beyondant);
-                        $("#num_of_locations").html(data.num_of_locations);
+                        $("#num_of_websites").html(data.num_of_websites);
                         $("#total_employees").html(data.total_employees);
                         $("#sales_employees").html(data.sales_employees);
-                        $("#preferred_territory").html(data.preferred_territory);
+                        $("#current_primary_web_url").html(data.current_primary_web_url);
                         $("#brands").html(data.brands);
                         $("#approx_turnover").html(data.approx_turnover);
                         $("#approx_turnover_description").html(data.approx_turnover_description);

@@ -94,6 +94,18 @@
                                 <ul class="nav child_menu">
                                     @if (in_array('viewReseller',\Request::get('permission')))
                                         <li><a href="{{ route('admin.reseller') }}">Reseller</a>
+
+                                    @endif
+                                </ul>
+                            </li>
+
+                        </ul>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-clone"></i> Entrepreneurs <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    @if (in_array('viewReseller',\Request::get('permission')))
+                                        <li><a href="{{ route('admin.entrepreneurs') }}">Entrepreneurs</a>
+
                                     @endif
                                 </ul>
                             </li>
