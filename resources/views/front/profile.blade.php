@@ -89,7 +89,7 @@
                         <div class="pCd">
                             <span class="title">Company Description</span>
                         <!--<span class="Subtitle">{{ $record->job_title ?? '' }}</span>-->
-                            {!! $record->company_description?? '' !!}
+                            {!! isset($companyInfo)?$companyInfo->company_description:$record->company_description?? '' !!}
                         </div>
                     </div>
                     <div class="col-lg-8 wow fadeInRight animated" style="visibility: visible;">
@@ -101,10 +101,11 @@
                                     </div>
                                     <div class="col-lg-11 col-11 col-L-paddN">
                                         <span class="title">Company Name</span>
-                                        <span class="Subtitle">{{ $record->company_name ?? '' }}</span>
+                                        <span class="Subtitle">{{ isset($companyInfo)?$companyInfo->company_name:$record->company_name ?? '' }}</span>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="pCd_col">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
@@ -115,10 +116,10 @@
                                             <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 @if($record->mobile_check == 'Phone')
                                                     <span class="title">Phone Number</span>
-                                                    <span class="Subtitle">@php $ext = explode(" ",$record->contact_number); echo $ext[0].' '.$ext[1]; @endphp</span>
+                                                    <span class="Subtitle">@php $ext = explode(" ",$companyInfo->contact_number??$record->contact_number); echo $ext[0].' '.$ext[1]; @endphp</span>
                                                 @else
                                                     <span class="title">Office Phone</span>
-                                                    <span class="Subtitle">@php $ext = explode(" ",$record->contact_number); echo $ext[0].' '.$ext[1]; echo !empty($ext[2])? ' Ext. '.$ext[2] : '' @endphp</span>
+                                                    <span class="Subtitle">@php $ext = explode(" ",$companyInfo->contact_number??$record->contact_number); echo $ext[0].' '.$ext[1]; echo !empty($ext[2])? ' Ext. '.$ext[2] : '' @endphp</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -158,7 +159,7 @@
                                             </div>
                                             <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 <span class="title">Company Website</span>
-                                                <span class="Subtitle" style="word-wrap: break-word">{{ $record->website ?? '' }}</span>
+                                                <span class="Subtitle" style="word-wrap: break-word">{{ $companyInfo->website??$record->website  }}</span>
                                             </div>
                                         </div>
                                     </div>

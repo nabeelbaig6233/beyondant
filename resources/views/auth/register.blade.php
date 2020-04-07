@@ -151,45 +151,29 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('city') is-invalid @enderror" id="city" name="city" data-validation="required" placeholder="City *" value="{{ old('city') }}" required autocomplete="city">
-                                                @error('city')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text" id="city" name="city" placeholder="City *" value="{{ old('city') }}"  autocomplete="city">
+
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('state') is-invalid @enderror" id="state" name="state" data-validation="required" placeholder="State *" value="{{ old('state') }}" required autocomplete="state">
-                                                @error('state')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text " id="state" name="state"  placeholder="State *" value="{{ old('state') }}"  autocomplete="state">
+
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('province') is-invalid @enderror" id="province" name="province" placeholder="Province" autocomplete="province">
-                                                @error('province')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text" id="province" name="province" placeholder="Province" autocomplete="province">
+
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('zipcode') is-invalid @enderror" id="zipcode" name="zipcode" data-validation="required" placeholder="Zip Code *" value="{{ old('zipcode') }}" required autocomplete="zipcode">
-                                                @error('zipcode')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text " id="zipcode" name="zipcode"  placeholder="Zip Code *" value="{{ old('zipcode') }}"  autocomplete="zipcode">
+
                                             </div>
                                         </div>
 
