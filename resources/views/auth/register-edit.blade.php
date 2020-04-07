@@ -33,7 +33,7 @@
                         <input type="text" class="form-control" name="ext" placeholder="Ext." required />
                         </div>
                         <div class="form-group col-6">
-                            <input type="text" class="form-control" id="phone" name="phone" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999 @php $ext = explode(" ",$record->contact_number); echo !empty($ext[2])? '999' : '' @endphp&quot;" data-mask="" placeholder="Phone Number *"  autocomplete="contact_number">
+                            <input type="text" class="form-control" id="phone" name="phone" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999 @php $ext = explode(" ",$record->contact_number); echo !empty($ext[2])? '999' : '' @endphp&quot;" data-mask="" placeholder="Direct Phone Number *"  autocomplete="contact_number">
                         </div>
                         <div class="form-group col-6">
                         <input type="text" class="form-control" name="location" placeholder="Location"  required />
@@ -47,7 +47,7 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn text-dark" data-dismiss="modal">Close</button>
+                    <button type="button" id="close" class="btn text-dark">Close</button>
                     <button type="submit" class="btn btn-danger" id="save_emp" style="background-color: #be0103">
                         <span>Save</span>
                     </button>
@@ -86,7 +86,7 @@
                     <div class="col-lg-8 col-sm-12">
                         <div class="login-inner-form">
                             <div class="details">
-                                <h3>Update<span>Your {{$record->acc_type}} Account</span></h3>
+                                <h3>Update<span> Your {{$record->acc_type}} Account</span></h3>
                                 <p class="p-3"><strong>Desktop Display Is Preferred</strong></p>
                                 <form action="{{ route('update-profile',$record->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -193,34 +193,20 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('address') is-invalid @enderror" id="address" name="address" data-validation="required" placeholder="Address *" value="{{ $record->address ?? '' }}" required autocomplete="address">
-                                                @error('address')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text" id="address" name="address"  placeholder="Address *" value="{{ $record->address ?? '' }}"  autocomplete="address">
+
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('city') is-invalid @enderror" id="city" name="city" data-validation="required" placeholder="City *" value="{{ $record->city ?? '' }}" required autocomplete="city">
-                                                @error('city')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text" id="city" name="city"  placeholder="City *" value="{{ $record->city ?? '' }}"  autocomplete="city">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('state') is-invalid @enderror" id="state" name="state" data-validation="required" placeholder="State *" value="{{ $record->state ?? '' }}" required autocomplete="state">
-                                                @error('state')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text" id="state" name="state"  placeholder="State *" value="{{ $record->state ?? '' }}"  autocomplete="state">
                                             </div>
                                         </div>
 
@@ -327,7 +313,7 @@
                                 @can("add_employee",auth()->user())
                                 <div class="col-lg-6 col-lr offset-lg-3">
                                     <div class="form-group">
-                                        <button type="submit" class="btn-md btn-theme btn-block" data-toggle="modal" data-target="#employeeModal">Add Emplyee</button>
+                                        <button type="submit" class="btn-md btn-theme btn-block" data-toggle="modal" data-target="#employeeModal">Add Employee</button>
                                     </div>
                                 </div>
                                 @endcan
@@ -431,15 +417,30 @@
                 var result=readFormsAndAdd();
                 result.then((res)=>{
                     $("#employee").empty();
-                    $("#employee").append("<p class='text-success'>Your employee got an email for his profile</p>");
+                    $("#employee").append("<p class='text-success'>An email was sent to your employee with the needed login credentials</p>");
                     $("#save_emp").removeClass("disabled");
+
                     $(':input','#employeeForm') .not(':button, :submit, :reset, :hidden') .val('')
                         .removeAttr('checked') .removeAttr('selected');
+                    $("#employeeModal").modal().hide();
+                    $("#employee").empty();
+                    $("#save_emp").removeClass("disabled");
+                    js_success("An email was sent to your employee with the needed login credentials");
+                    $(".modal-backdrop").remove();
+
                 }).catch((err)=>{
-                    console.log(err);
+                    $("#employee").empty();
+                    $("#employee").append("<p class='text-danger'>An employee with these email already exist</p>");
+                    $("#save_emp").removeClass("disabled");
                 });
             });
 
+            $("#close").on("click",function () {
+                $(':input','#employeeForm') .not(':button, :submit, :reset, :hidden') .val('')
+                    .removeAttr('checked') .removeAttr('selected');
+                $("#employeeModal").modal().hide();
+                $(".modal-backdrop").remove();
+            });
 
         });
         $(function () {
