@@ -22,7 +22,11 @@ class ProfileController extends Controller
         $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->first();
 //        dd($content['record']);
         if (!empty($content['record'])) {
-            if (Auth::check() == true) {
+            if (Auth::check() == true && auth()->user()->parent_id==0) {
+                return view('front.profile',$content);
+            }
+            else{
+                $content["companyInfo"]=User::find(Auth::user()->parent_id);
                 return view('front.profile',$content);
             }
         if ((int)$content['record']->facebook_check == 1) {

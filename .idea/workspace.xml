@@ -3,7 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="e0e185e7-d0ae-4dd3-8487-8f91bbbfdd45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/ProfileController.php" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/register-edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register-edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/emails/employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/employee.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/front/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/front/profile.blade.php" afterDir="false" />
+>>>>>>> dceb3749093fb9d151729517d6fb7b4d2cd18cf9
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,10 +253,14 @@
       <workItem from="1586163227010" duration="309000" />
       <workItem from="1586186141969" duration="14028000" />
       <workItem from="1586242803553" duration="748000" />
+<<<<<<< HEAD
       <workItem from="1586244800580" duration="16653000" />
       <workItem from="1586296139223" duration="781000" />
       <workItem from="1586299368355" duration="7594000" />
       <workItem from="1586353448405" duration="807000" />
+=======
+      <workItem from="1586244800580" duration="28134000" />
+>>>>>>> dceb3749093fb9d151729517d6fb7b4d2cd18cf9
     </task>
     <servers />
   </component>
