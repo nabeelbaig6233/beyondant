@@ -14,9 +14,9 @@ class ProfileController extends Controller
             return redirect('admin');
         }
         $content['title'] = ucwords(str_replace('-',' ',request()->segment(2)));
-//        dd(User::latest()->where('role_id',2)->get());
         if (request()->ajax()) {
-            return datatables()->of(User::latest()->where([['role_id',"=",2],["acc_type","=","personal"]])->get())
+            $where = (auth()->user()->role_id == 5) ? [['parent_id','=', auth()->user()->id],['role_id',"=",2],["acc_type","=","personal"]] : [['role_id',"=",2],["acc_type","=","personal"]];
+            return datatables()->of(User::latest()->where($where)->get())
                 ->addColumn('image',function ($data){
                     return '<img width="65" src="'.asset(!empty($data->profile_picture)?$data->profile_picture:'assets/admin/images/placeholder.png').'">';
                 })
@@ -26,7 +26,9 @@ class ProfileController extends Controller
                 ->addColumn('profile_link', function ($data) {
                     return '<a target="_blank" href="' . route('pro',$data->id) . '">'. $data->first_name .'</a>';
                 })->addColumn('action',function($data){
-                    return '<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                    $actions='<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                    return auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>':
+                        $actions;
                 })->rawColumns(['checkbox','action','image','profile_link'])->make(true);
         }
         return view('admin.'.request()->segment(2).'.list')->with($content);

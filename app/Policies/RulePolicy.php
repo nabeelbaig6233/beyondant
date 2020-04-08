@@ -20,6 +20,6 @@ class RulePolicy
     }
 
     public function add_employee(User $user){
-        return $user->acc_type=="company"?true:false;
+        return $user->role_id===5?true:false;
     }
 }

@@ -20,15 +20,17 @@ class ProfileController extends Controller
     public function index($id)
     {
         $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->first();
-//        dd($content['record']);
+//        dd($content['record']->parent_id);
         if (!empty($content['record'])) {
-            if (Auth::check() == true && auth()->user()->parent_id==0) {
-                return view('front.profile',$content);
+            if (Auth::check()) {
+                if(auth()->user()->parent_id==0){
+                    return view('front.profile',$content);}
+                else{
+                    $content["companyInfo"]=User::find(Auth::user()->parent_id);
+                    return view('front.profile',$content);
+                }
             }
-            else{
-                $content["companyInfo"]=User::find(Auth::user()->parent_id);
-                return view('front.profile',$content);
-            }
+
         if ((int)$content['record']->facebook_check == 1) {
             return redirect($content['record']->facebook);
         } elseif ((int)$content['record']->website_check == 1) {
@@ -41,6 +43,7 @@ class ProfileController extends Controller
         } elseif ((int)$content['record']->tiktok_check == 1) {
             return redirect($content['record']->tiktok);
         } else {
+            $content["companyInfo"]=User::find(User::find($id)->parent_id);
             return view('front.profile',$content);
         }
         } else {
@@ -193,7 +196,7 @@ class ProfileController extends Controller
         }
 
         return User::create([
-            'role_id' => 2,
+            'role_id' => ($data["acc_type"] == 'personal') ? 2 : 5,
             'first_name' => $data['first_name']??"",
             'last_name' => $data['last_name']??"",
             'job_title' => $data['job_title']??"",
@@ -284,6 +287,40 @@ class ProfileController extends Controller
          $user=User::find(request()->get("parent_id"));
          Mail::to(request()->get("email"))->send(new CreateEmployeeMail($user->company_name,request()->get("email"),$password));
          return $user->email;
+    }
+
+    public function update_employees(){
+        $password="45".request()->get("f_name")."23".request()->get("title");
+        return User::update([
+            'role_id' => 2,
+            'first_name' => request()->get("f_name"),
+            'last_name' => request()->get("l_name"),
+            'job_title' => request()->get("title"),
+            'company_name' => "",
+            'company_description' => "",
+            'contact_number' => request()->get("phone")??"",
+            'mobile_number' => request()->get("phone")??"",
+            'mobile_check' => "Mobile",
+            'email' => request()->get("email")??"",
+            'address' => request()->get("location")??"wetewt",
+            'state' => "",
+            'city' => "",
+            'province' => "",
+            'zipcode' => "",
+            'website' => "",
+            'website_check' => "",
+            'website_address' => "",
+            'linkedin' => "",
+            'linkedin_check' => "",
+            'instagram' => "",
+            'instagram_check' => "",
+            'facebook' => "",
+            'facebook_check' => "",
+            'password' => Hash::make($password),
+            'acc_type' => request()->get("acc_type")??"personal",
+            'parent_id'=>request()->get("parent_id"),
+        ]);
+
     }
 
 

@@ -110,7 +110,13 @@
                                         <td><input type="checkbox" name="permission[]" id="permission" value="viewReseller" <?php echo (in_array('viewReseller', $record))?'checked':'' ?>></td>
                                         <td><input type="checkbox" name="permission[]" id="permission" value="deleteReseller" <?php echo (in_array('deleteReseller', $record))?'checked':'' ?>></td>
                                     </tr>
-
+                                    <tr>
+                                        <td>Entrepreneur</td>
+                                        <td> - </td>
+                                        <td> - </td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewEntrepreneur" <?php echo (in_array('viewEntrepreneur', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteEntrereneur" <?php echo (in_array('deleteEntrepreneur', $record))?'checked':'' ?>></td>
+                                    </tr>
 
                                     <tr>
                                         <td>Setting</td>
@@ -125,6 +131,13 @@
                                         <td><input type="checkbox" name="permission[]" id="permission" value="updateProfile" <?php echo (in_array('updateProfile', $record))?'checked':'' ?>></td>
                                         <td> - </td>
                                         <td> - </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Company</td>
+                                        <td> - </td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateCompany" <?php echo (in_array('updateCompany', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewCompany" <?php echo (in_array('viewCompany', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteCompany" <?php echo (in_array('deleteCompany', $record))?'checked':'' ?>></td>
                                     </tr>
                                     </tbody>
                                 </table>
