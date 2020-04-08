@@ -43,7 +43,8 @@ class ProfileController extends Controller
         } elseif ((int)$content['record']->tiktok_check == 1) {
             return redirect($content['record']->tiktok);
         } else {
-            $content["companyInfo"]=User::find(User::find($id)->parent_id);
+            $parent_id=User::find($id)->parent_id;
+            $content["companyInfo"]=User::find($parent_id);
             return view('front.profile',$content);
         }
         } else {
