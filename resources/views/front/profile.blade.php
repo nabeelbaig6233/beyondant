@@ -116,10 +116,12 @@
                                             <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 @if($record->mobile_check == 'Phone')
                                                     <span class="title">Phone Number</span>
-                                                    <span class="Subtitle">@php $ext = $companyInfo->contact_number??explode(" ",$record->contact_number); echo $ext[0].' '.$ext[1]; @endphp</span>
+{{--                                                    @php $ext = explode(" ",$companyInfo->contact_number??$record->contact_number); echo $ext[0].' '.$ext[1]; @endphp--}}
+                                                    <span class="Subtitle">{{isset($companyInfo)?$companyInfo->contact_number:$record->contact_number??""}}</span>
                                                 @else
                                                     <span class="title">Office Phone</span>
-                                                    <span class="Subtitle">@php $ext = $companyInfo->contact_number??explode(" ",$record->contact_number); echo $ext[0].' '.$ext[1]; echo !empty($ext[2])? ' Ext. '.$ext[2] : '' @endphp</span>
+{{--                                                    @php $ext = explode(" ",$companyInfo->contact_number??$record->contact_number); echo $ext[0].' '.$ext[1]; echo !empty($ext[2])? ' Ext. '.$ext[2] : '' @endphp--}}
+                                                    <span class="Subtitle">{{isset($companyInfo)?$companyInfo->contact_number:$record->contact_number??""}}</span>
                                                 @endif
                                             </div>
                                         </div>
