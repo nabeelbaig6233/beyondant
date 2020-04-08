@@ -146,12 +146,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/entrepreneurs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -249,6 +249,8 @@
       <workItem from="1586186141969" duration="14028000" />
       <workItem from="1586242803553" duration="748000" />
       <workItem from="1586244800580" duration="16653000" />
+      <workItem from="1586296139223" duration="781000" />
+      <workItem from="1586299368355" duration="7594000" />
     </task>
     <servers />
   </component>
@@ -304,17 +306,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="713" y="318" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579813713924" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1583539068663">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="328" y="13" key="SettingsEditor" timestamp="1586300260694">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="328" y="13" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1586300260694" />
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583539068663" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1582848831664">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1582848831664" />
-    <state x="615" y="356" key="com.intellij.ide.util.TipDialog" timestamp="1586244800796">
-      <screen x="0" y="0" width="1857" height="1080" />
+    <state x="452" y="240" key="com.intellij.ide.util.TipDialog" timestamp="1586299395654">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="452" y="240" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1586299395654" />
     <state x="615" y="356" key="com.intellij.ide.util.TipDialog/0.0.1857.1080@0.0.1857.1080" timestamp="1586244800796" />
     <state x="636" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584036323539" />
     <state x="519" y="126" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581472297189">
@@ -334,9 +338,10 @@
     </state>
     <state x="351" y="255" key="run.anything.popup/0.0.1857.1080@0.0.1857.1080" timestamp="1586195163353" />
     <state x="363" y="246" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583859560410" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1584043920872">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="443" y="158" width="672" height="475" key="search.everywhere.popup" timestamp="1586300918094">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="443" y="158" width="672" height="475" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1586300918094" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584043920872" />
   </component>
   <component name="XDebuggerManager">

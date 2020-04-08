@@ -189,7 +189,7 @@ class ProfileController extends Controller
         }
 
         return User::create([
-            'role_id' => 2,
+            'role_id' => ($data["acc_type"] == 'personal') ? 2 : 5,
             'first_name' => $data['first_name']??"",
             'last_name' => $data['last_name']??"",
             'job_title' => $data['job_title']??"",

@@ -1,4 +1,4 @@
 <?php
-header("Location: https://beyondant.com/dev/public");
+header("Location: http://localhost/beyondant/public/");
 exit();
 ?>
