@@ -9,6 +9,65 @@
 @endsection
 
 @section('content')
+
+
+    {{--Emplyee Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="employeeModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="post" id="employeeForm">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Employee Form</strong></h4>
+{{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                            <span aria-hidden="true">&times;</span>--}}
+{{--                        </button>--}}
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="f_name" placeholder="First Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="l_name" placeholder="Last Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="email" class="form-control" name="email" placeholder="Employee E-mail" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="title" placeholder="Title" required />
+                            </div>
+                            <div class="form-group col-12">
+                                <input type="text" class="form-control" name="ext" placeholder="Ext." required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" id="phone" name="phone" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999 @php $ext = explode(" ",auth()->user()->contact_number); echo !empty($ext[2])? '999' : '' @endphp&quot;" data-mask="" placeholder="Direct Phone Number *"  autocomplete="contact_number">
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="location" placeholder="Location"  required />
+                            </div>
+
+                            <div class="col-12"  id="employee">
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" id="close" class="btn btn-light">Close</button>
+                        <button type="submit" class="btn btn-primary" id="save_emp" >Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Employee Modal--}}
+
+
+
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
@@ -35,6 +94,9 @@
                                 </li>
                             </ul>
                             <div class="clearfix"></div>
+
+
+
                         </div>
                         <div class="x_content">
                             <div class="row">
@@ -43,6 +105,11 @@
                                         <table id="example1" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <button type="button" class="btn btn-danger btn-xs" id="delete_all">Delete</button>
+                                            @can("add_employee",auth()->user())
+
+                                                <button type="submit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#employeeModal">Add Employee</button>
+
+                                            @endcan
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
@@ -293,6 +360,112 @@
                 })
             });
 
+            //EMPlOYEE Modal JS
+
+
+
+            async function readFormsAndAdd(name){
+
+                $.ajaxSetup({
+
+                    headers: {
+
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+
+                    }
+
+                });
+                var data1=$(`#employeeForm`).serializeArray();
+
+                var value={};
+                value["parent_id"]="{{auth()->user()->id}}";
+                data1.forEach((input)=>{
+                    value[input.name]=input.value;
+
+                });
+                var response=await $.ajax({
+                    url: `{{route("save-employees")}}`,
+                    type: "POST",
+                    data: value
+                });
+                return response;
+            }
+
+            $('#employeeModal').on('hidden.bs.modal', function () {
+                $("#save_emp").attr("data","");
+            });
+
+            $("#employeeForm").submit(function (e) {
+                e.preventDefault();
+                $("#employee").empty();
+                $("#employee").append("<p class='text-dark' id='msg'>Please Wait</p>");
+                $("#save_emp").addClass("disabled");
+                var result = readFormsAndAdd();
+                if($("#save_emp").attr("data")=="edit"){
+                    result.then((res) => {
+                        $("#employee").empty();
+                        $("#employee").append("<p class='text-success'>An email was sent to your employee with the needed login credentials</p>");
+                        $("#save_emp").removeClass("disabled");
+
+                        $(':input', '#employeeForm').not(':button, :submit, :reset, :hidden').val('')
+                            .removeAttr('checked').removeAttr('selected');
+                        $("#employeeModal").modal('hide');
+                        $("#employee").empty();
+                        $("#save_emp").removeClass("disabled");
+                        DataTable.ajax.reload();
+                        js_success("An email was sent to your employee with the needed login credentials");
+                    }).catch((err) => {
+                        $("#employee").empty();
+                        $("#employee").append("<p class='text-danger'>An employee with these email already exist</p>");
+                        $("#save_emp").removeClass("disabled");
+                    });
+
+                }else {
+
+                    var result = readFormsAndAdd();
+                    result.then((res) => {
+                        $("#employee").empty();
+                        $("#employee").append("<p class='text-success'>An email was sent to your employee with the needed login credentials</p>");
+                        $("#save_emp").removeClass("disabled");
+
+                        $(':input', '#employeeForm').not(':button, :submit, :reset, :hidden').val('')
+                            .removeAttr('checked').removeAttr('selected');
+                        $("#employeeModal").modal('hide');
+                        $("#employee").empty();
+                        $("#save_emp").removeClass("disabled");
+                        DataTable.ajax.reload();
+                        js_success("An email was sent to your employee with the needed login credentials");
+                    }).catch((err) => {
+                        $("#employee").empty();
+                        $("#employee").append("<p class='text-danger'>An employee with these email already exist</p>");
+                        $("#save_emp").removeClass("disabled");
+                    });
+                }
+            });
+
+            $(document).on("click",".edit",function () {
+                $("#save_emp").attr("data","edit");
+                let id = $(this).attr('id');
+                $.get(`{{url('admin/'.request()->segment(2).'/view/')}}/${id}`,function (data) {
+                    $("[name='f_name']").val(data.first_name);
+                    $("[name='l_name']").val(data.last_name);
+                    $("[name='title']").val(data.job_title);
+                    $("[name='email']").val(data.email);
+                    $("[name='ext']").val(data.ext);
+                    $("[name='phone']").val(data.contact_number);
+                    $("[name='location']").val(data.address);
+                });
+                $("#employeeModal").modal('show');
+            });
+
+
+            $("#close").on("click",function () {
+                $(':input','#employeeForm') .not(':button, :submit, :reset, :hidden') .val('')
+                    .removeAttr('checked') .removeAttr('selected');;
+                $("#employeeModal").modal('hide');
+            });
+
+            //EMPlOYEE Modal JS End's
 
             // Selecting all Checkboxes
             $(document).on("click","#select_all",function() {

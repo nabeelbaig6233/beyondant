@@ -58,13 +58,23 @@ class UserController extends Controller
 
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $validations=$data["role_id"]!==5?[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'contact_number' => ['required','numeric'],
             'role_id' => ['required','numeric'],
-        ]);
+        ]:[
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'contact_number' => ['required','numeric'],
+            'role_id' => ['required','numeric'],
+            'company_name'=>['required'],
+            'company_description'=>['required'],
+            'website'=>['required']
+        ];
+        return Validator::make($data, $validations);
     }
     protected function updated(array $data,$id)
     {
@@ -76,15 +86,43 @@ class UserController extends Controller
             $profile_picture->move(public_path('assets/admin/images'),$image);
             $profile_picture = 'assets/admin/images/'.$image;
         }
-        return User::where('id',$id)->update([
-            'name' => $data['name'],
+
+
+        $name=explode(' ',$data["name"]);
+        $f_name=$name[0];
+        $l_name='';
+        for($n=1;$n<count($name);$n++){$l_name.=$name[$n];}
+
+
+        $updateQuery=$data["role_id"]!=5?User::where('id',$id)->update([
+            'first_name' => $f_name,
+            'last_name' => $l_name,
             'email' => $data['email'],
             'contact_number' => $data['contact_number'],
             'occupation' => $data['occupation'],
             'role_id' => $data['role_id'],
             'profile_picture' => $profile_picture,
             'password' => Hash::make($data['password']),
-        ]);
+        ]): User::where('id',$id)->update([
+                    'first_name' => $f_name,
+                    'last_name'=>$l_name,
+                    'email' => $data['email'],
+                    'contact_number' => $data['contact_number'],
+                    'occupation' => $data['occupation'],
+                    'role_id' => $data['role_id'],
+                    'profile_picture' => $profile_picture,
+                    'password' => Hash::make($data['password']),
+                    'company_name'=>$data["company_name"],
+                    'company_description'=>$data["company_description"],
+                    'address'=>$data["address"]??"",
+                    'state'=>$data["state"]??"",
+                    'city'=>$data["city"]??"",
+                    'province'=>$data["province"]??"",
+                    'zipcode'=>$data["zipcode"]??"",
+                    'website'=>$data["website"],
+                ]);
+
+        return $updateQuery;
     }
 
     public function delete_all(Request $request)
