@@ -159,7 +159,7 @@ class ProfileController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
-        return redirect($this->redirectTo($user));
+        return auth()->user()->role_id===5?redirect('/admin'):redirect($this->redirectTo($user));
 
     }
 
@@ -290,9 +290,9 @@ class ProfileController extends Controller
          return $user->email;
     }
 
-    public function update_employees(){
+    public function update_employees($id){
         $password="45".request()->get("f_name")."23".request()->get("title");
-        return User::update([
+        return User::where("id",$id)->update([
             'role_id' => 2,
             'first_name' => request()->get("f_name"),
             'last_name' => request()->get("l_name"),
