@@ -19,14 +19,15 @@ class ProfileController extends Controller
 {
     public function index($id)
     {
-        $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->first();
+        $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->orWhere([['role_id','=',5],['id','=',$id]])->first();
 //        dd($content['record']->parent_id);
         if (!empty($content['record'])) {
             if (Auth::check()) {
                 if(auth()->user()->parent_id==0){
+                    $content["companyInfo"]=User::find(User::find($id)->parent_id);
                     return view('front.profile',$content);}
                 else{
-                    $content["companyInfo"]=User::find(Auth::user()->parent_id);
+                    $content["companyInfo"]=User::find(User::find($id)->parent_id);
                     return view('front.profile',$content);
                 }
             }

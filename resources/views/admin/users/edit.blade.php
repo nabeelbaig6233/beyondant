@@ -173,6 +173,73 @@
                                     </div>
 
 
+                                    <div class="item form-group">
+                                        <label for="linkedin" class="col-form-label col-md-3 label-align">{{ __('Linkedin') }}</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input id="linkedin" type="text" name="linkedin" value="{{$record->linkedin}}"  class="form-control" autocomplete="linkedin">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="item form-group">
+                                        <label for="facebook" class="col-form-label col-md-3 label-align">{{ __('Facebook') }}</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input id="facebook" type="text" name="facebook" value="{{$record->facebook}}"  class="form-control" autocomplete="facebook">
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label for="instagram" class="col-form-label col-md-3 label-align">{{ __('Instagram') }}</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input id="instagram" type="text" name="instagram" value="{{$record->instagram}}"  class="form-control" autocomplete="instagram">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="item form-group">
+                                        <label for="tiktok" class="col-form-label col-md-3 label-align">{{ __('Tiktok') }}</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input id="tiktok" type="text" name="tiktok" value="{{$record->tiktok}}"  class="form-control" autocomplete="tiktok">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 label-align">Select What Should Be Your Default Profile (Optional)?</label>
+                                        <div class="col-md-6 col-sm-6 form-check-inline">
+                                            <input id="web" type="radio" name="check" value="website"  class="form-check-input" {{$record->website_check==1?"checked":""}} >
+                                            <label for="web" class="form-check-label pr-2">Website</label>
+                                            <input id="linkdin" type="radio" name="check" value="linkdin"  class="form-check-input" {{$record->linkdin_check==1?"checked":"" }}>
+                                            <label for="linkdin" class="form-check-label pr-2">Linkedin</label>
+                                            <input id="facebook" type="radio" name="check" value="facebook"  class="form-check-input" {{$record->facebook_check==1?"checked":""}}>
+                                            <label for="facebook" class="form-check-label pr-2">Facebook</label>
+                                            <input id="instagram" type="radio" name="check" value="instagram"  class="form-check-input " {{$record->instagram_check==1?"checked":"" }}>
+                                            <label for="instagram" class="form-check-label pr-2">Instagram</label>
+                                            <input id="tiktok" type="radio" name="check" value="tiktok"  class="form-check-input " {{$record->tiktok_check==1?"checked":""}}>
+                                            <label for="tiktok" class="form-check-label pr-2">Tiktok</label>
+                                            <input id="default" type="radio" name="check" value=""  class="form-check-input " {{$record->website_check!=1&&$record->linkdin_check!=1&&$record->facebook_check!=1&&$record->instagram_check!=1&&$record->tiktok_check!=1?"checked":""}}>
+                                            <label for="default" class="form-check-label pr-2">Default</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="cover_image">Cover Picture <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="input-group-btn">
+                                                <div class="image-upload">
+                                                    <img src="{{asset(!empty($record->cover_image)?$record->cover_image:'assets/admin/images/placeholder.png')}}" class="img-responsive">
+                                                    <div class="file-btn">
+                                                        <input type="file" id="cover_image" name="cover_image" accept=".jpg,.png">
+                                                        <input type="text" id="cover_image" name="cover_image" value="" hidden="">
+                                                        <label class="btn btn-info">Upload</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 @endif
 
                                 <div class="item form-group">
@@ -197,6 +264,8 @@
                                         <input id="password-confirm" type="password" name="password_confirmation" data-validate-linked="password" class="form-control" required="required" autocomplete="new-password">
                                     </div>
                                 </div>
+
+
                                 <div class="item form-group">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="profile_picture">Profile Picture <span class="required">*</span>
                                     </label>
