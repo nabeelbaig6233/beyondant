@@ -287,8 +287,8 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-3">
-                                        <p class="font-weight-bold">Company Admin Profile URL:</p>
                                         @if (auth()->user()->role_id===5)
+                                            <p class="font-weight-bold">Company Admin Profile URL:</p>
                                             <a href="{{route('pro',auth()->user()->id)}}" target="_blank">{{route('pro',auth()->user()->id)}}</a>
                                         @endif
                                     </div>
