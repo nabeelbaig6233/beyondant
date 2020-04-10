@@ -17,7 +17,7 @@
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                <li><a class="close-link" @if(auth()->user()->role_id===5) href="{{route('profile')}}" @endif><i class="fa fa-close"></i></a>
                                 </li>
                             </ul>
                             <div class="clearfix"></div>
