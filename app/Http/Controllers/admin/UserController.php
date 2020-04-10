@@ -61,13 +61,13 @@ class UserController extends Controller
         $validations=$data["role_id"]!==5?[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed'],
             'contact_number' => ['required','string'],
             'role_id' => ['required','numeric'],
         ]:[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => ['required', 'string','confirmed'],
             'contact_number' => ['required','string'],
             'role_id' => ['required','numeric'],
             'company_name'=>['required'],

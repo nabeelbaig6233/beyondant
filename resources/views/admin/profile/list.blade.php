@@ -311,8 +311,16 @@
                     url:`{{url('admin/'.request()->segment(2).'/view/')}}/${id}`,
                     dataType:"json",
                     success: function (data) {
-                        let profile_picture = (data.profile_picture != undefined) ? `{{asset('')}}/${data.profile_picture}` : `{{asset('assets/admin/images/profile.jpg')}}`;
-                        let cover_image = (data.cover_image != undefined) ? `{{asset('')}}/${data.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
+                        var companyData=data.company;
+                        var data=data.data;
+                        let cover_image="";
+                        let profile_picture = (data.profile_picture != undefined) ? `{{asset('/')}}${data.profile_picture}` : `{{asset('assets/admin/images/profile.jpg')}}`;
+                        if (data.parent_id==0) {
+                            cover_image = (data.cover_image != undefined) ? `{{asset('/')}}${data.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
+                        }
+                        else{
+                            cover_image = (companyData.cover_image != undefined) ? `{{asset('/')}}${companyData.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
+                        }
                         $("#profile_picture").html(`<img width="100" src="${profile_picture}">`);
                         $("#cover_image").html(`<img width="100" src="${cover_image}">`);
                         $("#first_name").html(data.first_name);

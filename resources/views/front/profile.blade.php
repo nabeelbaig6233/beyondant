@@ -30,7 +30,12 @@
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
-                <img src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne">
+                @if (isset($companyInfo) && $record->cover_image=="")
+                    <img src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne">
+                @else
+                    <img src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne">
+                @endif
+
                 @guest
                 @else
                     <div class="overlay">

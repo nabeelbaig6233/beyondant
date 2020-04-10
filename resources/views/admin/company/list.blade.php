@@ -300,8 +300,8 @@
                     url:`{{url('admin/'.request()->segment(2).'/view/')}}/${id}`,
                     dataType:"json",
                     success: function (data) {
-                        let profile_picture = (data.profile_picture != undefined) ? `{{asset('')}}/${data.profile_picture}` : `{{asset('assets/admin/images/profile.jpg')}}`;
-                        let cover_image = (data.cover_image != undefined) ? `{{asset('')}}/${data.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
+                        let profile_picture = (data.profile_picture != undefined) ? `{{asset('/')}}${data.profile_picture}` : `{{asset('assets/admin/images/profile.jpg')}}`;
+                        let cover_image = (data.cover_image != undefined) ? `{{asset('/')}}${data.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
                         $("#profile_picture").html(`<img width="100" src="${profile_picture}">`);
                         $("#cover_image").html(`<img width="100" src="${cover_image}">`);
                         $("#first_name").html(data.first_name);

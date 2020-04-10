@@ -37,7 +37,8 @@ class ProfileController extends Controller
     public function view($id)
     {
         if (request()->ajax()) {
-            $data = User::findOrFail($id);
+            $data["data"] = User::findOrFail($id);
+            $data["company"] = User::find($data["data"]->parent_id);
             return response()->json($data);
         }
     }

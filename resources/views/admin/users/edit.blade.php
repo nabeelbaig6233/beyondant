@@ -23,7 +23,9 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-
+                            @if (auth()->user()->role_id===5)
+                                <a href="{{route('pro',auth()->user()->id)}}">Visit Profile</a>
+                            @endif
                             <form class="form-horizontal form-label-left" method="POST" action="{{ route('post.update',$record->id) }}" enctype="multipart/form-data" novalidate>
                                 @csrf
                                 <input type="hidden" name="_method" value="PUT">
@@ -252,7 +254,7 @@
                                 <div class="item form-group @error('password') bad @enderror">
                                     <label for="password" class="col-form-label col-md-3 label-align">{{ __('Password') }}</label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control @error('password') is-invalid @enderror" required="required" autocomplete="new-password">
+                                        <input id="password" type="password" name="password"  class="form-control @error('password') is-invalid @enderror" required="required" autocomplete="new-password">
                                     </div>
                                     @error('password')
                                     <div class="alert">{{$message}}</div>

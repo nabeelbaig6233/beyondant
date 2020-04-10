@@ -16,8 +16,13 @@ class VcardExport
         $vcardObj->addEmail($contactResult->email);
         $vcardObj->addPhoneNumber($contactResult->mobile_number,'CELL');
         $vcardObj->addAddress($contactResult->address);
-        $vcardObj->addCompany($contactResult->company_name);
-        $vcardObj->addJobtitle($contactResult->title);
+        $check=$contactResult->parent_id;
+        if($check!=0) {
+            $vcardObj->addCompany(User::find($check)->company_name);
+        }else {
+            $vcardObj->addCompany($contactResult->company_name);
+        }
+        $vcardObj->addJobtitle($contactResult->job_title);
 
         return $vcardObj->download();
     }
