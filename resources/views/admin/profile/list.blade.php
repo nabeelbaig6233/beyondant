@@ -472,6 +472,7 @@
                 let id = $(this).attr('id');
                 $("#save_emp").attr("data-id",id);
                 $.get(`{{url('admin/'.request()->segment(2).'/view/')}}/${id}`,function (data) {
+                    var data=data.data;
                     $("[name='f_name']").val(data.first_name);
                     $("[name='l_name']").val(data.last_name);
                     $("[name='title']").val(data.job_title);
