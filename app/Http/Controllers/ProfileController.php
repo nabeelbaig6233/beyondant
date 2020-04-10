@@ -19,14 +19,15 @@ class ProfileController extends Controller
 {
     public function index($id)
     {
-        $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->first();
+        $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->orWhere([['role_id','=',5],['id','=',$id]])->first();
 //        dd($content['record']->parent_id);
         if (!empty($content['record'])) {
             if (Auth::check()) {
                 if(auth()->user()->parent_id==0){
+                    $content["companyInfo"]=User::find(User::find($id)->parent_id);
                     return view('front.profile',$content);}
                 else{
-                    $content["companyInfo"]=User::find(Auth::user()->parent_id);
+                    $content["companyInfo"]=User::find(User::find($id)->parent_id);
                     return view('front.profile',$content);
                 }
             }
@@ -159,7 +160,7 @@ class ProfileController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
-        return redirect($this->redirectTo($user));
+        return auth()->user()->role_id===5?redirect('/admin'):redirect($this->redirectTo($user));
 
     }
 
@@ -290,9 +291,9 @@ class ProfileController extends Controller
          return $user->email;
     }
 
-    public function update_employees(){
+    public function update_employees($id){
         $password="45".request()->get("f_name")."23".request()->get("title");
-        return User::update([
+        return User::where("id",$id)->update([
             'role_id' => 2,
             'first_name' => request()->get("f_name"),
             'last_name' => request()->get("l_name"),

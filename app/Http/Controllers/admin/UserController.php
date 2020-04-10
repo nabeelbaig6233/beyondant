@@ -61,14 +61,14 @@ class UserController extends Controller
         $validations=$data["role_id"]!==5?[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'contact_number' => ['required','numeric'],
+            'password' => ['required', 'string', 'confirmed'],
+            'contact_number' => ['required','string'],
             'role_id' => ['required','numeric'],
         ]:[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'contact_number' => ['required','numeric'],
+            'password' => ['required', 'string','confirmed'],
+            'contact_number' => ['required','string'],
             'role_id' => ['required','numeric'],
             'company_name'=>['required'],
             'company_description'=>['required'],
@@ -87,11 +87,37 @@ class UserController extends Controller
             $profile_picture = 'assets/admin/images/'.$image;
         }
 
+        $cover_image = '';
+        if (!empty($request->file('cover_image'))) {
+            $cover_image = $request->file('cover_image');
+            $image = rand().'.'.$cover_image->getClientOriginalExtension();
+            $cover_image->move(public_path('assets/admin/images'),$image);
+            $cover_image = 'assets/admin/images/'.$image;
+        }
 
         $name=explode(' ',$data["name"]);
         $f_name=$name[0];
         $l_name='';
         for($n=1;$n<count($name);$n++){$l_name.=$name[$n];}
+
+        $profile_check=$data["check"];
+        $profiles=[];
+        $profiles["website"]=[0,$data["website"]??""];
+        $profiles["linkdin"]=[0,$data["linkdin"]??""];
+        $profiles["facebook"]=[0,$data["facebook"]??""];
+        $profiles["instagram"]=[0,$data["instagram"]??""];
+        $profiles["tiktok"]=[0,$data["tiktok"]??""];
+        if($profile_check=="website"){
+            $profiles["website"]=[1,$data["website"]];
+        }else if($profile_check=="linkdin"){
+            $profiles["linkdin"]=[1,$data["linkdin"]];
+        }else if($profile_check=="facebook"){
+            $profiles["facebook"]=[1,$data["facebook"]];
+        }else if($profile_check=="instagram"){
+            $profiles["instagram"]=[1,$data["instagram"]];
+        }else if($profile_check=="tiktok") {
+            $profiles["tiktok"] = [1, $data["tiktok"]];
+        }
 
 
         $updateQuery=$data["role_id"]!=5?User::where('id',$id)->update([
@@ -101,7 +127,7 @@ class UserController extends Controller
             'contact_number' => $data['contact_number'],
             'occupation' => $data['occupation'],
             'role_id' => $data['role_id'],
-            'profile_picture' => $profile_picture,
+            'profile_picture' => !empty($profile_picture)?$profile_picture:User::find($id)->profile_picture,
             'password' => Hash::make($data['password']),
         ]): User::where('id',$id)->update([
                     'first_name' => $f_name,
@@ -110,7 +136,8 @@ class UserController extends Controller
                     'contact_number' => $data['contact_number'],
                     'occupation' => $data['occupation'],
                     'role_id' => $data['role_id'],
-                    'profile_picture' => $profile_picture,
+                    'profile_picture' => !empty($profile_picture)?$profile_picture:User::find($id)->profile_picture,
+                    'cover_image' => !empty($cover_image)?$cover_image:User::find($id)->cover_image,
                     'password' => Hash::make($data['password']),
                     'company_name'=>$data["company_name"],
                     'company_description'=>$data["company_description"],
@@ -120,6 +147,15 @@ class UserController extends Controller
                     'province'=>$data["province"]??"",
                     'zipcode'=>$data["zipcode"]??"",
                     'website'=>$data["website"],
+                    'website_check'=>$profiles["website"][0],
+                    'linkedin_check'=>$profiles["linkdin"][0],
+                    'linkedin'=>$profiles["linkdin"][1],
+                    'facebook_check'=>$profiles["facebook"][0],
+                    'facebook'=>$profiles["facebook"][1],
+                    'instagram_check'=>$profiles["instagram"][0],
+                    'instagram'=>$profiles["instagram"][1],
+                    'tiktok_check'=>$profiles["tiktok"][0],
+                    'tiktok'=>$profiles["tiktok"][1],
                 ]);
 
         return $updateQuery;

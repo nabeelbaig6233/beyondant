@@ -311,8 +311,16 @@
                     url:`{{url('admin/'.request()->segment(2).'/view/')}}/${id}`,
                     dataType:"json",
                     success: function (data) {
-                        let profile_picture = (data.profile_picture != undefined) ? `{{asset('')}}/${data.profile_picture}` : `{{asset('assets/admin/images/profile.jpg')}}`;
-                        let cover_image = (data.cover_image != undefined) ? `{{asset('')}}/${data.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
+                        var companyData=data.company;
+                        var data=data.data;
+                        let cover_image="";
+                        let profile_picture = (data.profile_picture != undefined) ? `{{asset('/')}}${data.profile_picture}` : `{{asset('assets/admin/images/profile.jpg')}}`;
+                        if (data.parent_id==0) {
+                            cover_image = (data.cover_image != undefined) ? `{{asset('/')}}${data.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
+                        }
+                        else{
+                            cover_image = (companyData.cover_image != undefined) ? `{{asset('/')}}${companyData.cover_image}` : `{{asset('assets/admin/images/placeholder.png')}}`;
+                        }
                         $("#profile_picture").html(`<img width="100" src="${profile_picture}">`);
                         $("#cover_image").html(`<img width="100" src="${cover_image}">`);
                         $("#first_name").html(data.first_name);
@@ -384,7 +392,7 @@
 
                 });
                 var response=await $.ajax({
-                    url: `{{route("save-employees")}}`,
+                    url: name=='edit'?`{{url("update_emp")}}/${$("#save_emp").attr("data-id")}`:`{{route("save-employees")}}`,
                     type: "POST",
                     data: value
                 });
@@ -392,29 +400,45 @@
             }
 
             $('#employeeModal').on('hidden.bs.modal', function () {
+                $("[name='f_name']").val('');
+                $("[name='l_name']").val('');
+                $("[name='title']").val('');
+                $("[name='email']").val('');
+                $("[name='ext']").val('');
+                $("[name='phone']").val('');
+                $("[name='location']").val('');
                 $("#save_emp").attr("data","");
+                $("#save_emp").removeAttr("data-id");
+                $("#save_emp").removeClass("disabled");
+                $("#employee").empty();
             });
+
+
+
+
 
             $("#employeeForm").submit(function (e) {
                 e.preventDefault();
                 $("#employee").empty();
                 $("#employee").append("<p class='text-dark' id='msg'>Please Wait</p>");
                 $("#save_emp").addClass("disabled");
-                var result = readFormsAndAdd();
-                if($("#save_emp").attr("data")=="edit"){
-                    result.then((res) => {
-                        $("#employee").empty();
-                        $("#employee").append("<p class='text-success'>An email was sent to your employee with the needed login credentials</p>");
-                        $("#save_emp").removeClass("disabled");
 
-                        $(':input', '#employeeForm').not(':button, :submit, :reset, :hidden').val('')
-                            .removeAttr('checked').removeAttr('selected');
+                if($("#save_emp").attr("data")=="edit"){
+                    var result = readFormsAndAdd('edit');
+                    result.then((res) => {
+                        //$("#employee").empty();
+                        // $("#employee").append("<p class='text-success'>An email was sent to your employee with the needed login credentials</p>");
+                        // $("#save_emp").removeClass("disabled");
+                        //
+                        // $(':input', '#employeeForm').not(':button, :submit, :reset, :hidden').val('')
+                        //    .removeAttr('checked').removeAttr('selected');
                         $("#employeeModal").modal('hide');
-                        $("#employee").empty();
-                        $("#save_emp").removeClass("disabled");
+                        // $("#employee").empty();
+                        // $("#save_emp").removeClass("disabled");
                         DataTable.ajax.reload();
-                        js_success("An email was sent to your employee with the needed login credentials");
+                        js_success("Employee Profile has been updated");
                     }).catch((err) => {
+                        console.log(err);
                         $("#employee").empty();
                         $("#employee").append("<p class='text-danger'>An employee with these email already exist</p>");
                         $("#save_emp").removeClass("disabled");
@@ -422,17 +446,17 @@
 
                 }else {
 
-                    var result = readFormsAndAdd();
+                    var result = readFormsAndAdd('save');
                     result.then((res) => {
-                        $("#employee").empty();
-                        $("#employee").append("<p class='text-success'>An email was sent to your employee with the needed login credentials</p>");
-                        $("#save_emp").removeClass("disabled");
-
-                        $(':input', '#employeeForm').not(':button, :submit, :reset, :hidden').val('')
-                            .removeAttr('checked').removeAttr('selected');
+                        //$("#employee").empty();
+                        // $("#employee").append("<p class='text-success'>An email was sent to your employee with the needed login credentials</p>");
+                        // $("#save_emp").removeClass("disabled");
+                        //
+                        // $(':input', '#employeeForm').not(':button, :submit, :reset, :hidden').val('')
+                        //    .removeAttr('checked').removeAttr('selected');
                         $("#employeeModal").modal('hide');
-                        $("#employee").empty();
-                        $("#save_emp").removeClass("disabled");
+                        // $("#employee").empty();
+                        // $("#save_emp").removeClass("disabled");
                         DataTable.ajax.reload();
                         js_success("An email was sent to your employee with the needed login credentials");
                     }).catch((err) => {
@@ -446,7 +470,9 @@
             $(document).on("click",".edit",function () {
                 $("#save_emp").attr("data","edit");
                 let id = $(this).attr('id');
+                $("#save_emp").attr("data-id",id);
                 $.get(`{{url('admin/'.request()->segment(2).'/view/')}}/${id}`,function (data) {
+                    var data=data.data;
                     $("[name='f_name']").val(data.first_name);
                     $("[name='l_name']").val(data.last_name);
                     $("[name='title']").val(data.job_title);
@@ -461,7 +487,7 @@
 
             $("#close").on("click",function () {
                 $(':input','#employeeForm') .not(':button, :submit, :reset, :hidden') .val('')
-                    .removeAttr('checked') .removeAttr('selected');;
+                    .removeAttr('checked') .removeAttr('selected');
                 $("#employeeModal").modal('hide');
             });
 
