@@ -23,9 +23,9 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            @if (auth()->user()->role_id===5)
-                                <a href="{{route('pro',auth()->user()->id)}}">Visit Profile</a>
-                            @endif
+{{--                            @if (auth()->user()->role_id===5)--}}
+{{--                                <a href="{{route('pro',auth()->user()->id)}}">Visit Profile</a>--}}
+{{--                            @endif--}}
                             <form class="form-horizontal form-label-left" method="POST" action="{{ route('post.update',$record->id) }}" enctype="multipart/form-data" novalidate>
                                 @csrf
                                 <input type="hidden" name="_method" value="PUT">
@@ -286,7 +286,13 @@
                                 </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
-                                    <div class="col-md-6 offset-md-3">
+                                    <div class="col-md-3">
+                                        <p class="font-weight-bold">Company Admin Profile URL:</p>
+                                        @if (auth()->user()->role_id===5)
+                                            <a href="{{route('pro',auth()->user()->id)}}" target="_blank">{{route('pro',auth()->user()->id)}}</a>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6">
                                         <button type="submit" class="btn btn-primary">Cancel</button>
                                         <button id="send" type="submit" class="btn btn-success">Submit</button>
                                     </div>
