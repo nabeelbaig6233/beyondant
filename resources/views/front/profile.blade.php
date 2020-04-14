@@ -161,7 +161,7 @@
                         </form>
                     </div>
                     <a class="edit-profile-btn" id="edit_profile" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Profile </a>
-                    <button class="edit-profile-btn" id="pos" style="display: none; color: #fff">Save Changes </button>
+                    <button class="edit-profile-btn" id="pos" style="display: none; color: #fff" >Save Changes </button>
                 @endguest
             </div>
         </section>
@@ -363,8 +363,8 @@
             <div class="container BTNcontainer">
                 <div class="container" id="save_container" style="width:94.2%;position:absolute;display:none;z-index:1000;height: 60px;background-color:rgba(59,73,71,0.7)">
                     <div class="row p-3" id="save_text">
-                        <div class="col-4"><p style="color: #fff;">Save Changes</p></div>
-                        <div class="col-4 offset-3 ">
+                        <div class="col-6"><p style="color: #fff;">Save Changes</p></div>
+                        <div class="col-5">
                             <button class="save" id="pos2">Save</button>
                         </div>
                     </div>
@@ -590,7 +590,7 @@
 
             $("#pos").click(function () {
                 let forms = document.querySelector('#filecover_image');
-                $(this).addClass("disabled");
+                $(this).attr("disabled",true);
                 $(this).text("Saving....");
 
                 $.ajax({
