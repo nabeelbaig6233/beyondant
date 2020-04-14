@@ -3,6 +3,8 @@
     <!-- Custom css -->
     <link href="{{asset('assets/front/css/profile.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
     <style>
         #con{
             height: 416px;
@@ -88,15 +90,12 @@
             }
 
             .save{
-                background: #fff;
-                border-color: #fff;
-                color: #be0103;
-                padding: 0px;
-                font-size: 20px;
-                position: absolute;
-                z-index: 9;
-                top: 79px;
-                left: 38px;
+                background: #be0103;
+                color: #fff;
+                padding: 7px 25px;
+                border: none;
+                width: 100%;
+                font-size: 15px;
             }
 
 
@@ -162,7 +161,7 @@
                         </form>
                     </div>
                     <a class="edit-profile-btn" id="edit_profile" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Profile </a>
-                    <a class="edit-profile-btn" id="pos" style="display: none; color: #fff">Save Changes </a>
+                    <button class="edit-profile-btn" id="pos" style="display: none; color: #fff">Save Changes </button>
                 @endguest
             </div>
         </section>
@@ -362,8 +361,17 @@
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
+                <div class="container" id="save_container" style="width:94.2%;position:absolute;display:none;z-index:1000;height: 60px;background-color:rgba(59,73,71,0.7)">
+                    <div class="row p-3" id="save_text">
+                        <div class="col-4"><p style="color: #fff;">Save Changes</p></div>
+                        <div class="col-4 offset-3 ">
+                            <button class="save" id="pos2">Save</button>
+                        </div>
+                    </div>
+                </div>
                 <div id="con">
                     {{--                    class="cover-image profile-picOne"--}}
+
                     @if (isset($companyInfo) && $record->cover_image=="")
                         <img id="display2" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}" style="top:{{$companyInfo->cover_pos}}px;position: relative" >
                     @else
@@ -380,7 +388,7 @@
                     </span>
                     </form>
                     <a class="edit-profile-btn" id="edit_profile2" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i></a>
-                    <a class="edit-profile-btn" id="pos2" style="display:none;float: right;"><i class="fas fa-edit"></i></a>
+{{--                    <a class="edit-profile-btn save" id="pos2" style="display:none;float: right"><i class="fas fa-save"></i></a>--}}
                 @endguest
             </div>
 
@@ -582,6 +590,8 @@
 
             $("#pos").click(function () {
                 let forms = document.querySelector('#filecover_image');
+                $(this).addClass("disabled");
+                $(this).text("Saving....");
 
                 $.ajax({
                     url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",
@@ -602,7 +612,7 @@
             $(document).on('change', '.file-uploadTwo', function () {
 
                 $("#edit_profile2").css({"display":"none"});
-                $("#pos2").css({"display":"block"});
+                $("#save_container").css({"display":"block"});
                 $("#upload").css({"display":"none"});
                 image2.css({"top":0});
                 setImage2();
@@ -626,6 +636,8 @@
 
             $("#pos2").click(function () {
                 let forms = document.querySelector('#filecover_imageTwo');
+                $("#save_text").empty();
+                $("#save_text").append("<p class='text-center text-light'>Saving...</p>");
                 $.ajax({
                     url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",
                     type: "post",
