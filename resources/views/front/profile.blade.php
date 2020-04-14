@@ -48,27 +48,70 @@
         }
 
 
-        /*@media only screen and (max-width: 768px) {*/
-        /*    #con{*/
-        /*        height: 185px;*/
-        /*        overflow: hidden;*/
-        /*    }*/
-        /*    #display{*/
-        /*       width: 100%;*/
+        @media only screen and (max-width: 750px) {
+            #con{
+                height: 185px;
+                overflow: hidden;
+            }
+            #display{
+               width: 100%;
+            }
 
-        /*    }*/
-        /*}*/
+            .BTNcontainer .icon {
+                color: #fff !important;
+                font-size: 20px;
+                position: absolute;
+                top: 45px;
+                left: 61px;
+                transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                text-align: center;
+                background: #be0103;
+                padding: 15px;
+                border-radius: 100%;
+                line-height: 20px;
+            }
 
-        /*@media only screen and (max-width: 508px) {*/
-        /*    #con{*/
-        /*        height: 145px;*/
-        /*        overflow: hidden;*/
-        /*    }*/
-        /*    #display{*/
-        /*        width: 100%;*/
+            .edit-profile-btn {
+                background: #fff;
+                border-color: #fff;
+                color: #be0103;
+                padding: 15px;
+                border-radius: 100px;
+                width: 50px;
+                font-size: 20px;
+                position: absolute;
+                z-index: 9;
+                top: 79px;
+                left: 38px;
+                height: 50px;
+            }
 
-        /*    }*/
-        /*}*/
+            .save{
+                background: #fff;
+                border-color: #fff;
+                color: #be0103;
+                padding: 0px;
+                font-size: 20px;
+                position: absolute;
+                z-index: 9;
+                top: 79px;
+                left: 38px;
+            }
+
+
+        }
+
+        @media only screen and (max-width: 508px) {
+            #con{
+                height: 145px;
+                overflow: hidden;
+            }
+            #display{
+                width: 100%;
+
+            }
+        }
         </style>
 @endsection
 @section('content')
@@ -320,17 +363,24 @@
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
                 <div id="con">
-                <img src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" id="display">
+                    {{--                    class="cover-image profile-picOne"--}}
+                    @if (isset($companyInfo) && $record->cover_image=="")
+                        <img id="display2" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}" style="top:{{$companyInfo->cover_pos}}px;position: relative" >
+                    @else
+                        <img id="display2" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" style="top:{{$record->cover_pos}}px;position: relative" >
+                    @endif
                 </div>
                     @guest
                 @else
                     <form id="filecover_imageTwo" action="" method="post" enctype="multipart/form-data">
-                    <span class="icon" title="User Cover">
+                    <span class="icon" title="User Cover" id="upload">
                         <i class="fas fa-image upload-buttonTwo"></i>
                         <input class="file-uploadTwo" type="file" id="cover_image" name="cover_image" accept="image/*">
+                         <input id="cover_top2" name="cover_top" type="hidden" value="0" />
                     </span>
                     </form>
-                    <a class="edit-profile-btn" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i></a>
+                    <a class="edit-profile-btn" id="edit_profile2" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i></a>
+                    <a class="edit-profile-btn" id="pos2" style="display:none;float: right;"><i class="fas fa-edit"></i></a>
                 @endguest
             </div>
 
@@ -442,18 +492,37 @@
     <!-- script js-->
     <script src="{{asset('assets/front/js/profile.js')}}"></script>
     <script>
+
+
+
         $(document).ready(function () {
+            function adjust(){
 
-            var image=$("#display");
-
-            var top=parseInt(image.css("top"));
-            window.onresize=function(){
-                if(window.innerWidth<=992){
-                    console.log("Amir");
-                    $("#display").css({"top":top+20});
-                }else{
-                    $("#display").css({"top":top});
+                if(window.innerWidth>=1200){
+                    $("#display2").css({"top":top});
                 }
+                if(top<0){
+                if(window.innerWidth<=992){
+                    $("#display").css({"top":top+20});
+                }}
+                if(top2<0){
+                if(window.innerWidth<768){
+                    $("#display2").css({"top":top2+(-top2)*0.5});
+                }
+                if(window.innerWidth<500){
+                    $("#display2").css({"top":top2+(-top2)*0.7});
+                }
+                if(window.innerWidth<400){
+                    $("#display2").css({"top":top2+(-top2)*0.8});
+                }}
+            }
+            var image=$("#display");
+            var image2=$("#display2");
+            var top=parseInt(image.css("top"));
+            var top2=parseInt(image2.css("top"));
+            adjust();
+            window.onresize=function(){
+                adjust();
             };
             $(document).on('change', '.file-upload', function () {
                 let forms = document.querySelector('#fileprofile_picture');
@@ -479,6 +548,15 @@
                 };
                 reader.readAsDataURL($(".file-uploadOne")[0].files[0]);
             }
+
+            function setImage2(){
+                var reader=new FileReader();
+                reader.onload=function(eve){
+                    image2.attr("src",eve.target.result);
+                };
+                reader.readAsDataURL($(".file-uploadTwo")[0].files[0]);
+            }
+
             $(document).on('change', '.file-uploadOne', function () {
 
                 $("#edit_profile").css({"display":"none"});
@@ -491,13 +569,13 @@
                 image.draggable({
 
                     axis:'y',
+                    cursor:'move',
                     drag:function(event,ui){
 
                         var diff=ui.helper[0].clientHeight-ui.helper[0].parentNode.clientHeight;
                         if(ui.position.top>0)ui.position.top=0;
                         else if(-ui.position.top>=diff)ui.position.top=-diff;
                         $('[name="cover_top"]').val(ui.position.top);
-                        console.log( $('[name="cover_top"]').val());
                     }
                 });
             });
@@ -522,6 +600,31 @@
 
 
             $(document).on('change', '.file-uploadTwo', function () {
+
+                $("#edit_profile2").css({"display":"none"});
+                $("#pos2").css({"display":"block"});
+                $("#upload").css({"display":"none"});
+                image2.css({"top":0});
+                setImage2();
+                image2.draggable({
+                    axis:'y',
+                    cursor:'move',
+                    drag:function(event,ui){
+
+                        var diff=ui.helper[0].clientHeight-ui.helper[0].parentNode.clientHeight;
+                        if(ui.position.top>0)ui.position.top=0;
+                        else if(-ui.position.top>=diff)ui.position.top=-diff;
+                        $('#cover_top2').val(ui.position.top);
+                    }
+                });
+
+
+
+            });
+
+
+
+            $("#pos2").click(function () {
                 let forms = document.querySelector('#filecover_imageTwo');
                 $.ajax({
                     url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",
