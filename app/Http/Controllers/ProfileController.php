@@ -86,6 +86,7 @@ class ProfileController extends Controller
         if (!empty($request->file('cover_image'))) {
             $record = User::find($id);
             $image_path = User::where('id',$id)->first()->cover_image;
+            $cover_position=$request->get("cover_top");
             if (\File::exists($image_path)) {
                 \File::delete($image_path);
             }
@@ -94,6 +95,7 @@ class ProfileController extends Controller
             $cover_image->move(public_path('assets/admin/images'),$image);
             $cover_image = 'assets/admin/images/'.$image;
             $record->cover_image = $cover_image;
+            $record->cover_pos = (int)$cover_position;
             $record->save();
             echo "Profile Picture Updated Successfully.";
         }

@@ -2,6 +2,74 @@
 @section('pageCss')
     <!-- Custom css -->
     <link href="{{asset('assets/front/css/profile.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        #con{
+            height: 416px;
+            overflow: hidden;
+        }
+
+        /*#display up {*/
+        /*    width: 1250px;*/
+        /*}*/
+
+        @media only screen and (max-width: 1200px) {
+            #con{
+                height: 335px;
+                overflow: hidden;
+            }
+            #display{
+               display: inline-block;
+                /*width:1200px;*/
+            }
+        }
+
+        @media only screen and (max-width: 992px) {
+            #con{
+                height: 225px;
+                overflow: hidden;
+            }
+            #display{
+                display: inline-block;
+                /*width:1200px;*/
+            }
+
+        }
+
+        .save_cover{
+            background: #be0103;
+            color: #fff;
+            font-size: 12px;
+            position: absolute;
+            padding: 10px 40px;
+            bottom: 15px;
+            right: 30px;
+            z-index: 9;
+        }
+
+
+        /*@media only screen and (max-width: 768px) {*/
+        /*    #con{*/
+        /*        height: 185px;*/
+        /*        overflow: hidden;*/
+        /*    }*/
+        /*    #display{*/
+        /*       width: 100%;*/
+
+        /*    }*/
+        /*}*/
+
+        /*@media only screen and (max-width: 508px) {*/
+        /*    #con{*/
+        /*        height: 145px;*/
+        /*        overflow: hidden;*/
+        /*    }*/
+        /*    #display{*/
+        /*        width: 100%;*/
+
+        /*    }*/
+        /*}*/
+        </style>
 @endsection
 @section('content')
     <!-- Profile Wraper Start -->
@@ -30,12 +98,14 @@
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
+                <div id="con">
+{{--                    class="cover-image profile-picOne"--}}
                 @if (isset($companyInfo) && $record->cover_image=="")
-                    <img src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne">
+                    <img id="display" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}" style="top:{{$companyInfo->cover_pos}}px;position: relative" >
                 @else
-                    <img src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne">
+                    <img id="display" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" style="top:{{$record->cover_pos}}px;position: relative" >
                 @endif
-
+                </div>
                 @guest
                 @else
                     <div class="overlay">
@@ -43,11 +113,13 @@
                     <span class="icon" title="User Profile">
                         <i class="fas fa-image upload-buttonOne"></i>
                         <input class="file-uploadOne" id="cover_image" name="cover_image" type="file" accept="image/*">
+                        <input name="cover_top" type="hidden" value="0" />
                         <span class="text">Update Cover Photo</span>
                     </span>
                         </form>
                     </div>
-                    <a class="edit-profile-btn" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Profile </a>
+                    <a class="edit-profile-btn" id="edit_profile" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Profile </a>
+                    <a class="edit-profile-btn" id="pos" style="display: none; color: #fff">Save Changes </a>
                 @endguest
             </div>
         </section>
@@ -247,8 +319,10 @@
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
-                <img src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picTwo">
-                @guest
+                <div id="con">
+                <img src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" id="display">
+                </div>
+                    @guest
                 @else
                     <form id="filecover_imageTwo" action="" method="post" enctype="multipart/form-data">
                     <span class="icon" title="User Cover">
@@ -349,10 +423,38 @@
     <!-- Tap On Top Ends -->
 @endsection
 @section('pageJs')
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" integrity="sha256-jKV9n9bkk/CTP8zbtEtnKaKf+ehRovOYeKoyfthwbC8=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js" integrity="sha256-EuV9YMxdV2Es4m9Q11L6t42ajVDj1x+6NZH4U1F+Jvw=" crossorigin="anonymous"></script>
+    <script
+        src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+        integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+        crossorigin="anonymous"></script>
+    <script src="{{asset('assets/front/js/jquery.ui.touch-punch.min.js')}}"></script>
+
+
     <!-- script js-->
     <script src="{{asset('assets/front/js/profile.js')}}"></script>
     <script>
         $(document).ready(function () {
+
+            var image=$("#display");
+
+            var top=parseInt(image.css("top"));
+            window.onresize=function(){
+                if(window.innerWidth<=992){
+                    console.log("Amir");
+                    $("#display").css({"top":top+20});
+                }else{
+                    $("#display").css({"top":top});
+                }
+            };
             $(document).on('change', '.file-upload', function () {
                 let forms = document.querySelector('#fileprofile_picture');
                 $.ajax({
@@ -370,8 +472,39 @@
                 });
             });
 
+            function setImage(){
+                var reader=new FileReader();
+                reader.onload=function(eve){
+                    image.attr("src",eve.target.result);
+                };
+                reader.readAsDataURL($(".file-uploadOne")[0].files[0]);
+            }
             $(document).on('change', '.file-uploadOne', function () {
+
+                $("#edit_profile").css({"display":"none"});
+                $("#pos").css({"display":"block"});
+                $("#edit_profile").css({"display":"none"});
+                $(".overlay").css({"display":"none"});
+                image.css({"top":0});
+                //image.css({"top":-121});
+                setImage();
+                image.draggable({
+
+                    axis:'y',
+                    drag:function(event,ui){
+
+                        var diff=ui.helper[0].clientHeight-ui.helper[0].parentNode.clientHeight;
+                        if(ui.position.top>0)ui.position.top=0;
+                        else if(-ui.position.top>=diff)ui.position.top=-diff;
+                        $('[name="cover_top"]').val(ui.position.top);
+                        console.log( $('[name="cover_top"]').val());
+                    }
+                });
+            });
+
+            $("#pos").click(function () {
                 let forms = document.querySelector('#filecover_image');
+
                 $.ajax({
                     url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",
                     type: "post",
@@ -386,6 +519,7 @@
                     }
                 });
             });
+
 
             $(document).on('change', '.file-uploadTwo', function () {
                 let forms = document.querySelector('#filecover_imageTwo');
