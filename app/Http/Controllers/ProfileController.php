@@ -65,15 +65,20 @@ class ProfileController extends Controller
 
     public function uploadProfilePic(Request $request, $id)
     {
-        if (!empty($request->file('profile_picture'))) {
+        if (!empty($request->get('profile_picture'))) {
             $record = User::find($id);
             $image_path = User::where('id',$id)->first()->profile_picture;
             if (\File::exists($image_path)) {
                 \File::delete($image_path);
             }
-            $profile_picture = $request->file('profile_picture');
-            $image = rand().'.'.$profile_picture->getClientOriginalExtension();
-            $profile_picture->move(public_path('assets/admin/images'),$image);
+            echo request()->get('profile_picture');
+            list($type,$image) = explode(";",$request->get('profile_picture'));
+            list(,$image)=explode(",",$image);
+            $profile_picture=base64_decode($image);
+            //$image = rand().'.'.$profile_picture->getClientOriginalExtension();
+            $image = rand().'.'.explode("/",$type)[1];
+            //$profile_picture->move(public_path('assets/admin/images'),$image);
+            file_put_contents(public_path('assets/admin/images/'.$image),$profile_picture);
             $profile_picture = 'assets/admin/images/'.$image;
             $record->profile_picture = $profile_picture;
             $record->save();

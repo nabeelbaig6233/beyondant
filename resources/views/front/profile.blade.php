@@ -4,6 +4,7 @@
     <link href="{{asset('assets/front/css/profile.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel='stylesheet prefetch' href='https://foliotek.github.io/Croppie/croppie.css'>
 
     <style>
         #con{
@@ -114,6 +115,32 @@
         </style>
 @endsection
 @section('content')
+
+
+    <!--Cropping Modal -->
+    <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="cropModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #be0103;">
+                    <h5 class="modal-title text-light" id="croptitle">Drag To Adjust</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding: 0px">
+                    <img  id="cropper" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary back_profile_pic" data-dismiss="modal">Back</button>
+                    <button type="button" class="btn btn-danger save_profile_pic"  style="background-color: #be0103;">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{{--END Cropping Modal--}}
+
     <!-- Profile Wraper Start -->
     <div class="profileWrapper">
         <!-- Profile Heaer Start -->
@@ -336,6 +363,31 @@
 
 
 
+    <!--Mobile Cropping Modal -->
+    <div class="modal fade" id="cropModal2" tabindex="-1" role="dialog" aria-labelledby="cropModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #be0103;">
+                    <h5 class="modal-title text-light" id="croptitle2">Drag To Adjust</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding: 0px">
+                    <img  id="cropper2" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary back_profile_pic2" data-dismiss="modal">Back</button>
+                    <button type="button" class="btn btn-danger save_profile_pic2"  style="background-color: #be0103;">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {{--END Mobile Cropping Modal--}}
+
+
     <div class="profileWrapper_Mob">
         <!-- Profile Heaer Start -->
         <header class="headerProfile cursor-light">
@@ -496,6 +548,7 @@
         crossorigin="anonymous"></script>
     <script src="{{asset('assets/front/js/jquery.ui.touch-punch.min.js')}}"></script>
 
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js'></script>
 
     <!-- script js-->
     <script src="{{asset('assets/front/js/profile.js')}}"></script>
@@ -528,26 +581,68 @@
             var image2=$("#display2");
             var top=parseInt(image.css("top"));
             var top2=parseInt(image2.css("top"));
+            var rawImage;
             adjust();
             window.onresize=function(){
                 adjust();
             };
-            $(document).on('change', '.file-upload', function () {
-                let forms = document.querySelector('#fileprofile_picture');
-                $.ajax({
-                    url: "{{ route('upload-profile-pic', request()->segment(2) ) }}",
-                    type: "post",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: new FormData(forms),
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        window.location.reload();
-                    }
+
+            //croppie
+            var profile_crop=$("#cropper").croppie({
+                enableExif: true,
+                mouseWheelZoom:'ctrl',
+                boundary:{
+                    height:400
+                },
+                viewport:{
+                    height:300,
+                    width:300,
+                    type:'circle'
+                }
+            });
+
+            $('#cropModal').on('shown.bs.modal', function(){
+                profile_crop.croppie('bind',{
+                    url:rawImage
                 });
             });
+
+            $(document).on('change', '.file-upload', function () {
+                var reader=new FileReader();
+                reader.onload=function(eve){
+                    rawImage=eve.target.result;
+                };
+                reader.readAsDataURL(this.files[0]);
+                $("#cropModal").modal('show');
+            });
+
+            $('.save_profile_pic').on('click',function () {
+                $("#croptitle").text("Saving....");
+                $(this).attr("disabled",true);
+                $('.back_profile_pic').attr("disabled",true);
+                //let forms = document.querySelector('#fileprofile_picture');
+                profile_crop.croppie("result")
+                .then((data)=>{
+                    $.ajax({
+                        url: "{{ route('upload-profile-pic', request()->segment(2) ) }}",
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {"profile_picture":data},
+                        // contentType: false,
+                        // processData: false,
+                        success: function (data) {
+                            window.location.reload();
+                        },
+                        error:function (err) {
+                            console.log(err);
+                        }
+                    });
+                });
+
+            });
+
 
             function setImage(){
                 var reader=new FileReader();
@@ -675,22 +770,22 @@
             });
         });
         $(document).ready(function () {
-            var readURL = function (input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-
-                        $('.profile-pic').attr('src', e.target.result);
-                        // console.log(e.target.result);
-                    }
-
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-            $(".file-upload").on('change', function () {
-                readURL(this);
-            });
+            // var readURL = function (input) {
+            //     if (input.files && input.files[0]) {
+            //         var reader = new FileReader();
+            //         reader.onload = function (e) {
+            //
+            //             //$('.profile-pic').attr('src', e.target.result);
+            //             // console.log(e.target.result);
+            //         }
+            //
+            //         reader.readAsDataURL(input.files[0]);
+            //     }
+            // }
+            //
+            // $(".file-upload").on('change', function () {
+            //     readURL(this);
+            // });
 
             $(".upload-button").on('click', function () {
                 $(".file-upload").click();
@@ -718,17 +813,68 @@
             });
         });
         $(document).ready(function () {
+
+            var profile_crop=$("#cropper2").croppie({
+                enableExif: true,
+                mouseWheelZoom:'ctrl',
+                boundary:{
+                    height:330
+                },
+                viewport:{
+                    height:300,
+                    width:300,
+                    type:'circle'
+                }
+            });
+            var rawImage;
+
             var readURL = function (input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
 
                     reader.onload = function (e) {
-                        $('.profile-picThree').attr('src', e.target.result);
-                    }
-
+                        //$('.profile-picThree').attr('src', e.target.result);
+                        rawImage=e.target.result;
+                    };
                     reader.readAsDataURL(input.files[0]);
+                    $("#cropModal2").modal('show');
+
                 }
             }
+
+            $('.save_profile_pic2').on('click',function () {
+                $("#croptitle2").text("Saving....");
+                $(this).attr("disabled",true);
+                $('.back_profile_pic2').attr("disabled",true);
+                //let forms = document.querySelector('#fileprofile_picture');
+                profile_crop.croppie("result")
+                    .then((data)=>{
+                        $.ajax({
+                            url: "{{ route('upload-profile-pic', request()->segment(2) ) }}",
+                            type: "POST",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {"profile_picture":data},
+                            // contentType: false,
+                            // processData: false,
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error:function (err) {
+                                console.log(err);
+                            }
+                        });
+                    });
+
+            });
+
+
+            $('#cropModal2').on('shown.bs.modal', function(){
+                profile_crop.croppie('bind',{
+                    url:rawImage
+                });
+            });
 
             $(".file-uploadThree").on('change', function () {
                 readURL(this);
