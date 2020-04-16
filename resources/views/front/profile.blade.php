@@ -2,8 +2,145 @@
 @section('pageCss')
     <!-- Custom css -->
     <link href="{{asset('assets/front/css/profile.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel='stylesheet prefetch' href='https://foliotek.github.io/Croppie/croppie.css'>
+
+    <style>
+        /*#con{*/
+        /*    height: 416px;*/
+        /*    overflow: hidden;*/
+        /*}*/
+
+        /*!*#display up {*!*/
+        /*!*    width: 1250px;*!*/
+        /*!*}*!*/
+
+        /*@media only screen and (max-width: 1200px) {*/
+        /*    #con{*/
+        /*        height: 90%;*/
+        /*        overflow: hidden;*/
+        /*    }*/
+        /*    #display{*/
+        /*       display: inline-block;*/
+        /*        !*width:1200px;*!*/
+        /*    }*/
+        /*}*/
+
+        /*@media only screen and (max-width: 992px) {*/
+        /*    #con{*/
+        /*        height: 225px;*/
+        /*        overflow: hidden;*/
+        /*    }*/
+        /*    #display{*/
+        /*        display: inline-block;*/
+        /*        !*width:1200px;*!*/
+        /*    }*/
+
+        /*}*/
+
+        /*.save_cover{*/
+        /*    background: #be0103;*/
+        /*    color: #fff;*/
+        /*    font-size: 12px;*/
+        /*    position: absolute;*/
+        /*    padding: 10px 40px;*/
+        /*    bottom: 15px;*/
+        /*    right: 30px;*/
+        /*    z-index: 9;*/
+        /*}*/
+
+
+        /*@media only screen and (max-width: 750px) {*/
+        /*    !*#con{*!*/
+        /*    !*    height: 185px;*!*/
+        /*    !*    overflow: hidden;*!*/
+        /*    !*}*!*/
+        /*    !*#display{*!*/
+        /*    !*   width: 100%;*!*/
+        /*    !*}*!*/
+
+        /*    .BTNcontainer .icon {*/
+        /*        color: #fff !important;*/
+        /*        font-size: 20px;*/
+        /*        position: absolute;*/
+        /*        top: 45px;*/
+        /*        left: 61px;*/
+        /*        transform: translate(-50%, -50%);*/
+        /*        -ms-transform: translate(-50%, -50%);*/
+        /*        text-align: center;*/
+        /*        background: #be0103;*/
+        /*        padding: 15px;*/
+        /*        border-radius: 100%;*/
+        /*        line-height: 20px;*/
+        /*    }*/
+
+        /*    .edit-profile-btn {*/
+        /*        background: #fff;*/
+        /*        border-color: #fff;*/
+        /*        color: #be0103;*/
+        /*        padding: 15px;*/
+        /*        border-radius: 100px;*/
+        /*        width: 50px;*/
+        /*        font-size: 20px;*/
+        /*        position: absolute;*/
+        /*        z-index: 9;*/
+        /*        top: 79px;*/
+        /*        left: 38px;*/
+        /*        height: 50px;*/
+        /*    }*/
+
+        /*    .save{*/
+        /*        background: #be0103;*/
+        /*        color: #fff;*/
+        /*        padding: 7px 25px;*/
+        /*        border: none;*/
+        /*        width: 100%;*/
+        /*        font-size: 15px;*/
+        /*    }*/
+
+
+        /*}*/
+
+        /*@media only screen and (max-width: 508px) {*/
+        /*    #con{*/
+        /*        height: 60%;*/
+        /*        overflow: hidden;*/
+        /*    }*/
+        /*    #display{*/
+        /*        width: 100%;*/
+
+        /*    }*/
+        /*}*/
+        </style>
 @endsection
 @section('content')
+
+
+    <!--Cropping Modal -->
+    <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="cropModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #be0103;">
+                    <h5 class="modal-title text-light" id="croptitle">Drag To Adjust</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding: 0px">
+                    <img  id="cropper" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary back_profile_pic" data-dismiss="modal">Back</button>
+                    <button type="button" class="btn btn-danger save_profile_pic"  style="background-color: #be0103;">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{{--END Cropping Modal--}}
+
     <!-- Profile Wraper Start -->
     <div class="profileWrapper">
         <!-- Profile Heaer Start -->
@@ -30,12 +167,14 @@
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
+{{--                <div id="con">--}}
+{{--                 style="top:{{$companyInfo->cover_pos}}px;position: relative"  --}}
                 @if (isset($companyInfo) && $record->cover_image=="")
-                    <img src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne">
+                    <img id="display" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid"  >
                 @else
-                    <img src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne">
+                    <img id="display" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid" >
                 @endif
-
+{{--                </div>--}}
                 @guest
                 @else
                     <div class="overlay">
@@ -43,11 +182,13 @@
                     <span class="icon" title="User Profile">
                         <i class="fas fa-image upload-buttonOne"></i>
                         <input class="file-uploadOne" id="cover_image" name="cover_image" type="file" accept="image/*">
+                        <input name="cover_top" type="hidden" value="0" />
                         <span class="text">Update Cover Photo</span>
                     </span>
                         </form>
                     </div>
-                    <a class="edit-profile-btn" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Profile </a>
+                    <a class="edit-profile-btn" id="edit_profile" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Profile </a>
+{{--                    <button class="edit-profile-btn" id="pos" style="display: none; color: #fff" >Save Changes </button>--}}
                 @endguest
             </div>
         </section>
@@ -222,6 +363,31 @@
 
 
 
+    <!--Mobile Cropping Modal -->
+    <div class="modal fade" id="cropModal2" tabindex="-1" role="dialog" aria-labelledby="cropModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #be0103;">
+                    <h5 class="modal-title text-light" id="croptitle2">Drag To Adjust</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding: 0px">
+                    <img  id="cropper2" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary back_profile_pic2" data-dismiss="modal">Back</button>
+                    <button type="button" class="btn btn-danger save_profile_pic2"  style="background-color: #be0103;">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    {{--END Mobile Cropping Modal--}}
+
+
     <div class="profileWrapper_Mob">
         <!-- Profile Heaer Start -->
         <header class="headerProfile cursor-light">
@@ -247,16 +413,34 @@
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
-                <img src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picTwo">
-                @guest
+                <div class="container" id="save_container" style="width:94.2%;position:absolute;display:none;z-index:1000;height: 60px;background-color:rgba(59,73,71,0.7)">
+                    <div class="row p-3" id="save_text">
+                        <div class="col-6"><p style="color: #fff;">Save Changes</p></div>
+                        <div class="col-5">
+                            <button class="save" id="pos2">Save</button>
+                        </div>
+                    </div>
+                </div>
+{{--                <div id="con">--}}
+                    {{--                    --}}
+
+                    @if (isset($companyInfo) && $record->cover_image=="")
+                        <img id="display2" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne img-fluid" >
+                    @else
+                        <img id="display2" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne img-fluid"  >
+                    @endif
+{{--                </div>--}}
+                    @guest
                 @else
                     <form id="filecover_imageTwo" action="" method="post" enctype="multipart/form-data">
-                    <span class="icon" title="User Cover">
+                    <span class="icon" title="User Cover" id="upload">
                         <i class="fas fa-image upload-buttonTwo"></i>
                         <input class="file-uploadTwo" type="file" id="cover_image" name="cover_image" accept="image/*">
+                         <input id="cover_top2" name="cover_top" type="hidden" value="0" />
                     </span>
                     </form>
-                    <a class="edit-profile-btn" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i></a>
+                    <a class="edit-profile-btn" id="edit_profile2" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i></a>
+{{--                    <a class="edit-profile-btn save" id="pos2" style="display:none;float: right"><i class="fas fa-save"></i></a>--}}
                 @endguest
             </div>
 
@@ -349,76 +533,249 @@
     <!-- Tap On Top Ends -->
 @endsection
 @section('pageJs')
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" integrity="sha256-jKV9n9bkk/CTP8zbtEtnKaKf+ehRovOYeKoyfthwbC8=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js" integrity="sha256-EuV9YMxdV2Es4m9Q11L6t42ajVDj1x+6NZH4U1F+Jvw=" crossorigin="anonymous"></script>
+    <script
+        src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+        integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+        crossorigin="anonymous"></script>
+    <script src="{{asset('assets/front/js/jquery.ui.touch-punch.min.js')}}"></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js'></script>
+
     <!-- script js-->
     <script src="{{asset('assets/front/js/profile.js')}}"></script>
     <script>
+
+
+
         $(document).ready(function () {
-            $(document).on('change', '.file-upload', function () {
-                let forms = document.querySelector('#fileprofile_picture');
-                $.ajax({
-                    url: "{{ route('upload-profile-pic', request()->segment(2) ) }}",
-                    type: "post",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            // function adjust(){
+            //
+            //     if(window.innerWidth>=1200){
+            //         $("#display2").css({"top":top});
+            //     }
+            //     if(top<0){
+            //     if(window.innerWidth<=992){
+            //         $("#display").css({"top":top+20});
+            //     }}
+            //     if(top2<0){
+            //     if(window.innerWidth<768){
+            //         $("#display2").css({"top":top2+(-top2)*0.5});
+            //     }
+            //     if(window.innerWidth<500){
+            //         $("#display2").css({"top":top2+(-top2)*0.7});
+            //     }
+            //     if(window.innerWidth<400){
+            //         $("#display2").css({"top":top2+(-top2)*0.8});
+            //     }}
+            // }
+            // var image=$("#display");
+            // var image2=$("#display2");
+            // var top=parseInt(image.css("top"));
+            // var top2=parseInt(image2.css("top"));
+            var rawImage;
+            var rawCoverImage;
+            var whichPic;
+            // adjust();
+            // window.onresize=function(){
+            //     adjust();
+            // };
+
+            //croppie
+            var profile_crop=$("#cropper").croppie();
+
+
+            // var cover_crop = $("#cropper").croppie({
+            //     enableExif: true,
+            //     mouseWheelZoom:'ctrl',
+            //     enforceBoundary: false,
+            //     viewport: {
+            //         width: 343.2,
+            //         height: 126,
+            //         type: 'square'
+            //     },boundary:{
+            //         height: 400
+            //     }
+            // });
+
+            $('#cropModal').on('shown.bs.modal', function(){
+                profile_crop.croppie('destroy');
+                profile_crop=$("#cropper").croppie({
+                    enableExif: true,
+                    mouseWheelZoom:'ctrl',
+                    boundary:{
+                        height:400
                     },
-                    data: new FormData(forms),
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        window.location.reload();
+                    viewport:{
+                        height:whichPic=="cover"?126:300,
+                        width:whichPic=="cover"?343.2:300,
+                        type:whichPic=="cover"?'square':'circle'
                     }
                 });
-            });
-
-            $(document).on('change', '.file-uploadOne', function () {
-                let forms = document.querySelector('#filecover_image');
-                $.ajax({
-                    url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",
-                    type: "post",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: new FormData(forms),
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        window.location.reload();
-                    }
-                });
-            });
-
-            $(document).on('change', '.file-uploadTwo', function () {
-                let forms = document.querySelector('#filecover_imageTwo');
-                $.ajax({
-                    url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",
-                    type: "post",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data: new FormData(forms),
-                    contentType: false,
-                    processData: false,
-                    success: function (data) {
-                        window.location.reload();
-                    }
-                });
-            });
-
-
-            var readURL = function (input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        $('.profile-picOne').attr('src', e.target.result);
-                    }
-
-                    reader.readAsDataURL(input.files[0]);
+                if(whichPic=="cover"){
+                    profile_crop.croppie('bind',{
+                       url:rawCoverImage
+                    });
+                }else{
+                    profile_crop.croppie('bind',{
+                        url:rawImage
+                    });
                 }
+
+            });
+
+            $(document).on('change', '.file-upload', function () {
+                var reader=new FileReader();
+                reader.onload=function(eve){
+                    rawImage=eve.target.result;
+                };
+                reader.readAsDataURL(this.files[0]);
+                whichPic="profile";
+                $("#cropModal").modal('show');
+            });
+
+            $('.save_profile_pic').on('click',function () {
+                $("#croptitle").text("Saving....");
+                $(this).attr("disabled",true);
+                $('.back_profile_pic').attr("disabled",true);
+                //let forms = document.querySelector('#fileprofile_picture');
+                if(whichPic=="cover"){
+                    profile_crop.croppie("result",{
+                        type: 'canvas',
+                        size: {height:420,width:1144},
+                        quality:1
+                    }).then((data)=>{
+                        $.ajax({
+                            url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",
+                            type: "POST",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {"cover_image":data},
+                            // contentType: false,
+                            // processData: false,
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    });
+                }else{
+                    profile_crop.croppie("result")
+                        .then((data)=>{
+                            $.ajax({
+                                url: "{{ route('upload-profile-pic', request()->segment(2) ) }}",
+                                type: "POST",
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                data: {"profile_picture":data},
+                                // contentType: false,
+                                // processData: false,
+                                success: function (data) {
+                                    window.location.reload();
+                                },
+                                error:function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        });
+                }
+
+
+            });
+
+
+            function setImage(){
+                var reader=new FileReader();
+                reader.onload=function(eve){
+                    // image.attr("src",eve.target.result);
+                    rawCoverImage=eve.target.result;
+                };
+                reader.readAsDataURL($(".file-uploadOne")[0].files[0]);
             }
 
+            // function setImage2(){
+            //     var reader=new FileReader();
+            //     reader.onload=function(eve){
+            //         image2.attr("src",eve.target.result);
+            //     };
+            //     reader.readAsDataURL($(".file-uploadTwo")[0].files[0]);
+            // }
+
+            // $(document).on('change', '.file-uploadOne', function () {
+
+                // $("#edit_profile").css({"display":"none"});
+                // $("#pos").css({"display":"block"});
+                // $("#edit_profile").css({"display":"none"});
+                // $(".overlay").css({"display":"none"});
+                //image.css({"top":0});
+                //image.css({"top":-121});
+                // setImage();
+                // whichPic="cover";
+                // $("#cropModal").modal('show');
+                // image.draggable({
+                //
+                //     axis:'y',
+                //     cursor:'move',
+                //     drag:function(event,ui){
+                //
+                //         var diff=ui.helper[0].clientHeight-ui.helper[0].parentNode.clientHeight;
+                //         if(ui.position.top>0)ui.position.top=0;
+                //         else if(-ui.position.top>=diff)ui.position.top=-diff;
+                //         $('[name="cover_top"]').val(ui.position.top);
+                //     }
+                // });
+            // });
+
+            {{--$("#pos").click(function () {--}}
+            {{--    let forms = document.querySelector('#filecover_image');--}}
+            {{--    $(this).attr("disabled",true);--}}
+            {{--    $(this).text("Saving....");--}}
+
+            {{--    $.ajax({--}}
+            {{--        url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",--}}
+            {{--        type: "post",--}}
+            {{--        headers: {--}}
+            {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+            {{--        },--}}
+            {{--        data: new FormData(forms),--}}
+            {{--        contentType: false,--}}
+            {{--        processData: false,--}}
+            {{--        success: function (data) {--}}
+            {{--            window.location.reload();--}}
+            {{--        }--}}
+            {{--    });--}}
+            {{--});--}}
+
+
+
+
+
+            // var readURL = function (input) {
+            //     if (input.files && input.files[0]) {
+            //         var reader = new FileReader();
+            //
+            //         reader.onload = function (e) {
+            //             $('.profile-picOne').attr('src', e.target.result);
+            //         }
+            //
+            //         reader.readAsDataURL(input.files[0]);
+            //     }
+            // }
+
             $(".file-uploadOne").on('change', function () {
-                readURL(this);
+                //readURL(this);
+                setImage();
+                whichPic="cover";
+                $("#cropModal").modal('show');
             });
 
             $(".upload-buttonOne").on('click', function () {
@@ -426,22 +783,22 @@
             });
         });
         $(document).ready(function () {
-            var readURL = function (input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-
-                        $('.profile-pic').attr('src', e.target.result);
-                        // console.log(e.target.result);
-                    }
-
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-            $(".file-upload").on('change', function () {
-                readURL(this);
-            });
+            // var readURL = function (input) {
+            //     if (input.files && input.files[0]) {
+            //         var reader = new FileReader();
+            //         reader.onload = function (e) {
+            //
+            //             //$('.profile-pic').attr('src', e.target.result);
+            //             // console.log(e.target.result);
+            //         }
+            //
+            //         reader.readAsDataURL(input.files[0]);
+            //     }
+            // }
+            //
+            // $(".file-upload").on('change', function () {
+            //     readURL(this);
+            // });
 
             $(".upload-button").on('click', function () {
                 $(".file-upload").click();
@@ -469,17 +826,154 @@
             });
         });
         $(document).ready(function () {
+
+            var profile_crop=$("#cropper2").croppie();
+            var rawImage,whichPic,rawCoverImage;
+
             var readURL = function (input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
 
                     reader.onload = function (e) {
-                        $('.profile-picThree').attr('src', e.target.result);
-                    }
-
+                        //$('.profile-picThree').attr('src', e.target.result);
+                        rawImage=e.target.result;
+                    };
+                    whichPic="profile";
                     reader.readAsDataURL(input.files[0]);
+                    $("#cropModal2").modal('show');
+
                 }
             }
+
+            $('.save_profile_pic2').on('click',function () {
+                $("#croptitle2").text("Saving....");
+                $(this).attr("disabled",true);
+                $('.back_profile_pic2').attr("disabled",true);
+                //let forms = document.querySelector('#fileprofile_picture');
+                if(whichPic=="cover"){
+                    profile_crop.croppie('result',{
+                        type: 'canvas',
+                        size: {height:420,width:1144},
+                        quality:1
+                    }).then((data)=>{
+                        $.ajax({
+                            url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",
+                            type: "POST",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {"cover_image":data},
+                            // contentType: false,
+                            // processData: false,
+                            success: function (data) {
+                                window.location.reload();
+                            }
+                        });
+                    });
+                }
+                else {
+                    profile_crop.croppie("result")
+                        .then((data) => {
+                            $.ajax({
+                                url: "{{ route('upload-profile-pic', request()->segment(2) ) }}",
+                                type: "POST",
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                data: {"profile_picture": data},
+                                // contentType: false,
+                                // processData: false,
+                                success: function (data) {
+                                    window.location.reload();
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        });
+                }
+
+            });
+
+
+            $('#cropModal2').on('shown.bs.modal', function(){
+                profile_crop.croppie('destroy');
+                profile_crop=$("#cropper2").croppie({
+                    enableExif: true,
+                    mouseWheelZoom:'ctrl',
+                    boundary:{
+                        height:400
+                    },
+                    viewport:{
+                        height:whichPic=="cover"?126:300,
+                        width:whichPic=="cover"?343.2:300,
+                        type:whichPic=="cover"?'square':'circle'
+                    }
+                });
+                if (whichPic=="cover"){
+                    profile_crop.croppie('bind',{
+                        url:rawCoverImage
+                    });
+                }else {
+                    profile_crop.croppie('bind', {
+                        url: rawImage
+                    });
+                }
+            });
+
+            function setImage2(){
+                var reader=new FileReader();
+                reader.onload=function(eve){
+                    //image2.attr("src",eve.target.result);
+                    rawCoverImage=eve.target.result;
+                };
+                reader.readAsDataURL($(".file-uploadTwo")[0].files[0]);
+            }
+
+            $(document).on('change', '.file-uploadTwo', function () {
+
+                // $("#edit_profile2").css({"display":"none"});
+                // $("#save_container").css({"display":"block"});
+                // $("#upload").css({"display":"none"});
+                // image2.css({"top":0});
+                // setImage2();
+                // image2.draggable({
+                //     axis:'y',
+                //     cursor:'move',
+                //     drag:function(event,ui){
+                //
+                //         var diff=ui.helper[0].clientHeight-ui.helper[0].parentNode.clientHeight;
+                //         if(ui.position.top>0)ui.position.top=0;
+                //         else if(-ui.position.top>=diff)ui.position.top=-diff;
+                //         $('#cover_top2').val(ui.position.top);
+                //     }
+                // });
+
+                whichPic="cover";
+                setImage2();
+                $("#cropModal2").modal('show');
+            });
+
+
+
+            {{--$("#pos2").click(function () {--}}
+            {{--    let forms = document.querySelector('#filecover_imageTwo');--}}
+            {{--    $("#save_text").empty();--}}
+            {{--    $("#save_text").append("<p class='text-center text-light'>Saving...</p>");--}}
+            {{--    $.ajax({--}}
+            {{--        url: "{{ route('upload-cover-pic', request()->segment(2) ) }}",--}}
+            {{--        type: "post",--}}
+            {{--        headers: {--}}
+            {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+            {{--        },--}}
+            {{--        data: new FormData(forms),--}}
+            {{--        contentType: false,--}}
+            {{--        processData: false,--}}
+            {{--        success: function (data) {--}}
+            {{--            window.location.reload();--}}
+            {{--        }--}}
+            {{--    });--}}
+            {{--});--}}
 
             $(".file-uploadThree").on('change', function () {
                 readURL(this);
