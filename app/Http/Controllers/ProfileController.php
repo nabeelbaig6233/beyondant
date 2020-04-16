@@ -88,19 +88,24 @@ class ProfileController extends Controller
 
     public function uploadCoverPic(Request $request, $id)
     {
-        if (!empty($request->file('cover_image'))) {
+        if (!empty($request->get('cover_image'))) {
             $record = User::find($id);
             $image_path = User::where('id',$id)->first()->cover_image;
-            $cover_position=$request->get("cover_top");
+            //$cover_position=$request->get("cover_top");
             if (\File::exists($image_path)) {
                 \File::delete($image_path);
             }
-            $cover_image = $request->file('cover_image');
-            $image = rand().'.'.$cover_image->getClientOriginalExtension();
-            $cover_image->move(public_path('assets/admin/images'),$image);
+            $cover_image = $request->get('cover_image');
+            list($type,$image)=explode(";",$cover_image);
+            list(,$image)=explode(",",$image);
+            $cover_image=base64_decode($image);
+            //$image = rand().'.'.$cover_image->getClientOriginalExtension();
+            $image = rand().'.'.explode("/",$type)[1];
+            //$cover_image->move(public_path('assets/admin/images'),$image);
+            file_put_contents(public_path('assets/admin/images/'.$image),$cover_image);
             $cover_image = 'assets/admin/images/'.$image;
             $record->cover_image = $cover_image;
-            $record->cover_pos = (int)$cover_position;
+            //$record->cover_pos = (int)$cover_position;
             $record->save();
             echo "Profile Picture Updated Successfully.";
         }
