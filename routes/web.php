@@ -79,6 +79,9 @@ Route::get("register",function (){
 //Employees does not put into the admin b/c define the methods in Controllers\ProfileController
 Route::post('/save_emp', "ProfileController@save_employees")->name("save-employees");
 Route::post('/update_emp/{id}', "ProfileController@update_employees")->name("update-employees");
+Route::post('/save_account', "ProfileController@save_account")->name("save_account");
+
+
 
 Auth::routes(["register"=>false]);
 
