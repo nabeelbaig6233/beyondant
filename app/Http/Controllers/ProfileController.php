@@ -344,11 +344,11 @@ class ProfileController extends Controller
     public function save_account(){
         $password=\Illuminate\Support\Str::random(16);
         User::create([
-            'role_id' => 2,
+            'role_id' => request()->get("acc_type")=="company"?5:2,
             'first_name' => request()->get("ind_f_name"),
             'last_name' => request()->get("ind_l_name"),
             'job_title' => "",
-            'company_name' => "",
+            'company_name' => request()->get("company_name")??"",
             'company_description' => "",
             'contact_number' =>"",
             'mobile_number' => "",
@@ -372,9 +372,7 @@ class ProfileController extends Controller
             'acc_type' => request()->get("acc_type")??"personal",
             'parent_id'=>request()->get("parent_id"),
         ]);
-        if (request()->get("acc_type")=="personal") {
-            Mail::to(request()->get("ind_email"))->send(new AccountMail(request()->get("ind_email"),$password));
-        }
+        Mail::to(request()->get("ind_email"))->send(new AccountMail(request()->get("ind_email"),$password,request()->get("acc_type")));
         return 1;
     }
 

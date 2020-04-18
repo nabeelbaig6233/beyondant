@@ -43,6 +43,9 @@
                                         <table id="example1" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <button type="button" class="btn btn-danger btn-xs" id="delete_all">Delete</button>
+                                            @can("create_company",auth()->user())
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#companyModal">Add Account</button>
+                                            @endcan
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','company_id'))}}</th>
@@ -158,6 +161,44 @@
         </div>
     </div>
 
+
+    {{--Company Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="companyModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="companyForm">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-dark"><strong>Create Company Account</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="ind_f_name" placeholder="First Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="ind_l_name" placeholder="Last Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="company_name" placeholder="Company Name" />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="email" class="form-control" name="ind_email" placeholder="E-mail" required />
+                            </div>
+                            <div class="col-12">
+                                <p id="acc_msg"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_company" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger" id="save_company" >Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Company Modal--}}
 
 
 
@@ -322,6 +363,70 @@
                     }
                 })
             });
+
+
+
+            //Company account
+
+
+
+            $("#companyModal").on('hide.bs.modal', function(){
+                $("[name=ind_f_name]").val("");
+                $("[name=ind_l_name]").val("");
+                $("[name=ind_email]").val("");
+                $("[name=company_name]").val("");
+                $("#acc_msg").text("");
+                $("#save_company").attr("disabled",false);
+                $("#close_company").attr("disabled",false);
+                $("#companyForm").trigger("reset");
+
+            });
+
+
+            $("#close_individual").click(function () {
+                $("#companyModal").modal('hide');
+            });
+
+            async function addCompany(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+                $("#acc_msg").text("Please wait...");
+                $("#save_company").attr("disabled",true);
+                $("#close_company").attr("disabled",true);
+                var val={};
+                var data=$("#companyForm").serializeArray();
+                data.forEach((form)=>{
+                    val[form.name]=form.value;
+                });
+                val["parent_id"]=0;
+                val["acc_type"]="company";
+                $.ajax({
+                    url:"{{route("save_account")}}",
+                    type:"POST",
+                    data:val,
+                    success:function (data) {
+                        $("#acc_msg").text("");
+                        $("#companyModal").modal('hide');
+                        DataTable.ajax.reload();
+                        js_success("An email was sent with the needed login credentials")
+                    },
+                    error:function (error) {
+                        $("#acc_msg").text("An account with this email already exist.")
+                    }
+                })
+
+            }
+
+            $("#companyForm").submit(function (e) {
+                e.preventDefault();
+                addCompany();
+            });
+
+
+            //End Company account
 
 
 

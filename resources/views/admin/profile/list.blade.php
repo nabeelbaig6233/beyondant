@@ -85,7 +85,7 @@
                                 <input type="text" class="form-control" name="ind_l_name" placeholder="Last Name" required />
                             </div>
                             <div class="form-group col-12">
-                                <input type="email" class="form-control" name="ind_email" placeholder="Employee E-mail" required />
+                                <input type="email" class="form-control" name="ind_email" placeholder="E-mail" required />
                             </div>
                             <div class="col-12">
                                 <p id="acc_msg"></p>

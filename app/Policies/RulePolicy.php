@@ -31,4 +31,11 @@ class RulePolicy
         else{return false;}
     }
 
+    public function create_company(User $user){
+        $permissions=json_decode(role::find($user->role_id)->permission);
+        if(in_array("createCompany",$permissions)){ return true;}
+        else{return false;}
+    }
+
+
 }
