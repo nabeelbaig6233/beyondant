@@ -58,6 +58,8 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::post('/profile/delete_all','ProfileController@delete_all')->name('profile.delete_all');
 
 
+    //reset_password
+    Route::post('/reset_account_password', "ProfileController@reset_account_password")->name("reset_account_pass");
 
     // Reseller
     Route::get('/reseller','ResellerController@index')->name('admin.reseller');

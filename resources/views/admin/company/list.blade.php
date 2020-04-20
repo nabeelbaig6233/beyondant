@@ -250,6 +250,31 @@
 
 
 
+    {{--Password Reset Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="resetModal" tabindex="-1" role="dialog"  >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="resetForm">
+                    <div class="modal-header bg-dark">
+                        <h4 class="modal-title text-white" ><strong>Reset Password</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 align="center" id="pr_msg" style="margin: 0;">Are you sure you want to reset password ?</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_pass" class="btn btn-secondary">Close</button>
+                        <button type="submit" class="btn btn-danger" id="save_pass" >Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Password Reset Modal--}}
 
 
 
@@ -427,6 +452,82 @@
 
 
             //End Company account
+
+
+
+            //Password Modal;
+
+
+
+            $("#resetModal").on('hide.bs.modal', function(){
+                $("#pr_msg").text("Are you sure you want to reset password ?");
+                $("#save_pass").attr("disabled",false).attr("data-id","");
+                $("#close_pass").attr("disabled",false);
+                $("#resetForm").trigger("reset");
+
+            });
+
+            $(document).on('click','.reset_password',function () {
+                let id=$(this).attr("id");
+                $("#save_pass").attr("data-id",id);
+                $("#resetModal").modal('show');
+
+            });
+
+            $("#close_pass").click(function () {
+                $("#resetModal").modal('hide');
+            });
+
+
+            async function addIndividual(id){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+
+                $("#pr_msg").text("Please wait...");
+                $("#save_pass").attr("disabled",true);
+                $("#close_pass").attr("disabled",true);
+                var val={};
+                var data=$("#resetForm").serializeArray();
+                data.forEach((form)=>{
+                    val[form.name]=form.value;
+                });
+                val["id"]=$("#save_pass").attr("data-id");
+                $.ajax({
+                    url:"{{route("reset_account_pass")}}",
+                    type:"POST",
+                    data:val,
+                    success:function (data) {
+                        $("#pr_msg").text("");
+                        $("#resetModal").modal('hide');
+                        DataTable.ajax.reload();
+                        js_success("An email was sent with the new password")
+                    },
+                    error:function (error) {
+                        console.log(error);
+                        // $("#pr_msg").text("An account with this email already exist.")
+                    }
+                });
+
+            }
+
+            $("#resetForm").submit(function (e) {
+                e.preventDefault();
+                addIndividual();
+            });
+
+
+            //End Password Modal
+
+
+
+
+
+
+
+
 
 
 
