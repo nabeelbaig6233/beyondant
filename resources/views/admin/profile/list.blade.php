@@ -11,7 +11,7 @@
 @section('content')
 
 
-    {{--Emplyee Modal--}}
+    {{--Employee Modal--}}
     <!-- Modal -->
     <div class="modal fade " id="employeeModal" tabindex="-1" role="dialog" >
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -67,6 +67,70 @@
     {{--End Employee Modal--}}
 
 
+    {{--Individual Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="individualModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="individualForm">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Create Account</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="ind_f_name" placeholder="First Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="ind_l_name" placeholder="Last Name" required />
+                            </div>
+                            <div class="form-group col-12">
+                                <input type="email" class="form-control" name="ind_email" placeholder="E-mail" required />
+                            </div>
+                            <div class="col-12">
+                                <p id="acc_msg"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_individual" class="btn btn-secondary">Close</button>
+                        <button type="submit" class="btn btn-danger" id="save_individual" >Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Individual Modal--}}
+
+
+    {{--Password Reset Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="resetModal" tabindex="-1" role="dialog"  >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="resetForm">
+                    <div class="modal-header bg-dark">
+                        <h4 class="modal-title text-white" ><strong>Reset Password</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 align="center" id="pr_msg" style="margin: 0;">Are you sure you want to reset password ?</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_pass" class="btn btn-secondary">Close</button>
+                        <button type="submit" class="btn btn-danger" id="save_pass" >Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Password Reset Modal--}}
+
+
+
 
     <div class="right_col" role="main">
         <div class="">
@@ -110,6 +174,13 @@
                                                 <button type="submit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#employeeModal">Add Employee</button>
 
                                             @endcan
+
+                                            @can("create_profile",auth()->user())
+
+                                                <button type="submit" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#individualModal">Add Account</button>
+
+                                            @endcan
+
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
@@ -367,6 +438,137 @@
                     }
                 })
             });
+
+
+            //Individual account
+
+
+
+            $("#individualModal").on('hide.bs.modal', function(){
+                $("[name=ind_f_name]").val("");
+                $("[name=ind_l_name]").val("");
+                $("[name=ind_email]").val("");
+                $("#acc_msg").text("");
+                $("#save_individual").attr("disabled",false);
+                $("#close_individual").attr("disabled",false);
+                $("#individualForm").trigger("reset");
+
+            });
+
+
+            $("#close_individual").click(function () {
+                $("#individualModal").modal('hide');
+            });
+
+            async function addIndividual(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+                $("#acc_msg").text("Please wait...");
+                $("#save_individual").attr("disabled",true);
+                $("#close_individual").attr("disabled",true);
+                var val={};
+                var data=$("#individualForm").serializeArray();
+                data.forEach((form)=>{
+                    val[form.name]=form.value;
+                });
+                val["parent_id"]=0;
+                val["acc_type"]="personal";
+                $.ajax({
+                    url:"{{route("save_account")}}",
+                    type:"POST",
+                    data:val,
+                    success:function (data) {
+                        $("#acc_msg").text("");
+                        $("#individualModal").modal('hide');
+                        DataTable.ajax.reload();
+                        js_success("An email was sent with the needed login credentials")
+                    },
+                    error:function (error) {
+                        $("#acc_msg").text("An account with this email already exist.")
+                    }
+                })
+
+            }
+
+            $("#individualForm").submit(function (e) {
+                e.preventDefault();
+                addIndividual();
+            });
+
+
+            //End Individual account
+
+            //Password Modal;
+
+
+
+            $("#resetModal").on('hide.bs.modal', function(){
+                $("#pr_msg").text("Are you sure you want to reset password ?");
+                $("#save_pass").attr("disabled",false).attr("data-id","");
+                $("#close_pass").attr("disabled",false);
+                $("#resetForm").trigger("reset");
+
+            });
+
+            $(document).on('click','.reset_password',function () {
+                let id=$(this).attr("id");
+                $("#save_pass").attr("data-id",id);
+                $("#resetModal").modal('show');
+
+        });
+
+            $("#close_pass").click(function () {
+                $("#resetModal").modal('hide');
+            });
+
+
+            async function addIndividual(id){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+
+                    $("#pr_msg").text("Please wait...");
+                    $("#save_pass").attr("disabled",true);
+                    $("#close_pass").attr("disabled",true);
+                    var val={};
+                    var data=$("#resetForm").serializeArray();
+                    data.forEach((form)=>{
+                        val[form.name]=form.value;
+                    });
+                    val["id"]=$("#save_pass").attr("data-id");
+                    $.ajax({
+                        url:"{{route("reset_account_pass")}}",
+                        type:"POST",
+                        data:val,
+                        success:function (data) {
+                            $("#pr_msg").text("");
+                            $("#resetModal").modal('hide');
+                            DataTable.ajax.reload();
+                            js_success("An email was sent with the new password")
+                        },
+                        error:function (error) {
+                            console.log(error);
+                            // $("#pr_msg").text("An account with this email already exist.")
+                        }
+                    });
+
+            }
+
+            $("#resetForm").submit(function (e) {
+                e.preventDefault();
+                addIndividual();
+            });
+
+
+            //End Password Modal
+
+
+
 
             //EMPlOYEE Modal JS
 

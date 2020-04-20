@@ -58,6 +58,8 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::post('/profile/delete_all','ProfileController@delete_all')->name('profile.delete_all');
 
 
+    //reset_password
+    Route::post('/reset_account_password', "ProfileController@reset_account_password")->name("reset_account_pass");
 
     // Reseller
     Route::get('/reseller','ResellerController@index')->name('admin.reseller');
@@ -79,6 +81,9 @@ Route::get("register",function (){
 //Employees does not put into the admin b/c define the methods in Controllers\ProfileController
 Route::post('/save_emp', "ProfileController@save_employees")->name("save-employees");
 Route::post('/update_emp/{id}', "ProfileController@update_employees")->name("update-employees");
+Route::post('/save_account', "ProfileController@save_account")->name("save_account");
+
+
 
 Auth::routes(["register"=>false]);
 

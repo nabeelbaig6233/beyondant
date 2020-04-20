@@ -43,6 +43,9 @@
                                         <table id="example1" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <button type="button" class="btn btn-danger btn-xs" id="delete_all">Delete</button>
+                                            @can("create_company",auth()->user())
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#companyModal">Add Account</button>
+                                            @endcan
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','company_id'))}}</th>
@@ -159,6 +162,44 @@
     </div>
 
 
+    {{--Company Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="companyModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="companyForm">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-dark"><strong>Create Company Account</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="ind_f_name" placeholder="First Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="ind_l_name" placeholder="Last Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="company_name" placeholder="Company Name" />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="email" class="form-control" name="ind_email" placeholder="E-mail" required />
+                            </div>
+                            <div class="col-12">
+                                <p id="acc_msg"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_company" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger" id="save_company" >Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Company Modal--}}
+
 
 
 {{--    Emplye List Modal--}}
@@ -209,6 +250,31 @@
 
 
 
+    {{--Password Reset Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="resetModal" tabindex="-1" role="dialog"  >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="resetForm">
+                    <div class="modal-header bg-dark">
+                        <h4 class="modal-title text-white" ><strong>Reset Password</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 align="center" id="pr_msg" style="margin: 0;">Are you sure you want to reset password ?</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_pass" class="btn btn-secondary">Close</button>
+                        <button type="submit" class="btn btn-danger" id="save_pass" >Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Password Reset Modal--}}
 
 
 
@@ -322,6 +388,146 @@
                     }
                 })
             });
+
+
+
+            //Company account
+
+
+
+            $("#companyModal").on('hide.bs.modal', function(){
+                $("[name=ind_f_name]").val("");
+                $("[name=ind_l_name]").val("");
+                $("[name=ind_email]").val("");
+                $("[name=company_name]").val("");
+                $("#acc_msg").text("");
+                $("#save_company").attr("disabled",false);
+                $("#close_company").attr("disabled",false);
+                $("#companyForm").trigger("reset");
+
+            });
+
+
+            $("#close_individual").click(function () {
+                $("#companyModal").modal('hide');
+            });
+
+            async function addCompany(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+                $("#acc_msg").text("Please wait...");
+                $("#save_company").attr("disabled",true);
+                $("#close_company").attr("disabled",true);
+                var val={};
+                var data=$("#companyForm").serializeArray();
+                data.forEach((form)=>{
+                    val[form.name]=form.value;
+                });
+                val["parent_id"]=0;
+                val["acc_type"]="company";
+                $.ajax({
+                    url:"{{route("save_account")}}",
+                    type:"POST",
+                    data:val,
+                    success:function (data) {
+                        $("#acc_msg").text("");
+                        $("#companyModal").modal('hide');
+                        DataTable.ajax.reload();
+                        js_success("An email was sent with the needed login credentials")
+                    },
+                    error:function (error) {
+                        $("#acc_msg").text("An account with this email already exist.")
+                    }
+                })
+
+            }
+
+            $("#companyForm").submit(function (e) {
+                e.preventDefault();
+                addCompany();
+            });
+
+
+            //End Company account
+
+
+
+            //Password Modal;
+
+
+
+            $("#resetModal").on('hide.bs.modal', function(){
+                $("#pr_msg").text("Are you sure you want to reset password ?");
+                $("#save_pass").attr("disabled",false).attr("data-id","");
+                $("#close_pass").attr("disabled",false);
+                $("#resetForm").trigger("reset");
+
+            });
+
+            $(document).on('click','.reset_password',function () {
+                let id=$(this).attr("id");
+                $("#save_pass").attr("data-id",id);
+                $("#resetModal").modal('show');
+
+            });
+
+            $("#close_pass").click(function () {
+                $("#resetModal").modal('hide');
+            });
+
+
+            async function addIndividual(id){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+
+                $("#pr_msg").text("Please wait...");
+                $("#save_pass").attr("disabled",true);
+                $("#close_pass").attr("disabled",true);
+                var val={};
+                var data=$("#resetForm").serializeArray();
+                data.forEach((form)=>{
+                    val[form.name]=form.value;
+                });
+                val["id"]=$("#save_pass").attr("data-id");
+                $.ajax({
+                    url:"{{route("reset_account_pass")}}",
+                    type:"POST",
+                    data:val,
+                    success:function (data) {
+                        $("#pr_msg").text("");
+                        $("#resetModal").modal('hide');
+                        DataTable.ajax.reload();
+                        js_success("An email was sent with the new password")
+                    },
+                    error:function (error) {
+                        console.log(error);
+                        // $("#pr_msg").text("An account with this email already exist.")
+                    }
+                });
+
+            }
+
+            $("#resetForm").submit(function (e) {
+                e.preventDefault();
+                addIndividual();
+            });
+
+
+            //End Password Modal
+
+
+
+
+
+
+
+
 
 
 

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeForm;
+use App\Mail\AccountMail;
 use App\Mail\CreateEmployeeMail;
+use App\Notifications\AccountNotification;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -11,6 +13,7 @@ use App\Http\Requests\PasswordValidationForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ViewErrorBag;
 use Psy\Util\Str;
@@ -336,6 +339,43 @@ class ProfileController extends Controller
         ]);
 
     }
+
+
+    public function save_account(){
+        $password=\Illuminate\Support\Str::random(16);
+        User::create([
+            'role_id' => request()->get("acc_type")=="company"?5:2,
+            'first_name' => request()->get("ind_f_name"),
+            'last_name' => request()->get("ind_l_name"),
+            'job_title' => "",
+            'company_name' => request()->get("company_name")??"",
+            'company_description' => "",
+            'contact_number' =>"",
+            'mobile_number' => "",
+            'mobile_check' => "",
+            'email' => request()->get("ind_email")??"",
+            'address' => "",
+            'state' => "",
+            'city' => "",
+            'province' => "",
+            'zipcode' => "",
+            'website' => "",
+            'website_check' => "",
+            'website_address' => "",
+            'linkedin' => "",
+            'linkedin_check' => "",
+            'instagram' => "",
+            'instagram_check' => "",
+            'facebook' => "",
+            'facebook_check' => "",
+            'password' => Hash::make($password),
+            'acc_type' => request()->get("acc_type")??"personal",
+            'parent_id'=>request()->get("parent_id"),
+        ]);
+        Mail::to(request()->get("ind_email"))->send(new AccountMail(request()->get("ind_email"),$password,request()->get("acc_type")));
+        return 1;
+    }
+
 
 
 }
