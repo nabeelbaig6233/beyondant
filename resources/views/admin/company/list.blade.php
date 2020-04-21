@@ -278,6 +278,64 @@
 
 
 
+    {{--Employee Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="employeeModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="post" id="employeeForm">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Employee Form</strong></h4>
+                        {{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+                        {{--                            <span aria-hidden="true">&times;</span>--}}
+                        {{--                        </button>--}}
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="f_name" placeholder="First Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="l_name" placeholder="Last Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="email" class="form-control" name="email" placeholder="Employee E-mail" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="title" placeholder="Title" required />
+                            </div>
+                            <div class="form-group col-12">
+                                <input type="text" class="form-control" name="ext" placeholder="Ext." required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" id="phone" name="phone" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999 @php $ext = explode(" ",auth()->user()->contact_number); echo !empty($ext[2])? '999' : '' @endphp&quot;" data-mask="" placeholder="Direct Phone Number *"  autocomplete="contact_number">
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="location" placeholder="Location"  required />
+                            </div>
+
+                            <div class="col-12"  id="employee">
+                                <p class='text-dark' id='emp'></p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" id="close" class="btn btn-light">Close</button>
+                        <button type="submit" class="btn btn-primary" id="save_emp" >Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Employee Modal--}}
+
+
+
+
 {{--    End Employee List Modal--}}
 
     <div id="confirmModal" class="modal fade" role="dialog">
@@ -525,6 +583,84 @@
 
 
 
+
+            //EMPlOYEE Modal JS
+
+
+
+            async function readFormsAndAdd(){
+
+                $.ajaxSetup({
+
+                    headers: {
+
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+
+                    }
+
+                });
+                var data1=$(`#employeeForm`).serializeArray();
+                var value={};
+                value["parent_id"]=$("#save_emp").attr("data-id");
+                data1.forEach((input)=>{
+                    value[input.name]=input.value;
+
+                });
+                var response=await $.ajax({
+                    url: `{{route("save-employees")}}`,
+                    type: "POST",
+                    data: value
+                });
+                return response;
+            }
+
+            $('#employeeModal').on('hidden.bs.modal', function () {
+                $("[name='f_name']").val('');
+                $("[name='l_name']").val('');
+                $("[name='title']").val('');
+                $("[name='email']").val('');
+                $("[name='ext']").val('');
+                $("[name='phone']").val('');
+                $("[name='location']").val('');
+                $("#save_emp").removeAttr("data-id");
+                $("#save_emp").removeClass("disabled");
+                $("#emp").text("");
+            });
+
+
+
+
+
+            $("#employeeForm").submit(function (e) {
+                e.preventDefault();
+                $("#emp").text("");
+                $("#emp").text("Please Wait...");
+                $("#save_emp").addClass("disabled");
+
+                    var result = readFormsAndAdd('save');
+                    result.then((res) => {
+                      $("#employeeModal").modal('hide');
+                      DataTable.ajax.reload();
+                      js_success("An email was sent to your employee with the needed login credentials");
+                    }).catch((err) => {
+                        $("#emp").text("");
+                        $("#emp").append("An employee with these email already exist");
+                        $("#save_emp").removeClass("disabled");
+                    });
+            });
+
+            $(document).on("click",".add_employee",function () {
+                let id = $(this).attr('id');
+                $("#save_emp").attr("data-id",id);
+                $("#employeeModal").modal('show');
+            });
+
+
+            $("#close").on("click",function () {
+                $("#employeeModal").modal('hide');
+            });
+
+            //EMPlOYEE Modal JS End's
 
 
 
