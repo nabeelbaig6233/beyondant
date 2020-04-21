@@ -75,8 +75,103 @@
         </div>
     </div>
 
-    <div id="viewModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
+
+
+
+    {{--Company Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="companyModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="companyForm">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-dark"><strong>Create Company Account</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="ind_f_name" placeholder="First Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="ind_l_name" placeholder="Last Name" required />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" name="company_name" placeholder="Company Name" />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="email" class="form-control" name="ind_email" placeholder="E-mail" required />
+                            </div>
+                            <div class="col-12">
+                                <p id="acc_msg"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_company" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger" id="save_company" >Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Company Modal--}}
+
+
+
+
+{{--    Emplye List Modal--}}
+
+
+
+    <div id="showEmpModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #343a40;
+            color: #fff;">
+                    <h4 class="modal-title">View {{ucwords(str_replace('_',' ','Emplyees'))}}</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="    color: #fff;">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card-box table-responsive">
+                                        <table id="employee" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+
+                                            <tr>
+                                                <th>{{ucwords(str_replace('_',' ','First Name'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Last Name'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Email'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Phone'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Title'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Location'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Actions'))}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="emp_body">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {{--View Modal--}}
+
+    <div id="viewModal" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #343a40;
             color: #fff;">
@@ -161,93 +256,7 @@
         </div>
     </div>
 
-
-    {{--Company Modal--}}
-    <!-- Modal -->
-    <div class="modal fade " id="companyModal" tabindex="-1" role="dialog" >
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form action="" method="POST" id="companyForm">
-                    <div class="modal-header">
-                        <h4 class="modal-title text-dark"><strong>Create Company Account</strong></h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <input type="text" class="form-control" name="ind_f_name" placeholder="First Name" required />
-                            </div>
-                            <div class="form-group col-6">
-                                <input type="text" class="form-control" name="ind_l_name" placeholder="Last Name" required />
-                            </div>
-                            <div class="form-group col-6">
-                                <input type="text" class="form-control" name="company_name" placeholder="Company Name" />
-                            </div>
-                            <div class="form-group col-6">
-                                <input type="email" class="form-control" name="ind_email" placeholder="E-mail" required />
-                            </div>
-                            <div class="col-12">
-                                <p id="acc_msg"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="close_company" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger" id="save_company" >Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{--End Company Modal--}}
-
-
-
-{{--    Emplye List Modal--}}
-
-
-
-    <div id="showEmpModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #343a40;
-            color: #fff;">
-                    <h4 class="modal-title">View {{ucwords(str_replace('_',' ','Emplyees'))}}</h4>
-                    <button type="button" class="close" data-dismiss="modal" style="    color: #fff;">&times;</button>
-
-                </div>
-                <div class="modal-body">
-
-
-                        <div class="x_content">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card-box table-responsive">
-                                        <table id="employee" class="table table-striped table-bordered" style="width:100%">
-                                            <thead>
-
-                                            <tr>
-                                                <th>{{ucwords(str_replace('_',' ','First Name'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Last Name'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Email'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Phone'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Title'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Location'))}}</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="emp_body">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
+    {{--    End--}}
 
 
     {{--Password Reset Modal--}}
@@ -295,25 +304,25 @@
 
                         <div class="row">
                             <div class="form-group col-6">
-                                <input type="text" class="form-control" name="f_name" placeholder="First Name" required />
+                                <input type="text" class="form-control" name="f_name" placeholder="First Name"/>
                             </div>
                             <div class="form-group col-6">
-                                <input type="text" class="form-control" name="l_name" placeholder="Last Name" required />
+                                <input type="text" class="form-control" name="l_name" placeholder="Last Name" />
                             </div>
                             <div class="form-group col-6">
                                 <input type="email" class="form-control" name="email" placeholder="Employee E-mail" required />
                             </div>
                             <div class="form-group col-6">
-                                <input type="text" class="form-control" name="title" placeholder="Title" required />
+                                <input type="text" class="form-control" name="title" placeholder="Title" />
                             </div>
                             <div class="form-group col-12">
-                                <input type="text" class="form-control" name="ext" placeholder="Ext." required />
+                                <input type="text" class="form-control" name="ext" placeholder="Ext."  />
                             </div>
                             <div class="form-group col-6">
-                                <input type="text" class="form-control" id="phone" name="phone" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999 @php $ext = explode(" ",auth()->user()->contact_number); echo !empty($ext[2])? '999' : '' @endphp&quot;" data-mask="" placeholder="Direct Phone Number *"  autocomplete="contact_number">
+                                <input type="text" class="form-control" id="phone" name="phone"  placeholder="Direct Phone Number"  autocomplete="contact_number">
                             </div>
                             <div class="form-group col-6">
-                                <input type="text" class="form-control" name="location" placeholder="Location"  required />
+                                <input type="text" class="form-control" name="location" placeholder="Location"  />
                             </div>
 
                             <div class="col-12"  id="employee">
@@ -692,7 +701,9 @@
                    {data: 'email', name: 'email'},
                    {data: 'contact_number', name: 'phone'},
                    {data: 'job_title', name: 'title'},
-                   {data: 'address', name: 'location'}]});
+                   {data: 'address', name: 'location'},
+                   {data: 'actions', name: 'actions'}
+                   ]});
 
             //Show Employees
             $(document,this).on('click','.show_emp',function(){
