@@ -466,7 +466,7 @@
                     </div>
                     <div class="col-md-4 col-lg-5 textCenter_mob wow fadeInLeft">
                         <h2><strong>{{ $record->first_name ?? '' }} {{ $record->last_name ?? '' }}</strong></h2>
-                        <p>{{ $record->job_title ?? '' }} <span>{{ $record->company_name ?? '' }}</span></p>
+                        <p>{{ $record->job_title ?? '' }} <span>{{ isset($companyInfo) ? $companyInfo->company_name:$record->company_name ?? '' }}</span></p>
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
                         <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
