@@ -187,7 +187,7 @@
                     </span>
                         </form>
                     </div>
-                    <a class="edit-profile-btn" id="edit_profile" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Profile </a>
+                    <a class="edit-profile-btn" id="edit_profile" href="{{$record->role_id==5?route('user.edit',$record->id):route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Profile </a>
 {{--                    <button class="edit-profile-btn" id="pos" style="display: none; color: #fff" >Save Changes </button>--}}
                 @endguest
             </div>
