@@ -93,6 +93,23 @@
                         </div>
                     @endif
 
+                    @if(in_array('viewBanner',\Request::get('permission')))
+                        <div class="menu_section">
+                            <h3>MARKETING</h3>
+                            <ul class="nav side-menu">
+                                <li><a><i class="fa fa-bullhorn"></i> MARKETING <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        @if(in_array('createBanner',\Request::get('permission')))
+                                            <li><a href="{{ route('banner') }}">Banners</a>
+                                        @endif
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    @endif
+
+
                     @if (in_array('viewReseller',\Request::get('permission')) || in_array('viewEntrepreneur',\Request::get('permission')))
                         <div class="menu_section">
                             <h3>Inquiry</h3>

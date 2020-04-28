@@ -57,6 +57,14 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::delete('/profile/destroy/{id}','ProfileController@destroy');
     Route::post('/profile/delete_all','ProfileController@delete_all')->name('profile.delete_all');
 
+    // Banner
+    Route::get('/banner','BannerController@index')->name('banner');
+    Route::post('/banner',"BannerController@store")->name('banner.create');
+    Route::get('/banner/{id}',"BannerController@show");
+    Route::post('/banner/{id}',"BannerController@update");
+    Route::delete('/banner/destroy/{id}','BannerController@destroy');
+//    Route::post('/banner','BannerController@create')->name('banner.create');
+
 
     //reset_password
     Route::post('/reset_account_password', "ProfileController@reset_account_password")->name("reset_account_pass");
@@ -93,7 +101,7 @@ Route::middleware(['allowguest'])->group(function (){
     Route::get('/', 'HomeController@index')->name('home');
     Route::post("/register","HomeController@select_account")->name("account_select");
     Route::post('/subscribe', 'HomeController@subscribe')->name("subscribe");
-    Route::view('/entrepreneurs','front.internet_entrepreneurs')->name("entrepreneurs");
+    Route::get('/entrepreneurs','EntrepreneursController@index')->name("entrepreneurs");
     Route::post('/entrepreneurs','EntrepreneursController@store')->name("entrepreneurs.submit");
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
     Route::get('/vcards','ProfileController@vcards')->name('vcards');

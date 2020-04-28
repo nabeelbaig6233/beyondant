@@ -8,6 +8,16 @@
                 <div class="row login-box-12">
                     <div class="col-lg-4 col-md-12 col-sm-12 px-0">
                         <div class="login_right">
+                            <div class="row">
+                                @foreach($banners as $banner)
+                                    <div class="col-12 mt-3">
+                                        <a href="{{$banner->link}}" target="_blank">
+                                            <img style="height: 125px;width: 250px" src="{{$banner->image_url}}" class="img-fluid">
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <br/>
                             <a href="{{ url('/') }}" class="logo_text">
                                 <img alt="" class="img-fluid" src="{{ asset('assets/front/images/logo2.png') }}">
                             </a>
@@ -95,34 +105,22 @@
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input value="{{ old('city') }}" autocomplete="city" class="input-text" data-validation="required" id="city" name="city" placeholder="City *" required="required" type="text">
-                                                @error('city')
-                                                <p style="color: red; text-align: left">{{ $message }}</p>
-                                                @enderror
+                                                <input value="{{ old('city') }}" autocomplete="city" class="input-text"  id="city" name="city" placeholder="City *"  type="text">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input value="{{ old('state') }}" autocomplete="state" class="input-text" data-validation="required" id="state" name="state" placeholder="State *" required type="text">
-                                                @error('state')
-                                                <p style="color: red; text-align: left">{{ $message }}</p>
-                                                @enderror
+                                                <input value="{{ old('state') }}" autocomplete="state" class="input-text"  id="state" name="state" placeholder="State *"  type="text">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input value="{{ old('country') }}" autocomplete="country" class="input-text" data-validation="required" id="country" name="country" placeholder="Country *" required type="text">
-                                                @error('country')
-                                                <p style="color: red; text-align: left">{{ $message }}</p>
-                                                @enderror
+                                                <input value="{{ old('country') }}" autocomplete="country" class="input-text"  id="country" name="country" placeholder="Country *" type="text">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input value="{{ old('postal_code') }}" autocomplete="postal_code" class="input-text" data-validation="required" id="postal_code" name="postal_code" placeholder="Postal Code / Zip Code *" required type="number">
-                                                @error('postal_code')
-                                                <p style="color: red; text-align: left">{{ $message }}</p>
-                                                @enderror
+                                                <input value="{{ old('postal_code') }}" autocomplete="postal_code" class="input-text" id="postal_code" name="postal_code" placeholder="Postal Code / Zip Code *" type="number">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
