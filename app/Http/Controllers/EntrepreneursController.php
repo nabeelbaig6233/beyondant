@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EntrepreneursRequest;
 use App\Mail\EntrepreneursMail;
+use App\models\banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class EntrepreneursController extends Controller
 {
+    public function index(){
+        $banners=banner::all();
+        return view("front.internet_entrepreneurs",["banners"=>$banners]);
+    }
     public function store(EntrepreneursRequest $request){
         $reseller_email = DB::table('setting')->where('id',1)->first()->reseller_email;
         $request->request->remove("_token");

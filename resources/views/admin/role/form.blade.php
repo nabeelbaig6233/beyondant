@@ -139,6 +139,13 @@
                                         <td><input type="checkbox" name="permission[]" id="permission" value="viewCompany" <?php echo (in_array('viewCompany', $record))?'checked':'' ?>></td>
                                         <td><input type="checkbox" name="permission[]" id="permission" value="deleteCompany" <?php echo (in_array('deleteCompany', $record))?'checked':'' ?>></td>
                                     </tr>
+                                    <tr>
+                                        <td>Banner</td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="createBanner" <?php echo (in_array('createBanner', $record))?'checked':'' ?>></td>
+                                        <td> - </td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewBanner" <?php echo (in_array('viewBanner', $record))?'checked':'' ?>></td>
+                                        <td> - </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                                 <div class="ln_solid"></div>
