@@ -281,6 +281,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
+                    <div>
+                        <h2 class="wow fadeInLeft">Affiliates
+                            <br/>
+                            <a href="{{route('entrepreneurs')}}" style="color: white;font-size: 18px;font-family: 'Source Sans Pro',sans-serif">Application</a>
+                        </h2>
+
+                    </div>
                     <h2 class="wow fadeInLeft">Contact Us</h2>
                     <form class="wow fadeInDown">
                         <div class="form-group">
