@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="contact_number">{{__('Contact Number')}} <span class="required">*</span>
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="contact_number">{{auth()->user()->role_id===5?__('Phone Number'):__('Contact Number')}} <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6">
                                         <input type="text" id="contact_number" name="contact_number" required="required" data-validate-length-range="10,15" value="{{ $record->contact_number ?? "" }}" class="form-control @error('contact_number') is-invalid @enderror">
@@ -97,6 +97,34 @@
                                     </div>
                                 </div>
                                 @if (auth()->user()->role_id===5)
+
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="mobile_number">{{__('Mobile Or Office Number')}} <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input type="text" id="mobile_number" name="mobile_number" required="required" data-validate-length-range="10,19" value="{{ $record->mobile_number ?? "" }}" class="form-control @error('mobile_number') is-invalid @enderror">
+                                            @error('mobile_number')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">{{__('Select To Display')}} <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 form-check-inline">
+
+                                                <input type="radio" class="form-check-input" name="mobile_check" id="phone_number" value="Phone" checked @php echo $record->mobile_check=="Phone"?"checked":"" @endphp />
+                                                <label for="phone_number" class="form-check-label pr-2">PHONE NUMBER</label>
+                                                <input type="radio" class="form-check-input" name="mobile_check" id="mobile_number" value="Mobile"  @php echo $record->mobile_check=="Mobile"?"checked":"" @endphp />
+                                                <label for="mobile_number" class="form-check-label pr-2">MOBILE NUMBER</label>
+                                                <input type="radio" class="form-check-input" name="mobile_check" id="office_number" value="Office Number"  @php echo $record->mobile_check=="Office Number"?"checked":"" @endphp />
+                                                <label for="office_number" class="form-check-label pr-2">OFFICE NUMBER</label>
+                                        </div>
+                                    </div>
+
                                     <div class="item form-group @error('company_name') bad @enderror">
                                         <label for="company_name" class="col-form-label col-md-3 label-align">{{ __('Company Name') }}</label>
                                         <div class="col-md-6 col-sm-6">
