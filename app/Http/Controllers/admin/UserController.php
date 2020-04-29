@@ -134,6 +134,8 @@ class UserController extends Controller
                     'last_name'=>$l_name,
                     'email' => $data['email'],
                     'contact_number' => $data['contact_number'],
+                    'mobile_number' => $data['mobile_number'],
+                    'mobile_check' => $data['mobile_check'],
                     'occupation' => $data['occupation'],
                     'role_id' => $data['role_id'],
                     'profile_picture' => !empty($profile_picture)?$profile_picture:User::find($id)->profile_picture,
