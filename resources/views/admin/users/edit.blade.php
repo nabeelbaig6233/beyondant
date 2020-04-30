@@ -29,28 +29,29 @@
                             <form class="form-horizontal form-label-left" method="POST" action="{{ route('post.update',$record->id) }}" enctype="multipart/form-data" novalidate>
                                 @csrf
                                 <input type="hidden" name="_method" value="PUT">
-                                @if(auth()->user()->role_id!==5)
-                                <div class="item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="role_id">Select Role <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <select name="role_id" id="role_id" class="form-control @error('role_id') is-invalid @enderror" required="required">
-                                            <option value="">Select Role</option>
-                                            @if (!empty($role))
-                                                @foreach($role as $roles)
-                                                    <option value="{{$roles->id}}" {{(!empty($record->role_id == $roles->id)?"selected":"")}}>{{$roles->name}}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                        @error('role_id')
-                                        <span class="invalid-feedback" role="alert">
+                                @if(auth()->user()->role_id!==1)
+                                    <input type="hidden" name="role_id" value='{{auth()->user()->role_id}}' />
+                                    @else
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="role_id">Select Role <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <select name="role_id" id="role_id" class="form-control @error('role_id') is-invalid @enderror" required="required">
+                                                <option value="">Select Role</option>
+                                                @if (!empty($role))
+                                                    @foreach($role as $roles)
+                                                        <option value="{{$roles->id}}" {{(!empty($record->role_id == $roles->id)?"selected":"")}}>{{$roles->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            @error('role_id')
+                                            <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                        @enderror
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                    @else
-                                    <input type="hidden" name="role_id" value='{{auth()->user()->role_id}}' />
+
                                 @endif
 
                                 <div class="item form-group">
@@ -96,7 +97,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                @if (auth()->user()->role_id===5)
+                                @if (auth()->user()->role_id!==1)
 
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="mobile_number">{{__('Mobile Or Office Number')}} <span class="required">*</span>

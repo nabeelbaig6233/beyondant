@@ -140,6 +140,20 @@
                                         <td><input type="checkbox" name="permission[]" id="permission" value="deleteCompany" <?php echo (in_array('deleteCompany', $record))?'checked':'' ?>></td>
                                     </tr>
                                     <tr>
+                                        <td>Individual</td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="createIndividual" <?php echo (in_array('createIndividual', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateIndividual" <?php echo (in_array('updateIndividual', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewIndividual" <?php echo (in_array('viewIndividual', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteIndividual" <?php echo (in_array('deleteIndividual', $record))?'checked':'' ?>></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Devices</td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="createDevice" <?php echo (in_array('createDevice', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="updateDevice" <?php echo (in_array('updateDevice', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewDevice" <?php echo (in_array('viewDevice', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteDevice" <?php echo (in_array('deleteDevice', $record))?'checked':'' ?>></td>
+                                    </tr>
+                                    <tr>
                                         <td>Banner</td>
                                         <td><input type="checkbox" name="permission[]" id="permission" value="createBanner" <?php echo (in_array('createBanner', $record))?'checked':'' ?>></td>
                                         <td> - </td>

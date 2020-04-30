@@ -58,24 +58,48 @@
 
                         </ul>
                     </div>
-                    <div class="menu_section">
-                        <h3>Users Profile</h3>
-                        <ul class="nav side-menu">
-                            <li><a><i class="fa fa-user"></i> Users <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    @if(in_array('viewUserProfile',\Request::get('permission')))
-                                        <li><a href="{{route('profile')}}">Profiles</a></li>
-                                    @endif
-                                    @if(in_array('viewCompany',\Request::get('permission')))
-                                        <li><a href="{{route('company')}}">Company Profiles</a></li>
-                                    @endif
-                                </ul>
+                    @if (in_array('viewUserProfile',\Request::get('permission'))||in_array('viewCompany',\Request::get('permission'))||in_array('viewIndividual',\Request::get('permission')))
+                        <div class="menu_section">
+                            <h3>Users Profile</h3>
+                            <ul class="nav side-menu">
+                                <li><a><i class="fa fa-user"></i> Users <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        @if(in_array('viewUserProfile',\Request::get('permission')))
+                                            <li><a href="{{route('profile')}}">Profiles</a></li>
+                                        @endif
+                                        @if(in_array('viewCompany',\Request::get('permission')))
+                                            <li><a href="{{route('company')}}">Company Profiles</a></li>
+                                        @endif
+                                        @if(in_array('viewIndividual',\Request::get('permission')))
+                                            <li><a href="{{route('individual')}}">Individual Profiles</a></li>
+                                        @endif
+                                    </ul>
 
-                            </li>
+                                </li>
 
 
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (in_array('viewDevice',\Request::get('permission')))
+                        <div class="menu_section">
+                            <h3>Users Devices</h3>
+                            <ul class="nav side-menu">
+                                <li><a><i class="fa fa-laptop"></i> Devices <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        @if(in_array('viewDevice',\Request::get('permission')))
+                                            <li><a href="{{route('device')}}">Devices</a></li>
+                                        @endif
+                                    </ul>
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    @endif
+
 
                     @if(in_array('viewHome',\Request::get('permission')))
                         <div class="menu_section">

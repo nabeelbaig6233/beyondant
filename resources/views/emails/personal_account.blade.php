@@ -8,7 +8,7 @@
 
     <h1></h1>
     <h1>Congratulations!</h1>
-    <h1>Your {{$type=="company"?"Company":"Personal"}} Account Is Created.</h1>
+    <h1>Your {{ucwords($type)}} Account Is Created.</h1>
     <h4>Your Login Credentials</h4>
     <p><strong>Email: </strong> {{$email}}</p>
     <p><strong>Password: </strong> {{$password}}</p>
