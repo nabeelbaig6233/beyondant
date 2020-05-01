@@ -67,6 +67,7 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
 
     //Devices
     Route::get('/device','DeviceController@index')->name('device');
+    Route::get('/device/view_devices/{id}','DeviceController@view_devices');
     //update
     Route::get('/device/view/{id}','DeviceController@view');
     Route::post('/device/update/{id}','DeviceController@update');

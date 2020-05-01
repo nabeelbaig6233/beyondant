@@ -44,6 +44,14 @@ class DeviceController extends Controller
         }
     }
 
+    public function view_devices($id)
+    {
+        if (request()->ajax()) {
+            $data["devices"] = device::where("user_id",$id)->get();
+            return response()->json($data);
+        }
+    }
+
     public function update($id)
     {
         if (!in_array('updateDevice',\Request::get('permission'))) {
@@ -63,12 +71,12 @@ class DeviceController extends Controller
         if (!in_array('createDevice',\Request::get('permission'))) {
             return redirect('admin');
         }
-        $countDevices=device::where([["user_id","=",auth()->user()->id]])->count();
+        $countDevices=device::where("user_id",$request->get("id"))->count();
         if ($countDevices<5) {
             $device = new device();
             $device->device_name = $request->get('device_name');
             $device->device_description = $request->get('device_description');
-            $device->user_id = auth()->user()->id;
+            $device->user_id = $request->get("id");
             $device->save();
             echo 1;
         }else{

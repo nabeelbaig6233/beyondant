@@ -45,7 +45,7 @@ class CompanyProfileController extends Controller
     {
         if (request()->ajax()) {
             return datatables()->of(User::where("parent_id", "=", $id)->get())->addColumn('actions', function ($data) {
-                return '<button title="View" type="button" name="view" id="' . $data->id . '" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                return '<button title="View" type="button" name="view" id="' . $data->id . '" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Add Devices" type="button" name="add_device" id="' . $data->id . '"  class="add_device btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i></button>&nbsp;<button title="View Devices" type="button" name="device"  id="' . $data->id . '" class="device btn btn-primary btn-sm"><i class="fa fa-laptop"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
             })->rawColumns(["actions"])->make(true);
         }
     }
