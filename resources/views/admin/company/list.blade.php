@@ -625,7 +625,7 @@
             });
 
 
-            async function addIndividual(id){
+            async function resetPassword(){
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': "{{csrf_token()}}"
@@ -661,7 +661,7 @@
 
             $("#resetForm").submit(function (e) {
                 e.preventDefault();
-                addIndividual();
+                resetPassword();
             });
 
 
