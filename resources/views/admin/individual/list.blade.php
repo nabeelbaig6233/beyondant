@@ -48,7 +48,7 @@
                                             @endcan
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
-                                                <th>{{ucwords(str_replace('_',' ','individual_id'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','id'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','profile_picture'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','first_name'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','title'))}}</th>
