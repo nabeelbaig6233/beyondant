@@ -133,9 +133,9 @@
     {{--    Device Modal --}}
 
     <div class="modal fade" id="viewDevices" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-dark text-white">
                     <h5 class="modal-title" id="exampleModalLongTitle">View Devices</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -674,7 +674,14 @@
                     {data: 'id', name: 'id'},
                     {data: 'device_name', name: 'device_name', orderable: false},
                     {data: 'device_description', name: 'device_description'},
-                    {data: 'profile_url', name: 'profile_url'},
+                    {data: 'profile_url', name: 'profile_url',render:function (data,type,row) {
+                            var url;
+                            if(row['redirected_url'] )
+                                url=row['redirected_url'];
+                            else
+                                url=data;
+                            return '<a href="'+url+'" target="_blank">'+data+'</a>';
+                        }},
                 ]
             });
 

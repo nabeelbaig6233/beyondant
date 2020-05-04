@@ -77,6 +77,7 @@ class DeviceController extends Controller
             $device->device_name = $request->get('device_name');
             $device->device_description = $request->get('device_description');
             $device->user_id = $request->get("id");
+            $device->profile_url = route('pro',$device->user_id);
             $device->save();
             echo 1;
         }else{
@@ -88,8 +89,11 @@ class DeviceController extends Controller
         if (!in_array('updateDevice',\Request::get('permission'))) {
             return redirect('admin');
         }
+        request()->validate([
+            'profile_url'=>'url'
+        ]);
         $device=device::find($id);
-        $device->profile_url=request()->get('profile_url');
+        $device->redirected_url=request()->get('profile_url');
         $device->save();
     }
 

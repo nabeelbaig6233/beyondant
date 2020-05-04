@@ -22,7 +22,7 @@ class ProfileController extends Controller
 {
     public function index($id)
     {
-        $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->orWhere([['role_id','=',5],['id','=',$id]])->first();
+        $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->orWhere([['role_id','=',5],['id','=',$id]])->orWhere([['role_id','=',7],['id','=',$id]])->first();
 //        dd($content['record']->parent_id);
         if (!empty($content['record'])) {
             if (Auth::check()) {

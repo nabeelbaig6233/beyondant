@@ -63,7 +63,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="form-group col-12">
-                                <input type="text" class="form-control" name="profile_url" placeholder="Profile URL" required />
+                                <input type="url" class="form-control" name="profile_url" placeholder="Profile URL" required />
                             </div>
                         </div>
                     </div>
@@ -326,7 +326,14 @@
                     {data: 'id', name: 'id'},
                     {data: 'device_name', name: 'device_name', orderable: false},
                     {data: 'device_description', name: 'device_description'},
-                    {data: 'profile_url', name: 'profile_url'},
+                    {data: 'profile_url', name: 'profile_url',render:function (data,type,row) {
+                            var url;
+                            if(row['redirected_url'])
+                                url=row['redirected_url'];
+                            else
+                                url=data;
+                            return '<a href="'+url+'" target="_blank">'+data+'</a>';
+                        }},
                     {data: 'action', name: 'action', orderable: false}
                 ]
             });
@@ -627,7 +634,7 @@
                 let id = $(this).attr('id');
                 $("#save_profile").attr("data-id",id);
                 $.get(`{{url('admin/'.request()->segment(2).'/profile/')}}/${id}`,function (data) {
-                    $("[name='profile_url']").val(data.profile_url);
+                    $("[name='profile_url']").val(data.redirected_url);
                 });
                 $("#profileModal").modal('show');
             });
