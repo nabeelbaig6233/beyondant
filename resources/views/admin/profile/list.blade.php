@@ -130,6 +130,46 @@
     {{--End Password Reset Modal--}}
 
 
+    {{--    Device Modal --}}
+
+    <div class="modal fade" id="viewDevices" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="exampleModalLongTitle">View Devices</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <table id="devices" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>{{ucwords(str_replace('_',' ','id'))}}</th>
+                                        <th>{{ucwords(str_replace('_',' ','device_name'))}}</th>
+                                        <th>{{ucwords(str_replace('_',' ','device_description'))}}</th>
+                                        <th>{{ucwords(str_replace('_',' ','profile_url'))}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--    End Devices Modal --}}
+
 
 
     <div class="right_col" role="main">
@@ -525,7 +565,7 @@
             });
 
 
-            async function addIndividual(id){
+            async function resetPassword(){
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': "{{csrf_token()}}"
@@ -561,11 +601,225 @@
 
             $("#resetForm").submit(function (e) {
                 e.preventDefault();
-                addIndividual();
+                resetPassword();
             });
 
 
             //End Password Modal
+
+
+
+
+            {{--    //Device Modal JS--}}
+
+
+
+            async function deviceFormsAndAdd(name){
+
+                $.ajaxSetup({
+
+                    headers: {
+
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+
+                    }
+
+                });
+                var data1=$(`#deviceForm`).serializeArray();
+
+                var value={};
+                data1.forEach((input)=>{
+                    value[input.name]=input.value;
+                });
+                if($("#save_device").attr("data-id")) {
+                    value["id"] = $("#save_device").attr("data-id");
+                }
+                var response=await $.ajax({
+                    url: name=='edit'?`{{url('admin/'.request()->segment(2).'/update/')}}/${$("#save_device").attr("data-id")}`:`{{route("device.create")}}`,
+                    type: "POST",
+                    data: value
+                });
+                return response;
+            }
+
+            $('#deviceModal').on('hidden.bs.modal', function () {
+                $("[name='device_name']").val('');
+                $("[name='device_description']").val('');
+                $("#save_device").attr("data","");
+                $("#save_device").removeAttr("data-id");
+                $("#save_device").removeClass("disabled");
+                $("#device").empty();
+            });
+
+            var DevicesDataTable = $("#devices").DataTable({
+                dom: "Blfrtip",
+                buttons: [{
+                    extend: "copy",
+                    className: "btn-sm"
+                }, {
+                    extend: "csv",
+                    className: "btn-sm"
+                }, {
+                    extend: "excel",
+                    className: "btn-sm"
+                }, {
+                    extend: "pdfHtml5",
+                    className: "btn-sm"
+                }, {
+                    extend: "print",
+                    className: "btn-sm"
+                }],
+                responsive: true,
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'device_name', name: 'device_name', orderable: false},
+                    {data: 'device_description', name: 'device_description'},
+                    {data: 'profile_url', name: 'profile_url',render:function (data,type,row) {
+                            var url;
+                            if(row['redirected_url'] )
+                                url=row['redirected_url'];
+                            else
+                                url=data;
+                            return '<a href="'+url+'" target="_blank">'+data+'</a>';
+                        }},
+                ]
+            });
+
+
+
+
+            $("#deviceForm").submit(function (e) {
+                e.preventDefault();
+                $("#device").empty();
+                $("#device").append("<p class='text-dark' id='msg'>Please Wait</p>");
+                $("#save_device").addClass("disabled");
+
+                if($("#save_device").attr("data")=="edit"){
+                    var result = deviceFormsAndAdd('edit');
+                    result.then((res) => {
+
+                        $("#deviceModal").modal('hide');
+
+                        DataTable.ajax.reload();
+                        js_success("Device has been updated");
+                    }).catch((err) => {
+                        console.log(err);
+                        $("#device").empty();
+                        $("#device").append("<p class='text-danger'>Something Went Wrong</p>");
+                        $("#save_device").removeClass("disabled");
+                    });
+
+                }else {
+
+                    var result = deviceFormsAndAdd('save');
+                    result.then((res) => {
+                        $("#deviceModal").modal('hide');
+                        if(parseInt(res)==1) {
+                            DataTable.ajax.reload();
+                            js_success("A Device Has Been Attached To An Account");
+                        }else{
+                            js_error("Only 5 Devices Are Allowed.");
+                        }
+                    }).catch((err) => {
+                        console.log(err);
+                        $("#device").empty();
+                        $("#device").append("<p class='text-danger'>Something Went Wrong</p>");
+                        $("#save_device").removeClass("disabled");
+                    });
+                }
+            });
+
+            $(document).on("click",".edit",function () {
+                $("#save_device").attr("data","edit");
+                let id = $(this).attr('id');
+                $("#save_device").attr("data-id",id);
+                $.get(`{{url('admin/'.request()->segment(2).'/view/')}}/${id}`,function (data) {
+                    var data=data.data;
+                    $("[name='device_name']").val(data.device_name);
+                    $("[name='device_description']").val(data.device_description);
+                });
+                $("#deviceModal").modal('show');
+            });
+
+
+            $(document).on('click','.add_device',function () {
+                let id=$(this).attr("id");
+                $('#save_device').attr("data-id",id);
+                $("#deviceModal").modal('show');
+            });
+
+
+            $(document).on('click','.device',function () {
+                let id=$(this).attr("id");
+                $.ajax({
+                    url:`{{url('admin/device/view_devices/')}}/${id}`,
+                    dataType:"json",
+                    success: function (data) {
+                        console.log(data.devices);
+                        DevicesDataTable.clear().draw();
+                        DevicesDataTable.rows.add(data.devices);
+                        DevicesDataTable.columns.adjust().draw();
+                        $("#viewDevices").modal('show');
+                    }
+                });
+            });
+
+
+            {{--$(document).on("click",".link",function () {--}}
+            {{--    let id = $(this).attr('id');--}}
+            {{--    $("#save_profile").attr("data-id",id);--}}
+            {{--    $.get(`{{url('admin/'.request()->segment(2).'/profile/')}}/${id}`,function (data) {--}}
+            {{--        $("[name='profile_url']").val(data.profile_url);--}}
+            {{--    });--}}
+            {{--    $("#profileModal").modal('show');--}}
+            {{--});--}}
+
+            {{--$("#profileForm").submit(function (e) {--}}
+            {{--    e.preventDefault();--}}
+            {{--    $.ajaxSetup({--}}
+            {{--        headers: {--}}
+            {{--            'X-CSRF-TOKEN': "{{csrf_token()}}"--}}
+            {{--        }--}}
+            {{--    });--}}
+            {{--    let id = $("#save_profile").attr('data-id');--}}
+            {{--    $.ajax({--}}
+            {{--        type: 'POST',--}}
+            {{--        url: `{{url('admin/'.request()->segment(2).'/profile/')}}/${id}`,--}}
+            {{--        data:{'profile_url':$("[name='profile_url']").val()},--}}
+            {{--        success:function (data) {--}}
+            {{--            console.log(data);--}}
+            {{--            $("#profileModal").modal('hide');--}}
+            {{--            DataTable.ajax.reload();--}}
+            {{--            js_success("Profile Linked Successfully");--}}
+            {{--        },--}}
+            {{--        error:function (err) {--}}
+            {{--            console.log(err);--}}
+            {{--        }--}}
+            {{--    });--}}
+            {{--});--}}
+
+            {{--$("#close_profile").click(function () {--}}
+            {{--    $("#profileModal").modal('hide');--}}
+            {{--});--}}
+
+
+            // $('#deviceModal').on('hidden.bs.modal', function () {
+            //     $("#profileForm").trigger('reset');
+            // });
+
+
+            $("#close_device").on("click",function () {
+                $(':input','#deviceForm') .not(':button, :submit, :reset, :hidden') .val('')
+                    .removeAttr('checked') .removeAttr('selected');
+                $("#deviceModal").modal('hide');
+            });
+
+            {{--    //Device Modal JS End's--}}
+
+
+
+
+
 
 
 

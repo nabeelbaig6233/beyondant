@@ -48,15 +48,14 @@
                                             @endcan
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
-                                                <th>{{ucwords(str_replace('_',' ','company_id'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','id'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','profile_picture'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','first_name'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','title'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','email'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','company_name'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','contact_number'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','mobile_number'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','profile_link'))}}</th>
+{{--                                                <th>{{ucwords(str_replace('_',' ','profile_link'))}}</th>--}}
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -81,11 +80,11 @@
     {{--Company Modal--}}
     <!-- Modal -->
     <div class="modal fade " id="companyModal" tabindex="-1" role="dialog" >
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal modal-dialog-centered" role="document">
             <div class="modal-content">
-                <form action="" method="POST" id="companyForm">
+                <form action="" method="POST" id="individualForm">
                     <div class="modal-header">
-                        <h4 class="modal-title text-dark"><strong>Create Company Account</strong></h4>
+                        <h4 class="modal-title text-dark"><strong>Create Individual Account</strong></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -95,10 +94,7 @@
                             <div class="form-group col-6">
                                 <input type="text" class="form-control" name="ind_l_name" placeholder="Last Name" required />
                             </div>
-                            <div class="form-group col-6">
-                                <input type="text" class="form-control" name="company_name" placeholder="Company Name" />
-                            </div>
-                            <div class="form-group col-6">
+                            <div class="form-group col-12">
                                 <input type="email" class="form-control" name="ind_email" placeholder="E-mail" required />
                             </div>
                             <div class="col-12">
@@ -124,11 +120,11 @@
 
 
     <div id="showEmpModal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #343a40;
             color: #fff;">
-                    <h4 class="modal-title">View {{ucwords(str_replace('_',' ','Emplyees'))}}</h4>
+                    <h4 class="modal-title">View {{ucwords(str_replace('_',' ','Devices'))}}</h4>
                     <button type="button" class="close" data-dismiss="modal" style="    color: #fff;">&times;</button>
 
                 </div>
@@ -143,13 +139,9 @@
                                             <thead>
 
                                             <tr>
-                                                <th>{{ucwords(str_replace('_',' ','First Name'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Last Name'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Email'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Phone'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Title'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Location'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','Actions'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Device Name'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Device Description'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Profile URL'))}}</th>
                                             </tr>
                                             </thead>
                                             <tbody id="emp_body">
@@ -231,22 +223,22 @@
                                 <th>{{ucwords(str_replace('_',' ','address'))}}</th>
                                 <td id="address" align="center"></td>
                             </tr>
-                            <tr>
-                                <th>{{ucwords(str_replace('_',' ','website'))}}</th>
-                                <td id="website" align="center"></td>
-                            </tr>
-                            <tr>
-                                <th>{{ucwords(str_replace('_',' ','linkedin'))}}</th>
-                                <td id="linkedin" align="center"></td>
-                            </tr>
-                            <tr>
-                                <th>{{ucwords(str_replace('_',' ','instagram'))}}</th>
-                                <td id="instagram" align="center"></td>
-                            </tr>
-                            <tr>
-                                <th>{{ucwords(str_replace('_',' ','facebook'))}}</th>
-                                <td id="facebook" align="center"></td>
-                            </tr>
+{{--                            <tr>--}}
+{{--                                <th>{{ucwords(str_replace('_',' ','website'))}}</th>--}}
+{{--                                <td id="website" align="center"></td>--}}
+{{--                            </tr>--}}
+{{--                            <tr>--}}
+{{--                                <th>{{ucwords(str_replace('_',' ','linkedin'))}}</th>--}}
+{{--                                <td id="linkedin" align="center"></td>--}}
+{{--                            </tr>--}}
+{{--                            <tr>--}}
+{{--                                <th>{{ucwords(str_replace('_',' ','instagram'))}}</th>--}}
+{{--                                <td id="instagram" align="center"></td>--}}
+{{--                            </tr>--}}
+{{--                            <tr>--}}
+{{--                                <th>{{ucwords(str_replace('_',' ','facebook'))}}</th>--}}
+{{--                                <td id="facebook" align="center"></td>--}}
+{{--                            </tr>--}}
 
                             </tbody>
                         </table>
@@ -259,7 +251,91 @@
     {{--    End--}}
 
 
-    {{--Device Modal--}}
+    {{--Password Reset Modal--}}
+    <!-- Modal -->
+    <div class="modal fade " id="resetModal" tabindex="-1" role="dialog"  >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="POST" id="resetForm">
+                    <div class="modal-header bg-dark">
+                        <h4 class="modal-title text-white" ><strong>Reset Password</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 align="center" id="pr_msg" style="margin: 0;">Are you sure you want to reset password ?</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_pass" class="btn btn-secondary">Close</button>
+                        <button type="submit" class="btn btn-danger" id="save_pass" >Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{--End Password Reset Modal--}}
+
+
+
+    {{--Employee Modal--}}
+    <!-- Modal -->
+{{--    <div class="modal fade " id="employeeModal" tabindex="-1" role="dialog" >--}}
+{{--        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">--}}
+{{--            <div class="modal-content">--}}
+{{--                <form action="" method="post" id="employeeForm">--}}
+{{--                    <div class="modal-header">--}}
+{{--                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Employee Form</strong></h4>--}}
+{{--                        --}}{{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                        --}}{{--                            <span aria-hidden="true">&times;</span>--}}
+{{--                        --}}{{--                        </button>--}}
+
+{{--                    </div>--}}
+{{--                    <div class="modal-body">--}}
+
+{{--                        <div class="row">--}}
+{{--                            <div class="form-group col-6">--}}
+{{--                                <input type="text" class="form-control" name="f_name" placeholder="First Name"/>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group col-6">--}}
+{{--                                <input type="text" class="form-control" name="l_name" placeholder="Last Name" />--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group col-6">--}}
+{{--                                <input type="email" class="form-control" name="email" placeholder="Employee E-mail" required />--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group col-6">--}}
+{{--                                <input type="text" class="form-control" name="title" placeholder="Title" />--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group col-12">--}}
+{{--                                <input type="text" class="form-control" name="ext" placeholder="Ext."  />--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group col-6">--}}
+{{--                                <input type="text" class="form-control" id="phone" name="phone"  placeholder="Direct Phone Number"  autocomplete="contact_number">--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group col-6">--}}
+{{--                                <input type="text" class="form-control" name="location" placeholder="Location"  />--}}
+{{--                            </div>--}}
+
+{{--                            <div class="col-12"  id="employee">--}}
+{{--                                <p class='text-dark' id='emp'></p>--}}
+{{--                            </div>--}}
+
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="modal-footer">--}}
+
+{{--                        <button type="button" id="close" class="btn btn-light">Close</button>--}}
+{{--                        <button type="submit" class="btn btn-primary" id="save_emp" >Save</button>--}}
+{{--                    </div>--}}
+{{--                </form>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+    {{--End Employee Modal--}}
+
+
+    {{--Form Device Modal--}}
     <!-- Modal -->
     <div class="modal fade " id="deviceModal" tabindex="-1" role="dialog" >
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -296,98 +372,15 @@
             </div>
         </div>
     </div>
-    {{--End Device Modal--}}
-
-
-    {{--Password Reset Modal--}}
-    <!-- Modal -->
-    <div class="modal fade " id="resetModal" tabindex="-1" role="dialog"  >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form action="" method="POST" id="resetForm">
-                    <div class="modal-header bg-dark">
-                        <h4 class="modal-title text-white" ><strong>Reset Password</strong></h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <h4 align="center" id="pr_msg" style="margin: 0;">Are you sure you want to reset password ?</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="close_pass" class="btn btn-secondary">Close</button>
-                        <button type="submit" class="btn btn-danger" id="save_pass" >Reset Password</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{--End Password Reset Modal--}}
+    {{--End Form Device Modal--}}
 
 
 
-    {{--Employee Modal--}}
-    <!-- Modal -->
-    <div class="modal fade " id="employeeModal" tabindex="-1" role="dialog" >
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form action="" method="post" id="employeeForm">
-                    <div class="modal-header">
-                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Employee Form</strong></h4>
-                        {{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-                        {{--                            <span aria-hidden="true">&times;</span>--}}
-                        {{--                        </button>--}}
 
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <input type="text" class="form-control" name="f_name" placeholder="First Name"/>
-                            </div>
-                            <div class="form-group col-6">
-                                <input type="text" class="form-control" name="l_name" placeholder="Last Name" />
-                            </div>
-                            <div class="form-group col-6">
-                                <input type="email" class="form-control" name="email" placeholder="Employee E-mail" required />
-                            </div>
-                            <div class="form-group col-6">
-                                <input type="text" class="form-control" name="title" placeholder="Title" />
-                            </div>
-                            <div class="form-group col-12">
-                                <input type="text" class="form-control" name="ext" placeholder="Ext."  />
-                            </div>
-                            <div class="form-group col-6">
-                                <input type="text" class="form-control" id="phone" name="phone"  placeholder="Direct Phone Number"  autocomplete="contact_number">
-                            </div>
-                            <div class="form-group col-6">
-                                <input type="text" class="form-control" name="location" placeholder="Location"  />
-                            </div>
-
-                            <div class="col-12"  id="employee">
-                                <p class='text-dark' id='emp'></p>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" id="close" class="btn btn-light">Close</button>
-                        <button type="submit" class="btn btn-primary" id="save_emp" >Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{--End Employee Modal--}}
-
-
-
-{{--    Device Modal --}}
+    {{--    Device Modal --}}
 
     <div class="modal fade" id="viewDevices" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-dark text-white">
                     <h5 class="modal-title" id="exampleModalLongTitle">View Devices</h5>
@@ -422,7 +415,16 @@
         </div>
     </div>
 
-{{--    End Devices Modal --}}
+    {{--    End Devices Modal --}}
+
+
+
+
+
+
+
+
+
 
 {{--    End Employee List Modal--}}
 
@@ -497,10 +499,10 @@
                     {data: 'first_name', name: 'first_name'},
                     {data: 'job_title', name: 'job_title'},
                     {data: 'email', name: 'email'},
-                    {data: 'company_name', name: 'company_name'},
+                    // {data: 'company_name', name: 'company_name'},
                     {data: 'contact_number', name: 'contact_number'},
                     {data: 'mobile_number', name: 'mobile_number'},
-                    {data: 'profile_link', name: 'profile_link', orderable: false},
+                    // {data: 'profile_link', name: 'profile_link', orderable: false},
                     {data: 'action', name: 'action', orderable: false}
                 ]
             });
@@ -537,296 +539,8 @@
 
 
 
-            //Company account
 
 
-
-            $("#companyModal").on('hide.bs.modal', function(){
-                $("[name=ind_f_name]").val("");
-                $("[name=ind_l_name]").val("");
-                $("[name=ind_email]").val("");
-                $("[name=company_name]").val("");
-                $("#acc_msg").text("");
-                $("#save_company").attr("disabled",false);
-                $("#close_company").attr("disabled",false);
-                $("#companyForm").trigger("reset");
-
-            });
-
-
-            $("#close_individual").click(function () {
-                $("#companyModal").modal('hide');
-            });
-
-            async function addCompany(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': "{{csrf_token()}}"
-                    }
-                });
-                $("#acc_msg").text("Please wait...");
-                $("#save_company").attr("disabled",true);
-                $("#close_company").attr("disabled",true);
-                var val={};
-                var data=$("#companyForm").serializeArray();
-                data.forEach((form)=>{
-                    val[form.name]=form.value;
-                });
-                val["parent_id"]=0;
-                val["acc_type"]="company";
-                $.ajax({
-                    url:"{{route("save_account")}}",
-                    type:"POST",
-                    data:val,
-                    success:function (data) {
-                        $("#acc_msg").text("");
-                        $("#companyModal").modal('hide');
-                        DataTable.ajax.reload();
-                        js_success("An email was sent with the needed login credentials")
-                    },
-                    error:function (error) {
-                        $("#acc_msg").text("An account with this email already exist.")
-                    }
-                })
-
-            }
-
-            $("#companyForm").submit(function (e) {
-                e.preventDefault();
-                addCompany();
-            });
-
-
-            //End Company account
-
-
-
-            //Password Modal;
-
-
-
-            $("#resetModal").on('hide.bs.modal', function(){
-                $("#pr_msg").text("Are you sure you want to reset password ?");
-                $("#save_pass").attr("disabled",false).attr("data-id","");
-                $("#close_pass").attr("disabled",false);
-                $("#resetForm").trigger("reset");
-
-            });
-
-            $(document).on('click','.reset_password',function () {
-                let id=$(this).attr("id");
-                $("#save_pass").attr("data-id",id);
-                $("#resetModal").modal('show');
-
-            });
-
-            $("#close_pass").click(function () {
-                $("#resetModal").modal('hide');
-            });
-
-
-            async function resetPassword(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': "{{csrf_token()}}"
-                    }
-                });
-
-                $("#pr_msg").text("Please wait...");
-                $("#save_pass").attr("disabled",true);
-                $("#close_pass").attr("disabled",true);
-                var val={};
-                var data=$("#resetForm").serializeArray();
-                data.forEach((form)=>{
-                    val[form.name]=form.value;
-                });
-                val["id"]=$("#save_pass").attr("data-id");
-                $.ajax({
-                    url:"{{route("reset_account_pass")}}",
-                    type:"POST",
-                    data:val,
-                    success:function (data) {
-                        $("#pr_msg").text("");
-                        $("#resetModal").modal('hide');
-                        DataTable.ajax.reload();
-                        js_success("An email was sent with the new password")
-                    },
-                    error:function (error) {
-                        console.log(error);
-                        // $("#pr_msg").text("An account with this email already exist.")
-                    }
-                });
-
-            }
-
-            $("#resetForm").submit(function (e) {
-                e.preventDefault();
-                resetPassword();
-            });
-
-
-            //End Password Modal
-
-
-
-
-
-
-            //EMPlOYEE Modal JS
-
-
-
-            async function readFormsAndAdd(){
-
-                $.ajaxSetup({
-
-                    headers: {
-
-                        'X-CSRF-TOKEN': "{{csrf_token()}}"
-
-                    }
-
-                });
-                var data1=$(`#employeeForm`).serializeArray();
-                var value={};
-                value["parent_id"]=$("#save_emp").attr("data-id");
-                data1.forEach((input)=>{
-                    value[input.name]=input.value;
-
-                });
-                var response=await $.ajax({
-                    url: `{{route("save-employees")}}`,
-                    type: "POST",
-                    data: value
-                });
-                return response;
-            }
-
-            $('#employeeModal').on('hidden.bs.modal', function () {
-                $("[name='f_name']").val('');
-                $("[name='l_name']").val('');
-                $("[name='title']").val('');
-                $("[name='email']").val('');
-                $("[name='ext']").val('');
-                $("[name='phone']").val('');
-                $("[name='location']").val('');
-                $("#save_emp").removeAttr("data-id");
-                $("#save_emp").removeClass("disabled");
-                $("#emp").text("");
-            });
-
-
-
-
-
-            $("#employeeForm").submit(function (e) {
-                e.preventDefault();
-                $("#emp").text("");
-                $("#emp").text("Please Wait...");
-                $("#save_emp").addClass("disabled");
-
-                    var result = readFormsAndAdd('save');
-                    result.then((res) => {
-                      $("#employeeModal").modal('hide');
-                      DataTable.ajax.reload();
-                      js_success("An email was sent to your employee with the needed login credentials");
-                    }).catch((err) => {
-                        $("#emp").text("");
-                        $("#emp").append("An employee with these email already exist");
-                        $("#save_emp").removeClass("disabled");
-                    });
-            });
-
-            $(document).on("click",".add_employee",function () {
-                let id = $(this).attr('id');
-                $("#save_emp").attr("data-id",id);
-                $("#employeeModal").modal('show');
-            });
-
-
-            $("#close").on("click",function () {
-                $("#employeeModal").modal('hide');
-            });
-
-            //EMPlOYEE Modal JS End's
-
-
-
-
-
-
-
-           var tableForEmp = $("#employee").DataTable({
-               dom: "Blfrtip",
-               buttons: [{
-                   extend: "copy",
-                   className: "btn-sm"
-               }, {
-                   extend: "csv",
-                   className: "btn-sm"
-               }, {
-                   extend: "excel",
-                   className: "btn-sm"
-               }, {
-                   extend: "pdfHtml5",
-                   className: "btn-sm"
-               }, {
-                   extend: "print",
-                   className: "btn-sm"
-               }],
-               responsive: true,
-               columns:[{data: 'first_name', name: 'first_name'},
-                   {data: 'last_name', name: 'last_name'},
-                   {data: 'email', name: 'email'},
-                   {data: 'contact_number', name: 'phone'},
-                   {data: 'job_title', name: 'title'},
-                   {data: 'address', name: 'location'},
-                   {data: 'actions', name: 'actions'}
-                   ]});
-
-            //Show Employees
-            $(document,this).on('click','.show_emp',function(){
-                let id = $(this).attr('id');
-                $.ajax({
-                    url:`{{url('admin/'.request()->segment(2).'/showemp/')}}/${id}`,
-                    dataType:"json",
-                    success: function (data) {
-                        tableForEmp.clear().draw();
-                        tableForEmp.rows.add(data.data);
-                        tableForEmp.columns.adjust().draw();
-                        $("#showEmpModal").modal('show');
-                    }
-                })
-            });
-
-
-
-
-            var delete_id;
-            $(document,this).on('click','.delete',function(){
-                delete_id = $(this).attr('id');
-                $('#confirmModal').modal('show');
-            });
-            $(document).on('click','#ok_delete',function(){
-                $.ajax({
-                    type:"delete",
-                    url:`{{url('admin/'.request()->segment(2).'/destroy/')}}/${delete_id}`,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    beforeSend: function(){
-                        $('#ok_delete').text('Deleting...');
-                        $('#ok_delete').attr("disabled",true);
-                    },
-                    success: function (data) {
-                        DataTable.ajax.reload();
-                        $('#ok_delete').text('Delete');
-                        $('#ok_delete').attr("disabled",false);
-                        $('#confirmModal').modal('hide');
-                        js_success(data);
-                    }
-                })
-            });
 
             {{--    //Device Modal JS--}}
 
@@ -893,12 +607,12 @@
                     {data: 'device_name', name: 'device_name', orderable: false},
                     {data: 'device_description', name: 'device_description'},
                     {data: 'profile_url', name: 'profile_url',render:function (data,type,row) {
-                            var url;
-                            if(row['redirected_url'])
-                                url=row['redirected_url'];
-                            else
-                                url=data;
-                            return '<a href="'+url+'" target="_blank">'+data+'</a>';
+                        var url;
+                        if(row['redirected_url'])
+                            url=row['redirected_url'];
+                        else
+                            url=data;
+                        return '<a href="'+url+'" target="_blank">'+data+'</a>';
                         }},
                 ]
             });
@@ -983,7 +697,7 @@
             });
 
 
-        {{--$(document).on("click",".link",function () {--}}
+            {{--$(document).on("click",".link",function () {--}}
             {{--    let id = $(this).attr('id');--}}
             {{--    $("#save_profile").attr("data-id",id);--}}
             {{--    $.get(`{{url('admin/'.request()->segment(2).'/profile/')}}/${id}`,function (data) {--}}
@@ -1039,6 +753,304 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+            //Company account
+
+
+
+            $("#companyModal").on('hide.bs.modal', function(){
+                $("[name=ind_f_name]").val("");
+                $("[name=ind_l_name]").val("");
+                $("[name=ind_email]").val("");
+                $("[name=company_name]").val("");
+                $("#acc_msg").text("");
+                $("#save_company").attr("disabled",false);
+                $("#close_company").attr("disabled",false);
+                $("#companyForm").trigger("reset");
+
+            });
+
+
+            $("#close_individual").click(function () {
+                $("#companyModal").modal('hide');
+            });
+
+            async function addCompany(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+                $("#acc_msg").text("Please wait...");
+                $("#save_company").attr("disabled",true);
+                $("#close_company").attr("disabled",true);
+                var val={};
+                var data=$("#individualForm").serializeArray();
+                data.forEach((form)=>{
+                    val[form.name]=form.value;
+                });
+                val["parent_id"]=0;
+                val["acc_type"]="individual";
+                $.ajax({
+                    url:"{{route("individual.create")}}",
+                    type:"POST",
+                    data:val,
+                    success:function (data) {
+                        $("#acc_msg").text("");
+                        $("#companyModal").modal('hide');
+                        DataTable.ajax.reload();
+                        js_success("An email was sent with the needed login credentials")
+                    },
+                    error:function (error) {
+                        $("#acc_msg").text("An account with this email already exist.")
+                    }
+                })
+
+            }
+
+            $("#individualForm").submit(function (e) {
+                e.preventDefault();
+                addCompany();
+            });
+
+
+            //End Company account
+
+
+
+            //Password Modal;
+
+
+
+            $("#resetModal").on('hide.bs.modal', function(){
+                $("#pr_msg").text("Are you sure you want to reset password ?");
+                $("#save_pass").attr("disabled",false).attr("data-id","");
+                $("#close_pass").attr("disabled",false);
+                $("#resetForm").trigger("reset");
+
+            });
+
+            $(document).on('click','.reset_password',function () {
+                let id=$(this).attr("id");
+                $("#save_pass").attr("data-id",id);
+                $("#resetModal").modal('show');
+
+            });
+
+            $("#close_pass").click(function () {
+                $("#resetModal").modal('hide');
+            });
+
+
+            async function resetPassword(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+
+                $("#pr_msg").text("Please wait...");
+                $("#save_pass").attr("disabled",true);
+                $("#close_pass").attr("disabled",true);
+                var val={};
+                var data=$("#resetForm").serializeArray();
+                data.forEach((form)=>{
+                    val[form.name]=form.value;
+                });
+                val["id"]=$("#save_pass").attr("data-id");
+                $.ajax({
+                    url:"{{route("reset_account_pass")}}",
+                    type:"POST",
+                    data:val,
+                    success:function (data) {
+                        $("#pr_msg").text("");
+                        $("#resetModal").modal('hide');
+                        DataTable.ajax.reload();
+                        js_success("An email was sent with the new password")
+                    },
+                    error:function (error) {
+                        console.log(error);
+                        // $("#pr_msg").text("An account with this email already exist.")
+                    }
+                });
+
+            }
+
+            $("#resetForm").submit(function (e) {
+                e.preventDefault();
+                resetPassword();
+            });
+
+
+            //End Password Modal
+
+
+
+
+
+
+            //EMPlOYEE Modal JS
+
+
+
+            {{--async function readFormsAndAdd(){--}}
+
+            {{--    $.ajaxSetup({--}}
+
+            {{--        headers: {--}}
+
+            {{--            'X-CSRF-TOKEN': "{{csrf_token()}}"--}}
+
+            {{--        }--}}
+
+            {{--    });--}}
+            {{--    var data1=$(`#employeeForm`).serializeArray();--}}
+            {{--    var value={};--}}
+            {{--    value["parent_id"]=$("#save_emp").attr("data-id");--}}
+            {{--    data1.forEach((input)=>{--}}
+            {{--        value[input.name]=input.value;--}}
+
+            {{--    });--}}
+            {{--    var response=await $.ajax({--}}
+            {{--        url: `{{route("")}}`,--}}
+            {{--        type: "POST",--}}
+            {{--        data: value--}}
+            {{--    });--}}
+            {{--    return response;--}}
+            {{--}--}}
+
+            {{--$('#employeeModal').on('hidden.bs.modal', function () {--}}
+            {{--    $("[name='f_name']").val('');--}}
+            {{--    $("[name='l_name']").val('');--}}
+            {{--    $("[name='title']").val('');--}}
+            {{--    $("[name='email']").val('');--}}
+            {{--    $("[name='ext']").val('');--}}
+            {{--    $("[name='phone']").val('');--}}
+            {{--    $("[name='location']").val('');--}}
+            {{--    $("#save_emp").removeAttr("data-id");--}}
+            {{--    $("#save_emp").removeClass("disabled");--}}
+            {{--    $("#emp").text("");--}}
+            {{--});--}}
+
+
+
+
+
+            {{--$("#employeeForm").submit(function (e) {--}}
+            {{--    e.preventDefault();--}}
+            {{--    $("#emp").text("");--}}
+            {{--    $("#emp").text("Please Wait...");--}}
+            {{--    $("#save_emp").addClass("disabled");--}}
+
+            {{--        var result = readFormsAndAdd('save');--}}
+            {{--        result.then((res) => {--}}
+            {{--          $("#employeeModal").modal('hide');--}}
+            {{--          DataTable.ajax.reload();--}}
+            {{--          js_success("An email was sent to your employee with the needed login credentials");--}}
+            {{--        }).catch((err) => {--}}
+            {{--            $("#emp").text("");--}}
+            {{--            $("#emp").append("An employee with these email already exist");--}}
+            {{--            $("#save_emp").removeClass("disabled");--}}
+            {{--        });--}}
+            {{--});--}}
+
+            {{--$(document).on("click",".add_employee",function () {--}}
+            {{--    let id = $(this).attr('id');--}}
+            {{--    $("#save_emp").attr("data-id",id);--}}
+            {{--    $("#employeeModal").modal('show');--}}
+            {{--});--}}
+
+
+            {{--$("#close").on("click",function () {--}}
+            {{--    $("#employeeModal").modal('hide');--}}
+            {{--});--}}
+
+            //EMPlOYEE Modal JS End's
+
+
+
+
+
+
+
+           var tableForEmp = $("#employee").DataTable({
+               dom: "Blfrtip",
+               buttons: [{
+                   extend: "copy",
+                   className: "btn-sm"
+               }, {
+                   extend: "csv",
+                   className: "btn-sm"
+               }, {
+                   extend: "excel",
+                   className: "btn-sm"
+               }, {
+                   extend: "pdfHtml5",
+                   className: "btn-sm"
+               }, {
+                   extend: "print",
+                   className: "btn-sm"
+               }],
+               responsive: true,
+               columns:[{data: 'device_name', name: 'device_name'},
+                   {data: 'device_description', name: 'device_description'},
+                   {data: 'profile_url', name: 'profile_url'},
+                   ]});
+
+            //Show Employees
+            $(document,this).on('click','.show_emp',function(){
+                let id = $(this).attr('id');
+                $.ajax({
+                    url:`{{url('admin/'.request()->segment(2).'/devices/')}}/${id}`,
+                    dataType:"json",
+                    success: function (data) {
+                        tableForEmp.clear().draw();
+                        tableForEmp.rows.add(data.data);
+                        tableForEmp.columns.adjust().draw();
+                        $("#showEmpModal").modal('show');
+                    }
+                })
+            });
+
+
+
+
+            var delete_id;
+            $(document,this).on('click','.delete',function(){
+                delete_id = $(this).attr('id');
+                $('#confirmModal').modal('show');
+            });
+            $(document).on('click','#ok_delete',function(){
+                $.ajax({
+                    type:"delete",
+                    url:`{{url('admin/'.request()->segment(2).'/destroy/')}}/${delete_id}`,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    beforeSend: function(){
+                        $('#ok_delete').text('Deleting...');
+                        $('#ok_delete').attr("disabled",true);
+                    },
+                    success: function (data) {
+                        DataTable.ajax.reload();
+                        $('#ok_delete').text('Delete');
+                        $('#ok_delete').attr("disabled",false);
+                        $('#confirmModal').modal('hide');
+                        js_success(data);
+                    }
+                })
+            });
 
 
             // Selecting all Checkboxes

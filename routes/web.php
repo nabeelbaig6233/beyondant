@@ -57,6 +57,29 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::delete('/profile/destroy/{id}','ProfileController@destroy');
     Route::post('/profile/delete_all','ProfileController@delete_all')->name('profile.delete_all');
 
+    // Individual
+    Route::get('/individual','IndividualController@index')->name('individual');
+    Route::post('/individual','IndividualController@create')->name('individual.create');
+    Route::get('/individual/devices/{id}','IndividualController@view_devices');
+    Route::get('/individual/view/{id}','IndividualController@view');
+    Route::delete('/individual/destroy/{id}','IndividualController@destroy');
+    Route::post('/individual/delete_all','IndividualController@delete_all')->name('individual.delete_all');
+
+    //Devices
+    Route::get('/device','DeviceController@index')->name('device');
+    Route::get('/device/view_devices/{id}','DeviceController@view_devices');
+    //update
+    Route::get('/device/view/{id}','DeviceController@view');
+    Route::post('/device/update/{id}','DeviceController@update');
+    //create
+    Route::post('/device','DeviceController@store')->name('device.create');
+    //profile
+    Route::get('/device/profile/{id}','DeviceController@get_profile_url');
+    Route::post('/device/profile/{id}','DeviceController@link_profile_url');
+    //delete
+    Route::delete('/device/destroy/{id}','DeviceController@destroy');
+    Route::post('/device/delete_all','DeviceController@delete_all')->name('device.delete_all');
+
     // Banner
     Route::get('/banner','BannerController@index')->name('banner');
     Route::post('/banner',"BannerController@store")->name('banner.create');
