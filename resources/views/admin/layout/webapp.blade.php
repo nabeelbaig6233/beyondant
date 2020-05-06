@@ -218,7 +218,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{url('admin/user/edit/'.Auth::user()->id)}}">
-                                    {{auth()->user()->role_id===5?"Company Profile":"Profile"}}</a>
+                                    {{auth()->user()->role_id===5?"Company Profile":"My Profile"}}</a>
                                 @if(in_array('updateSetting',\Request::get('permission')))
                                     <a class="dropdown-item" href="{{route('setting')}}">Settings</a>
                                 @endif

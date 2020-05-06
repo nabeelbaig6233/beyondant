@@ -13,41 +13,41 @@
 
     {{--Employee Modal--}}
     <!-- Modal -->
-{{--    <div class="modal fade " id="deviceModal" tabindex="-1" role="dialog" >--}}
-{{--        <div class="modal-dialog modal-dialog-centered" role="document">--}}
-{{--            <div class="modal-content">--}}
-{{--                <form action="" method="post" id="deviceForm">--}}
-{{--                    <div class="modal-header">--}}
-{{--                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Device Form</strong></h4>--}}
-{{--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                            <span aria-hidden="true">&times;</span>--}}
-{{--                        </button>--}}
+    <div class="modal fade " id="deviceModal" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="" method="post" id="deviceForm">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Device Form</strong></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
 
-{{--                    </div>--}}
-{{--                    <div class="modal-body">--}}
+                    </div>
+                    <div class="modal-body">
 
-{{--                        <div class="row">--}}
-{{--                            <div class="form-group col-12">--}}
-{{--                                <input type="text" class="form-control" name="device_name" placeholder="Device Name" required />--}}
-{{--                            </div>--}}
-{{--                            <div class="form-group col-12">--}}
-{{--                                <textarea name="device_description" class="form-control" placeholder="Device Description" required></textarea>--}}
-{{--                            </div>--}}
-{{--                            <div class="col-12"  id="device">--}}
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <input type="text" class="form-control" name="device_name" placeholder="Device Name" required />
+                            </div>
+                            <div class="form-group col-12">
+                                <textarea name="device_description" class="form-control" placeholder="Device Description" required></textarea>
+                            </div>
+                            <div class="col-12"  id="device">
 
-{{--                            </div>--}}
+                            </div>
 
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="modal-footer">--}}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
 
-{{--                        <button type="button" id="close" class="btn btn-light">Close</button>--}}
-{{--                        <button type="submit" class="btn btn-danger" id="save_device" >Save Device</button>--}}
-{{--                    </div>--}}
-{{--                </form>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+                        <button type="button" id="close" class="btn btn-light">Close</button>
+                        <button type="submit" class="btn btn-danger" id="save_device" >Save Device</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     {{--End Employee Modal--}}
 
 
@@ -58,12 +58,12 @@
             <div class="modal-content">
                 <form action="" method="POST" id="profileForm">
                     <div class="modal-header">
-                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Link Profile</strong></h4>
+                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Device Link</strong></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="form-group col-12">
-                                <input type="url" class="form-control" name="profile_url" placeholder="Profile URL" required />
+                                <input type="url" class="form-control" name="profile_url" placeholder="Primary Web Page: http://www.example.com" required />
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,8 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>{{ !empty($title)?$title:'' }} <small>View</small></h3>
+{{--                    {{ !empty($title)?$title:'' }} <small>View</small>--}}
+                    <h3>My Devices</h3>
                 </div>
 
 
@@ -152,7 +153,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','device_name'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','device_description'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','profile_url'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','device_url'))}}</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -634,7 +635,11 @@
                 let id = $(this).attr('id');
                 $("#save_profile").attr("data-id",id);
                 $.get(`{{url('admin/'.request()->segment(2).'/profile/')}}/${id}`,function (data) {
-                    $("[name='profile_url']").val(data.redirected_url);
+                    if(data.redirected_url!==`{{route('pro',auth()->user()->id)}}`){
+                        $("[name='profile_url']").val(data.redirected_url);
+                    }else{
+                        $("[name='profile_url']").val('');
+                    }
                 });
                 $("#profileModal").modal('show');
             });

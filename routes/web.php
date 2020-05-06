@@ -127,6 +127,7 @@ Route::middleware(['allowguest'])->group(function (){
     Route::get('/entrepreneurs','EntrepreneursController@index')->name("entrepreneurs");
     Route::post('/entrepreneurs','EntrepreneursController@store')->name("entrepreneurs.submit");
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
+    Route::get('/profile/{user_id?}/devices/{id?}','ProfileController@device_profile')->name('device_profile');
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
     Route::post('/profile/register','ProfileController@register')->name('profile-register');
     Route::post('/upload-cover-pic/{id}','ProfileController@uploadCoverPic')->name('upload-cover-pic');

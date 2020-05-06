@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeForm;
 use App\Mail\AccountMail;
 use App\Mail\CreateEmployeeMail;
+use App\models\device;
 use App\Notifications\AccountNotification;
 use App\User;
 use Illuminate\Auth\Events\Registered;
@@ -376,6 +377,11 @@ class ProfileController extends Controller
         return 1;
     }
 
+
+    public function device_profile($user_id,$id){
+        $device=device::where('profile_url',route('device_profile',["user_id"=>$user_id,"id"=>$id]))->firstOrfail();
+        return redirect($device->redirected_url);
+    }
 
 
 }
