@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeForm;
 use App\Mail\AccountMail;
 use App\Mail\CreateEmployeeMail;
+use App\Mail\MeetMail;
 use App\models\device;
+use App\models\meeting;
 use App\Notifications\AccountNotification;
 use App\User;
 use Illuminate\Auth\Events\Registered;
@@ -383,5 +385,30 @@ class ProfileController extends Controller
         return redirect($device->redirected_url);
     }
 
+    public function meet_email(Request $request,$id){
+        $first_name=$request->get("first_name");
+        $last_name=$request->get("last_name");
+        $email=$request->get("email");
+        $phone=$request->get("phone_number");
+        $meeting_location=$request->get("meeting_location");
+        $user = User::find($id);
+        if(!empty(trim($first_name)) && !empty(trim($email))){
+            meeting::create([
+               "first_name" => $first_name,
+                "last_name" => $last_name,
+                "email" => $email,
+                "phone"=> $phone,
+                "meeting_location" => $meeting_location,
+                "user_id"=>$id
+            ]);
+            if($user->parent_id!=0){
+                $company_name=User::find($user->parent_id)->company_name;
+            }else{
+                $company_name=$user->company_name;
+            }
+            Mail::to($email)->send(new MeetMail($user,$company_name,$first_name,$last_name));
+        }
+        return 1;
+    }
 
 }

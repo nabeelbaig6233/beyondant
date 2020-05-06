@@ -164,6 +164,55 @@
         </header>
         <!-- Profile Heaer End -->
 
+{{--        Save Contacts Modal --}}
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="saveToCotacts" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form id="meetForm" method="POST">
+                        <div class="modal-header" style="background-color: #be0103;">
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle">Where Did We Meet?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Meeting Location" name="meeting_location" class="form-control" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="First Name" name="first_name" class="form-control" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Last Name" name="last_name" class="form-control" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="email" placeholder="E-mail" name="email" class="form-control" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Phone Number" name="phone_number" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-lg mr-auto close_meet" data-dismiss="modal" >Close</button>
+                            <a class="btn btn-danger btn-lg bypass_contact" style="background-color: #be0103;"  href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> Bypass </a>
+                            <button type="submit" class="btn btn-danger btn-lg continue_contact" data-id="{{$record->id}}" style="background-color: #be0103;">Continue</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+{{--        End Save Contacts Modal--}}
+
+
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
@@ -220,7 +269,11 @@
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
 
-                        <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
+                        <button type="button" class="btn btn-default saveContact link" data-toggle="modal" data-target="#saveToCotacts">
+                            SAVE TO CONTACTS <i class="fas fa-download"></i>
+                        </button>
+
+{{--                        <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>--}}
                     </div>
                 </div>
             </div>
@@ -388,6 +441,55 @@
     {{--END Mobile Cropping Modal--}}
 
 
+    {{--     Mobile   Save Contacts Modal --}}
+
+
+
+
+    <!--  Modal -->
+    <div class="modal fade" id="saveToCotactsmob" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="meetFormMob" method="POST">
+                    <div class="modal-header" style="background-color: #be0103;">
+                        <h5 class="modal-title text-white" id="exampleModalLongTitle">Where Did We Meet?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 pt-2">
+                                <input type="text" placeholder="Meeting Location" name="meeting_location" class="form-control" />
+                            </div>
+                            <div class="col-12 pt-2">
+                                <input type="text" placeholder="First Name" name="first_name" class="form-control" />
+                            </div>
+                            <div class="col-12 pt-2">
+                                <input type="text" placeholder="Last Name" name="last_name" class="form-control" />
+                            </div>
+                            <div class="col-12 pt-2">
+                                <input type="email" placeholder="E-mail" name="email" class="form-control" />
+                            </div>
+                            <div class="col-12 pt-2">
+                                <input type="text" placeholder="Phone Number" name="phone_number" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-lg mr-auto close_meet_mob" data-dismiss="modal" >Close</button>
+                        <a class="btn btn-danger btn-lg bypass_contact_mob" style="background-color: #be0103;"  href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> Bypass </a>
+                        <button type="submit" class="btn btn-danger btn-lg continue_contact_mob" data-id="{{$record->id}}" style="background-color: #be0103;">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {{--    Mobile    End Save Contacts Modal--}}
+
+
     <div class="profileWrapper_Mob">
         <!-- Profile Heaer Start -->
         <header class="headerProfile cursor-light">
@@ -469,7 +571,10 @@
                         <p>{{ $record->job_title ?? '' }} <span>{{ isset($companyInfo) ? $companyInfo->company_name:$record->company_name ?? '' }}</span></p>
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
-                        <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
+                        <button type="button" class="btn btn-default saveContact link" data-toggle="modal" data-target="#saveToCotactsmob">
+                            SAVE TO CONTACTS <i class="fas fa-download"></i>
+                        </button>
+{{--                        <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>--}}
                     </div>
                 </div>
             </div>
@@ -557,6 +662,56 @@
 
 
         $(document).ready(function () {
+
+            //MeetModal JS
+
+            $("#meetForm").submit(function (e) {
+                e.preventDefault();
+                if($("#meetForm input[name=first_name]").val() && $("#meetForm input[name=email]").val()){
+                    $(".continue_contact").addClass("disabled");
+                    var text=$(".continue_contact").text();
+                    $(".continue_contact").text("Please Wait...");
+                    $(".bypass_contact").addClass("disabled");
+                    var formdata=$(this).serializeArray();
+                    var data={};
+                    formdata.forEach((item)=>{
+                        data[item.name]=item.value;
+                    });
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': `{{csrf_token()}}`
+                        }
+                    });
+                    var id=$(".continue_contact").attr("data-id");
+                    $.post(`{{url('/profile')}}/${id}/meet`,data,function (response) {
+                        $(".continue_contact").removeClass("disabled");
+                        $(".continue_contact").text(text);
+                        $(".bypass_contact").removeClass("disabled");
+                        $(".bypass_contact")[0].click();
+                        js_success("An Email Has Been Sent");
+                        $("#saveToCotacts").modal('hide');
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+                }else {
+                    $(".bypass_contact")[0].click();
+                    $("#saveToCotacts").modal('hide');
+                }
+
+            });
+
+            $(".bypass_contact").click(function () {
+                $("#saveToCotacts").modal('hide');
+            });
+
+            $('#saveToCotacts').on('hidden.bs.modal', function (e) {
+               $(".modal-backdrop").remove();
+               $("#meetForm").trigger('reset');
+            });
+
+            //END MeetModal JS
+
+
             // function adjust(){
             //
             //     if(window.innerWidth>=1200){
@@ -826,6 +981,60 @@
             });
         });
         $(document).ready(function () {
+
+
+            //Mob MeetModal JS
+
+            $("#meetFormMob").submit(function (e) {
+                e.preventDefault();
+                if($("#meetFormMob input[name=first_name]").val() && $("#meetFormMob input[name=email]").val()){
+                    $(".continue_contact_mob").addClass("disabled");
+                    var text=$(".continue_contact_mob").text();
+                    $(".continue_contact_mob").text("Please Wait...");
+                    $(".bypass_contact_mob").addClass("disabled");
+                    var formdata=$(this).serializeArray();
+                    var data={};
+                    formdata.forEach((item)=>{
+                        data[item.name]=item.value;
+                    });
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': `{{csrf_token()}}`
+                        }
+                    });
+                    var id=$(".continue_contact_mob").attr("data-id");
+                    $.post(`{{url('/profile')}}/${id}/meet`,data,function (response) {
+                        $(".continue_contact_mob").removeClass("disabled");
+                        $(".continue_contact_mob").text(text);
+                        $(".bypass_contact_mob").removeClass("disabled");
+                        $(".bypass_contact_mob")[0].click();
+                        js_success("An Email Has Been Sent");
+                        $("#saveToCotactsmob").modal('hide');
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+                }else {
+                    $(".bypass_contact_mob")[0].click();
+                    $("#saveToCotactsmob").modal('hide');
+                }
+
+            });
+
+            $(".bypass_contact_mob").click(function () {
+                $("#saveToCotactsmob").modal('hide');
+            });
+
+            $('#saveToCotactsmob').on('hidden.bs.modal', function (e) {
+                $(".modal-backdrop").remove();
+                $("#meetFormMob").trigger('reset');
+            });
+
+            // Mob END MeetModal JS
+
+
+
+
+
 
             var profile_crop=$("#cropper2").croppie();
             var rawImage,whichPic,rawCoverImage;
