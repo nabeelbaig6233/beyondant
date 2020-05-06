@@ -58,7 +58,7 @@
             <div class="modal-content">
                 <form action="" method="POST" id="profileForm">
                     <div class="modal-header">
-                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Link Profile</strong></h4>
+                        <h4 class="modal-title text-dark" id="exampleModalLongTitle"><strong>Device Link</strong></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -111,7 +111,8 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>{{ !empty($title)?$title:'' }} <small>View</small></h3>
+{{--                    {{ !empty($title)?$title:'' }} <small>View</small>--}}
+                    <h3>My Devices</h3>
                 </div>
 
 
@@ -152,7 +153,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','device_name'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','device_description'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','profile_url'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','device_url'))}}</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
