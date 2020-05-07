@@ -413,5 +413,31 @@ class ProfileController extends Controller
         return 1;
     }
 
+    public function user_contacts(){
+        $id=Auth::user()->id;
+        $conatcts=meeting::where('user_id',$id)->get();
+        return datatables()->of($conatcts)
+            ->addColumn('date',function ($data){
+                $userTimezone = new \DateTimeZone('America/New_York');
+                $date=new \DateTime($data->created_at,$userTimezone);
+                return $date->format('d-m-yy');
+            })->addColumn('time',function ($data){
+                $userTimezone = new \DateTimeZone('America/New_York');
+                $date=new \DateTime($data->created_at,$userTimezone);
+                return $date->format('h:i A');
+            })->addColumn('action',function ($data){
+                $actions='<button title="Delete Contact" type="button" name="delete_contact" id="'.$data->id.'" class="delete_contact btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                return $actions;
+            })->rawColumns(['date','action'])
+            ->make(true);
+    }
+
+    public function delete_contact($id){
+        $meeting=meeting::find($id);
+        $meeting->delete();
+        return $this->user_contacts();
+    }
+
+
 
 }

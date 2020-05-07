@@ -835,7 +835,7 @@
                 var id=$(this).attr("id");
                 $.ajax({
                     type:'delete',
-                    url:`{{url("admin/profile/contacts/destroy")}}/${id}`,
+                    url:`{{url("profile/contacts/destroy")}}/${id}`,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },

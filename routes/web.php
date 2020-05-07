@@ -80,11 +80,6 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::delete('/device/destroy/{id}','DeviceController@destroy');
     Route::post('/device/delete_all','DeviceController@delete_all')->name('device.delete_all');
 
-    //contacts
-
-    Route::get('/profile/contacts','ProfileController@user_contacts')->name('my_contacts');
-    Route::delete('/profile/contacts/destroy/{id}','ProfileController@delete_contact');
-
     // Banner
     Route::get('/banner','BannerController@index')->name('banner');
     Route::post('/banner',"BannerController@store")->name('banner.create');
@@ -118,8 +113,9 @@ Route::get("register",function (){
 Route::post('/save_emp', "ProfileController@save_employees")->name("save-employees");
 Route::post('/update_emp/{id}', "ProfileController@update_employees")->name("update-employees");
 Route::post('/save_account', "ProfileController@save_account")->name("save_account");
-
-
+//contacts
+Route::get('/profile/contacts','ProfileController@user_contacts')->name('my_contacts');
+Route::delete('/profile/contacts/destroy/{id}','ProfileController@delete_contact');
 
 Auth::routes(["register"=>false]);
 
