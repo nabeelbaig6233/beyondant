@@ -182,7 +182,7 @@
                 <div class="modal-content">
                     <form id="meetForm" method="POST">
                         <div class="modal-header" style="background-color: #be0103;">
-                            <h5 class="modal-title text-white" id="exampleModalLongTitle">Where Did We Meet?</h5>
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle">To stay in touch - may I have your contact Info as well?</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -190,7 +190,7 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-12 pt-2">
-                                    <input type="text" placeholder="Meeting Location" name="meeting_location" class="form-control" />
+                                    <input type="text" placeholder="Enter Our 1st Meeting Location" name="meeting_location" class="form-control" />
                                 </div>
                                 <div class="col-12 pt-2">
                                     <input type="text" placeholder="Your First Name" name="first_name" class="form-control" />
@@ -511,7 +511,7 @@
             <div class="modal-content">
                 <form id="meetFormMob" method="POST">
                     <div class="modal-header" style="background-color: #be0103;">
-                        <h5 class="modal-title text-white" id="exampleModalLongTitle">Where Did We Meet?</h5>
+                        <h5 class="modal-title text-white" id="exampleModalLongTitle">To stay in touch - may I have your contact Info as well?</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -519,7 +519,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 pt-2">
-                                <input type="text" placeholder="Meeting Location" name="meeting_location" class="form-control" />
+                                <input type="text" placeholder="Enter Our 1st Meeting Location" name="meeting_location" class="form-control" />
                             </div>
                             <div class="col-12 pt-2">
                                 <input type="text" placeholder="First Name" name="first_name" class="form-control" />
