@@ -4,8 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
+use App\models\meeting;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Psy\Util\Str;
@@ -85,5 +88,31 @@ class ProfileController extends Controller
         Mail::to($email)->send(new ResetPassword($email,$password));
         return 1;
     }
+
+    public function user_contacts(){
+        $id=Auth::user()->id;
+        $conatcts=meeting::where('user_id',$id)->get();
+        return datatables()->of($conatcts)
+            ->addColumn('date',function ($data){
+                $userTimezone = new \DateTimeZone('America/New_York');
+                $date=new \DateTime($data->created_at,$userTimezone);
+                return $date->format('d-m-yy');
+            })->addColumn('time',function ($data){
+                $userTimezone = new \DateTimeZone('America/New_York');
+                $date=new \DateTime($data->created_at,$userTimezone);
+                return $date->format('h:i A');
+            })->addColumn('action',function ($data){
+                $actions='<button title="Delete Contact" type="button" name="delete_contact" id="'.$data->id.'" class="delete_contact btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                return $actions;
+            })->rawColumns(['date','action'])
+            ->make(true);
+    }
+
+    public function delete_contact($id){
+        $meeting=meeting::find($id);
+        $meeting->delete();
+        return $this->user_contacts();
+    }
+
 
 }

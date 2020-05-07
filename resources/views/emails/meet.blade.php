@@ -15,6 +15,7 @@
     <p><strong>Business Name: </strong> {{$company_name}}</p>
     <p><strong>E-mail: </strong> {{$user->email}}</p>
     <p><strong>Phone No.: </strong> {{$user->contact_number}}</p>
+    <p><strong>Where we met: </strong> {{$location}}</p>
     @slot('footer')
         @component('mail::footer')
             © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.') Would you like to use Beyondant's Platform for your new contacts? If so, click here for a free account: <a href="https://beyondant.com/">www.beyondant.com</a>

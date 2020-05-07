@@ -80,6 +80,11 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::delete('/device/destroy/{id}','DeviceController@destroy');
     Route::post('/device/delete_all','DeviceController@delete_all')->name('device.delete_all');
 
+    //contacts
+
+    Route::get('/profile/contacts','ProfileController@user_contacts')->name('my_contacts');
+    Route::delete('/profile/contacts/destroy/{id}','ProfileController@delete_contact');
+
     // Banner
     Route::get('/banner','BannerController@index')->name('banner');
     Route::post('/banner',"BannerController@store")->name('banner.create');
