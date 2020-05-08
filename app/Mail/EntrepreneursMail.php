@@ -30,6 +30,6 @@ class EntrepreneursMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.entrepreneurs')->with("entrepreneursMail",$this->entrepreneursMail);
+        return $this->markdown('emails.entrepreneurs')->with("entrepreneursMail",$this->entrepreneursMail)->from("Notifications@Beyondant.com");
     }
 }

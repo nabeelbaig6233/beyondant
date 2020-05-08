@@ -16,6 +16,6 @@ class ResellerMail extends Mailable
 
     public function build()
     {
-        return $this->markdown('emails.reseller');
+        return $this->markdown('emails.reseller')->from("Notifications@Beyondant.com");
     }
 }
