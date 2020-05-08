@@ -31,6 +31,6 @@ class AccountMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.personal_account',["email"=>$this->email,"password"=>$this->password,"type"=>$this->acc_type]);
+        return $this->markdown('emails.personal_account',["email"=>$this->email,"password"=>$this->password,"type"=>$this->acc_type])->from("Notifications@Beyondant.com");
     }
 }
