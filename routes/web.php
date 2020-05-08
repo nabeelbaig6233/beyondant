@@ -89,6 +89,8 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
 //    Route::post('/banner','BannerController@create')->name('banner.create');
 
 
+    //contact
+    Route::get('/contact','ContactController@index')->name('contact');
     //reset_password
     Route::post('/reset_account_password', "ProfileController@reset_account_password")->name("reset_account_pass");
 

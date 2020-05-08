@@ -160,6 +160,13 @@
                                         <td><input type="checkbox" name="permission[]" id="permission" value="viewBanner" <?php echo (in_array('viewBanner', $record))?'checked':'' ?>></td>
                                         <td> - </td>
                                     </tr>
+                                    <tr>
+                                        <td>Contacts</td>
+                                        <td> - </td>
+                                        <td> - </td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="viewContact" <?php echo (in_array('viewContact', $record))?'checked':'' ?>></td>
+                                        <td><input type="checkbox" name="permission[]" id="permission" value="deleteContact" <?php echo (in_array('deleteContact', $record))?'checked':'' ?>></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                                 <div class="ln_solid"></div>

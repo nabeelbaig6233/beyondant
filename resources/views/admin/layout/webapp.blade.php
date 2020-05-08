@@ -100,6 +100,42 @@
                         </div>
                     @endif
 
+                    @if (in_array('viewContact',\Request::get('permission')))
+                        <div class="menu_section">
+                            <h3>My Contacts</h3>
+                            <ul class="nav side-menu">
+                                <li><a><i class="fa fa-phone"></i> Contacts <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        @if(in_array('viewContact',\Request::get('permission')))
+                                            <li><a href="{{route('contact')}}">Contacts</a></li>
+                                        @endif
+                                    </ul>
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (auth()->user()->role_id===5 || auth()->user()->role_id===7)
+                        <div class="menu_section">
+                            <h3>Profile</h3>
+                            <ul class="nav side-menu">
+                                <li><a><i class="fa fa-eye"></i> {{auth()->user()->role_id===5?"Company Profile":"My Profile"}} <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        @if(in_array('viewContact',\Request::get('permission')))
+                                            <li><a href="{{route('pro',auth()->user()->id)}}" target="_blank">View Profile</a></li>
+                                        @endif
+                                    </ul>
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    @endif
+
 
                     @if(in_array('viewHome',\Request::get('permission')))
                         <div class="menu_section">
