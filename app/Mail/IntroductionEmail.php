@@ -33,6 +33,6 @@ class IntroductionEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.meet',["user"=>$this->user,"company_name"=>$this->company_name,"first_name"=>$this->first_name,"last_name"=>$this->last_name,"location"=>$this->meeting_location]);
+        return $this->markdown('emails.meet',["user"=>$this->user,"company_name"=>$this->company_name,"first_name"=>$this->first_name,"last_name"=>$this->last_name,"location"=>$this->meeting_location])->from("Notifications@Beyondant.com");
     }
 }

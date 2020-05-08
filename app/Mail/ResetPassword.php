@@ -30,6 +30,6 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.reset_password',["email"=>$this->email,"password"=>$this->password]);
+        return $this->markdown('emails.reset_password',["email"=>$this->email,"password"=>$this->password])->from("Notifications@Beyondant.com");
     }
 }

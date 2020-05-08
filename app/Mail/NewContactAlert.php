@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserMeetAlertMail extends Mailable
+class NewContactAlert extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,6 +29,6 @@ class UserMeetAlertMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user_meet_alert',['first_name'=>$this->first_name]);
+        return $this->markdown('emails.user_meet_alert',['first_name'=>$this->first_name])->from("Notifications@Beyondant.com");
     }
 }

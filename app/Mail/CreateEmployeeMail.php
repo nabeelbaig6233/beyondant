@@ -35,6 +35,7 @@ class CreateEmployeeMail extends Mailable
         return $this->markdown('emails.employee')
             ->with("company",$this->company)
             ->with("password",$this->password)
-            ->with("email",$this->email);
+            ->with("email",$this->email)
+            ->from("Notifications@Beyondant.com");
     }
 }

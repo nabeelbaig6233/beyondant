@@ -7,7 +7,7 @@ use App\Mail\AccountMail;
 use App\Mail\CreateEmployeeMail;
 use App\Mail\IntroductionEmail;
 use App\Mail\MeetMail;
-use App\Mail\UserMeetAlertMail;
+use App\Mail\NewContactAlert;
 use App\models\device;
 use App\models\meeting;
 use App\Notifications\AccountNotification;
@@ -409,7 +409,7 @@ class ProfileController extends Controller
                 $company_name=$user->company_name;
             }
             Mail::to($email)->send(new IntroductionEmail($user,$company_name,$first_name,$last_name,$meeting_location));
-            Mail::to($user->email)->send(new UserMeetAlertMail($user->first_name));
+            Mail::to($user->email)->send(new NewContactAlert($user->first_name));
         }
         return 1;
     }
