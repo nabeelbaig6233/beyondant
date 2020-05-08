@@ -4,8 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
+use App\models\meeting;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Psy\Util\Str;
@@ -85,5 +88,4 @@ class ProfileController extends Controller
         Mail::to($email)->send(new ResetPassword($email,$password));
         return 1;
     }
-
 }

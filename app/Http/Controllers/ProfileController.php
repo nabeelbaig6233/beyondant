@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeForm;
 use App\Mail\AccountMail;
 use App\Mail\CreateEmployeeMail;
+use App\Mail\IntroductionEmail;
+use App\Mail\MeetMail;
+use App\Mail\UserMeetAlertMail;
 use App\models\device;
+use App\models\meeting;
 use App\Notifications\AccountNotification;
 use App\User;
 use Illuminate\Auth\Events\Registered;
@@ -382,6 +386,59 @@ class ProfileController extends Controller
         $device=device::where('profile_url',route('device_profile',["user_id"=>$user_id,"id"=>$id]))->firstOrfail();
         return redirect($device->redirected_url);
     }
+
+    public function meet_email(Request $request,$id){
+        $first_name=$request->get("first_name");
+        $last_name=$request->get("last_name");
+        $email=$request->get("email");
+        $phone=$request->get("phone_number");
+        $meeting_location=$request->get("meeting_location");
+        $user = User::find($id);
+        if(!empty(trim($first_name)) && !empty(trim($email))){
+            meeting::create([
+               "first_name" => $first_name,
+                "last_name" => $last_name,
+                "email" => $email,
+                "phone"=> $phone,
+                "meeting_location" => $meeting_location,
+                "user_id"=>$id
+            ]);
+            if($user->parent_id!=0){
+                $company_name=User::find($user->parent_id)->company_name;
+            }else{
+                $company_name=$user->company_name;
+            }
+            Mail::to($email)->send(new IntroductionEmail($user,$company_name,$first_name,$last_name,$meeting_location));
+            Mail::to($user->email)->send(new UserMeetAlertMail($user->first_name));
+        }
+        return 1;
+    }
+
+    public function user_contacts(){
+        $id=Auth::user()->id;
+        $conatcts=meeting::where('user_id',$id)->get();
+        return datatables()->of($conatcts)
+            ->addColumn('date',function ($data){
+                $userTimezone = new \DateTimeZone('America/New_York');
+                $date=new \DateTime($data->created_at,$userTimezone);
+                return $date->format('d-m-yy');
+            })->addColumn('time',function ($data){
+                $userTimezone = new \DateTimeZone('America/New_York');
+                $date=new \DateTime($data->created_at,$userTimezone);
+                return $date->format('h:i A');
+            })->addColumn('action',function ($data){
+                $actions='<button title="Delete Contact" type="button" name="delete_contact" id="'.$data->id.'" class="delete_contact btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                return $actions;
+            })->rawColumns(['date','action'])
+            ->make(true);
+    }
+
+    public function delete_contact($id){
+        $meeting=meeting::find($id);
+        $meeting->delete();
+        return $this->user_contacts();
+    }
+
 
 
 }

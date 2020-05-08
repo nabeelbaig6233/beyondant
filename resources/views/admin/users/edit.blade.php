@@ -319,6 +319,9 @@
                                         @if (auth()->user()->role_id===5)
                                             <p class="font-weight-bold">Company Admin Profile URL:</p>
                                             <a href="{{route('pro',auth()->user()->id)}}" target="_blank">{{route('pro',auth()->user()->id)}}</a>
+                                        @elseif (auth()->user()->role_id===7)
+                                            <p class="font-weight-bold">Profile URL:</p>
+                                            <a href="{{route('pro',auth()->user()->id)}}" target="_blank">{{route('pro',auth()->user()->id)}}</a>
                                         @endif
                                     </div>
                                     <div class="col-md-6">

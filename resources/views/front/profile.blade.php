@@ -6,6 +6,13 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel='stylesheet prefetch' href='https://foliotek.github.io/Croppie/croppie.css'>
 
+    <!-- Datatables -->
+    <link href="{{ asset('assets/admin/datatables/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/datatables/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/datatables/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/datatables/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/datatables/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+
     <style>
         /*#con{*/
         /*    height: 416px;*/
@@ -164,6 +171,102 @@
         </header>
         <!-- Profile Heaer End -->
 
+{{--        Save Contacts Modal --}}
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="saveToCotacts" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form id="meetForm" method="POST">
+                        <div class="modal-header" style="background-color: #be0103;">
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle">To stay in touch - may I have your contact Info as well?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Enter Our 1st Meeting Location" name="meeting_location" class="form-control" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Your First Name" name="first_name" class="form-control" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Your Last Name" name="last_name" class="form-control" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="email" placeholder="Your E-mail" name="email" class="form-control" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Your Phone Number" name="phone_number" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-lg mr-auto close_meet" data-dismiss="modal" >Close</button>
+                            <a class="btn btn-danger btn-lg bypass_contact" style="background-color: #be0103;"  href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> Bypass </a>
+                            <button type="submit" class="btn btn-danger btn-lg continue_contact" data-id="{{$record->id}}" style="background-color: #be0103;">Continue</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+{{--        End Save Contacts Modal--}}
+
+{{--Contacts Modala--}}
+
+        <div id="contactsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #be0103;">
+                        <h4 class="modal-title text-white">View {{ucwords(str_replace('_',' ','Contacts'))}}</h4>
+                        <button type="button" class="close" data-dismiss="modal" style="    color: #fff;">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+
+
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card-box table-responsive">
+                                        <table id="contactsTable" class="table table-striped table-bordered" style="width:100%">
+                                            <thead>
+
+                                            <tr>
+                                                <th>{{ucwords(str_replace('_',' ','First Name'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Last Name'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Email'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Phone'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Location'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Date'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Time'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','Action'))}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="contacts_body">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{{--End Contacts Modal--}}
+
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
@@ -220,7 +323,16 @@
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
 
-                        <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
+                        @guest
+                            <button type="button" class="btn btn-default saveContact link" data-toggle="modal" data-target="#saveToCotacts">
+                                SAVE TO CONTACTS <i class="fas fa-download"></i>
+                            </button>
+                        @else
+                            <button type="button" class="btn btn-default saveContact link my_contacts" data-toggle="modal" data-target="#myCotacts">
+                                MY CONTACTS <i class="fas fa-eye"></i>
+                            </button>
+                        @endguest
+{{--                        <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>--}}
                     </div>
                 </div>
             </div>
@@ -388,6 +500,55 @@
     {{--END Mobile Cropping Modal--}}
 
 
+    {{--     Mobile   Save Contacts Modal --}}
+
+
+
+
+    <!--  Modal -->
+    <div class="modal fade" id="saveToCotactsmob" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form id="meetFormMob" method="POST">
+                    <div class="modal-header" style="background-color: #be0103;">
+                        <h5 class="modal-title text-white" id="exampleModalLongTitle">To stay in touch - may I have your contact Info as well?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 pt-2">
+                                <input type="text" placeholder="Enter Our 1st Meeting Location" name="meeting_location" class="form-control" />
+                            </div>
+                            <div class="col-12 pt-2">
+                                <input type="text" placeholder="First Name" name="first_name" class="form-control" />
+                            </div>
+                            <div class="col-12 pt-2">
+                                <input type="text" placeholder="Last Name" name="last_name" class="form-control" />
+                            </div>
+                            <div class="col-12 pt-2">
+                                <input type="email" placeholder="E-mail" name="email" class="form-control" />
+                            </div>
+                            <div class="col-12 pt-2">
+                                <input type="text" placeholder="Phone Number" name="phone_number" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-lg mr-auto close_meet_mob" data-dismiss="modal" >Close</button>
+                        <a class="btn btn-danger btn-lg bypass_contact_mob" style="background-color: #be0103;"  href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> Bypass </a>
+                        <button type="submit" class="btn btn-danger btn-lg continue_contact_mob" data-id="{{$record->id}}" style="background-color: #be0103;">Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {{--    Mobile    End Save Contacts Modal--}}
+
+
     <div class="profileWrapper_Mob">
         <!-- Profile Heaer Start -->
         <header class="headerProfile cursor-light">
@@ -469,7 +630,10 @@
                         <p>{{ $record->job_title ?? '' }} <span>{{ isset($companyInfo) ? $companyInfo->company_name:$record->company_name ?? '' }}</span></p>
                     </div>
                     <div class="col-md-4 col-lg-3 wow fadeInRight">
-                        <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>
+                        <button type="button" class="btn btn-default saveContact link" data-toggle="modal" data-target="#saveToCotactsmob">
+                            SAVE TO CONTACTS <i class="fas fa-download"></i>
+                        </button>
+{{--                        <a class="btn btn-default saveContact link" href="{{route('vcards',['action' => 'export', 'id' => $record->id])}}"> SAVE TO CONTACTS <i class="fas fa-download"></i></a>--}}
                     </div>
                 </div>
             </div>
@@ -550,6 +714,28 @@
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js'></script>
 
+
+
+
+    <!-- DataTable -->
+    <script src="{{asset('assets/admin/datatables/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
+    <script src="{{asset('assets/admin/jszip/dist/jszip.min.js')}}"></script>
+    <script src="{{asset('assets/admin/pdfmake/build/pdfmake.min.js')}}"></script>
+    <script src="{{asset('assets/admin/pdfmake/build/vfs_fonts.js')}}"></script>
+
+
+
     <!-- script js-->
     <script src="{{asset('assets/front/js/profile.js')}}"></script>
     <script>
@@ -557,6 +743,115 @@
 
 
         $(document).ready(function () {
+
+            //MeetModal JS
+
+            $("#meetForm").submit(function (e) {
+                e.preventDefault();
+                if($("#meetForm input[name=first_name]").val() && $("#meetForm input[name=email]").val()){
+                    $(".continue_contact").addClass("disabled");
+                    var text=$(".continue_contact").text();
+                    $(".continue_contact").text("Please Wait...");
+                    $(".bypass_contact").addClass("disabled");
+                    var formdata=$(this).serializeArray();
+                    var data={};
+                    formdata.forEach((item)=>{
+                        data[item.name]=item.value;
+                    });
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': `{{csrf_token()}}`
+                        }
+                    });
+                    var id=$(".continue_contact").attr("data-id");
+                    $.post(`{{url('/profile')}}/${id}/meet`,data,function (response) {
+                        $(".continue_contact").removeClass("disabled");
+                        $(".continue_contact").text(text);
+                        $(".bypass_contact").removeClass("disabled");
+                        $(".bypass_contact")[0].click();
+                        js_success("An Email Has Been Sent");
+                        $("#saveToCotacts").modal('hide');
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+                }else {
+                    $(".bypass_contact")[0].click();
+                    $("#saveToCotacts").modal('hide');
+                }
+
+            });
+
+            $(".bypass_contact").click(function () {
+                $("#saveToCotacts").modal('hide');
+            });
+
+            $('#saveToCotacts').on('hidden.bs.modal', function (e) {
+               $(".modal-backdrop").remove();
+               $("#meetForm").trigger('reset');
+            });
+
+            //END MeetModal JS
+
+
+            //My Contacts
+
+            var contactsDataTable=$("#contactsTable").DataTable({
+                dom: "Blfrtip",
+                buttons: [{
+                    extend: "csv",
+                    className: "btn-sm text-danger"
+                }, {
+                    extend: "excel",
+                    className: "btn-sm text-danger"
+                }],
+                responsive: true,
+                columns:[{data: 'first_name', name: 'first_name'},
+                    {data: 'last_name', name: 'last_name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'phone', name: 'phone'},
+                    {data: 'meeting_location', name: 'location'},
+                    {data: 'date', name: 'date'},
+                    {data: 'time', name: 'time'},
+                    {data: 'action', name: 'action'}
+                ]
+            });
+
+            var updateContactTable=(data)=>{
+                contactsDataTable.clear().draw();
+                contactsDataTable.rows.add(data.data);
+                contactsDataTable.columns.adjust().draw();
+            }
+
+            $('.my_contacts').click(function () {
+                $.get(`{{route('my_contacts')}}`,function (data) {
+                    updateContactTable(data);
+                    $("#contactsModal").modal("show");
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            });
+
+            $(document).on('click','.delete_contact',function () {
+                var id=$(this).attr("id");
+                $.ajax({
+                    type:'delete',
+                    url:`{{url("profile/contacts/destroy")}}/${id}`,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success:function (data) {
+                        js_success("Deleted Successfully.");
+                        updateContactTable(data);
+                    },
+                    error:function (err) {
+                        console.log(err);
+                    }
+                })
+            });
+
+            //End MyContacts
+
+
             // function adjust(){
             //
             //     if(window.innerWidth>=1200){
@@ -826,6 +1121,60 @@
             });
         });
         $(document).ready(function () {
+
+
+            //Mob MeetModal JS
+
+            $("#meetFormMob").submit(function (e) {
+                e.preventDefault();
+                if($("#meetFormMob input[name=first_name]").val() && $("#meetFormMob input[name=email]").val()){
+                    $(".continue_contact_mob").addClass("disabled");
+                    var text=$(".continue_contact_mob").text();
+                    $(".continue_contact_mob").text("Please Wait...");
+                    $(".bypass_contact_mob").addClass("disabled");
+                    var formdata=$(this).serializeArray();
+                    var data={};
+                    formdata.forEach((item)=>{
+                        data[item.name]=item.value;
+                    });
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': `{{csrf_token()}}`
+                        }
+                    });
+                    var id=$(".continue_contact_mob").attr("data-id");
+                    $.post(`{{url('/profile')}}/${id}/meet`,data,function (response) {
+                        $(".continue_contact_mob").removeClass("disabled");
+                        $(".continue_contact_mob").text(text);
+                        $(".bypass_contact_mob").removeClass("disabled");
+                        $(".bypass_contact_mob")[0].click();
+                        js_success("An Email Has Been Sent");
+                        $("#saveToCotactsmob").modal('hide');
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+                }else {
+                    $(".bypass_contact_mob")[0].click();
+                    $("#saveToCotactsmob").modal('hide');
+                }
+
+            });
+
+            $(".bypass_contact_mob").click(function () {
+                $("#saveToCotactsmob").modal('hide');
+            });
+
+            $('#saveToCotactsmob').on('hidden.bs.modal', function (e) {
+                $(".modal-backdrop").remove();
+                $("#meetFormMob").trigger('reset');
+            });
+
+            // Mob END MeetModal JS
+
+
+
+
+
 
             var profile_crop=$("#cropper2").croppie();
             var rawImage,whichPic,rawCoverImage;

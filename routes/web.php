@@ -89,6 +89,8 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
 //    Route::post('/banner','BannerController@create')->name('banner.create');
 
 
+    //contact
+    Route::get('/contact','ContactController@index')->name('contact');
     //reset_password
     Route::post('/reset_account_password', "ProfileController@reset_account_password")->name("reset_account_pass");
 
@@ -113,8 +115,9 @@ Route::get("register",function (){
 Route::post('/save_emp', "ProfileController@save_employees")->name("save-employees");
 Route::post('/update_emp/{id}', "ProfileController@update_employees")->name("update-employees");
 Route::post('/save_account', "ProfileController@save_account")->name("save_account");
-
-
+//contacts
+Route::get('/profile/contacts','ProfileController@user_contacts')->name('my_contacts');
+Route::delete('/profile/contacts/destroy/{id}','ProfileController@delete_contact');
 
 Auth::routes(["register"=>false]);
 
@@ -128,6 +131,7 @@ Route::middleware(['allowguest'])->group(function (){
     Route::post('/entrepreneurs','EntrepreneursController@store')->name("entrepreneurs.submit");
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
     Route::get('/profile/{user_id?}/devices/{id?}','ProfileController@device_profile')->name('device_profile');
+    Route::post('/profile/{id}/meet','ProfileController@meet_email')->name("meet");
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
     Route::post('/profile/register','ProfileController@register')->name('profile-register');
     Route::post('/upload-cover-pic/{id}','ProfileController@uploadCoverPic')->name('upload-cover-pic');
