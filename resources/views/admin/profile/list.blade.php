@@ -358,6 +358,27 @@
             </div>
         </div>
     </div>
+
+
+    <div id="confirmUpgradeModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-dark"  style="color: #fff;">
+                    <h2 class="modal-title">Confirmation</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin: 0;">Are you sure you want to upgrade this account ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="ok_upgrade" name="ok_upgrade" class="btn btn-success">Upgrade</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 
 @section('page_js')
@@ -953,6 +974,42 @@
             });
 
             //EMPlOYEE Modal JS End's
+
+
+            //Upgrade Profile
+
+            $("#ok_upgrade").click(function () {
+                let id=$(this).attr("data-id");
+                $('#ok_upgrade').text('Upgrading...');
+                $('#ok_upgrade').attr("disabled",true);
+                fetch(`{{url('admin/upgrade/account')}}/${id}`,{
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json, text-plain",
+                        "X-CSRF-TOKEN": `{{csrf_token()}}`
+                    },
+                    method:'PATCH'
+                }).then(res=>res.json())
+                    .then(function(data){
+                        $('#ok_upgrade').text('Upgrade');
+                        $('#ok_upgrade').attr("disabled",false);
+                        $("#confirmUpgradeModal").modal('hide');
+                        $(this).removeAttr("data-id");
+                        js_success(data.response);
+                        DataTable.ajax.reload();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            });
+
+            $(document).on('click','.upgrade',function () {
+                var id = $(this).attr("id");
+                $("#ok_upgrade").attr("data-id",id);
+                $("#confirmUpgradeModal").modal('show');
+            });
+
+            //End Upgrade Profile
 
             // Selecting all Checkboxes
             $(document).on("click","#select_all",function() {

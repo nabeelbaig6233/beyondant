@@ -522,16 +522,16 @@
                                 <input type="text" placeholder="Enter Our 1st Meeting Location" name="meeting_location" class="form-control" />
                             </div>
                             <div class="col-12 pt-2">
-                                <input type="text" placeholder="First Name" name="first_name" class="form-control" />
+                                <input type="text" placeholder="Your First Name" name="first_name" class="form-control" />
                             </div>
                             <div class="col-12 pt-2">
-                                <input type="text" placeholder="Last Name" name="last_name" class="form-control" />
+                                <input type="text" placeholder="Your Last Name" name="last_name" class="form-control" />
                             </div>
                             <div class="col-12 pt-2">
-                                <input type="email" placeholder="E-mail" name="email" class="form-control" />
+                                <input type="email" placeholder="Your E-mail" name="email" class="form-control" />
                             </div>
                             <div class="col-12 pt-2">
-                                <input type="text" placeholder="Phone Number" name="phone_number" class="form-control" />
+                                <input type="text" placeholder="Your Phone Number" name="phone_number" class="form-control" />
                             </div>
                         </div>
                     </div>

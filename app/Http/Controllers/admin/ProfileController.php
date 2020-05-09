@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
+use App\Mail\UpgradeNotification;
 use App\models\meeting;
 use App\User;
 use Illuminate\Http\Request;
@@ -34,8 +35,10 @@ class ProfileController extends Controller
                     return '<a target="_blank" href="' . route('pro',$data->id) . '">'. $data->first_name .'</a>';
                 })->addColumn('action',function($data){
                     $actions='<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Show Devices" type="button" name="device" id="'.$data->id.'" class="device btn btn-primary btn-sm"><i class="fa fa-laptop"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
-                    return auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>':
+                    $company=auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>':
                         $actions;
+                    $upgrade=auth()->user()->role_id===1?$company.'<button title="Upgrade To Multi Device Profile" type="button" name="upgrade" id="'.$data->id.'" class="upgrade btn btn-dark btn-sm"><i class="fa fa-users"></i></button>':$company;
+                    return $upgrade;
                 })->rawColumns(['checkbox','action','image','profile_link'])->make(true);
         }
         return view('admin.'.request()->segment(2).'.list')->with($content);
@@ -88,4 +91,14 @@ class ProfileController extends Controller
         Mail::to($email)->send(new ResetPassword($email,$password));
         return 1;
     }
+
+    public function upgrade_profile($id){
+        $user=User::find($id);
+        $user->role_id=7;
+        $user->acc_type='individual';
+        $user->save();
+        Mail::to($user->email)->send(new UpgradeNotification($user->first_name,"Multi Device Beyondant Account"));
+        return response()->json(["response"=>"Account Upgraded Successfully. The User Will Receive An Email Shortly."]);
+    }
+
 }

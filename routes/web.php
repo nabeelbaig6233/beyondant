@@ -65,6 +65,9 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::delete('/individual/destroy/{id}','IndividualController@destroy');
     Route::post('/individual/delete_all','IndividualController@delete_all')->name('individual.delete_all');
 
+    //Upgrade Account
+    Route::patch('/upgrade/account/{id}','ProfileController@upgrade_profile');
+
     //Devices
     Route::get('/device','DeviceController@index')->name('device');
     Route::get('/device/view_devices/{id}','DeviceController@view_devices');
