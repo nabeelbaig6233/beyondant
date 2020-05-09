@@ -235,6 +235,14 @@
                                             </div>
                                         </div>
 
+
+                                        <div class="col-lg-12 col-lr">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text" id="reseller_code" name="reseller_code" placeholder="Do You Have A Reseller Code? Enter Here" autocomplete="reseller_code">
+
+                                            </div>
+                                        </div>
+
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
                                                  <div class="circle">
