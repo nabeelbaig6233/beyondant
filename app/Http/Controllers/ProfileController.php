@@ -246,6 +246,7 @@ class ProfileController extends Controller
             'profile_picture' => $profile_picture,
             'password' => Hash::make($data['password']),
             'acc_type' => $data["acc_type"],
+            'reseller_code' => $data["reseller_code"],
         ]);
     }
 

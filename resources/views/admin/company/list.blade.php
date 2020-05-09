@@ -232,6 +232,10 @@
                                 <td id="address" align="center"></td>
                             </tr>
                             <tr>
+                                <th>{{ucwords(str_replace('_',' ','reseller_code'))}}</th>
+                                <td id="reseller_code" align="center"></td>
+                            </tr>
+                            <tr>
                                 <th>{{ucwords(str_replace('_',' ','website'))}}</th>
                                 <td id="website" align="center"></td>
                             </tr>
@@ -526,6 +530,7 @@
                         $("#profile_link").html(`{{route('pro')}}/${data.id}`);
                         $("#email").html(data.email);
                         $("#address").html(data.address);
+                        $("#reseller_code").html(data.reseller_code);
                         $("#website").html(data.website);
                         $("#linkedin").html(data.linkedin);
                         $("#instagram").html(data.instagram);
