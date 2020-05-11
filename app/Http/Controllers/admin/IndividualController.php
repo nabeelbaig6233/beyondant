@@ -47,9 +47,9 @@ class IndividualController extends Controller
     public function view_devices($id)
     {
         if (request()->ajax()) {
-            return datatables()->of(device::where("user_id", "=", $id)->get())->addColumn('actions', function ($data) {
-                return '<button title="View" type="button" name="view" id="' . $data->id . '" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
-            })->rawColumns(["actions"])->make(true);
+            return datatables()->of(device::where("user_id", "=", $id)->get())->addColumn('action', function ($data) {
+                return '<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-info btn-sm"><i class="fa fa-edit"></i></button>&nbsp;<button title="Delete Device" type="button" name="delete_device" id="' . $data->id . '" class="delete_device btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+            })->rawColumns(["action"])->make(true);
         }
     }
 

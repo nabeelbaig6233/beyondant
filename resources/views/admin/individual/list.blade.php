@@ -115,6 +115,51 @@
 
 
 
+    {{--    Device Modal --}}
+
+    <div class="modal fade" id="viewDevices" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="exampleModalLongTitle">View Devices</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <table id="devices" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>{{ucwords(str_replace('_',' ','id'))}}</th>
+                                        <th>{{ucwords(str_replace('_',' ','device_name'))}}</th>
+                                        <th>{{ucwords(str_replace('_',' ','device_description'))}}</th>
+                                        <th>{{ucwords(str_replace('_',' ','profile_url'))}}</th>
+                                        <th>{{ucwords(str_replace('_',' ','Actions'))}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--    End Devices Modal --}}
+
+
+
+
+
 {{--    Emplye List Modal--}}
 
 
@@ -377,45 +422,7 @@
 
 
 
-    {{--    Device Modal --}}
 
-    <div class="modal fade" id="viewDevices" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title" id="exampleModalLongTitle">View Devices</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card-box table-responsive">
-                                <table id="devices" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
-                                    <tr>
-                                        <th>{{ucwords(str_replace('_',' ','id'))}}</th>
-                                        <th>{{ucwords(str_replace('_',' ','device_name'))}}</th>
-                                        <th>{{ucwords(str_replace('_',' ','device_description'))}}</th>
-                                        <th>{{ucwords(str_replace('_',' ','profile_url'))}}</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{--    End Devices Modal --}}
 
 
 
@@ -567,7 +574,7 @@
                     value["id"] = $("#save_device").attr("data-id");
                 }
                 var response=await $.ajax({
-                    url: name=='edit'?`{{url('admin/'.request()->segment(2).'/update/')}}/${$("#save_device").attr("data-id")}`:`{{route("device.create")}}`,
+                    url: name=='edit'?`{{url('admin/device/update/')}}/${$("#save_device").attr("data-id")}`:`{{route("device.create")}}`,
                     type: "POST",
                     data: value
                 });
@@ -614,10 +621,16 @@
                             url=data;
                         return '<a href="'+url+'" target="_blank">'+data+'</a>';
                         }},
+                    {data:'action',name:'action'},
                 ]
             });
 
 
+            var updateTable=(data)=>{
+                DevicesDataTable.clear().draw();
+                DevicesDataTable.rows.add(data.data);
+                DevicesDataTable.columns.adjust().draw();
+            }
 
 
             $("#deviceForm").submit(function (e) {
@@ -630,10 +643,17 @@
                     var result = deviceFormsAndAdd('edit');
                     result.then((res) => {
 
-                        $("#deviceModal").modal('hide');
+                        $.ajax({
+                            url:`{{url('admin/'.request()->segment(2).'/devices/')}}/${$("#save_device").attr("user_id")}`,
+                            dataType:"json",
+                            success: function (data) {
+                                updateTable(data);
+                                $("#deviceModal").modal('hide');
+                                DataTable.ajax.reload();
+                                js_success("Device has been updated");
+                            }
+                        });
 
-                        DataTable.ajax.reload();
-                        js_success("Device has been updated");
                     }).catch((err) => {
                         console.log(err);
                         $("#device").empty();
@@ -650,7 +670,7 @@
                             DataTable.ajax.reload();
                             js_success("A Device Has Been Attached To An Account");
                         }else{
-                            js_error("Only 5 Devices Are Allowed.");
+                            js_error("Only 15 Devices Are Allowed.");
                         }
                     }).catch((err) => {
                         console.log(err);
@@ -665,7 +685,8 @@
                 $("#save_device").attr("data","edit");
                 let id = $(this).attr('id');
                 $("#save_device").attr("data-id",id);
-                $.get(`{{url('admin/'.request()->segment(2).'/view/')}}/${id}`,function (data) {
+                $.get(`{{url('admin/device/view')}}/${id}`,function (data) {
+
                     var data=data.data;
                     $("[name='device_name']").val(data.device_name);
                     $("[name='device_description']").val(data.device_description);
@@ -683,17 +704,57 @@
 
             $(document).on('click','.device',function () {
                 let id=$(this).attr("id");
+                $("#save_device").attr("user_id",id);
                 $.ajax({
-                    url:`{{url('admin/device/view_devices/')}}/${id}`,
+                    url:`{{url('admin/'.request()->segment(2).'/devices/')}}/${id}`,
                     dataType:"json",
                     success: function (data) {
-                        console.log(data.devices);
-                        DevicesDataTable.clear().draw();
-                        DevicesDataTable.rows.add(data.devices);
-                        DevicesDataTable.columns.adjust().draw();
+                        updateTable(data);
                         $("#viewDevices").modal('show');
                     }
                 });
+            });
+
+            $('#viewDevices').on('hidden.bs.modal',function () {
+                $("#save_device").removeAttr("user_id");
+            });
+
+            var delete_device_id;
+            $(document,this).on('click','.delete_device',function(){
+                delete_device_id = $(this).attr('id');
+                $("#ok_delete").attr("id","ok_delete_device");
+                $('#confirmModal').modal('show');
+            });
+            $(document).on('click','#ok_delete_device',function(){
+                $.ajax({
+                    type:"delete",
+                    url:`{{url('admin/device/destroy/')}}/${delete_device_id}`,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    beforeSend: function(){
+                        $('#ok_delete_device').text('Deleting...');
+                        $('#ok_delete_device').attr("disabled",true);
+                    },
+                    success: function (data) {
+                        $.ajax({
+                            url:`{{url('admin/'.request()->segment(2).'/devices/')}}/${$("#save_device").attr("user_id")}`,
+                            dataType:"json",
+                            success: function (data1) {
+                                updateTable(data1);
+                                DataTable.ajax.reload();
+                                $("#ok_delete_device").attr("id","ok_delete");
+                                $('#ok_delete').text('Delete');
+                                $('#ok_delete').attr("disabled",false);
+                                $('#confirmModal').modal('hide');
+                                js_success(data);
+                            }
+                        });
+                    },
+                    error:function (error) {
+                        console.log(error);
+                    }
+                })
             });
 
 
