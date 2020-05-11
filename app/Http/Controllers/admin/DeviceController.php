@@ -72,7 +72,7 @@ class DeviceController extends Controller
             return redirect('admin');
         }
         $countDevices=device::where("user_id",$request->get("id"))->count();
-        if ($countDevices<5) {
+        if ($countDevices<15) {
             $device = new device();
             $device->device_name = $request->get('device_name');
             $device->device_description = $request->get('device_description');
