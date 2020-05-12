@@ -68,13 +68,13 @@
 @yield('pageJs')
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-163760309-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166321286-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'UA-163760309-1');
+    gtag('config', 'UA-166321286-1');
 </script>
 
 <!-- Custom JS Script -->
