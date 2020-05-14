@@ -31,6 +31,9 @@ class ProfileController extends Controller
 //        dd($content['record']->parent_id);
         if (!empty($content['record'])) {
             if (Auth::check()) {
+                if(auth()->user()->id!=$id){
+                    return redirect()->route('pro',auth()->user()->id);
+                }
                 if(auth()->user()->parent_id==0){
                     $content["companyInfo"]=User::find(User::find($id)->parent_id);
                     return view('front.profile',$content);}
