@@ -290,7 +290,10 @@
                     </span>
                         </form>
                     </div>
-                    <a class="edit-profile-btn" id="edit_profile" href="{{$record->role_id==5?route('user.edit',$record->id):route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Profile </a>
+                    @if($record->role_id==5||$record->role_id==7)
+                        <a class="edit-profile-btn text-white" style="bottom: 50px" href="{{action("admin\DashboardController@index")}}"><i class="fas fa-arrow-left" ></i>  Back To Admin View</a>
+                    @endif
+                    <a class="edit-profile-btn" id="edit_profile" href="{{$record->role_id==5||$record->role_id==7?route('user.edit',$record->id):route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Public Profile </a>
 {{--                    <button class="edit-profile-btn" id="pos" style="display: none; color: #fff" >Save Changes </button>--}}
                 @endguest
             </div>
@@ -600,7 +603,7 @@
                          <input id="cover_top2" name="cover_top" type="hidden" value="0" />
                     </span>
                     </form>
-                    <a class="edit-profile-btn" id="edit_profile2" href="{{route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i></a>
+                    <a class="edit-profile-btn" id="edit_profile2" href="{{$record->role_id==5||$record->role_id==7?route('user.edit',$record->id):route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i></a>
 {{--                    <a class="edit-profile-btn save" id="pos2" style="display:none;float: right"><i class="fas fa-save"></i></a>--}}
                 @endguest
             </div>
