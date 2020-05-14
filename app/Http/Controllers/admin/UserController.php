@@ -40,6 +40,9 @@ class UserController extends Controller
     }
 
     public function edit($id) {
+        if(auth()->user()->id!=$id){
+            return redirect()->route('user.edit',auth()->user()->id);
+        }
         $content['title'] = $this->title;
         $content['record'] = User::findOrFail($id);
         $role = new \App\models\role;
