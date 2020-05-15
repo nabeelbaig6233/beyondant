@@ -20,15 +20,14 @@ use League\CommonMark\Cursor;
 
 final class FencedCodeParser implements BlockParserInterface
 {
-    /**
-     * @param ContextInterface $context
-     * @param Cursor           $cursor
-     *
-     * @return bool
-     */
     public function parse(ContextInterface $context, Cursor $cursor): bool
     {
         if ($cursor->isIndented()) {
+            return false;
+        }
+
+        $c = $cursor->getCharacter();
+        if ($c !== ' ' && $c !== "\t" && $c !== '`' && $c !== '~') {
             return false;
         }
 

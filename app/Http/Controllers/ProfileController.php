@@ -9,6 +9,7 @@ use App\Mail\IntroductionEmail;
 use App\Mail\MeetMail;
 use App\Mail\NewContactAlert;
 use App\models\device;
+use App\models\downloads;
 use App\models\meeting;
 use App\Notifications\AccountNotification;
 use App\User;
@@ -67,6 +68,9 @@ class ProfileController extends Controller
     public function vcards()
     {
         if(!empty(request()->action)) {
+            downloads::create([
+                'user_id'=>request()->id
+            ]);
             $query = User::findOrFail(request()->id);
             $vcardExport = new \App\VcardExport;
             $vcardExport->contactVcardExportService($query);

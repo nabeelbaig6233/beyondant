@@ -31,7 +31,7 @@ final class RegexHelper
     public const PARTIAL_REG_CHAR = '[^\\\\()\x00-\x20]';
     public const PARTIAL_IN_PARENS_NOSP = '\((' . self::PARTIAL_REG_CHAR . '|' . self::PARTIAL_ESCAPED_CHAR . '|\\\\)*\)';
     public const PARTIAL_TAGNAME = '[A-Za-z][A-Za-z0-9-]*';
-    public const PARTIAL_BLOCKTAGNAME = '(?:address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h1|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|nav|noframes|ol|optgroup|option|p|param|section|source|title|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)';
+    public const PARTIAL_BLOCKTAGNAME = '(?:address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h1|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|nav|noframes|ol|optgroup|option|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)';
     public const PARTIAL_ATTRIBUTENAME = '[a-zA-Z_:][a-zA-Z0-9:._-]*';
     public const PARTIAL_UNQUOTEDVALUE = '[^"\'=<>`\x00-\x20]+';
     public const PARTIAL_SINGLEQUOTEDVALUE = '\'[^\']*\'';
@@ -66,11 +66,6 @@ final class RegexHelper
     public const REGEX_THEMATIC_BREAK = '/^(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:-[ \t]*){3,})[ \t]*$/';
     public const REGEX_LINK_DESTINATION_BRACES = '/^(?:<(?:[^<>\\n\\\\\\x00]|\\\\.)*>)/';
 
-    /**
-     * @param string $character
-     *
-     * @return bool
-     */
     public static function isEscapable(string $character): bool
     {
         return \preg_match('/' . self::PARTIAL_ESCAPABLE . '/', $character) === 1;
@@ -106,7 +101,7 @@ final class RegexHelper
      * @param string $subject
      * @param int    $offset
      *
-     * @return array|null
+     * @return array<string>|null
      */
     public static function matchAll(string $pattern, string $subject, int $offset = 0): ?array
     {
@@ -173,7 +168,7 @@ final class RegexHelper
             case HtmlBlock::TYPE_5_CDATA:
                 return '/^<!\[CDATA\[/';
             case HtmlBlock::TYPE_6_BLOCK_ELEMENT:
-                return '%^<[/]?(?:address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[123456]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|nav|noframes|ol|optgroup|option|p|param|section|source|title|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)(?:\s|[/]?[>]|$)%i';
+                return '%^<[/]?(?:address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[123456]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|nav|noframes|ol|optgroup|option|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)(?:\s|[/]?[>]|$)%i';
             case HtmlBlock::TYPE_7_MISC_ELEMENT:
                 return '/^(?:' . self::PARTIAL_OPENTAG . '|' . self::PARTIAL_CLOSETAG . ')\\s*$/i';
         }
@@ -206,11 +201,6 @@ final class RegexHelper
         throw new \InvalidArgumentException('Invalid HTML block type');
     }
 
-    /**
-     * @param string $url
-     *
-     * @return bool
-     */
     public static function isLinkPotentiallyUnsafe(string $url): bool
     {
         return \preg_match(self::REGEX_UNSAFE_PROTOCOL, $url) !== 0 && \preg_match(self::REGEX_SAFE_DATA_PROTOCOL, $url) === 0;

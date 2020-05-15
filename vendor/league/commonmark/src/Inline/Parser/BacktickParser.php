@@ -20,27 +20,16 @@ use League\CommonMark\InlineParserContext;
 
 final class BacktickParser implements InlineParserInterface
 {
-    /**
-     * @return string[]
-     */
     public function getCharacters(): array
     {
         return ['`'];
     }
 
-    /**
-     * @param InlineParserContext $inlineContext
-     *
-     * @return bool
-     */
     public function parse(InlineParserContext $inlineContext): bool
     {
         $cursor = $inlineContext->getCursor();
 
         $ticks = $cursor->match('/^`+/');
-        if ($ticks === '') {
-            return false;
-        }
 
         $currentPosition = $cursor->getPosition();
         $previousState = $cursor->saveState();
@@ -53,7 +42,7 @@ final class BacktickParser implements InlineParserInterface
 
                 if (
                     !empty($c) &&
-                    \substr($c, 0, 1) === ' ' &&
+                    $c[0] === ' ' &&
                     \substr($c, -1, 1) === ' ' &&
                     \preg_match('/[^ ]/', $c)
                 ) {
