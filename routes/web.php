@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(function(){
     Route::get('/', 'DashboardController@index');
+    Route::get('/analytics/{id}', 'DashboardController@getAnalyticsData')->name('google-analytics');
     Route::get('/users','UserController@index')->name('users');
     Route::get('/user/register','UserController@register')->name('user.register');
     Route::get('/user/edit/{id}','UserController@edit')->name('user.edit');

@@ -14,8 +14,8 @@ use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 /**
  * @method array validate(array $rules, ...$params)
- * @method array validateWithBag(array $rules, ...$params)
- * @method string hasValidSignature(\Illuminate\Http\Request $request, bool $absolute = true)
+ * @method array validateWithBag(string $errorBag, array $rules, ...$params)
+ * @method bool hasValidSignature(bool $absolute = true)
  */
 class Request extends SymfonyRequest implements Arrayable, ArrayAccess
 {
@@ -294,7 +294,7 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
     /**
      * Get the client user agent.
      *
-     * @return string
+     * @return string|null
      */
     public function userAgent()
     {

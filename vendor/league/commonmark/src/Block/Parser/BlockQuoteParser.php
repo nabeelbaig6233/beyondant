@@ -20,12 +20,6 @@ use League\CommonMark\Cursor;
 
 final class BlockQuoteParser implements BlockParserInterface
 {
-    /**
-     * @param ContextInterface $context
-     * @param Cursor           $cursor
-     *
-     * @return bool
-     */
     public function parse(ContextInterface $context, Cursor $cursor): bool
     {
         if ($cursor->isIndented()) {
@@ -37,7 +31,7 @@ final class BlockQuoteParser implements BlockParserInterface
         }
 
         $cursor->advanceToNextNonSpaceOrTab();
-        $cursor->advance();
+        $cursor->advanceBy(1);
         $cursor->advanceBySpaceOrTab();
 
         $context->addBlock(new BlockQuote());
