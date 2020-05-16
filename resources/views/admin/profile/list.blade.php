@@ -232,6 +232,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','contact_number'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','mobile_number'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','profile_link'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','profile_views'))}}</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -421,7 +422,7 @@
                 responsive: true,
                 processing: true,
                 serverSide: true,
-                pageLength: 10,
+                pageLength: 5,
                 ajax: {
                     url: `{{route(request()->segment(2))}}`,
                 },
@@ -436,6 +437,7 @@
                     {data: 'contact_number', name: 'contact_number'},
                     {data: 'mobile_number', name: 'mobile_number'},
                     {data: 'profile_link', name: 'profile_link', orderable: false},
+                    {data: 'views', name:'views'},
                     {data: 'action', name: 'action', orderable: false}
                 ]
             });

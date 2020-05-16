@@ -87,6 +87,19 @@ class AnalyticsData
             $filters);
     }
 
+    function getViewsForEachEmployees($analytics,$profileId,$id){
+        $pagePath='@public/profile/'.$id.'';
+        return $analytics->data_ga->get(
+            'ga:'.$profileId,
+            '30daysAgo',
+            'today',
+            'ga:pageviews',
+            [
+                'filters'=>'ga:pagePath='.$pagePath
+            ]
+        );
+    }
+
     function printResults($results) {
         // Parses the response from the Core Reporting API and prints
         // the profile name and total sessions.
