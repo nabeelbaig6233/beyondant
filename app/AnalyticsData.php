@@ -104,7 +104,7 @@ class AnalyticsData
     function getViewsEachPage($analytics,$profileId){
         return $analytics->data_ga->get(
             'ga:'.$profileId,
-            '30daysAgo',
+            'yesterday',
             'yesterday',
             'ga:pageviews',
             [
