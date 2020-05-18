@@ -104,7 +104,7 @@ class AnalyticsData
     function getViewsEachPage($analytics,$profileId){
         return $analytics->data_ga->get(
             'ga:'.$profileId,
-            'yesterday',
+            '30daysAgo',
             'yesterday',
             'ga:pageviews',
             [
@@ -115,7 +115,7 @@ class AnalyticsData
     }
 
     public function getGoogleData(){
-        $analytics=$this->initializeAnalytics(base_path().'\beyondant-37bd5df762b7.json');
+        $analytics=$this->initializeAnalytics();
         $profile = $this->getFirstProfileId($analytics);
         $results = $this->getViewsEachPage($analytics, $profile);
         $data=$results->getRows();
