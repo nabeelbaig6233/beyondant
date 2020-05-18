@@ -17,7 +17,7 @@ class AnalyticsData
         // Use the developers console and download your service account
         // credentials in JSON format. Place them in this directory or
         // change the key file location if necessary.
-        $KEY_FILE_LOCATION = base_path().'\beyondant-37bd5df762b7.json';
+        $KEY_FILE_LOCATION = '../beyondant-37bd5df762b7.json';
 
         // Create and configure a new client object.
         $client = new \Google_Client();
