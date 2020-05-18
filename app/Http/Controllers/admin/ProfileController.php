@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\AnalyticsData;
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
 use App\Mail\UpgradeNotification;
@@ -30,6 +31,8 @@ class ProfileController extends Controller
                 })
                 ->addColumn('checkbox',function($data){
                     return '<input type="checkbox" class="delete_checkbox flat" value="'.$data->id.'">';
+                })->addColumn('views',function($data){
+                    return auth()->user()->subscription_status===1?'<h4 class="text-center font-weight-bold text-danger">'.$this->getProfileViews($data->id).'</h4>':'<h4 class="text-center font-weight-bold text-danger"> - </h4>';
                 })
                 ->addColumn('profile_link', function ($data) {
                     return '<a target="_blank" href="' . route('pro',$data->id) . '">'. $data->first_name .'</a>';
@@ -39,9 +42,17 @@ class ProfileController extends Controller
                         $actions;
                     $upgrade=auth()->user()->role_id===1?$company.'<button title="Upgrade To Multi Device Profile" type="button" name="upgrade" id="'.$data->id.'" class="upgrade btn btn-dark btn-sm"><i class="fa fa-users"></i></button>':$company;
                     return $upgrade;
-                })->rawColumns(['checkbox','action','image','profile_link'])->make(true);
+                })->rawColumns(['checkbox','action','image','profile_link','views'])->make(true);
         }
         return view('admin.'.request()->segment(2).'.list')->with($content);
+    }
+
+    public function getProfileViews($id){
+        $analyticsClass=new AnalyticsData();
+        $analytics=$analyticsClass->initializeAnalytics();
+        $profile=$analyticsClass->getFirstProfileId($analytics);
+        $result=$analyticsClass->getViewsForEachEmployees($analytics,$profile,$id)->getRows();
+        return $result[0][0]??0;
     }
 
     public function view($id)

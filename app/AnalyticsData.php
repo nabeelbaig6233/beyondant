@@ -5,6 +5,7 @@ namespace App;
 
 
 //
+use App\models\views;
 use function GuzzleHttp\Psr7\str;
 
 class AnalyticsData
@@ -16,7 +17,7 @@ class AnalyticsData
         // Use the developers console and download your service account
         // credentials in JSON format. Place them in this directory or
         // change the key file location if necessary.
-        $KEY_FILE_LOCATION = '../beyondant-37bd5df762b7.json';
+        $KEY_FILE_LOCATION = base_path().'\beyondant-37bd5df762b7.json';
 
         // Create and configure a new client object.
         $client = new \Google_Client();
@@ -86,6 +87,56 @@ class AnalyticsData
             'ga:pageviews',
             $filters);
     }
+
+    function getViewsForEachEmployees($analytics,$profileId,$id){
+        $pagePath='@public/profile/'.$id.'';
+        return $analytics->data_ga->get(
+            'ga:'.$profileId,
+            '30daysAgo',
+            'today',
+            'ga:pageviews',
+            [
+                'filters'=>'ga:pagePath='.$pagePath
+            ]
+        );
+    }
+
+    function getViewsEachPage($analytics,$profileId){
+        return $analytics->data_ga->get(
+            'ga:'.$profileId,
+            'yesterday',
+            'yesterday',
+            'ga:pageviews',
+            [
+                'dimensions'=>'ga:date,ga:pagePath',
+                'filters'=>'ga:pagePath==/public/,ga:pagePath=~^/public/profile/'
+            ]
+        );
+    }
+
+    public function getGoogleData(){
+        $analytics=$this->initializeAnalytics();
+        $profile = $this->getFirstProfileId($analytics);
+        $results = $this->getViewsEachPage($analytics, $profile);
+        $data=$results->getRows();
+        foreach ($data as $item){
+            $date=$this->getDate($item[0]);
+            $path=$item[1];
+            $views=$item[2];
+            views::create(
+                [
+                    'path'=>$path,
+                    'views_count'=>$views,
+                    'google_dated'=>$date
+                ]
+            );
+        }
+    }
+
+    public function getDate($date){
+        return substr($date, 0, 4) . "-" . substr($date, 4, 2) . "-" . substr($date, 6, 2);
+    }
+
 
     function printResults($results) {
         // Parses the response from the Core Reporting API and prints
