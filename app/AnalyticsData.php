@@ -10,14 +10,14 @@ use function GuzzleHttp\Psr7\str;
 
 class AnalyticsData
 {
-    public function initializeAnalytics()
+    public function initializeAnalytics($path='')
     {
         // Creates and returns the Analytics Reporting service object.
 
         // Use the developers console and download your service account
         // credentials in JSON format. Place them in this directory or
         // change the key file location if necessary.
-        $KEY_FILE_LOCATION = '../beyondant-37bd5df762b7.json';
+        $KEY_FILE_LOCATION = $path!=''?$path:'../beyondant-37bd5df762b7.json';
 
         // Create and configure a new client object.
         $client = new \Google_Client();
@@ -115,7 +115,7 @@ class AnalyticsData
     }
 
     public function getGoogleData(){
-        $analytics=$this->initializeAnalytics();
+        $analytics=$this->initializeAnalytics(base_path().'\beyondant-37bd5df762b7.json');
         $profile = $this->getFirstProfileId($analytics);
         $results = $this->getViewsEachPage($analytics, $profile);
         $data=$results->getRows();
