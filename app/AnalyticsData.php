@@ -115,7 +115,7 @@ class AnalyticsData
     }
 
     public function getGoogleData(){
-        $analytics=$this->initializeAnalytics();
+        $analytics=$this->initializeAnalytics(base_path().'\beyondant-37bd5df762b7.json');
         $profile = $this->getFirstProfileId($analytics);
         $results = $this->getViewsEachPage($analytics, $profile);
         $data=$results->getRows();
