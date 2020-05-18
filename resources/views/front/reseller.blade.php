@@ -218,7 +218,8 @@
                                         </div>
                                         <div class="col-lg-12 col-lr">
                                             <div class="form-group">
-                                                <input value="{{ old('beyondant_promotion') }}" autocomplete="beyondant_promotion" class="input-text" data-validation="required" id="beyondant_promotion" name="beyondant_promotion" placeholder="When Would You Start Promoting Beyondant? *" required type="date" >
+                                                <label for="beyondant_promotion">When Would You Start Promoting Beyondant? *</label>
+                                                <input value="{{ old('beyondant_promotion') }}" autocomplete="beyondant_promotion" class="input-text" data-validation="required" id="beyondant_promotion" name="beyondant_promotion" required type="date" >
                                                 @error('beyondant_promotion')
                                                     <p style="color: red; text-align: left">{{ $message }}</p>
                                                 @enderror
