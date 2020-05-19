@@ -68,38 +68,40 @@ class AnalyticsData
         }
     }
 
-    function getResults($analytics, $profileId,$user_id) {
-        // Calls the Core Reporting API and queries for the number of sessions
-        // for the last seven days.
-        $pagePath='@public/profile/'.$user_id.'';
-        $filters=$user_id!='1'?[
-            "metrics"=>'ga:pageviews',
-            "dimensions"=>'ga:date',
-            'filters'=>'ga:pagePath='.$pagePath.''
-        ]:[
-            "metrics"=>'ga:pageviews',
-            "dimensions"=>'ga:date'
-        ];
-        return $analytics->data_ga->get(
-            'ga:' . $profileId,
-            '30daysAgo',
-            'today',
-            'ga:pageviews',
-            $filters);
-    }
+//    function getResults($analytics, $profileId,$user_id) {
+//        // Calls the Core Reporting API and queries for the number of sessions
+//        // for the last seven days.
+//        $pagePath='@public/profile/'.$user_id.'';
+//        $filters=$user_id!='1'?[
+//            "metrics"=>'ga:pageviews',
+//            "dimensions"=>'ga:date',
+//            'filters'=>'ga:pagePath='.$pagePath.''
+//        ]:[
+//            "metrics"=>'ga:pageviews',
+//            "dimensions"=>'ga:date',
+//            'filters'=>'ga:pagePath==/public/,ga:pagePath=~^/public/profile/'
+//        ];
+//        return $analytics->data_ga->get(
+//            'ga:' . $profileId,
+//            '30daysAgo',
+//            'today',
+//            'ga:pageviews',
+//            $filters);
+//    }
 
-    function getViewsForEachEmployees($analytics,$profileId,$id){
-        $pagePath='@public/profile/'.$id.'';
-        return $analytics->data_ga->get(
-            'ga:'.$profileId,
-            '30daysAgo',
-            'today',
-            'ga:pageviews',
-            [
-                'filters'=>'ga:pagePath='.$pagePath
-            ]
-        );
-    }
+//    function getViewsForEachEmployees($analytics,$profileId,$id){
+//        $pagePath='@public/profile/'.$id.'';
+//        return $analytics->data_ga->get(
+//            'ga:'.$profileId,
+//            '30daysAgo',
+//            'today',
+//            'ga:pageviews',
+//            [
+//                'filters'=>'ga:pagePath='.$pagePath
+//            ]
+//        );
+//    }
+
 
     function getViewsEachPage($analytics,$profileId){
         return $analytics->data_ga->get(
@@ -138,26 +140,26 @@ class AnalyticsData
     }
 
 
-    function printResults($results) {
-        // Parses the response from the Core Reporting API and prints
-        // the profile name and total sessions.
-        if (count($results->getRows()) > 0) {
-
-            // Get the profile name.
-            $profileName = $results->getProfileInfo()->getProfileName();
-
-            // Get the entry for the first entry in the first row.
-            $rows = $results->getRows();
-            $data=[];
-                foreach ($rows as $row){
-                    $date = substr($row[0], 0, 4) . "-" . substr($row[0], 4, 2) . "-" . substr($row[0], 6, 2);
-                    array_push($data,[$row[1],$date]);
-                }
-
-            return $data;
-        } else {
-            print "No results found.\n";
-        }
-    }
+//    function printResults($results) {
+//        // Parses the response from the Core Reporting API and prints
+//        // the profile name and total sessions.
+//        if (count($results->getRows()) > 0) {
+//
+//            // Get the profile name.
+//            $profileName = $results->getProfileInfo()->getProfileName();
+//
+//            // Get the entry for the first entry in the first row.
+//            $rows = $results->getRows();
+//            $data=[];
+//                foreach ($rows as $row){
+//                    $date = substr($row[0], 0, 4) . "-" . substr($row[0], 4, 2) . "-" . substr($row[0], 6, 2);
+//                    array_push($data,[$row[1],$date]);
+//                }
+//
+//            return $data;
+//        } else {
+//            print "No results found.\n";
+//        }
+//    }
 
 }
