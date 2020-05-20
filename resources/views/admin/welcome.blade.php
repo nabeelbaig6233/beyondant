@@ -1,7 +1,10 @@
 @extends('admin.layout.webapp')
 @section('content')
   <div class="right_col" role="main">
-    <!-- top tiles -->
+    <div class="row col-lg-12 mb-3" style="background: linear-gradient(to top right, #3366cc -8%, #66ff99 109%);border-radius: 10px;padding: 20px">
+        <h4 class="text-white font-weight-bold">Analytic data refreshes every 48 hrs.</h4>
+    </div>
+      <!-- top tiles -->
     <div class="row" style="display: block;" >
       <div class="tile_count">
         @if (auth()->user()->role_id!==1)
@@ -89,7 +92,6 @@
 
             });
             $.get('{{route('google-analytics',auth()->user()->id)}}',function (data) {
-                console.log(data);
                 var data=JSON.parse(data);
                 var labels=[];
                 var values=[];
@@ -104,6 +106,7 @@
                 chart.data.labels=labels;
                 chart.data.datasets[0].data=values;
                 chart.options.scales.yAxes[0].ticks.fontSize = 12 ;
+                chart.options.scales.xAxes[0].time.unit=data.length<15?'day':'week';
                 $("#loading_graph").css({display:'none'});
                 $("#total_views").text(total);
                 chart.update();

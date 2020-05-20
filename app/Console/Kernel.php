@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('google:data')->daily();
+        $schedule->command('google:trash')->yearly();
     }
 
     /**

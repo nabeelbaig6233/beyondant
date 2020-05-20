@@ -10,14 +10,14 @@ use function GuzzleHttp\Psr7\str;
 
 class AnalyticsData
 {
-    public function initializeAnalytics()
+    public function initializeAnalytics($path='')
     {
         // Creates and returns the Analytics Reporting service object.
 
         // Use the developers console and download your service account
         // credentials in JSON format. Place them in this directory or
         // change the key file location if necessary.
-        $KEY_FILE_LOCATION = '../beyondant-37bd5df762b7.json';
+        $KEY_FILE_LOCATION = $path!=''?$path:'../beyondant-37bd5df762b7.json';
 
         // Create and configure a new client object.
         $client = new \Google_Client();
@@ -68,38 +68,40 @@ class AnalyticsData
         }
     }
 
-    function getResults($analytics, $profileId,$user_id) {
-        // Calls the Core Reporting API and queries for the number of sessions
-        // for the last seven days.
-        $pagePath='@public/profile/'.$user_id.'';
-        $filters=$user_id!='1'?[
-            "metrics"=>'ga:pageviews',
-            "dimensions"=>'ga:date',
-            'filters'=>'ga:pagePath='.$pagePath.''
-        ]:[
-            "metrics"=>'ga:pageviews',
-            "dimensions"=>'ga:date'
-        ];
-        return $analytics->data_ga->get(
-            'ga:' . $profileId,
-            '30daysAgo',
-            'today',
-            'ga:pageviews',
-            $filters);
-    }
+//    function getResults($analytics, $profileId,$user_id) {
+//        // Calls the Core Reporting API and queries for the number of sessions
+//        // for the last seven days.
+//        $pagePath='@public/profile/'.$user_id.'';
+//        $filters=$user_id!='1'?[
+//            "metrics"=>'ga:pageviews',
+//            "dimensions"=>'ga:date',
+//            'filters'=>'ga:pagePath='.$pagePath.''
+//        ]:[
+//            "metrics"=>'ga:pageviews',
+//            "dimensions"=>'ga:date',
+//            'filters'=>'ga:pagePath==/public/,ga:pagePath=~^/public/profile/'
+//        ];
+//        return $analytics->data_ga->get(
+//            'ga:' . $profileId,
+//            '30daysAgo',
+//            'today',
+//            'ga:pageviews',
+//            $filters);
+//    }
 
-    function getViewsForEachEmployees($analytics,$profileId,$id){
-        $pagePath='@public/profile/'.$id.'';
-        return $analytics->data_ga->get(
-            'ga:'.$profileId,
-            '30daysAgo',
-            'today',
-            'ga:pageviews',
-            [
-                'filters'=>'ga:pagePath='.$pagePath
-            ]
-        );
-    }
+//    function getViewsForEachEmployees($analytics,$profileId,$id){
+//        $pagePath='@public/profile/'.$id.'';
+//        return $analytics->data_ga->get(
+//            'ga:'.$profileId,
+//            '30daysAgo',
+//            'today',
+//            'ga:pageviews',
+//            [
+//                'filters'=>'ga:pagePath='.$pagePath
+//            ]
+//        );
+//    }
+
 
     function getViewsEachPage($analytics,$profileId){
         return $analytics->data_ga->get(
@@ -115,7 +117,7 @@ class AnalyticsData
     }
 
     public function getGoogleData(){
-        $analytics=$this->initializeAnalytics();
+        $analytics=$this->initializeAnalytics(base_path().'/beyondant-37bd5df762b7.json');
         $profile = $this->getFirstProfileId($analytics);
         $results = $this->getViewsEachPage($analytics, $profile);
         $data=$results->getRows();
@@ -138,26 +140,26 @@ class AnalyticsData
     }
 
 
-    function printResults($results) {
-        // Parses the response from the Core Reporting API and prints
-        // the profile name and total sessions.
-        if (count($results->getRows()) > 0) {
-
-            // Get the profile name.
-            $profileName = $results->getProfileInfo()->getProfileName();
-
-            // Get the entry for the first entry in the first row.
-            $rows = $results->getRows();
-            $data=[];
-                foreach ($rows as $row){
-                    $date = substr($row[0], 0, 4) . "-" . substr($row[0], 4, 2) . "-" . substr($row[0], 6, 2);
-                    array_push($data,[$row[1],$date]);
-                }
-
-            return $data;
-        } else {
-            print "No results found.\n";
-        }
-    }
+//    function printResults($results) {
+//        // Parses the response from the Core Reporting API and prints
+//        // the profile name and total sessions.
+//        if (count($results->getRows()) > 0) {
+//
+//            // Get the profile name.
+//            $profileName = $results->getProfileInfo()->getProfileName();
+//
+//            // Get the entry for the first entry in the first row.
+//            $rows = $results->getRows();
+//            $data=[];
+//                foreach ($rows as $row){
+//                    $date = substr($row[0], 0, 4) . "-" . substr($row[0], 4, 2) . "-" . substr($row[0], 6, 2);
+//                    array_push($data,[$row[1],$date]);
+//                }
+//
+//            return $data;
+//        } else {
+//            print "No results found.\n";
+//        }
+//    }
 
 }

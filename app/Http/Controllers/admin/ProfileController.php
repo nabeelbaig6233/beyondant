@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
 use App\Mail\UpgradeNotification;
 use App\models\meeting;
+use App\models\views;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,11 +49,8 @@ class ProfileController extends Controller
     }
 
     public function getProfileViews($id){
-        $analyticsClass=new AnalyticsData();
-        $analytics=$analyticsClass->initializeAnalytics();
-        $profile=$analyticsClass->getFirstProfileId($analytics);
-        $result=$analyticsClass->getViewsForEachEmployees($analytics,$profile,$id)->getRows();
-        return $result[0][0]??0;
+        $result=views::select('views_count')->where('path','/public/profile/'.$id)->get()->sum(function($item){return $item->views_count;});
+        return $result;
     }
 
     public function view($id)
