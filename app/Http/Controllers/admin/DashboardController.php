@@ -32,6 +32,27 @@ class DashboardController extends Controller
         return view('admin.welcome',$content);
     }
 
+    public function getFilterAnalyticsData(Request $request){
+        if($request->ajax()){
+            $filterData=auth()->user()->role_id===1?
+                views::select('google_dated','views_count')
+                ->whereBetween('google_dated',[$request->get('startDate'),$request->get('endDate')])
+                ->get()->groupBy('google_dated')
+                ->map(function($data){return $data->sum('views_count');}):
+                views::select('google_dated','views_count')
+                ->where('path','/public/profile/'.auth()->user()->id)
+                ->whereBetween('google_dated',[$request->get('startDate'),$request->get('endDate')])
+                ->get()->groupBy('google_dated')
+                ->map(function($data){return $data->sum('views_count');});
+            $data=[];
+            foreach ($filterData as $key => $value) {
+                    array_push($data, [$value, $key]);
+            }
+            echo json_encode($data);
+            return ;
+        }
+    }
+
     public function getAnalyticsData($id){
         if(request()->ajax()){
 //        $analyticsClass=new AnalyticsData();
