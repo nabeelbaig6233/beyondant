@@ -123,7 +123,7 @@ class UserController extends Controller
         }
 
 
-        $updateQuery=$data["role_id"]!=5?User::where('id',$id)->update([
+        $updateQuery=$data["role_id"]!=5 && $data["role_id"]!=7?User::where('id',$id)->update([
             'first_name' => $f_name,
             'last_name' => $l_name,
             'email' => $data['email'],
