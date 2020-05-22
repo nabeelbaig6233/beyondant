@@ -207,7 +207,7 @@
                                     <div class="item form-group">
                                         <label for="linkedin" class="col-form-label col-md-3 label-align">{{ __('Linkedin') }}</label>
                                         <div class="col-md-6 col-sm-6">
-                                            <input id="linkedin" type="text" name="linkedin" value="{{$record->linkedin}}"  class="form-control" autocomplete="linkedin">
+                                            <input id="linkdin" type="text" name="linkdin" value="{{$record->linkedin}}"  class="form-control" autocomplete="linkedin">
                                         </div>
                                     </div>
 
@@ -240,7 +240,7 @@
                                         <div class="col-md-6 col-sm-6 form-check-inline">
                                             <input id="web" type="radio" name="check" value="website"  class="form-check-input" {{$record->website_check==1?"checked":""}} >
                                             <label for="web" class="form-check-label pr-2">Website</label>
-                                            <input id="linkdin" type="radio" name="check" value="linkdin"  class="form-check-input" {{$record->linkdin_check==1?"checked":"" }}>
+                                            <input id="linkdin" type="radio" name="check" value="linkdin"  class="form-check-input" {{$record->linkedin_check==1?"checked":"" }}>
                                             <label for="linkdin" class="form-check-label pr-2">Linkedin</label>
                                             <input id="facebook" type="radio" name="check" value="facebook"  class="form-check-input" {{$record->facebook_check==1?"checked":""}}>
                                             <label for="facebook" class="form-check-label pr-2">Facebook</label>
@@ -248,7 +248,7 @@
                                             <label for="instagram" class="form-check-label pr-2">Instagram</label>
                                             <input id="tiktok" type="radio" name="check" value="tiktok"  class="form-check-input " {{$record->tiktok_check==1?"checked":""}}>
                                             <label for="tiktok" class="form-check-label pr-2">Tiktok</label>
-                                            <input id="default" type="radio" name="check" value=""  class="form-check-input " {{$record->website_check!=1&&$record->linkdin_check!=1&&$record->facebook_check!=1&&$record->instagram_check!=1&&$record->tiktok_check!=1?"checked":""}}>
+                                            <input id="default" type="radio" name="check" value=""  class="form-check-input " {{$record->website_check!=1&&$record->linkedin_check!=1&&$record->facebook_check!=1&&$record->instagram_check!=1&&$record->tiktok_check!=1?"checked":""}}>
                                             <label for="default" class="form-check-label pr-2">Default</label>
                                         </div>
                                     </div>
