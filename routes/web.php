@@ -111,6 +111,9 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::delete('/entrepreneurs/destroy/{id}','EntrepreneursController@destroy');
     Route::post('/entrepreneurs/delete_all','EntrepreneursController@delete_all')->name('entrepreneurs.delete_all');
 
+    //Login As Different User
+    Route::get('/login_diff_user/{id}','ProfileController@login_user_account')->name('login_as_user');
+
 });
 Route::get("register",function (){
     return redirect("/");
