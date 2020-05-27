@@ -173,7 +173,7 @@ class UserController extends Controller
 
     public function check_https($url){
         $check_https=explode(':',$url)[0];
-        if($check_https!='https'){
+        if(strlen($url)>3&&$check_https!='https'){
             return 'https://'.$url;
         }
         return $url;
