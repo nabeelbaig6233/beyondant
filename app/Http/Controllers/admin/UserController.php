@@ -64,13 +64,13 @@ class UserController extends Controller
         $validations=$data["role_id"]!==5?[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'confirmed'],
+            'password' => ['confirmed'],
             'contact_number' => ['required','string'],
             'role_id' => ['required','numeric'],
         ]:[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string','confirmed'],
+            'password' => ['confirmed'],
             'contact_number' => ['required','string'],
             'role_id' => ['required','numeric'],
             'company_name'=>['required'],
@@ -131,7 +131,7 @@ class UserController extends Controller
             'occupation' => $data['occupation'],
             'role_id' => $data['role_id'],
             'profile_picture' => !empty($profile_picture)?$profile_picture:User::find($id)->profile_picture,
-            'password' => Hash::make($data['password']),
+//            'password' => Hash::make($data['password']),
         ]): User::where('id',$id)->update([
                     'first_name' => $f_name,
                     'last_name'=>$l_name,
@@ -143,7 +143,7 @@ class UserController extends Controller
                     'role_id' => $data['role_id'],
                     'profile_picture' => !empty($profile_picture)?$profile_picture:User::find($id)->profile_picture,
                     'cover_image' => !empty($cover_image)?$cover_image:User::find($id)->cover_image,
-                    'password' => Hash::make($data['password']),
+//                    'password' => Hash::make($data['password']),
                     'company_name'=>$data["company_name"],
                     'company_description'=>$data["company_description"],
                     'address'=>$data["address"]??"",
@@ -151,17 +151,24 @@ class UserController extends Controller
                     'city'=>$data["city"]??"",
                     'province'=>$data["province"]??"",
                     'zipcode'=>$data["zipcode"]??"",
-                    'website'=>$data["website"],
+                    'website'=>$this->check_https($data["website"]),
                     'website_check'=>$profiles["website"][0],
                     'linkedin_check'=>$profiles["linkdin"][0],
-                    'linkedin'=>$profiles["linkdin"][1],
+                    'linkedin'=>$this->check_https($profiles["linkdin"][1]),
                     'facebook_check'=>$profiles["facebook"][0],
-                    'facebook'=>$profiles["facebook"][1],
+                    'facebook'=>$this->check_https($profiles["facebook"][1]),
                     'instagram_check'=>$profiles["instagram"][0],
-                    'instagram'=>$profiles["instagram"][1],
+                    'instagram'=>$this->check_https($profiles["instagram"][1]),
                     'tiktok_check'=>$profiles["tiktok"][0],
-                    'tiktok'=>$profiles["tiktok"][1],
+                    'tiktok'=>$this->check_https($profiles["tiktok"][1]),
                 ]);
+
+        if(trim($data['password'])!=''){
+            User::where('id',$id)->update([
+                'password' => Hash::make($data['password'])
+            ]);
+        }
+
 
         return $updateQuery;
     }
@@ -170,4 +177,13 @@ class UserController extends Controller
     {
         dd($request->input('checkboxValue'));
     }
+
+    public function check_https($url){
+        $check_https=explode(':',$url)[0];
+        if(strlen($url)>3&&$check_https!='https'){
+            return 'https://'.$url;
+        }
+        return $url;
+    }
+
 }

@@ -428,6 +428,26 @@
 
 {{--    End Devices Modal --}}
 
+    <div id="confirmLoginModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"  style="background-color: #343a40;
+            color: #fff;">
+                    <h2 class="modal-title">Confirmation</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin: 0;">Are you sure you want to Login into this account?</h4>
+                </div>
+                <div class="modal-footer">
+                    <a href="" id="login_user_link" style="display: none;"></a>
+                    <button type="button" id="ok_login" name="ok_login" class="btn btn-danger">Login</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {{--    End Employee List Modal--}}
 
     <div id="confirmModal" class="modal fade" role="dialog">
@@ -1041,7 +1061,22 @@
 
 
 
+            //Login To Different Account
+            $(document).on('click','.login_user',function () {
+                var login_user_id=$(this).attr('id');
+                var url=`{{route("login_as_user",':id')}}`;
+                url=url.replace(':id',login_user_id);
+                $("#login_user_link").attr('href',url);
+                $("#confirmLoginModal").modal('show');
+            });
 
+            $("#ok_login").click(function () {
+                $(this).text("Logging In...");
+                $(this).attr('disabled',true);
+                $("#login_user_link")[0].click();
+            });
+
+            //End Login To Different Account
 
 
 

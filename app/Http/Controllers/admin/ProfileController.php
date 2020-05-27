@@ -41,7 +41,7 @@ class ProfileController extends Controller
                     $actions='<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Show Devices" type="button" name="device" id="'.$data->id.'" class="device btn btn-primary btn-sm"><i class="fa fa-laptop"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
                     $company=auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>':
                         $actions;
-                    $upgrade=auth()->user()->role_id===1?$company.'<button title="Upgrade To Multi Device Profile" type="button" name="upgrade" id="'.$data->id.'" class="upgrade btn btn-dark btn-sm"><i class="fa fa-users"></i></button>':$company;
+                    $upgrade=auth()->user()->role_id===1?$company.'<button title="Upgrade To Multi Device Profile" type="button" name="upgrade" id="'.$data->id.'" class="upgrade btn btn-dark btn-sm"><i class="fa fa-users"></i></button>&nbsp;<button title="Login As This User" type="button" name="login_user" id="'.$data->id.'" class="login_user btn btn-danger btn-sm"><i class="fa fa-user"></i></button>':$company;
                     return $upgrade;
                 })->rawColumns(['checkbox','action','image','profile_link','views'])->make(true);
         }
@@ -108,6 +108,13 @@ class ProfileController extends Controller
         $user->save();
         Mail::to($user->email)->send(new UpgradeNotification($user->first_name,"Multi Device Beyondant Account"));
         return response()->json(["response"=>"Account Upgraded Successfully. The User Will Receive An Email Shortly."]);
+    }
+
+    public function login_user_account($id){
+        $user=User::find($id);
+        auth()->logout();
+        auth()->login($user);
+        return redirect()->route('pro',$id);
     }
 
 }

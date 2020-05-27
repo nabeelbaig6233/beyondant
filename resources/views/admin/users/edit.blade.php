@@ -280,22 +280,37 @@
                                         <input id="occupation" type="text" name="occupation" value="{{ $record->occupation ?? "" }}" data-validate-length-range="5,20" class="optional form-control">
                                     </div>
                                 </div>
+{{--                                <div class="item form-group @error('password') bad @enderror">--}}
+{{--                                    <label for="password" class="col-form-label col-md-3 label-align">{{ __('Password') }}</label>--}}
+{{--                                    <div class="col-md-6 col-sm-6">--}}
+{{--                                        <input id="password" type="password" name="password"  class="form-control @error('password') is-invalid @enderror" required="required" autocomplete="new-password">--}}
+{{--                                    </div>--}}
+{{--                                    @error('password')--}}
+{{--                                    <div class="alert">{{$message}}</div>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                                <div class="item form-group">--}}
+{{--                                    <label for="password-confirm" class="col-form-label col-md-3 col-sm-3 label-align ">Repeat Password</label>--}}
+{{--                                    <div class="col-md-6 col-sm-6">--}}
+{{--                                        <input id="password-confirm" type="password" name="password_confirmation" data-validate-linked="password" class="form-control" required="required" autocomplete="new-password">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+
                                 <div class="item form-group @error('password') bad @enderror">
                                     <label for="password" class="col-form-label col-md-3 label-align">{{ __('Password') }}</label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="password" type="password" name="password"  class="form-control @error('password') is-invalid @enderror" required="required" autocomplete="new-password">
+                                        <input id="password" type="password" name="password"  class="form-control @error('password') is-invalid @enderror" autocomplete="new-password">
                                     </div>
                                     @error('password')
-                                    <div class="alert">{{$message}}</div>
+                                    <div class="text-danger">{{$message}}</div>
                                     @enderror
                                 </div>
                                 <div class="item form-group">
                                     <label for="password-confirm" class="col-form-label col-md-3 col-sm-3 label-align ">Repeat Password</label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="password-confirm" type="password" name="password_confirmation" data-validate-linked="password" class="form-control" required="required" autocomplete="new-password">
+                                        <input id="password-confirm" type="password" name="password_confirmation" data-validate-linked="password" class="form-control" autocomplete="new-password">
                                     </div>
                                 </div>
-
 
                                 <div class="item form-group">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="profile_picture">Profile Picture <span class="required">*</span>
