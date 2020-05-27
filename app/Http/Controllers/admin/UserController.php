@@ -151,16 +151,16 @@ class UserController extends Controller
                     'city'=>$data["city"]??"",
                     'province'=>$data["province"]??"",
                     'zipcode'=>$data["zipcode"]??"",
-                    'website'=>$data["website"],
+                    'website'=>$this->check_https($data["website"]),
                     'website_check'=>$profiles["website"][0],
                     'linkedin_check'=>$profiles["linkdin"][0],
-                    'linkedin'=>$profiles["linkdin"][1],
+                    'linkedin'=>$this->check_https($profiles["linkdin"][1]),
                     'facebook_check'=>$profiles["facebook"][0],
-                    'facebook'=>$profiles["facebook"][1],
+                    'facebook'=>$this->check_https($profiles["facebook"][1]),
                     'instagram_check'=>$profiles["instagram"][0],
-                    'instagram'=>$profiles["instagram"][1],
+                    'instagram'=>$this->check_https($profiles["instagram"][1]),
                     'tiktok_check'=>$profiles["tiktok"][0],
-                    'tiktok'=>$profiles["tiktok"][1],
+                    'tiktok'=>$this->check_https($profiles["tiktok"][1]),
                 ]);
 
         return $updateQuery;
@@ -170,4 +170,13 @@ class UserController extends Controller
     {
         dd($request->input('checkboxValue'));
     }
+
+    public function check_https($url){
+        $check_https=explode(':',$url)[0];
+        if($check_https!='https'){
+            return 'https://'.$url;
+        }
+        return $url;
+    }
+
 }
