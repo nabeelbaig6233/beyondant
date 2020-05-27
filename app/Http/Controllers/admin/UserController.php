@@ -64,13 +64,13 @@ class UserController extends Controller
         $validations=$data["role_id"]!==5?[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'confirmed'],
+            'password' => ['confirmed'],
             'contact_number' => ['required','string'],
             'role_id' => ['required','numeric'],
         ]:[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string','confirmed'],
+            'password' => ['confirmed'],
             'contact_number' => ['required','string'],
             'role_id' => ['required','numeric'],
             'company_name'=>['required'],
@@ -131,7 +131,7 @@ class UserController extends Controller
             'occupation' => $data['occupation'],
             'role_id' => $data['role_id'],
             'profile_picture' => !empty($profile_picture)?$profile_picture:User::find($id)->profile_picture,
-            'password' => Hash::make($data['password']),
+//            'password' => Hash::make($data['password']),
         ]): User::where('id',$id)->update([
                     'first_name' => $f_name,
                     'last_name'=>$l_name,
@@ -143,7 +143,7 @@ class UserController extends Controller
                     'role_id' => $data['role_id'],
                     'profile_picture' => !empty($profile_picture)?$profile_picture:User::find($id)->profile_picture,
                     'cover_image' => !empty($cover_image)?$cover_image:User::find($id)->cover_image,
-                    'password' => Hash::make($data['password']),
+//                    'password' => Hash::make($data['password']),
                     'company_name'=>$data["company_name"],
                     'company_description'=>$data["company_description"],
                     'address'=>$data["address"]??"",
@@ -162,6 +162,13 @@ class UserController extends Controller
                     'tiktok_check'=>$profiles["tiktok"][0],
                     'tiktok'=>$this->check_https($profiles["tiktok"][1]),
                 ]);
+
+        if(trim($data['password'])!=''){
+            User::where('id',$id)->update([
+                'password' => Hash::make($data['password'])
+            ]);
+        }
+
 
         return $updateQuery;
     }
