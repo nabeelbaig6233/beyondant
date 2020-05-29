@@ -39,7 +39,7 @@ class ProfileController extends Controller
                     return '<a target="_blank" href="' . route('pro',$data->id) . '">'. $data->first_name .'</a>';
                 })->addColumn('action',function($data){
                     $actions='<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Show Devices" type="button" name="device" id="'.$data->id.'" class="device btn btn-primary btn-sm"><i class="fa fa-laptop"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
-                    $company=auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>':
+                    $company=auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>&nbsp;<button title="Link Profile" type="button" name="link_profile" id="' . $data->id . '" class="link_profile btn btn-primary btn-sm"><i class="fa fa-chain"></i></button>':
                         $actions;
                     $upgrade=auth()->user()->role_id===1?$company.'<button title="Upgrade To Multi Device Profile" type="button" name="upgrade" id="'.$data->id.'" class="upgrade btn btn-dark btn-sm"><i class="fa fa-users"></i></button>&nbsp;<button title="Login As This User" type="button" name="login_user" id="'.$data->id.'" class="login_user btn btn-danger btn-sm"><i class="fa fa-user"></i></button>':$company;
                     return $upgrade;
@@ -115,6 +115,30 @@ class ProfileController extends Controller
         auth()->logout();
         auth()->login($user);
         return redirect()->route('pro',$id);
+    }
+
+    public function profile_url($id,Request $request){
+        $profile_selection=$request->get('check').'';
+        User::find($id)->update([
+           'website'=>$this->check_https($request->get('website')),
+           'linkedin'=>$this->check_https($request->get('linkdin')),
+           'facebook'=>$this->check_https($request->get('facebook')),
+           'instagram'=>$this->check_https($request->get('instagram')),
+           'tiktok'=>$this->check_https($request->get('tiktok')),
+           'website_check'=>$profile_selection=='website'?1:0,
+           'linkedin_check'=>$profile_selection=='linkdin'?1:0,
+           'facebook_check'=>$profile_selection=='facebook'?1:0,
+           'instagram_check'=>$profile_selection=='instagram'?1:0,
+           'tiktok_check'=>$profile_selection=='tiktok'?1:0
+        ]);
+    }
+
+    public function check_https($url){
+        $check_https=explode(':',$url)[0];
+        if(strlen($url)>3&&$check_https!='https'){
+            return 'https://'.$url;
+        }
+        return $url;
     }
 
 }

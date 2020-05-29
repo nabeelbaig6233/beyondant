@@ -102,6 +102,71 @@
     </div>
     {{--End Individual Modal--}}
 
+{{--  Profile Link Modal  --}}
+    <div class="modal fade" id="profileLinkModal" tabindex="-1" role="dialog" aria-labelledby="profileLinkModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form id="profileLinkForm">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark text-white">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Link Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label for="website">Website</label>
+                                <input id="website" type="text" name="website" class="form-control" placeholder="Enter URL">
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="linkdin">Linkedin</label>
+                                <input id="linkdin" type="text" name="linkdin" class="form-control" placeholder="Enter URL">
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="instagram">Instagram</label>
+                                <input id="instagram" type="text" name="instagram" class="form-control" placeholder="Enter URL">
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="facebook">Facebook</label>
+                                <input id="facebook" type="text" name="facebook" class="form-control" placeholder="Enter URL">
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="tiktok">Tiktok</label>
+                                <input id="tiktok" type="text" name="tiktok" class="form-control" placeholder="Enter URL">
+                            </div>
+                        </div>
+                        <div class="row col-12">
+                            <div class="form-group">
+                                <label>Select What Should Be Your Default Profile?</label>
+                                <div class="form-check-inline">
+                                    <input id="website_check" type="radio" name="check" value="website"  class="form-check-input">
+                                    <label for="website_check" class="form-check-label pr-2">Website</label>
+                                    <input id="linkdin_check" type="radio" name="check" value="linkdin"  class="form-check-input">
+                                    <label for="linkdin_check" class="form-check-label pr-2">Linkedin</label>
+                                    <input id="facebook_check" type="radio" name="check" value="facebook"  class="form-check-input" >
+                                    <label for="facebook_check" class="form-check-label pr-2">Facebook</label>
+                                    <input id="instagram_check" type="radio" name="check" value="instagram"  class="form-check-input ">
+                                    <label for="instagram_check" class="form-check-label pr-2">Instagram</label>
+                                    <input id="tiktok_check" type="radio" name="check" value="tiktok"  class="form-check-input ">
+                                    <label for="tiktok_check" class="form-check-label pr-2">Tiktok</label>
+                                    <input id="default" type="radio" name="check" value=""  class="form-check-input">
+                                    <label for="default" class="form-check-label pr-2">Default</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveProfileLink">Save changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{{--  End Profile Link Modal  --}}
+
 
     {{--Password Reset Modal--}}
     <!-- Modal -->
@@ -1033,6 +1098,73 @@
             });
 
             //End Upgrade Profile
+
+            //Link Profile Acoount
+            var profile_id;
+            $(document).on('click','.link_profile',function () {
+                profile_id=$(this).attr('id');
+                $.ajax({
+                    url:`{{url('/admin/'.request()->segment(2).'/view/')}}/${profile_id}`,
+                    type:'GET',
+                    success:function (data) {
+                        var data=data.data;
+                        $("#website").val(data.website);
+                        $("#linkdin").val(data.linkedin);
+                        $("#facebook").val(data.facebook);
+                        $("#instagram").val(data.instagram);
+                        $("#tiktok").val(data.tiktok);
+                        //check boxes
+                        if(data.website_check==1){
+                            $('#website_check').attr('checked',true);
+                        }
+                        else if(data.linkedin_check==1){
+                            $('#linkdin_check').attr('checked',true);
+                        }
+                        else if(data.facebook_check==1){
+                            $('#facebook_check').attr('checked',true);
+                        }
+                        else if(data.instagram_check==1){
+                            $('#instagram_check').attr('checked',true);
+                        }
+                        else if(data.tiktok_check==1){
+                            $('#tiktok_check').attr('checked',true);
+                        }
+                        else{
+                            $("#default").attr('checked',true);
+                        }
+                        $("#profileLinkModal").modal('show');
+                    }
+                });
+            });
+
+            $('#saveProfileLink').click(function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+                var formData={};
+                $("#profileLinkForm").serializeArray().forEach((formItem)=>{
+                   formData[formItem.name]=formItem.value;
+                });
+                var thisButton=$(this);
+                var text=thisButton.text();
+                $(thisButton).text('Saving...');
+                $(thisButton).attr('disabled',true);
+                $.ajax({
+                    url:`{{url('/admin/'.request()->segment(2).'/link/update')}}/${profile_id}`,
+                    type:'POST',
+                    data:{...formData},
+                    success:function (data) {
+                        $("#profileLinkModal").modal('hide');
+                        $(thisButton).text(text);
+                        $(thisButton).attr('disabled',false);
+                        js_success("Profile Linked Successfully");
+                    }
+                })
+            });
+
+            //End Link Profile Accoun
 
             //Login To Different Account
             $(document).on('click','.login_user',function () {
