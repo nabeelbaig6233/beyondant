@@ -38,9 +38,13 @@ class ProfileController extends Controller
                 ->addColumn('profile_link', function ($data) {
                     return '<a target="_blank" href="' . route('pro',$data->id) . '">'. $data->first_name .'</a>';
                 })->addColumn('action',function($data){
+                    $checked=$data->overridden_profile===1?'checked':'';
                     $actions='<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Show Devices" type="button" name="device" id="'.$data->id.'" class="device btn btn-primary btn-sm"><i class="fa fa-laptop"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
-                    $company=auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>&nbsp;<button title="Link Profile" type="button" name="link_profile" id="' . $data->id . '" class="link_profile btn btn-primary btn-sm"><i class="fa fa-chain"></i></button>':
-                        $actions;
+                    $company=auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>&nbsp;<button title="Link Profile" type="button" name="link_profile" id="' . $data->id . '" class="link_profile btn btn-primary btn-sm"><i class="fa fa-chain"></i></button>
+                                                                   <div class="custom-control custom-switch">
+                                                                      <input type="checkbox" class="custom-control-input override" '.$checked.' id="switch:'.$data->id.'">
+                                                                      <label class="custom-control-label" for="switch:'.$data->id.'">Switch Off For Employee</label>
+                                                                    </div>': $actions;
                     $upgrade=auth()->user()->role_id===1?$company.'<button title="Upgrade To Multi Device Profile" type="button" name="upgrade" id="'.$data->id.'" class="upgrade btn btn-dark btn-sm"><i class="fa fa-users"></i></button>&nbsp;<button title="Login As This User" type="button" name="login_user" id="'.$data->id.'" class="login_user btn btn-danger btn-sm"><i class="fa fa-user"></i></button>':$company;
                     return $upgrade;
                 })->rawColumns(['checkbox','action','image','profile_link','views'])->make(true);
@@ -139,6 +143,22 @@ class ProfileController extends Controller
             return 'https://'.$url;
         }
         return $url;
+    }
+
+    public function override_profiles($id){
+        $users=User::where([['role_id','=',2],['parent_id','=',$id],['acc_type','=','personal']])->get();
+        $users->map(function($user){
+            $user->update([
+                'overridden_profile'=>1
+            ]);
+        });
+    }
+
+    public function allow_employee_profile($id){
+        $user=User::find($id);
+        $user->update([
+           'overridden_profile'=>$user->overridden_profile===1?0:1
+        ]);
     }
 
 }

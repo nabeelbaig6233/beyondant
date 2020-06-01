@@ -286,6 +286,12 @@
 
                                             @endcan
 
+                                            @can('override_permission',auth()->user())
+
+                                                <button type="submit" class="btn btn-info btn-xs" data-toggle="modal" data-target="#confirmOverrideModal">Override Employee Profiles</button>
+
+                                            @endcan
+
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
@@ -459,6 +465,24 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="ok_upgrade" name="ok_upgrade" class="btn btn-success">Upgrade</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmOverrideModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-dark"  style="color: #fff;">
+                    <h2 class="modal-title">Confirmation</h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin: 0;">Are you sure you want to override employee profile's ?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="ok_override" name="ok_override" class="btn btn-success">Confirm Override</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -1098,6 +1122,47 @@
             });
 
             //End Upgrade Profile
+
+
+            //Override Profile
+
+            $("#ok_override").click(function () {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}"
+                    }
+                });
+                var text=$(this).text();
+                $(this).text('Overriding...');
+                $(this).attr("disabled",true);
+                $.ajax({
+                    url:'{{route('profile.override.all',auth()->user()->id)}}',
+                    type:'PATCH',
+                    success:function () {
+                        $("#confirmOverrideModal").modal('hide');
+                        js_success('Successfully! Override All Profiles.');
+                        DataTable.ajax.reload();
+                        $("#ok_override").text(text);
+                        $("#ok_override").attr('disabled',false);
+                    },
+                    error:function (err) {
+                        console.log(err);
+                    }
+                })
+            });
+
+            $(document).on('change','.override',function () {
+                let id=$(this).attr('id').split(':')[1];
+                $.ajax({
+                    type:'GET',
+                    url:`{{url('admin/'.request()->segment(2).'/override/allow_employee/')}}/${id}`,
+                    success:function () {
+                    }
+                })
+            });
+
+            //End Override Profile
+
 
             //Link Profile Acoount
             var profile_id;

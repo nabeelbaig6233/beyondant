@@ -44,6 +44,11 @@ class ProfileController extends Controller
                 }
             }
 
+            //Company Redirect For Emp
+            if($content['record']->overridden_profile===1 && $content['record']->parent_id!=0 && $content['record']->role_id==2){
+                $content['record']=User::find($content['record']->parent_id);
+            }
+            //End
         if ((int)$content['record']->facebook_check == 1) {
             return redirect($content['record']->facebook);
         } elseif ((int)$content['record']->website_check == 1) {

@@ -37,5 +37,8 @@ class RulePolicy
         else{return false;}
     }
 
+    public function override_permission(User $user){
+        return $user->role_id===5?true:false;
+    }
 
 }
