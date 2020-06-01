@@ -21,7 +21,6 @@
           type="image/ico"/>
 
     <title>{{$setting->title??""}}</title>
-
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link href="{{asset('assets/admin/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
