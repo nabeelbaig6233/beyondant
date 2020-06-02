@@ -394,9 +394,15 @@ class ProfileController extends Controller
         return 1;
     }
 
-
+    //old Users
     public function device_profile($user_id,$id){
         $device=device::where('profile_url',route('device_profile',["user_id"=>$user_id,"id"=>$id]))->firstOrfail();
+        return redirect($device->redirected_url);
+    }
+
+    //new Users
+    public function device_profile_new_shorten($user_id,$id){
+        $device=device::where('profile_url',route('device_profile_shorten',["user_id"=>$user_id,"id"=>$id]))->firstOrfail();
         return redirect($device->redirected_url);
     }
 
