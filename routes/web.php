@@ -62,6 +62,10 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::patch('/profile/override/all_employees/{id}','ProfileController@override_profiles')->name('profile.override.all');
     Route::get('/profile/override/allow_employee/{id}','ProfileController@allow_employee_profile')->name('profile.allow.employee');
 
+    //All Profiles
+    Route::get('/allProfiles','AllProfilesController@index')->name('allProfiles');
+    Route::post('/allProfiles','AllProfilesController@delete_all')->name('allProfiles.delete_all');
+
     // Individual
     Route::get('/individual','IndividualController@index')->name('individual');
     Route::post('/individual','IndividualController@create')->name('individual.create');
