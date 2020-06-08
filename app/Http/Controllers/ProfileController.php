@@ -13,6 +13,7 @@ use App\models\downloads;
 use App\models\meeting;
 use App\Notifications\AccountNotification;
 use App\User;
+use Faker\Provider\File;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Http\Requests\PasswordValidationForm;
@@ -125,11 +126,61 @@ class ProfileController extends Controller
             file_put_contents(public_path('assets/admin/images/'.$image),$cover_image);
             $cover_image = 'assets/admin/images/'.$image;
             $record->cover_image = $cover_image;
+            $record->cover_selection='image';
             //$record->cover_pos = (int)$cover_position;
             $record->save();
             echo "Profile Picture Updated Successfully.";
         }
     }
+
+    public function uploadCoverVideo(Request $request,$id){
+        if(!empty($request->file('cover_video'))){
+            $user=User::find($id);
+            $video_path=$user->cover_video;
+            $cover_video=$request->file('cover_video');
+            if($cover_video->getSize()>36700160){
+                return redirect()->back()->with('error','Video Should Be Less Than 35 Mbs.');
+            }
+            if(\File::exists($video_path)){
+               unlink(public_path($video_path));
+            }
+            $video_name=rand().'.'.$cover_video->getClientOriginalExtension();
+            $cover_video->move(public_path('assets/admin/videos'),$video_name);
+            $video_path='assets/admin/videos/'.$video_name;
+            $user->cover_video=$video_path;
+            $user->cover_selection='video';
+            $user->save();
+            return redirect()->back()->with('success','Video Uploaded Successfully.');
+        }
+    }
+
+
+    public function uploadCoverSlideshow(Request $request,$id){
+        if(!empty($request->file('cover_slideshow'))){
+            $user=User::find($id);
+            $slideshow_images=json_decode($user->cover_slideshow);
+            if(!empty($slideshow_images)){
+                foreach ($slideshow_images as $image){
+                    if(\File::exists($image)){
+                        \File::delete($image);
+                    }
+                }
+            }
+            $cover_slideshow_images=$request->file('cover_slideshow');
+            $image_paths=[];
+            foreach ($cover_slideshow_images as $image){
+                $image_name=rand().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('assets/admin/slideshow/'.$id),$image_name);
+                $image_path='assets/admin/slideshow/'.$id.'/'.$image_name;
+                array_push($image_paths,$image_path);
+            }
+            $user->cover_slideshow=json_encode($image_paths);
+            $user->cover_selection='slideshow';
+            $user->save();
+            return redirect()->back();
+        }
+    }
+
 
     public function editProfile($id)
     {

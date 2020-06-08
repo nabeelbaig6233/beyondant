@@ -152,6 +152,8 @@ Route::middleware(['allowguest'])->group(function (){
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
     Route::post('/profile/register','ProfileController@register')->name('profile-register');
     Route::post('/upload-cover-pic/{id}','ProfileController@uploadCoverPic')->name('upload-cover-pic');
+    Route::post('/upload-cover-video/{id}','ProfileController@uploadCoverVideo')->name('upload-cover-video');
+    Route::post('/upload-slideshow/{id}','ProfileController@uploadCoverSlideshow')->name('upload-slideshow');
     Route::post('/upload-profile-pic/{id}','ProfileController@uploadProfilePic')->name('upload-profile-pic');
     Route::view('/reseller','front.reseller')->name('reseller');
     Route::post('/reseller-submit', 'ResellerController@index')->name('reseller.submit');
