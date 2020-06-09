@@ -267,28 +267,177 @@
 
 {{--End Contacts Modal--}}
 
+        {{--    Video Url Modal   --}}
+{{--        @if(auth()->check())--}}
+{{--            <div class="modal fade" id="embeddedModal" tabindex="-1" role="dialog" aria-hidden="true">--}}
+{{--                <div class="modal-dialog modal-dialog-centered" role="document">--}}
+{{--                    <div class="modal-content">--}}
+{{--                        <form method="post" action="{{route('upload-embedded',auth()->user()->id)}}">--}}
+{{--                            @method('patch')--}}
+{{--                            <div class="modal-header">--}}
+{{--                                <h5 class="modal-title text-danger" id="exampleModalLongTitle">Embedded Video URL</h5>--}}
+{{--                                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">--}}
+{{--                                    <span aria-hidden="true">&times;</span>--}}
+{{--                                </button>--}}
+{{--                            </div>--}}
+{{--                            <div class="modal-body">--}}
+{{--                                <input type="hidden" name="_token" value="{{csrf_token()}}" />--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="embedded_url">Enter Video URL</label>--}}
+{{--                                    <input type="text" class="form-control" name="embedded_url" />--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="modal-footer">--}}
+{{--                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+{{--                                <button type="submit" class="btn btn-danger">Save changes</button>--}}
+{{--                            </div>--}}
+
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--    @endif--}}
+    {{--    End Video Url Modal    --}}
+
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
 {{--                <div id="con">--}}
 {{--                 style="top:{{$companyInfo->cover_pos}}px;position: relative"  --}}
-                @if (isset($companyInfo) && $record->cover_image=="")
-                    <img id="display" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid"  >
+                @if (isset($companyInfo) && ($record->cover_image=="" && $record->cover_video=="" && $record->cover_slideshow=="" && $record->cover_embed==""))
+                    @if($companyInfo->cover_selection=='video')
+                        <video id="display-video" controls autoplay muted loop class="cover-image profile-picOne img-fluid">
+                            <source src="{{asset($companyInfo->cover_video)}}">
+                        </video>
+                    @elseif($companyInfo->cover_selection=='slideshow')
+
+
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
+                            <ol class="carousel-indicators">
+                                @for($indicator=0;$indicator<count(json_decode($companyInfo->cover_slideshow));$indicator++)
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="{{$indicator}}" class="{{$indicator==0 ? 'active':''}}" ></li>
+                                @endfor
+                            </ol>
+                            <div class="carousel-inner">
+                                @php $images=json_decode($companyInfo->cover_slideshow) @endphp
+                                @foreach($images as $image)
+                                    <div class="carousel-item {{$image==reset( $images )? 'active':''}}">
+                                        <img style="height: 450px" class="d-block w-100 img-fluid" src="{{asset($image)}}" alt="The Image Will Be Loaded Shortly">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
+                    @elseif($companyInfo->cover_selection=='embedded')
+                        <iframe
+                            style="height: 450px;"
+                            id="display-embedded"
+                            class="cover-image profile-picOne img-fluid"
+                            src="{{'https://www.youtube.com/embed/'.$companyInfo->cover_embed}}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+
+
+                    @else
+                        <img id="display" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid"  >
+                    @endif
                 @else
+                    @if($record->cover_selection=='video')
+                        <video id="display-video" controls autoplay muted loop class="cover-image profile-picOne img-fluid embed-responsive-4by3">
+                            <source src="{{asset($record->cover_video)}}">
+                        </video>
+
+                    @elseif($record->cover_selection=='slideshow')
+
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
+                            <ol class="carousel-indicators">
+                                @for($indicator=0;$indicator<count(json_decode($record->cover_slideshow));$indicator++)
+                                     <li data-target="#carouselExampleIndicators" data-slide-to="{{$indicator}}" class="{{$indicator==0 ? 'active':''}}" ></li>
+                                @endfor
+                            </ol>
+                            <div class="carousel-inner">
+                                @php $images=json_decode($record->cover_slideshow) @endphp
+                                @foreach($images as $image)
+                                 <div class="carousel-item {{$image==reset( $images )? 'active':''}}">
+                                   <img style="height: 450px" class="d-block w-100 img-fluid" src="{{asset($image)}}" alt="The Image Will Be Loaded Shortly">
+                                 </div>
+                                @endforeach
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
+                    @elseif($record->cover_selection=='embedded')
+                        <iframe
+                            style="height: 450px;"
+                            id="display-embedded"
+                            class="cover-image profile-picOne img-fluid"
+                            src="{{'https://www.youtube.com/embed/'.$record->cover_embed}}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+
+                    @else
                     <img id="display" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid" >
+                    @endif
                 @endif
 {{--                </div>--}}
                 @guest
                 @else
                     <div class="overlay">
                         <form id="filecover_image" action="" method="post" enctype="multipart/form-data">
-                    <span class="icon" title="User Profile">
-                        <i class="fas fa-image upload-buttonOne"></i>
-                        <input class="file-uploadOne" id="cover_image" name="cover_image" type="file" accept="image/*">
-                        <input name="cover_top" type="hidden" value="0" />
-                        <span class="text">Update Cover Photo</span>
-                    </span>
+                            <div class="icon dropdown">
+                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownCover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-pencil"></i> Edit Cover
+                                </button>
+                                <div class="dropdown-menu bg-dark p-2" aria-labelledby="dropdownCover">
+                                    @foreach([['Upload Cover Photo','upload-buttonOne','fas fa-image','image'],
+                                              ['Upload Video','upload-cover-video','fas fa-video-camera','video'],
+                                              ['Upload Slideshow Photos','upload-slideshow','fas fa-sliders','slideshow'],
+                                              ['Embedded Video URL','upload-embedded','fas fa-chain','embedded']] as $action)
+                                        <li class="dropdown-item text-danger p-2 @php echo $action[3]=='video' && auth()->user()->subscription_status!=1 ? 'text-muted disabled' : '' @endphp  {{$action[1]}}">
+                                            <i class="{{$action[2]}}"></i> {{$action[0]}}
+                                        </li>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <span class="icon" title="User Profile" style="display: none">
+                                <i class="fas fa-image upload-buttonOne"></i>
+                                <input class="file-uploadOne" id="cover_image" name="cover_image" type="file" accept="image/*">
+                                <input name="cover_top" type="hidden" value="0" />
+                                <span class="text">Update Cover Photo</span>
+                            </span>
                         </form>
+                        <span style="display: none">
+                            <form id="video_Form" method="post" action="{{route('upload-cover-video',auth()->user()->id)}}" enctype="multipart/form-data">
+                                <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                                <input class="file-upload-video" id="cover_video" name="cover_video" type="file" accept="video/*">
+                            </form>
+
+                            <form id="slideshow_Form" method="post" action="{{route('upload-slideshow',auth()->user()->id)}}" enctype="multipart/form-data">
+                                <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                                <input class="file-upload-slideshow" id="cover_slideshow" name="cover_slideshow[]" type="file" multiple accept="image/*">
+                            </form>
+                        </span>
                     </div>
                     @if($record->role_id==5||$record->role_id==7)
                         <a class="edit-profile-btn text-white" style="bottom: 50px" href="{{action("admin\DashboardController@index")}}"><i class="fas fa-arrow-left" ></i>  Back To Admin View</a>
@@ -552,6 +701,39 @@
     {{--    Mobile    End Save Contacts Modal--}}
 
 
+    {{--    Video Url Modal   --}}
+    @if(auth()->check())
+        <div class="modal fade" id="embeddedModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form method="post" action="{{route('upload-embedded',auth()->user()->id)}}">
+                        @method('patch')
+                        <div class="modal-header">
+                            <h5 class="modal-title text-danger" id="exampleModalLongTitle">Embedded Video URL</h5>
+                            <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                            <div class="form-group">
+                                <label for="embedded_url">Enter Video URL</label>
+                                <input type="text" class="form-control" name="embedded_url" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Save changes</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+    {{--    End Video Url Modal    --}}
+
+
     <div class="profileWrapper_Mob">
         <!-- Profile Heaer Start -->
         <header class="headerProfile cursor-light">
@@ -588,21 +770,130 @@
 {{--                <div id="con">--}}
                     {{--                    --}}
 
-                    @if (isset($companyInfo) && $record->cover_image=="")
-                        <img id="display2" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne img-fluid" >
+                @if (isset($companyInfo) && ($record->cover_image=="" && $record->cover_video=="" && $record->cover_slideshow=="" && $record->cover_embed==""))
+                    @if($companyInfo->cover_selection=='video')
+                        <video id="display-video" controls autoplay muted loop class="cover-image profile-picOne img-fluid" >
+                            <source src="{{asset($companyInfo->cover_video)}}">
+                        </video>
+
+                    @elseif($companyInfo->cover_selection=='slideshow')
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                @php $images=json_decode($companyInfo->cover_slideshow) @endphp
+                                @foreach($images as $image)
+                                    <div class="carousel-item {{$image==reset( $images )? 'active':''}}">
+                                        <img style="height: 250px" class="d-block w-100 img-fluid" src="{{asset($image)}}" alt="The Image Will Be Loaded Shortly">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
+                    @elseif($companyInfo->cover_selection=='embedded')
+                        <iframe
+                            style="height: 250px;"
+                            id="display-embedded"
+                            class="cover-image profile-picOne img-fluid"
+                            src="{{'https://www.youtube.com/embed/'.$companyInfo->cover_embed}}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+
+
                     @else
-                        <img id="display2" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}" class="cover-image profile-picOne img-fluid"  >
+                        <img id="display2" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid"  >
                     @endif
+                @else
+                    @if($record->cover_selection=='video')
+                        <video id="display-video" controls autoplay muted loop class="cover-image profile-picOne img-fluid embed-responsive-4by3">
+                            <source src="{{asset($record->cover_video)}}">
+                        </video>
+
+                    @elseif($record->cover_selection=='slideshow')
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                @php $images=json_decode($record->cover_slideshow) @endphp
+                                @foreach($images as $image)
+                                    <div class="carousel-item {{$image==reset( $images )? 'active':''}}">
+                                        <img style="height: 250px" class="d-block w-100 img-fluid" src="{{asset($image)}}" alt="The Image Will Be Loaded Shortly">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
+                    @elseif($record->cover_selection=='embedded')
+                        <iframe
+                            style="height: 250px;"
+                            id="display-embedded"
+                            class="cover-image profile-picOne img-fluid"
+                            src="{{'https://www.youtube.com/embed/'.$record->cover_embed}}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+
+                    @else
+                        <img id="display2" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid" >
+                    @endif
+                @endif
 {{--                </div>--}}
                     @guest
                 @else
                     <form id="filecover_imageTwo" action="" method="post" enctype="multipart/form-data">
-                    <span class="icon" title="User Cover" id="upload">
-                        <i class="fas fa-image upload-buttonTwo"></i>
+                    <span class="icon" style="z-index: 1000" title="User Cover" id="upload">
+                        <i class="fas fa-image" data-toggle="modal" data-target="#uploadSelection"></i>
                         <input class="file-uploadTwo" type="file" id="cover_image" name="cover_image" accept="image/*">
                          <input id="cover_top2" name="cover_top" type="hidden" value="0" />
                     </span>
                     </form>
+
+                {{--Modal Upload--}}
+
+                    <div class="modal fade" id="uploadSelection" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-danger" id="exampleModalLongTitle">Select Option</h5>
+                                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="p-2">
+                                        @foreach([['Upload Cover Photo','upload-buttonTwo','fas fa-image','image'],
+                                                  ['Upload Video','upload-cover-video','fas fa-video-camera','video'],
+                                                  ['Upload Slideshow Photos','upload-slideshow','fas fa-sliders','slideshow'],
+                                                  ['Embedded Video URL','upload-embedded','fas fa-chain','embedded']] as $action)
+                                            <li class="dropdown-item text-danger p-2 @php echo $action[3]=='video' && auth()->user()->subscription_status!=1 ? 'text-muted disabled' : '' @endphp  {{$action[1]}}">
+                                                <i class="{{$action[2]}}"></i> {{$action[0]}}
+                                            </li>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {{--End Upload--}}
+
                     <a class="edit-profile-btn" id="edit_profile2" href="{{$record->role_id==5||$record->role_id==7?route('user.edit',$record->id):route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i></a>
 {{--                    <a class="edit-profile-btn save" id="pos2" style="display:none;float: right"><i class="fas fa-save"></i></a>--}}
                 @endguest
@@ -746,6 +1037,9 @@
 
 
         $(document).ready(function () {
+
+            $('.dropdown-toggle').dropdown();
+            $('.carousel').carousel();
 
             //MeetModal JS
 
@@ -1079,6 +1373,29 @@
             $(".upload-buttonOne").on('click', function () {
                 $(".file-uploadOne").click();
             });
+
+            //Video Upload
+            $('.upload-cover-video').on('click',function () {
+                $('.file-upload-video').click();
+            });
+
+            $('#cover_video').on('change',function () {
+                $('#video_Form').submit();
+            });
+
+            //SlideShow Upload
+            $('.upload-slideshow').on('click',function () {
+                $('.file-upload-slideshow').click();
+            });
+
+            $('#cover_slideshow').on('change',function () {
+                $('#slideshow_Form').submit();
+            });
+            //embedded youtube video
+            $('.upload-embedded').on('click',function () {
+                $("#uploadSelection").modal('hide');
+                $('#embeddedModal').modal('show');
+            });
         });
         $(document).ready(function () {
             // var readURL = function (input) {
@@ -1120,7 +1437,8 @@
             });
 
             $(".upload-buttonTwo").on('click', function () {
-                $(".file-uploadTwo").click();
+                $('#uploadSelection').modal('hide');
+                $(".file-uploadOne").click();
             });
         });
         $(document).ready(function () {
