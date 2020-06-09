@@ -27,13 +27,13 @@
                                 <h3>Create Your <span>Free {{$type}} Account</span></h3>
                                 <form action="{{ route('profile-register') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" name="acc_type" value="{{strtolower($type)}}" />
+                                    <input type="hidden" name="acc_type" value="{{strtolower($type)}}"/>
                                     <div class="row">
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
                                                 <input type="text" class="input-text @error('first_name') is-invalid @enderror" id="first_name" name="first_name" placeholder="First Name *" data-validation="required name" value="{{ old('first_name') }}" required autocomplete="name">
                                                 @error('first_name')
-                                                    <span class="text-danger" role="alert">
+                                                <span class="text-danger" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
@@ -73,7 +73,7 @@
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="password" class="input-text @error('password-confirm') is-invalid @enderror" id="password-confirm" name="password_confirmation" data-validate-linked="password" placeholder="Password Confirm *"  required="required" autocomplete="new-password">
+                                                <input type="password" class="input-text @error('password-confirm') is-invalid @enderror" id="password-confirm" name="password_confirmation" data-validate-linked="password" placeholder="Password Confirm *" required="required" autocomplete="new-password">
                                             </div>
                                         </div>
 
@@ -96,7 +96,7 @@
                                                     </span>
                                                 @enderror
                                                 <div class="checkBox_p helpC">
-                                                    <i class="fas fa-question helpc" data-toggle="tooltip" data-placement="top" title="Up To 255 Characters" ></i>
+                                                    <i class="fas fa-question helpc" data-toggle="tooltip" data-placement="top" title="Up To 255 Characters"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -145,20 +145,20 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text " id="address" name="address"  placeholder="Address *" value="{{ old('address') }}"  autocomplete="address">
+                                                <input type="text" class="input-text " id="address" name="address" placeholder="Address *" value="{{ old('address') }}" autocomplete="address">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text" id="city" name="city" placeholder="City *" value="{{ old('city') }}"  autocomplete="city">
+                                                <input type="text" class="input-text" id="city" name="city" placeholder="City *" value="{{ old('city') }}" autocomplete="city">
 
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text " id="state" name="state"  placeholder="State *" value="{{ old('state') }}"  autocomplete="state">
+                                                <input type="text" class="input-text " id="state" name="state" placeholder="State *" value="{{ old('state') }}" autocomplete="state">
 
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text " id="zipcode" name="zipcode"  placeholder="Zip Code *" value="{{ old('zipcode') }}"  autocomplete="zipcode">
+                                                <input type="text" class="input-text " id="zipcode" name="zipcode" placeholder="Zip Code *" value="{{ old('zipcode') }}" autocomplete="zipcode">
 
                                             </div>
                                         </div>
@@ -229,7 +229,7 @@
                                             <div class="form-group">
                                                 <input type="text" class="input-text" id="facebook" name="facebook" placeholder="Paste your Facebook (url)">
                                                 <div class="form-check sm checkbox-input checkBox_p">
-                                                    <input class="form-check-input" type="checkbox" value="1" id="facebook_check" name="facebook_check" >
+                                                    <input class="form-check-input" type="checkbox" value="1" id="facebook_check" name="facebook_check">
                                                     <label class="form-check-label" for="facebook_check" data-toggle="tooltip" data-placement="top" title="Make this my primary contact page"></label>
                                                 </div>
                                             </div>
@@ -245,24 +245,24 @@
 
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                 <div class="circle">
-                                                   <img class="profile-picFour" src="{{ asset('assets/front/images/choosecoverphoto-n.jpg') }}">
-                                                 </div>
-                                                 <div class="p-image">
-                                                   <i class="fa fa-image upload-buttonFour"></i>
+                                                <div class="circle">
+                                                    <img class="profile-picFour" src="{{ asset('assets/front/images/choosecoverphoto-n.jpg') }}">
+                                                </div>
+                                                <div class="p-image">
+                                                    <i class="fa fa-image upload-buttonFour"></i>
                                                     <input class="file-uploadFour" id="cover_image" name="cover_image" type="file" accept="image/*"/>
-                                                 </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
                                                 <div class="circle">
-                                                   <img class="profile-picFive" src="{{ asset('assets/front/images/chooseprofileimage-n.jpg') }}">
-                                                 </div>
-                                                 <div class="p-image">
-                                                   <i class="fa fa-image upload-buttonFive"></i>
+                                                    <img class="profile-picFive" src="{{ asset('assets/front/images/chooseprofileimage-n.jpg') }}">
+                                                </div>
+                                                <div class="p-image">
+                                                    <i class="fa fa-image upload-buttonFive"></i>
                                                     <input class="file-uploadFive" id="profile_picture" name="profile_picture" type="file" accept="image/*"/>
-                                                 </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-lr">
@@ -295,75 +295,74 @@
     </div>
     <!-- /. Login page -->
 @endsection
-    @section('pageJs')
-        <script src="{{asset('assets/front/js/jquery.form-validator.min.js')}}"></script>
-        <!-- InputMask -->
-        <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.js')}}"></script>
-        <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
-        <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
-        <script>
-            $(document).ready(() => {
-                $.validate({
-                    lang: 'en'
-                });
-                //Money Euro
-                $('[data-mask]').inputmask()
-            })
-            $(function () {
-              $('[data-toggle="tooltip"]').tooltip();
-                $(document).on('click','#office_check',function() {
-                    if($('input#office_check').is(':checked')) {
-                        $('input#contact_number').inputmask({mask: '(999) 999-9999 999'});
-                    }
-                    else {
-                        $('input#contact_number').inputmask({mask: '(999) 999-9999'});
-                    }
-                });
+@section('pageJs')
+    <script src="{{asset('assets/front/js/jquery.form-validator.min.js')}}"></script>
+    <!-- InputMask -->
+    <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+    <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
+    <script>
+        $(document).ready(() => {
+            $.validate({
+                lang: 'en'
             });
-
-            $(document).ready(function() {
-                var readURL = function(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            $('.profile-picFour').attr('src', e.target.result);
-                        }
-
-                        reader.readAsDataURL(input.files[0]);
-                    }
+            //Money Euro
+            $('[data-mask]').inputmask()
+        })
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $(document).on('click', '#office_check', function () {
+                if ($('input#office_check').is(':checked')) {
+                    $('input#contact_number').inputmask({mask: '(999) 999-9999 999'});
+                } else {
+                    $('input#contact_number').inputmask({mask: '(999) 999-9999'});
                 }
-
-                $(".file-uploadFour").on('change', function(){
-                    readURL(this);
-                });
-
-                $(".upload-buttonFour").on('click', function() {
-                   $(".file-uploadFour").click();
-                });
             });
-            $(document).ready(function() {
-                var readURL = function(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
+        });
 
-                        reader.onload = function (e) {
-                            $('.profile-picFive').attr('src', e.target.result);
-                        }
+        $(document).ready(function () {
+            var readURL = function (input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                        reader.readAsDataURL(input.files[0]);
+                    reader.onload = function (e) {
+                        $('.profile-picFour').attr('src', e.target.result);
                     }
+
+                    reader.readAsDataURL(input.files[0]);
                 }
+            }
 
-                $(".file-uploadFive").on('change', function(){
-                    readURL(this);
-                });
-
-                $(".upload-buttonFive").on('click', function() {
-                   $(".file-uploadFive").click();
-                });
+            $(".file-uploadFour").on('change', function () {
+                readURL(this);
             });
 
+            $(".upload-buttonFour").on('click', function () {
+                $(".file-uploadFour").click();
+            });
+        });
+        $(document).ready(function () {
+            var readURL = function (input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-        </script>
-    @stop
+                    reader.onload = function (e) {
+                        $('.profile-picFive').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(".file-uploadFive").on('change', function () {
+                readURL(this);
+            });
+
+            $(".upload-buttonFive").on('click', function () {
+                $(".file-uploadFive").click();
+            });
+        });
+
+
+    </script>
+@stop

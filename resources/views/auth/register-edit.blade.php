@@ -1,4 +1,70 @@
 @extends('layouts.app')
+@section('pageCss')
+    <style>
+
+        .goog-logo-link {
+            display: none !important;
+        }
+
+        .goog-te-gadget {
+            color: transparent !important;
+        }
+
+        .goog-te-gadget .goog-te-combo {
+            margin: 4px 0;
+            height: 39px;
+            background: #be0103;
+            border-radius: 5px;
+            color: white;
+            letter-spacing: 0;
+        / / font-weight: 163 px !important;
+            font-size: 14px;
+            border-color: #be0103;
+        }
+
+        .trans-u.float-right {
+            margin-top: -6px;
+            /* margin-right: 0px; */
+            margin-left: 4px;
+        }
+
+        #google_translate_element {
+            text-align: right;
+            display: block
+        }
+
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+
+        body {
+            top: 0px !important;
+        }
+
+        #goog-gt-tt {
+            display: none !important;
+            top: 0px !important;
+        }
+
+        .goog-tooltip skiptranslate {
+            display: none !important;
+            top: 0px !important;
+        }
+
+        .activity-root {
+            display: hide !important;
+        }
+
+        .status-message {
+            display: hide !important;
+        }
+
+        .started-activity-container {
+            display: hide !important;
+        }
+
+    </style>
+@endsection
 @section('content')
 
 {{--Emplyee Modal--}}
