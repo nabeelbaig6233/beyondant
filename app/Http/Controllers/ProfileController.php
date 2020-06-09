@@ -182,6 +182,20 @@ class ProfileController extends Controller
     }
 
 
+    public function updateEmbededCover(Request $request,$id){
+        if(!empty($request->get('embedded_url'))){
+            $user=User::find($id);
+            $url=$request->get('embedded_url');
+            preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match);
+            $user->cover_embed=$match[1];
+            $user->cover_selection='embedded';
+            $user->save();
+            return redirect()->back();
+        }
+    }
+
+
+
     public function editProfile($id)
     {
         $content['record'] = User::findOrFail($id);

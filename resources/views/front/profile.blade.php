@@ -267,12 +267,44 @@
 
 {{--End Contacts Modal--}}
 
+        {{--    Video Url Modal   --}}
+{{--        @if(auth()->check())--}}
+{{--            <div class="modal fade" id="embeddedModal" tabindex="-1" role="dialog" aria-hidden="true">--}}
+{{--                <div class="modal-dialog modal-dialog-centered" role="document">--}}
+{{--                    <div class="modal-content">--}}
+{{--                        <form method="post" action="{{route('upload-embedded',auth()->user()->id)}}">--}}
+{{--                            @method('patch')--}}
+{{--                            <div class="modal-header">--}}
+{{--                                <h5 class="modal-title text-danger" id="exampleModalLongTitle">Embedded Video URL</h5>--}}
+{{--                                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">--}}
+{{--                                    <span aria-hidden="true">&times;</span>--}}
+{{--                                </button>--}}
+{{--                            </div>--}}
+{{--                            <div class="modal-body">--}}
+{{--                                <input type="hidden" name="_token" value="{{csrf_token()}}" />--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="embedded_url">Enter Video URL</label>--}}
+{{--                                    <input type="text" class="form-control" name="embedded_url" />--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="modal-footer">--}}
+{{--                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+{{--                                <button type="submit" class="btn btn-danger">Save changes</button>--}}
+{{--                            </div>--}}
+
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--    @endif--}}
+    {{--    End Video Url Modal    --}}
+
         <!-- Profile Main Banner Start -->
         <section class="beyondantProfileMain cursor-light">
             <div class="container BTNcontainer">
 {{--                <div id="con">--}}
 {{--                 style="top:{{$companyInfo->cover_pos}}px;position: relative"  --}}
-                @if (isset($companyInfo) && ($record->cover_image=="" && $record->cover_video=="" && $record->cover_slideshow==""))
+                @if (isset($companyInfo) && ($record->cover_image=="" && $record->cover_video=="" && $record->cover_slideshow=="" && $record->cover_embed==""))
                     @if($companyInfo->cover_selection=='video')
                         <video id="display-video" controls autoplay muted loop class="cover-image profile-picOne img-fluid">
                             <source src="{{asset($companyInfo->cover_video)}}">
@@ -303,6 +335,19 @@
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
+
+                    @elseif($companyInfo->cover_selection=='embedded')
+                        <iframe
+                            style="height: 450px;"
+                            id="display-embedded"
+                            class="cover-image profile-picOne img-fluid"
+                            src="{{'https://www.youtube.com/embed/'.$companyInfo->cover_embed}}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+
 
                     @else
                         <img id="display" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid"  >
@@ -339,6 +384,17 @@
                             </a>
                         </div>
 
+                    @elseif($record->cover_selection=='embedded')
+                        <iframe
+                            style="height: 450px;"
+                            id="display-embedded"
+                            class="cover-image profile-picOne img-fluid"
+                            src="{{'https://www.youtube.com/embed/'.$record->cover_embed}}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
 
                     @else
                     <img id="display" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid" >
@@ -356,7 +412,8 @@
                                 <div class="dropdown-menu bg-dark p-2" aria-labelledby="dropdownCover">
                                     @foreach([['Upload Cover Photo','upload-buttonOne','fas fa-image','image'],
                                               ['Upload Video','upload-cover-video','fas fa-video-camera','video'],
-                                              ['Upload Slideshow Photos','upload-slideshow','fas fa-sliders','slideshow']] as $action)
+                                              ['Upload Slideshow Photos','upload-slideshow','fas fa-sliders','slideshow'],
+                                              ['Embedded Video URL','upload-embedded','fas fa-chain','embedded']] as $action)
                                         <li class="dropdown-item text-danger p-2 @php echo $action[3]=='video' && auth()->user()->subscription_status!=1 ? 'text-muted disabled' : '' @endphp  {{$action[1]}}">
                                             <i class="{{$action[2]}}"></i> {{$action[0]}}
                                         </li>
@@ -644,6 +701,39 @@
     {{--    Mobile    End Save Contacts Modal--}}
 
 
+    {{--    Video Url Modal   --}}
+    @if(auth()->check())
+        <div class="modal fade" id="embeddedModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form method="post" action="{{route('upload-embedded',auth()->user()->id)}}">
+                        @method('patch')
+                        <div class="modal-header">
+                            <h5 class="modal-title text-danger" id="exampleModalLongTitle">Embedded Video URL</h5>
+                            <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" />
+                            <div class="form-group">
+                                <label for="embedded_url">Enter Video URL</label>
+                                <input type="text" class="form-control" name="embedded_url" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Save changes</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+    {{--    End Video Url Modal    --}}
+
+
     <div class="profileWrapper_Mob">
         <!-- Profile Heaer Start -->
         <header class="headerProfile cursor-light">
@@ -680,7 +770,7 @@
 {{--                <div id="con">--}}
                     {{--                    --}}
 
-                @if (isset($companyInfo) && ($record->cover_image=="" && $record->cover_video==""))
+                @if (isset($companyInfo) && ($record->cover_image=="" && $record->cover_video=="" && $record->cover_slideshow=="" && $record->cover_embed==""))
                     @if($companyInfo->cover_selection=='video')
                         <video id="display-video" controls autoplay muted loop class="cover-image profile-picOne img-fluid" >
                             <source src="{{asset($companyInfo->cover_video)}}">
@@ -705,6 +795,19 @@
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
+
+                    @elseif($companyInfo->cover_selection=='embedded')
+                        <iframe
+                            style="height: 250px;"
+                            id="display-embedded"
+                            class="cover-image profile-picOne img-fluid"
+                            src="{{'https://www.youtube.com/embed/'.$companyInfo->cover_embed}}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
+
 
                     @else
                         <img id="display2" src="{{asset(($companyInfo->cover_image?$companyInfo->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid"  >
@@ -734,6 +837,18 @@
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
+
+                    @elseif($record->cover_selection=='embedded')
+                        <iframe
+                            style="height: 250px;"
+                            id="display-embedded"
+                            class="cover-image profile-picOne img-fluid"
+                            src="{{'https://www.youtube.com/embed/'.$record->cover_embed}}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        >
+                        </iframe>
 
                     @else
                         <img id="display2" src="{{asset(($record->cover_image?$record->cover_image:'assets/front/images/cover.jpg'))}}"  class="cover-image profile-picOne img-fluid" >
@@ -765,7 +880,8 @@
                                     <div class="p-2">
                                         @foreach([['Upload Cover Photo','upload-buttonTwo','fas fa-image','image'],
                                                   ['Upload Video','upload-cover-video','fas fa-video-camera','video'],
-                                                  ['Upload Slideshow Photos','upload-slideshow','fas fa-sliders','slideshow']] as $action)
+                                                  ['Upload Slideshow Photos','upload-slideshow','fas fa-sliders','slideshow'],
+                                                  ['Embedded Video URL','upload-embedded','fas fa-chain','embedded']] as $action)
                                             <li class="dropdown-item text-danger p-2 @php echo $action[3]=='video' && auth()->user()->subscription_status!=1 ? 'text-muted disabled' : '' @endphp  {{$action[1]}}">
                                                 <i class="{{$action[2]}}"></i> {{$action[0]}}
                                             </li>
@@ -1275,7 +1391,11 @@
             $('#cover_slideshow').on('change',function () {
                 $('#slideshow_Form').submit();
             });
-
+            //embedded youtube video
+            $('.upload-embedded').on('click',function () {
+                $("#uploadSelection").modal('hide');
+                $('#embeddedModal').modal('show');
+            });
         });
         $(document).ready(function () {
             // var readURL = function (input) {
