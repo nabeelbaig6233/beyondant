@@ -18,6 +18,7 @@
 
     <!-- Custom Stylesheet -->
     <link type="text/css" rel="stylesheet" href="{{asset('assets/front/css/login.css')}}">
+    <link href="{{asset('assets/front/css/translate.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
     <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 
@@ -84,6 +85,12 @@
         $(".loader").fadeOut("slow");
     });
 </script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
 
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <!-- Login page -->
     <div class="login_wrapper">

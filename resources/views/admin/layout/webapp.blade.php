@@ -5,7 +5,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166321286-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-166321286-1');
@@ -25,8 +29,11 @@
     <link href="{{asset('assets/admin/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
     <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
-
+    @if(auth()->user()->role_id!==1)
+        <link rel="stylesheet" href="{{ asset('assets/admin/css/translate-admin.css') }}">
+    @endif
     @yield('page_css')
+
 
 </head>
 
@@ -76,6 +83,7 @@
                                             <li><a href="{{route('profile')}}">Basic Profiles</a></li>
                                         @endif
                                         @if(in_array('viewCompany',\Request::get('permission')))
+
                                             <li><a href="{{route('company')}}">Company Profiles</a></li>
                                         @endif
                                         @if(in_array('viewIndividual',\Request::get('permission')))
@@ -97,7 +105,7 @@
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-users"></i>Profile Search<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                            <li><a href="{{route('allProfiles')}}">Search</a></li>
+                                        <li><a href="{{route('allProfiles')}}">Search</a></li>
                                     </ul>
                                 </li>
 
@@ -112,6 +120,7 @@
                         <div class="menu_section">
                             <h3>Profile</h3>
                             <ul class="nav side-menu">
+
                                 <li><a><i class="fa fa-eye"></i> {{auth()->user()->role_id===5?"Company Profile":"My Public Profile"}} <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         @if(in_array('viewContact',\Request::get('permission')))
@@ -253,6 +262,7 @@
                 <!-- /menu footer buttons -->
                 <div class="sidebar-footer hidden-small">
                     @if(in_array('updateSetting',\Request::get('permission')))
+
                         <a href="{{route('setting')}}" data-toggle="tooltip" data-placement="top" title="Settings">
                             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </a>
@@ -274,6 +284,7 @@
                 </div>
                 <nav class="nav navbar-nav">
                     <ul class=" navbar-right">
+
                         <li class="nav-item dropdown open" style="padding-left: 15px;">
                             <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
                                id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
@@ -284,6 +295,7 @@
                             <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{url('admin/user/edit/'.Auth::user()->id)}}">
                                     {{auth()->user()->role_id===5?"Company Profile":"My Profile"}}</a>
+
                                 @if(in_array('updateSetting',\Request::get('permission')))
                                     <a class="dropdown-item" href="{{route('setting')}}">Settings</a>
                                 @endif
@@ -294,6 +306,9 @@
                                       style="display: none">@csrf</form>
                             </div>
                         </li>
+                        @if(auth()->user()->role_id!==1)
+                            <li id="google_translate_element"></li>
+                        @endif
 
 
                     </ul>
@@ -328,6 +343,15 @@
 @endif
 @if(session()->has('error'))
     <script type="text/javascript">js_error("{{ session('error') }}")</script>
+@endif
+@if(auth()->user()->role_id!==1)
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
 @endif
 </body>
 </html>
