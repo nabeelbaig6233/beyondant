@@ -4627,7 +4627,7 @@ $("body").on('click', '.multi-image-upload i', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\laravel\adulusbuy\resources\js\admin\custom.js */"./resources/js/admin/custom.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\beyondant\resources\js\admin\custom.js */"./resources/js/admin/custom.js");
 
 
 /***/ })

@@ -19,6 +19,7 @@
 
                         <div class="navbar m-l-auto">
                             <ul class="">
+
                                 <li><i class="fas fa-phone-volume"></i> {{ $setting->phone ?? '' }} <span class="lineSep">|</span></li>
                                 @guest
                                     <li><a href="{{route('login')}}" class="link linkNav">LOGIN</a></li>
@@ -27,7 +28,14 @@
                                     <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="link linkNav">Logout</a></li>
                                     <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                                 @endguest
+
                                 <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all">Buy Now</a>
+
+                                    <div class="trans-u float-right">
+                                        <div id="google_translate_element">
+
+                                        </div>
+                                    </div>
                             </ul>
                         </div>
 

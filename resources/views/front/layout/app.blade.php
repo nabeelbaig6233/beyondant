@@ -19,6 +19,7 @@
     <link href="{{asset('assets/front/css/bootstrap.css')}}" rel="stylesheet" type="text/css">
     <!-- Globally css -->
     <link href="{{asset('assets/front/css/globally.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/front/css/translate.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
     <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 
@@ -31,6 +32,7 @@
 
         gtag('config', 'UA-166321286-1');
     </script>
+
 
     @yield('pageCss')
 
@@ -74,5 +76,12 @@
 @yield('pageJs')
 <script src="//www.socialintents.com/api/chat/socialintents.1.3.js#2c9fa23c7104afe9017118e7a848372d" async="async"></script>
 
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
 </body>
 </html>
