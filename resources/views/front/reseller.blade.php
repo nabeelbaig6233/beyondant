@@ -161,24 +161,24 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-lr">
-                                            <div class="form-group">
-                                                <input autocomplete="date_organized" class="input-text" id="date_organized" name="date_organized" placeholder="Date Organized" type="text" onfocus="(this.type = 'date')" onblur="(this.type='text')">
-                                            </div>
-                                        </div>
+{{--                                        <div class="col-lg-6 col-lr">--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <input autocomplete="date_organized" class="input-text" id="date_organized" name="date_organized" placeholder="Date Organized" type="text" onfocus="(this.type = 'date')" onblur="(this.type='text')">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
                                                 <input autocomplete="name_of_owner" class="input-text" id="name_of_owner" name="name_of_owner" placeholder="Name Of Owner / Principal" type="text">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-lr">
-                                            <div class="form-group">
-                                                <input value="{{ old('num_of_locations') }}" autocomplete="num_of_locations" class="input-text" id="num_of_locations" name="num_of_locations" placeholder="Number Of Locations" type="number">
-                                                @error('num_of_locations')
-                                                    <p style="color: red; text-align: left">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
+{{--                                        <div class="col-lg-6 col-lr">--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <input value="{{ old('num_of_locations') }}" autocomplete="num_of_locations" class="input-text" id="num_of_locations" name="num_of_locations" placeholder="Number Of Locations" type="number">--}}
+{{--                                                @error('num_of_locations')--}}
+{{--                                                    <p style="color: red; text-align: left">{{ $message }}</p>--}}
+{{--                                                @enderror--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
                                                 <input value="{{ old('total_employees') }}" autocomplete="total_employees" class="input-text" id="total_employees" name="total_employees" placeholder="Number Of Employees" type="number">
@@ -189,25 +189,25 @@
                                                 <input autocomplete="sales_employees" class="input-text" id="sales_employees" name="sales_employees" placeholder="Number Of Sales Employees" type="number">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-lr">
-                                            <div class="form-group">
-                                                <input autocomplete="brands" class="input-text" id="brands" name="brands" placeholder="What Brands Do You Deal With?" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-lr">
-                                            <div class="form-group">
-                                                <select autocomplete="approx_turnover" class="input-text" id="approx_turnover" name="approx_turnover">
-                                                    <option @if(old('approx_turnover') === null) selected @endif disabled>Approximate Annual Business Revenue</option>
-                                                    <option @if(old('approx_turnover') === '$0 - $1 Million') selected @endif value="$0 - $1 Million">$0 - $1 Million</option>
-                                                    <option @if(old('approx_turnover') === '$1 - $10 Million') selected @endif value="$1 - $10 Million">$1 - $10 Million</option>
-                                                    <option @if(old('approx_turnover') === '$10+ Million') selected @endif value="$10+ Million">$10+ Million</option>
-                                                    <option @if(old('approx_turnover') === 'Other (Please Specify)') selected @endif value="Other (Please Specify)">Other (Please Specify)</option>
-                                                </select>
-                                                @error('approx_turnover')
-                                                    <p style="color: red; text-align: left">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
+{{--                                        <div class="col-lg-6 col-lr">--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <input autocomplete="brands" class="input-text" id="brands" name="brands" placeholder="What Brands Do You Deal With?" type="text">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-lg-12 col-lr">--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <select autocomplete="approx_turnover" class="input-text" id="approx_turnover" name="approx_turnover">--}}
+{{--                                                    <option @if(old('approx_turnover') === null) selected @endif disabled>Approximate Annual Business Revenue</option>--}}
+{{--                                                    <option @if(old('approx_turnover') === '$0 - $1 Million') selected @endif value="$0 - $1 Million">$0 - $1 Million</option>--}}
+{{--                                                    <option @if(old('approx_turnover') === '$1 - $10 Million') selected @endif value="$1 - $10 Million">$1 - $10 Million</option>--}}
+{{--                                                    <option @if(old('approx_turnover') === '$10+ Million') selected @endif value="$10+ Million">$10+ Million</option>--}}
+{{--                                                    <option @if(old('approx_turnover') === 'Other (Please Specify)') selected @endif value="Other (Please Specify)">Other (Please Specify)</option>--}}
+{{--                                                </select>--}}
+{{--                                                @error('approx_turnover')--}}
+{{--                                                    <p style="color: red; text-align: left">{{ $message }}</p>--}}
+{{--                                                @enderror--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <div class="col-lg-12 col-lr" id="approx_turnover_box" @if(old('approx_turnover') !== 'Other (Please Specify)') style="display: none" @endif>
                                             <div class="form-group">
                                                 <textarea autocomplete="approx_turnover_description" class="input-text" id="approx_turnover_description" name="approx_turnover_description" placeholder="Please Specify *" style="height: 30vh">{{ old('approx_turnover_description') }}</textarea>
