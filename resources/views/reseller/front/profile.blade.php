@@ -129,7 +129,7 @@
     <div class="row quick-links-section">
         <span class="w-100 bg-white divider-white"></span>
         <div class="col-12 p-0">
-            <div class="links-section">
+            <div class="links-section" style="background-image: url('{{asset('assets/reseller/front/images/quick-links-back.png')}}');">
                 <div class="row col-xl-10 offset-xl-1 col-lg-12">
                     <div class="col-xl-3 col-lg-4 col-md-6">
                         <h1 class="link-heading">About</h1>
