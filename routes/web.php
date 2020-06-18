@@ -160,6 +160,8 @@ Route::middleware(['allowguest'])->group(function (){
     Route::post('/upload-profile-pic/{id}','ProfileController@uploadProfilePic')->name('upload-profile-pic');
     Route::view('/reseller','front.reseller')->name('reseller');
     Route::post('/reseller-submit', 'ResellerController@index')->name('reseller.submit');
+    //Reseller Profile
+    Route::get("/reseller/profile/{id}","ResellerController@profile")->name('reseller.profile');
 });
 
 Route::middleware(['customer'])->group(function () {
