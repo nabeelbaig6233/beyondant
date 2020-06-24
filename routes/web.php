@@ -111,6 +111,8 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::get('/reseller/view/{id}','ResellerController@view');
     Route::delete('/reseller/destroy/{id}','ResellerController@destroy');
     Route::post('/reseller/delete_all','ResellerController@delete_all')->name('reseller.delete_all');
+    Route::get('/reseller/update/{id}',"ResellerController@edit")->name('reseller.edit');
+    Route::patch('/reseller/update/{id}',"ResellerController@update")->name('reseller.update');
 
     // Entrepreneurs
     Route::get('/entrepreneurs','EntrepreneursController@index')->name('admin.entrepreneurs');

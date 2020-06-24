@@ -9,6 +9,57 @@
 @endsection
 
 @section('content')
+
+{{--  Edit Modal  --}}
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="editResellerForm">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title text-white">Edit Reseller</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 form-group">
+                        <input type="text" name="first_name" placeholder="Enter First Name." class="form-control">
+                    </div>
+                    <div class="col-12 form-group">
+                        <input type="text" name="last_name" placeholder="Enter Last Name." class="form-control">
+                    </div>
+                    <div class="col-12 form-group">
+                        <input type="email" name="email" placeholder="Enter Reseller Email." class="form-control">
+                    </div>
+                    <div class="col-12 form-group">
+                        <input type="text" name="phone_number" placeholder="Enter Phone Number." class="form-control">
+                    </div>
+                    <div class="col-12 form-group">
+                        <input type="text" name="discount_code" placeholder="Enter Reseller Discount Code." class="form-control">
+                    </div>
+                    <div class="col-12 form-group">
+                        <input type="email" name="master_email" placeholder="Enter Master Reseller Email." class="form-control">
+                    </div>
+                    <div class="col-12 form-group">
+                        <input type="text" name="business_status" placeholder="Enter Business Status" class="form-control">
+                    </div>
+                </div>
+                <div class="row col-12 form-group">
+                    <h6 id="master_email_error" class="text-danger"></h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger" id="updstResellerBtn">Save changes</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{--  Edit Modal  --}}
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
@@ -283,6 +334,66 @@
                 ]
             });
 
+            //Update Reseller
+            var reseller_id;
+
+            $(document).on('click','.edit',function () {
+                reseller_id=$(this).attr('id');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'GET',
+                    url: `{{url('admin/'.request()->segment(2).'/update')}}/${reseller_id}`,
+                    success:function (response) {
+                        $("[name=first_name]").val(response.f_name);
+                        $("[name=last_name]").val(response.l_name);
+                        $("[name=email]").val(response.email);
+                        $("[name=master_email]").val(response.master_email);
+                        $("[name=phone_number]").val(response.business_phone);
+                        $("[name=discount_code]").val(response.discount_code);
+                        $("[name=business_status]").val(response.business_status);
+                        $("#editModal").modal('show');
+                    }
+                });
+            });
+
+            $("#editResellerForm").submit(function (e) {
+                e.preventDefault();
+                $("#master_email_error").text("");
+                var text=$("#updstResellerBtn").text();
+                $("#updstResellerBtn").text("Saving...");
+                $("#updstResellerBtn").attr('disabled',true);
+                var values={};
+                $(this).serializeArray().forEach((item)=>{
+                    values[item.name]=item.value;
+                });
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'patch',
+                    url: `{{url('admin/'.request()->segment(2).'/update')}}/${reseller_id}`,
+                    data: {...values},
+                    success:function (response) {
+                        if(response==1){
+                            $("#editModal").modal('hide');
+                            $("#updstResellerBtn").text(text);
+                            $("#updstResellerBtn").attr('disabled',false);
+                            DataTable.ajax.reload();
+                            js_success('Reseller Updated Successfully.');
+                        }else{
+                            $("#updstResellerBtn").text(text);
+                            $("#updstResellerBtn").attr('disabled',false);
+                            var message=response.master_email[0];
+                            $("#master_email_error").text(message);
+                        }
+                    }
+                });
+            });
+
+            //End Update Reseller
+
             // View Records
             $(document,this).on('click','.view',function(){
                 let id = $(this).attr('id');
@@ -320,7 +431,7 @@
                         $("#viewModal").modal('show');
                     }
                 })
-            })
+            });
 
             var delete_id;
             $(document,this).on('click','.delete',function(){
