@@ -74,7 +74,7 @@ class DashboardController extends Controller
                       array_push($data, [$value, $key]);
                   }
                   else {
-                      return;
+                      break;
                   }
                   $count++;
               }
