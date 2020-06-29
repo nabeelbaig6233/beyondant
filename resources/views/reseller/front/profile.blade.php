@@ -69,9 +69,9 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="overlay"></div>
-                    <img class="img-fluid" src="{{asset('assets/reseller/front/images/slider.png')}}" alt="First slide">
+                    <img class="img-fluid" src="{{asset('assets/reseller/front/images/slider.jpg')}}" alt="First slide">
                     <div class="carousel-caption">
-                        <h1 class="display-1 text-uppercase">Start Something Together.</h1>
+                        <h1 class="display-1 text-uppercase">Let’s Put In The Work & Build Business Success!</h1>
                         <div class="carousel-caption-buttons">
                             <a class="btn button-red font-weight-bold" href="#">
                                 <span class="pl-2 pr-2">Join Free</span>
@@ -84,9 +84,9 @@
                 </div>
                 <div class="carousel-item">
                     <div class="overlay"></div>
-                    <img class="img-fluid" src="{{asset('assets/reseller/front/images/slider.png')}}" alt="Second slide">
+                    <img class="img-fluid" src="{{asset('assets/reseller/front/images/slider.jpg')}}" alt="Second slide">
                     <div class="carousel-caption">
-                        <h1 class="display-1 text-uppercase">Start Something Together.</h1>
+                        <h1 class="display-1 text-uppercase">Let’s Put In The Work & Build Business Success!</h1>
                         <div class="carousel-caption-buttons">
                             <a class="btn button-red font-weight-bold" href="#">
                                 <span class="pl-2 pr-2">Join Free</span>
@@ -99,9 +99,9 @@
                 </div>
                 <div class="carousel-item">
                     <div class="overlay"></div>
-                    <img class="img-fluid" src="{{asset('assets/reseller/front/images/slider.png')}}" alt="Third slide">
+                    <img class="img-fluid" src="{{asset('assets/reseller/front/images/slider.jpg')}}" alt="Third slide">
                     <div class="carousel-caption">
-                        <h1 class="display-1 text-uppercase">Start Something Together.</h1>
+                        <h1 class="display-1 text-uppercase">Let’s Put In The Work & Build Business Success!</h1>
                         <div class="carousel-caption-buttons">
                             <a class="btn button-red font-weight-bold" href="#">
                                 <span class="pl-2 pr-2">Join Free</span>
