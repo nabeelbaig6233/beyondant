@@ -1,14 +1,11 @@
 @extends('front.layout.app')
 @section('pageMeta')
-    <meta name="title" content="NFC tags for iPhone, IOS and all apple devices | iPhone NFC Payment">
-    <meta name="description" content="Offering  Near Field Communication/NFC for all iPhone, IOS and Apple devices. We have apple iPhone nfc, ios nfc tags, nfc device iPhone for payments.">
+    <meta name="title" content="NFC Android Phone | Android Devices NFC Service">
+    <meta name="description" content="Offering  Near Field Communication for all android devices. We have android nfc service, nfc android phone & nfc devices android.">
 @endsection
 @section('pageCss')
     <!-- Custom css -->
     <link href="{{asset('assets/front/css/home.min.css')}}" rel="stylesheet" type="text/css">
-    <!--owl carousel css-->
-    <link href="{{asset('assets/front/css/')}}/owl.carousel.min.css" rel="stylesheet">
-    <link href="{{asset('assets/front/css/')}}/owl.theme.default.min.css" rel="stylesheet">
 @endsection
 @section('content')
     <!-- Nav Start -->
@@ -35,11 +32,11 @@
 
                                 <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all">Buy Now</a>
 
-                                    <div class="trans-u float-right">
-                                        <div id="google_translate_element">
+                                <div class="trans-u float-right">
+                                    <div id="google_translate_element">
 
-                                        </div>
                                     </div>
+                                </div>
                             </ul>
                         </div>
 
@@ -82,11 +79,11 @@
                                     </div>
 
                                     <div class="header-text">
-                                        <h2 class="headtop">SEE ME | SCAN ME</h2>
-                                        <h1 class="mainheadtop wow fadeInLeft link">{{ $home->heading1 ?? '' }}</h1>
+                                        <h1 class="mainheadtop wow fadeInLeft link">With NFC You Can Transmute Your Ordinary Life</h1>
                                     </div>
                                     <div class="wow fadeInRight link">
-                                        <p>{{ $home->text1 ?? '' }} </p>
+                                        <p>
+                                            Near field communication (NFC) is an advanced way of communication that allows you to communicate with customers efficiently. Nowadays, NFC has a bigger part to play in the global industry. It is available in almost every customer intensive sector including hotels and hospitals in the form of nfc service android. In the present time, almost all business companies are using NFC technology in various creative ways. If you have an nfc android phone, you can easily transfer information with the blink of an eye. Now almost every smartphone brand has NFC hardware. NFC technology can be used in various ways i.e. NFC stickers and NFC tags. You can program both NFC tags and NFC stickers according to your needs. By programming the stickers and tags you can control your home appliance using this amazing android nfc service. NFC stickers and tags can be acquired from online websites at a low cost. By using the NFC stickers, you can gain memberships and application options.  NFC technology not only works for your smartphones, but it can also be installed in your household appliances by simply ensconcing NFC tags and bracelets in them. Other than your homes, NFC technology can also be installed in your cars. With nfc devices android technology, you can lock, unlock, and start your car.</p>
                                     </div>
                                     <div class="wow fadeInDown m-b-40 m-t-40">
                                         <a class="btn btn-default watchVideo link" href="#myModal" data-toggle="modal">
@@ -111,7 +108,7 @@
             </div>
         </div>
     </section>
-{{--Modal For Selection--}}
+    {{--Modal For Selection--}}
 
     <!-- Button trigger modal -->
     <!-- Modal -->
@@ -125,7 +122,7 @@
                     </button>
                 </div>
                 <form method="post" action="{{route("account_select")}}" >
-                <div class="modal-body">
+                    <div class="modal-body">
 
                         {{csrf_field()}}
                         <div class="form-check form-check-inline p-3">
@@ -135,12 +132,12 @@
                             <label class="form-check-label">Company Account</label>
                         </div>
 
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103" value="Continue" />
-{{--                    <button type="button" form="type" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103">Continue</button>--}}
-{{--                    <a class="btn transparent btn-danger " style="background-color: #be0103" href="{{route('register')}}">Continue</a>--}}
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103" value="Continue" />
+                        {{--                    <button type="button" form="type" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103">Continue</button>--}}
+                        {{--                    <a class="btn transparent btn-danger " style="background-color: #be0103" href="{{route('register')}}">Continue</a>--}}
+                    </div>
                 </form>
             </div>
         </div>
@@ -169,44 +166,42 @@
     <section class="growYourBusiness-slider">
         <div class="container">
             <div class="row">
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-10 offset-md-1 ">
                     <div class="title">
                         <div class="main-title">
-                            <h2 class="wow fadeInDown">{{ $home->heading2 ?? '' }}</span></h2>
+                            <h2 class="wow fadeInDown">Smart Payments Through NFC Technology</h2>
                             <img src="{{asset('assets/front/images/')}}/red-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                            <p class="wow fadeInRight">{{ $home->text2 ?? '' }}</p>
+                            <p class="wow fadeInRight">The android nfc service and technology can be used for various reasons e.g. in the packaging industry. But, on the other hand, NFC also provides its customers the opportunity to transfer money without coming in contact with the receiver. For this, you have to invest in NFC smart cards through which you can make secure cashless credit card payments. These smart cards are designed specially to ease the process of business transactions, paying bills, and purchasing of goods.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-10 offset-md-1 ">
+                    <div class="title">
+                        <div class="main-title">
+                            <h2 class="wow fadeInDown">How NFC Tags Work</h2>
+                            <img src="{{asset('assets/front/images/')}}/red-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
+                            <p class="wow fadeInRight">
+                                In phone to phone communications, the NFC tags work to store information such as contact details, email address, etc. it also includes short text and links of Google play apps. The nfc android phone with NFC tags, works without electric supply, these are basically passive readers which depend on active devices. These passive readers send information to the active devices for example your smartphones or android nfc services enabled devices. The NFC tags work through the magnetic field which is generated by the active devices.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-10 offset-md-1 ">
+                    <div class="title">
+                        <div class="main-title">
+                            <h2 class="wow fadeInDown">How To Enable NFC android phone services in Your Smartphones</h2>
+                            <img src="{{asset('assets/front/images/')}}/red-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
+                            <p class="wow fadeInRight">There are just two things that you need to enable NFC android phone service in your smartphones. First is your smartphone and the other is the NFC tag. You do not have to worry about installing the NFC technology because nowadays almost every smartphone has NFC hardware in it. In order to activate it, you need to open the NFC setting on your phones and change the setting to program the NFC tags. After changing the settings, you can use the programmed tags though NFC bracelets and your smartphones.
+                            </p>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="container wow fadeInUp">
-            <div class="slider-container">
-                <div class="owl-carousel owl-theme" id="business_slider">
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-1.png">
-                        <h3>{{ $home->section_heading1 ?? '' }}</h3>
-                        <p>{{ $home->section_text1 ?? '' }} </p>
-                    </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-2.png">
-                        <h3>{{ $home->section_heading2 ?? '' }}</h3>
-                        <p>{{ $home->section_text2 ?? '' }}</p>
-                    </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-3.png">
-                        <h3>{{ $home->section_heading3 ?? '' }}</h3>
-                        <p>{{ $home->section_text3 ?? '' }}</p>
-                    </div>
 
-
-                </div>
-            </div>
-        </div>
-        <div class="container wow fadeInLeft text-center">
-            <h4 class="babr"><a href="{{ route('reseller') }}" title="Instagram" class="link">Become An Authorized Reseller <span>Click here to Apply</span></a></h4>
-        </div>
     </section>
     <!-- Grow Your Business End -->
 
@@ -219,9 +214,11 @@
                     <img src="{{asset( $home->section_image4 ?? '' )}}" class="pro_img ">
                 </div>
                 <div class="col-lg-6">
-                    <h2 class="wow fadeInLeft">{{ $home->section_heading4 ?? '' }}</h2>
+                    <h2 class="wow fadeInLeft">Beyondant Digital Business Cards with NFC Technology</h2>
                     <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                    <p class="wow fadeInRight">{{ $home->section_text4 ?? '' }}</p>
+                    <p class="wow fadeInRight">There is no doubt that the rapidly growing technological inventions have changed all traditional ways of life. Similarly, new digital business cards have replaced the old-fashioned paper business cards. Here at Beyondant, you can have your own digital business cards that permit you to share the given information with your customers. Instead of handing over your business card to the customers, just swipe it against the NFC enabled smartphones. By Swiping the card in NFC devices, your contact information will be transferred to the other person in just a few seconds.
+                        <br/>At Beyondant, you can make your own digital business card in just a few steps. We provide you smart business cards with NFC technology at a low cost. By using these cards, you can read and transfer contact information through smartphones. This way you have the advantage of transferring the data fast and with ease.
+                    </p>
                 </div>
             </div>
         </div>
@@ -235,9 +232,11 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="createDesign_text">
-                        <h2 class="wow fadeInLeft"> {{ $home->section_heading5 ?? '' }}</h2>
+                        <h2 class="wow fadeInLeft">Enhance Security with NFC Technology</h2>
                         <img src="{{asset('assets/front/images/')}}/red-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                        <p class="wow fadeInRight">{{ $home->section_text5 ?? '' }}</p>
+                        <p class="wow fadeInRight">NFC service android technology is used at every place nowadays from digital business cards to door locks. This is the smartest technology that can be used efficiently for security purposes. In the present times, verification of identities is required for every purpose. To get entry into an event, hotel, or company, you first need to verify the identity of the guests. It is a lengthy and time taking procedure but with NFC technology it has been made easier. Using your NFC stickers, you can send invitations to everyone. The receiver with the NFC enabled smartphones and NFC bracelets can have the details of the event.
+                           <br/> On the other hand, you can verify the identity of the invited guests by reading their digital business cards. Using the NFC technology, the security team can scan and check the invited guests’ identities. This is not only convenient for the organizers, but also for the guests. Beyondant helps his customers by providing the facility of NFC technology digital business cards through which they can easily share their information with the event organizers.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -249,44 +248,7 @@
     <!-- Create Design End -->
 
 
-    <!-- Stay Connected Start -->
-    <div class="stayConnected text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <h2 class="wow fadeInLeft">Stay Connected</h2>
-                    <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                    <p class="wow fadeInRight">Subscribe to our newsletter for Updates & Offers</p>
 
-                    <form  class="wow fadeInDown" method="post" action="{{route("subscribe")}}">
-                        {{csrf_field()}}
-                        <div class="input-group">
-                            <input type="email" name="email" class="form-control" placeholder="Email Address" required="">
-
-                            <span class="input-group-btn">
-                            <input type="submit" class="btn btn-default subscribe" value="Subscribe">
-
-                        </span>
-                        </div>
-                        <div class="pt-4">
-                            @error("email")
-                                <h4 class="text-danger">{{$message}}</h4>
-                            @enderror
-
-                            @if (session("subscribed"))
-                                    <h4 class="text-success">{{session("subscribed")}}</h4>
-
-                            @endif
-                        </div>
-
-                    </form>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-    <!-- Stay Connected End -->
 
     <!-- Footer Start -->
     <footer class="bayondantFooter cursor-light">
@@ -358,21 +320,21 @@
     <script src="{{asset('assets/front/js/')}}/main.js"></script>
     <script>
         $(document).ready(function(){
-    /* Get iframe src attribute value i.e. YouTube video url
-    and store it in a variable */
-    var url = $("#Vids").attr('src');
+            /* Get iframe src attribute value i.e. YouTube video url
+            and store it in a variable */
+            var url = $("#Vids").attr('src');
 
-    /* Assign empty url value to the iframe src attribute when
-    modal hide, which stop the video playing */
-    $("#myModal").on('hide.bs.modal', function(){
-        $("#Vids").attr('src', '');
-    });
+            /* Assign empty url value to the iframe src attribute when
+            modal hide, which stop the video playing */
+            $("#myModal").on('hide.bs.modal', function(){
+                $("#Vids").attr('src', '');
+            });
 
-    /* Assign the initially stored url back to the iframe src
-    attribute when modal is displayed again */
-    $("#myModal").on('show.bs.modal', function(){
-        $("#Vids").attr('src', url);
-    });
-});
+            /* Assign the initially stored url back to the iframe src
+            attribute when modal is displayed again */
+            $("#myModal").on('show.bs.modal', function(){
+                $("#Vids").attr('src', url);
+            });
+        });
     </script>
 @endsection

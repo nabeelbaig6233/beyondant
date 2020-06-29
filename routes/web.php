@@ -164,6 +164,10 @@ Route::middleware(['allowguest'])->group(function (){
     Route::post('/reseller-submit', 'ResellerController@index')->name('reseller.submit');
     //Reseller Profile
     Route::get("/reseller/profile/{id}","ResellerController@profile")->name('reseller.profile');
+    //nfc-android
+    Route::get('/nfc-android-service', 'HomeController@nfc_android')->name('nfc-android');
+    //nfc-business cards
+    Route::get('/nfc-business-cards', 'HomeController@nfc_business_cards')->name('nfc-business-cards');
 });
 
 Route::middleware(['customer'])->group(function () {

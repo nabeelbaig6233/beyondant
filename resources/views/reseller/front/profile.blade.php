@@ -27,7 +27,6 @@
                     </div>
                     <div class="ml-3">
                         <a class="btn btn-danger button-red text-white"><span class="ml-3 font-weight-bold">Why Beyondant</span></a>
-                      
                         <a href="https://beyondant-products.com/collections/all?discount={{$reseller->discount_code}}" class="btn btn-light button-white text-dark"><span class="ml-3">Shop Devices</span></a>
                     </div>
                 </div>

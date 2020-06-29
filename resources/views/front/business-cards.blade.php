@@ -1,14 +1,11 @@
 @extends('front.layout.app')
 @section('pageMeta')
-    <meta name="title" content="NFC tags for iPhone, IOS and all apple devices | iPhone NFC Payment">
-    <meta name="description" content="Offering  Near Field Communication/NFC for all iPhone, IOS and Apple devices. We have apple iPhone nfc, ios nfc tags, nfc device iPhone for payments.">
+    <meta name="title" content="NFC Tag Business Cards | NFC Business Card Digital">
+    <meta name="description" content="We provide the best business card digital, nfc business card and nfc tag business cards. We have the latest nfc business cards available.">
 @endsection
 @section('pageCss')
     <!-- Custom css -->
     <link href="{{asset('assets/front/css/home.min.css')}}" rel="stylesheet" type="text/css">
-    <!--owl carousel css-->
-    <link href="{{asset('assets/front/css/')}}/owl.carousel.min.css" rel="stylesheet">
-    <link href="{{asset('assets/front/css/')}}/owl.theme.default.min.css" rel="stylesheet">
 @endsection
 @section('content')
     <!-- Nav Start -->
@@ -35,11 +32,11 @@
 
                                 <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all">Buy Now</a>
 
-                                    <div class="trans-u float-right">
-                                        <div id="google_translate_element">
+                                <div class="trans-u float-right">
+                                    <div id="google_translate_element">
 
-                                        </div>
                                     </div>
+                                </div>
                             </ul>
                         </div>
 
@@ -82,11 +79,12 @@
                                     </div>
 
                                     <div class="header-text">
-                                        <h2 class="headtop">SEE ME | SCAN ME</h2>
-                                        <h1 class="mainheadtop wow fadeInLeft link">{{ $home->heading1 ?? '' }}</h1>
+                                        <h1 class="mainheadtop wow fadeInLeft link">Digitalization in Modern Businesses</h1>
                                     </div>
                                     <div class="wow fadeInRight link">
-                                        <p>{{ $home->text1 ?? '' }} </p>
+                                        <p>
+                                            What is the new ‘normal’ for businesses and companies as the global pandemic extends and stretches on? Whether there were a pandemic or not, the modern times have revolutionized and innovated today’s business world. Regardless of the size of the business; whether it is a small, medium, or large- the digital transformation has become of vital importance to all businesses. The advancement of digital technologies and the internet has changed the way businesses operate. There has been a shift from traditional mode of business management and operation to the modern and an overly technology oriented methods of operation like digital and NFC business card and what not. Implementation of technological advancements and infrastructure has a huge impact on the efficiency, relationships, and culture of a business. It brings both, tangible and intangible advantages that not only help you make money, but also meet customer expectations and produce the results of their demand.
+                                        </p>
                                     </div>
                                     <div class="wow fadeInDown m-b-40 m-t-40">
                                         <a class="btn btn-default watchVideo link" href="#myModal" data-toggle="modal">
@@ -111,7 +109,7 @@
             </div>
         </div>
     </section>
-{{--Modal For Selection--}}
+    {{--Modal For Selection--}}
 
     <!-- Button trigger modal -->
     <!-- Modal -->
@@ -125,7 +123,7 @@
                     </button>
                 </div>
                 <form method="post" action="{{route("account_select")}}" >
-                <div class="modal-body">
+                    <div class="modal-body">
 
                         {{csrf_field()}}
                         <div class="form-check form-check-inline p-3">
@@ -135,12 +133,12 @@
                             <label class="form-check-label">Company Account</label>
                         </div>
 
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103" value="Continue" />
-{{--                    <button type="button" form="type" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103">Continue</button>--}}
-{{--                    <a class="btn transparent btn-danger " style="background-color: #be0103" href="{{route('register')}}">Continue</a>--}}
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103" value="Continue" />
+                        {{--                    <button type="button" form="type" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103">Continue</button>--}}
+                        {{--                    <a class="btn transparent btn-danger " style="background-color: #be0103" href="{{route('register')}}">Continue</a>--}}
+                    </div>
                 </form>
             </div>
         </div>
@@ -169,124 +167,43 @@
     <section class="growYourBusiness-slider">
         <div class="container">
             <div class="row">
-                <div class="col-md-10 offset-md-1">
+                <div class="col-md-10 offset-md-1 ">
                     <div class="title">
                         <div class="main-title">
-                            <h2 class="wow fadeInDown">{{ $home->heading2 ?? '' }}</span></h2>
+                            <h2 class="wow fadeInDown">Digital Business Card</h2>
                             <img src="{{asset('assets/front/images/')}}/red-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                            <p class="wow fadeInRight">{{ $home->text2 ?? '' }}</p>
+                            <p class="wow fadeInRight">Since the last decade, there has been a huge change in the business world. The technology driven change has now accelerated its pace, especially with the ongoing pandemic which is not to end anytime soon. Needless to say, customer expectations have risen with exponential growth in the range and amount of technology that is available nowadays.
+                                <br/><br>One of the financially savvy approaches to attract customers' attention is to distribute business cards. You can now create customized NFC tag business cards for every employee with Beyondant. Our platform makes it simpler to design cards. You can create whatever you want in no time! Not only that, but our solution is in high demand because it is easy, fast and works seamlessly with ironclad security features with just a smartphone tap on any of our devices, thereby eliminating the need for physical exchanges. Use our NFC tag business cards to eliminate the physical contact and risk of getting infected with Covid-19 as a result of physical exchange of paper business cards. You can now enable and ensure secure online shopping and create loyalty programs with the use of our Custom cards, Bracelets tags, stickers and other NFC enabled devices and give a boom to your business and social presence.
+                                <br/><br>One can choose his own preference of space, colour, space, logo, picture, typeface, so on and forth. These components come together to have the ideal and desired effect. The impression given by these business cards stays at the rear of the customers' mind and forms some perception and recognition about the brand.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-10 offset-md-1 ">
+                    <div class="title">
+                        <div class="main-title">
+                            <h2 class="wow fadeInDown"><strong>Why Choose Digital Business Card?</strong></h2>
+                            <p class="wow fadeInRight">
+                                Let us enlighten you with why business cards despite everything hold incredible significance even as the business world keeps on changing at an instantaneous rate. Be it a physical business card in the form of paper, or a digital business card, both hold a great significance in the business world. However, what you need to understand is that keeping the current situation all around the world, there is going to be major changes in the business world in the coming times. In fact, the changes have already started to take place. There have already been implementation of digitalization and use of advanced technologies in businesses today. However, this embracing of modern technology was only to some extent. With the global pandemic continuing to exist for a longer time with no certainty of when it would end, the importance of digital business cards has significantly and rapidly increased.
+                                <br><br>In today’s times, there are innumerable advanced digital resources that are being used to share business data with NFC business card being on the top. The development of smartphones has made it much easier to share data quickly rather than having carry cards around and trade it.
+                                <br><br>Paper business cards that are often not put to use appropriately in light of the fact that they are easy to lose, hard to find when required, or they contain insignificant and obsolete information. Whereas digital business cards can be shared way more easily, searched on a single platform when required and safely stored. Not just that, but digital business cards keep automatically updating the individuals in your network regarding the changes that are made in your business contact data and the other way around. Unlike paper business cards, digital business do not require reprinting when any kind of changes are to be made. These are definitely far cheaper than the latter as they require no excessive printing, designing and reprinting.
+                                <br><br>We offer you peace of mind in your nfc business card and business card digital designing smoothly from scratch and taking all your stress away! With our combined years of experience, we take pride in our work and push boundaries to provide our clients the ultimate satisfaction. Beyondant, being a remarkable platform, serves business of all industries as well as everyday consumers. It takes only a few seconds to digitally share social media profiles, contact details, internet marketing information, corporate web site or any other relevant online information. It is our vision to become a recognized leading digital business card creator firm, hence your trust and differentiation is our responsibility.
+                                <br><br>Creating digital business cards assists with growing your business at a quicker pace. You do not need to bother with a visual originator to make an expert business card for you. You are at the right place. We have a brilliant collection of digital business card templates, and you can also get them custom made. You can now easily create your business card digital within seconds with our help. Beyondant makes sure that your customers remember you! Our cards are compatible with Android, iPhone, and tablets and desktop. We provide you with a smoother way to grow your business through networking and help in growing your social following. Hurry up and create your custom digital business cards with and us and boost your customer interaction despite social distancing. It is our job to cater to your needs with meticulous attention!
+
+                            </p>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="container wow fadeInUp">
-            <div class="slider-container">
-                <div class="owl-carousel owl-theme" id="business_slider">
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-1.png">
-                        <h3>{{ $home->section_heading1 ?? '' }}</h3>
-                        <p>{{ $home->section_text1 ?? '' }} </p>
-                    </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-2.png">
-                        <h3>{{ $home->section_heading2 ?? '' }}</h3>
-                        <p>{{ $home->section_text2 ?? '' }}</p>
-                    </div>
-                    <div class="item">
-                        <img src="{{asset('assets/front/images/')}}/b-icon-3.png">
-                        <h3>{{ $home->section_heading3 ?? '' }}</h3>
-                        <p>{{ $home->section_text3 ?? '' }}</p>
-                    </div>
 
-
-                </div>
-            </div>
-        </div>
-        <div class="container wow fadeInLeft text-center">
-            <h4 class="babr"><a href="{{ route('reseller') }}" title="Instagram" class="link">Become An Authorized Reseller <span>Click here to Apply</span></a></h4>
-        </div>
     </section>
     <!-- Grow Your Business End -->
 
 
-    <!-- Our Products Start -->
-    <div class="ourProducts">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <img src="{{asset( $home->section_image4 ?? '' )}}" class="pro_img ">
-                </div>
-                <div class="col-lg-6">
-                    <h2 class="wow fadeInLeft">{{ $home->section_heading4 ?? '' }}</h2>
-                    <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                    <p class="wow fadeInRight">{{ $home->section_text4 ?? '' }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Our Products End -->
 
-
-    <!-- Create Design Start -->
-    <div class="createDesign">
-        <div class="container-fluid paddLR">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="createDesign_text">
-                        <h2 class="wow fadeInLeft"> {{ $home->section_heading5 ?? '' }}</h2>
-                        <img src="{{asset('assets/front/images/')}}/red-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                        <p class="wow fadeInRight">{{ $home->section_text5 ?? '' }}</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="createDesign_img" style="background-image: url('{{ $home->section_image5 ?? '' }}')"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Create Design End -->
-
-
-    <!-- Stay Connected Start -->
-    <div class="stayConnected text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <h2 class="wow fadeInLeft">Stay Connected</h2>
-                    <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                    <p class="wow fadeInRight">Subscribe to our newsletter for Updates & Offers</p>
-
-                    <form  class="wow fadeInDown" method="post" action="{{route("subscribe")}}">
-                        {{csrf_field()}}
-                        <div class="input-group">
-                            <input type="email" name="email" class="form-control" placeholder="Email Address" required="">
-
-                            <span class="input-group-btn">
-                            <input type="submit" class="btn btn-default subscribe" value="Subscribe">
-
-                        </span>
-                        </div>
-                        <div class="pt-4">
-                            @error("email")
-                                <h4 class="text-danger">{{$message}}</h4>
-                            @enderror
-
-                            @if (session("subscribed"))
-                                    <h4 class="text-success">{{session("subscribed")}}</h4>
-
-                            @endif
-                        </div>
-
-                    </form>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-    <!-- Stay Connected End -->
 
     <!-- Footer Start -->
     <footer class="bayondantFooter cursor-light">
@@ -358,21 +275,21 @@
     <script src="{{asset('assets/front/js/')}}/main.js"></script>
     <script>
         $(document).ready(function(){
-    /* Get iframe src attribute value i.e. YouTube video url
-    and store it in a variable */
-    var url = $("#Vids").attr('src');
+            /* Get iframe src attribute value i.e. YouTube video url
+            and store it in a variable */
+            var url = $("#Vids").attr('src');
 
-    /* Assign empty url value to the iframe src attribute when
-    modal hide, which stop the video playing */
-    $("#myModal").on('hide.bs.modal', function(){
-        $("#Vids").attr('src', '');
-    });
+            /* Assign empty url value to the iframe src attribute when
+            modal hide, which stop the video playing */
+            $("#myModal").on('hide.bs.modal', function(){
+                $("#Vids").attr('src', '');
+            });
 
-    /* Assign the initially stored url back to the iframe src
-    attribute when modal is displayed again */
-    $("#myModal").on('show.bs.modal', function(){
-        $("#Vids").attr('src', url);
-    });
-});
+            /* Assign the initially stored url back to the iframe src
+            attribute when modal is displayed again */
+            $("#myModal").on('show.bs.modal', function(){
+                $("#Vids").attr('src', url);
+            });
+        });
     </script>
 @endsection
