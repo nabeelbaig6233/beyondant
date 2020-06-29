@@ -7,6 +7,7 @@
     <meta content="Beyondant" name="description">
     <meta content="Beyondant" name="keywords">
     <meta content="Beyondant" name="author">
+    @yield('pageMeta')
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $setting->title ?? '' }}</title>
