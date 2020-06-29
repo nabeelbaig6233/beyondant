@@ -14,7 +14,7 @@
     <!-- Fav icon -->
     <link href="{{asset( $setting->favico ?? '' )}}" rel="shortcut icon">
     <!-- Animate -->
-    <link href="{{asset('assets/front/css/animate.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/front/css/animate.min.css')}}" rel="stylesheet" type="text/css">
     <!--bootstrap css-->
     <link href="{{asset('assets/front/css/bootstrap.css')}}" rel="stylesheet" type="text/css">
     <!-- Globally css -->
