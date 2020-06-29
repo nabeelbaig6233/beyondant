@@ -121,7 +121,7 @@ body{
     position: absolute;
     z-index: 2;
     background-color: #716a72;
-    opacity: 0.8;
+    opacity: 0.4;
 }
 
 .carousel-inner .carousel-caption{
