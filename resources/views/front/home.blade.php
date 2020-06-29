@@ -1,7 +1,11 @@
 @extends('front.layout.app')
+@section('pageMeta')
+    <meta name="title" content="NFC tags for iPhone, IOS and all apple devices | iPhone NFC Payment">
+    <meta name="description" content="Offering  Near Field Communication/NFC for all iPhone, IOS and Apple devices. We have apple iPhone nfc, ios nfc tags, nfc device iPhone for payments.">
+@endsection
 @section('pageCss')
     <!-- Custom css -->
-    <link href="{{asset('assets/front/css/home.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/front/css/home.min.css')}}" rel="stylesheet" type="text/css">
     <!--owl carousel css-->
     <link href="{{asset('assets/front/css/')}}/owl.carousel.min.css" rel="stylesheet">
     <link href="{{asset('assets/front/css/')}}/owl.theme.default.min.css" rel="stylesheet">
