@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     <link rel="icon" href="{{asset('assets/front/images/favicon.png')}}">
-    <link href="{{asset('assets/front/css/animate.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/front/css/animate.min.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet"  href="{{asset('assets/front/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('css/sweetalert.css')}}">
     <link rel="stylesheet" href="{{asset('css/alert.css')}}">
