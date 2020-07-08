@@ -238,7 +238,7 @@
                 <div class="col-lg-6 ">
                     <img alt="" class="wow fadeInRight" src="{{asset( $setting->logo ?? '' )}}">
                     <p class="wow fadeInRight">{{ $setting->footer_text ?? '' }} </p>
-                    <div class="row col-12 wow bounceInRight" id="footer_links">
+                    <div class="row col-12 wow bounceInRight footer_links">
                         <ul>
                             <li><a href="{{route('nfc-android')}}" target="_blank">NFC Android</a></li>
                             <li><a href="{{route('nfc-business-cards')}}" target="_blank">Business Cards</a></li>
