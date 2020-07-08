@@ -6,7 +6,7 @@
 @endsection
 {{--Content--}}
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid asd">
 {{--    Header --}}
     <div class="row header">
 {{-- Language Selection --}}
@@ -199,6 +199,56 @@
                 <p class="footer-content">Copyright &copy; 2020 Beyondant | All Rights Reserved</p>
             </div>
     </div>
+    <style>
+    @media (max-width:767px){
+        .header .language {
+    text-align: right;
+}
+.header .authorized-reseller {
+    display: inline-block;
+}
+.header .authorized-reseller {
+    display: inline-block;
+    text-align: center;
+}
+.header .authorized-reseller a.btn.btn-light,
+.header .button-red{
+    width: 100%;
+    margin: 10px 0;
+}
+.navbar-section {
+    padding: 0px 0px 25px 0px;
+    background-color: #08325a;
+    border-bottom: 10px solid #bd1e2c;
+    position: relative;
+    z-index: 3;
+    margin-top: 0%;
+}
+.carousel .carousel-control-next, .carousel-control-prev {
+    width: 5%;
+    opacity: 1;
+}
+.carousel-caption-buttons {
+    display: none;
+}
+.carousel-inner .carousel-caption {
+    justify-content: center;
+    align-items: center;
+    top: 30%;
+    padding: 10px;
+    width: 75%;
+}
+.header {
+    height: 100%;
+}
+.display-1 {
+    font-size: 1rem;
+}
+.links-section h1.link-heading {
+    font-size: 30px;
+}        
+}
+</style>
 {{--  Footer End's  --}}
 </div>
 @endsection
