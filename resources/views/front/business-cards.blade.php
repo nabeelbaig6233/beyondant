@@ -238,6 +238,12 @@
                 <div class="col-lg-6 ">
                     <img alt="" class="wow fadeInRight" src="{{asset( $setting->logo ?? '' )}}">
                     <p class="wow fadeInRight">{{ $setting->footer_text ?? '' }} </p>
+                    <div class="row col-12 wow bounceInRight" id="footer_links">
+                        <ul>
+                            <li><a href="{{route('nfc-android')}}" target="_blank">NFC Android</a></li>
+                            <li><a href="{{route('nfc-business-cards')}}" target="_blank">Business Cards</a></li>
+                        </ul>
+                    </div>
                     <img alt="" class="wow fadeInRight m-t-40" src="{{asset('assets/front/images/')}}/email-icon.png">
                     <p class="wow fadeInRight contactDetails">{{ $setting->email ?? '' }} <span>{{ $setting->phone ?? '' }}</span></p>
                     <p class="wow fadeInRight contactDetails">{{ $setting->address ?? '' }}</p>
