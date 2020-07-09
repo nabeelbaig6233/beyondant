@@ -5049,5 +5049,10 @@ input:checked + .slider:before {
     cursor: pointer;
     color: #ff0000a8;
 }
+//custom dashboard css
+div#u-card-body {
+    min-height: 450px;
+    /* background: red; */
+}
 
 

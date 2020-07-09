@@ -159,9 +159,11 @@
                             <img alt="" class="img-fluid link lW" src="{{asset('assets/front/images/')}}/logo-dark.png">
                         </a>
                     </div>
-                    <div class="col-sm-2 col-4 text-right">
+                    <div class="col-sm-6 col-4 text-right">
                         @guest
                         @else
+                            <a href="#" class="d-inline-block m-r-auto user-logout" data-toggle="modal" data-target="#upgrade-profile" >Upgrade</a>
+
                             <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-inline-block m-r-auto user-logout">Logout</a>
                             <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                         @endguest
@@ -647,7 +649,6 @@
             </div>
         </div>
     </div>
-    </div>
 
     {{--END Mobile Cropping Modal--}}
 
@@ -989,6 +990,75 @@
         <i class="fa fa-chevron-up"></i>
     </div>
     <!-- Tap On Top Ends -->
+{{--    update profile modal--}}
+    <div class="modal fade" id="upgrade-profile" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form  method="get" action="{{url('upgrade-front-profile/'.$record->id)}}">
+                    <div class="modal-header" style="background-color: #be0103;">
+                        <h5 class="modal-title text-white" id="exampleModalLongTitle">Upgrade Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                @if($record->acc_type==='personal')
+                                    <input type="radio" name="profile_name" value="company"> <label>Company Account</label><br>
+                                    <input type="radio" name="profile_name" value="multi"> <label>Multi Device Account</label>
+                                @endif
+                                @if($record->acc_type==='company')
+                                    <input type="radio" name="profile_name" value="personal"  @if($record->acc_type==='company') id="company-users-delete-alert"  data-toggle="modal" data-target="#company-user-alert" @endif> <label>Personal</label><br>
+                                    <input type="radio" name="profile_name" value="multi" @if($record->acc_type==='company') id="company-users-delete-alert" data-toggle="modal" data-target="#company-user-alert" @endif> <label>Multi Device Account</label>
+                                @endif
+                                @if($record->acc_type==='individual')
+                                        <input type="radio" name="profile_name" value="personal"  > <label>Personal</label><br>
+                                        <input type="radio" name="profile_name" value="company" > <label>Company Account</label><br>
+                                @endif
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-lg mr-auto close_meet_mob" data-dismiss="modal" >Close</button>
+                        <button type="submit" class="btn btn-danger btn-lg continue_contact_mob" style="background-color: #be0103;">Downgrade</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{{--    //end upgrade profile modal--}}
+{{--    alert for delete company user record--}}
+    <div class="modal fade" id="company-user-alert" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form  method="get" action="{{url('upgrade-front-profile/'.$record->id)}}">
+                    <div class="modal-header" style="background-color: #be0103;">
+                        <h5 class="modal-title text-white" id="exampleModalLongTitle">Alert! </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                               <p> <b> Are You Sure You Want To Delete Employees  Permanently? </b></p>
+                            </div>
+                        </div>
+                        <input type="hidden" name="only-company-user" id="company-upgrade"/>
+                        <input type="hidden" name="delete-users" value="delete-user"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-lg mr-auto close_meet_mob" data-dismiss="modal" >Back</button>
+                        <button type="submit" class="btn btn-danger btn-lg continue_contact_mob" id="delete-user-company" style="background-color: #be0103;" >Delete & Upgrade</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('pageJs')
 
@@ -1652,6 +1722,11 @@
             $(".upload-buttonThree").on('click', function () {
                 $(".file-uploadThree").click();
             });
+            $("body").on("click",'#company-users-delete-alert',function(){
+                ///alert();
+                   // $('#upgrade-profile').modal("hide");
+               $('#company-upgrade').val($(this).val());
+            })
         });
     </script>
 @endsection

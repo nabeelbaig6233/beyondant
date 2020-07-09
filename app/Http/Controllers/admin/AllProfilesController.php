@@ -10,7 +10,7 @@ class AllProfilesController extends Controller
 {
     public function index()
     {
-        $content['title'] = ucwords(str_replace('-',' ',request()->segment(2)));
+        $content['title'] = ucwords(str_replace('-', ' ', request()->segment(2)));
         if (request()->ajax()) {
             $query = User::where([['role_id', '<>', 1], ['role_id', '<>', 4]])->get();
             return datatables()->of($query)->
@@ -27,55 +27,76 @@ class AllProfilesController extends Controller
             addColumn('profile_link', function ($data) {
                 return '<a target="_blank" href="' . route('pro', $data->id) . '">' . $data->first_name . '</a>';
             })->
-            addColumn('account_type', function ($data) {
+            addColumn('action', function($data){
+                $checked=$data->overridden_profile===1?'checked':'';
+                if($data->acc_type==='personal'){
+                $actions='<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Show Devices" type="button" name="device" id="'.$data->id.'" class="device btn btn-primary btn-sm"><i class="fa fa-laptop"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                $company=auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>&nbsp;<button title="Link Profile" type="button" name="link_profile" id="' . $data->id . '" class="link_profile btn btn-primary btn-sm"><i class="fa fa-chain"></i></button>
+                                                                   <div class="custom-control custom-switch">
+                                                                      <input type="checkbox" class="custom-control-input override" '.$checked.' id="switch:'.$data->id.'">
+                                                                      <label class="custom-control-label" for="switch:'.$data->id.'">Switch Off For Employee</label>
+                                                                    </div>': $actions;
+                $upgrade=auth()->user()->role_id===1?$company.'<button title="Upgrade To Multi Device Profile" type="button" name="upgrade" id="'.$data->id.'" class="upgrade btn btn-dark btn-sm"><i class="fa fa-users"></i></button>&nbsp;<button title="Login As This User" type="button" name="login_user" id="'.$data->id.'" class="login_user btn btn-danger btn-sm"><i class="fa fa-user"></i></button>':$company;
+                return $upgrade;}
+                if($data->acc_type==='company'){
+                    $actions='<button title="View" type="button" name="view" id="' . $data->id . '" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Show Employees" type="button" name="show_emp" id="' . $data->id . '" class="show_emp btn btn-info btn-sm"><i class="fa fa-user"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Add Employee" type="button" name="add_employee" id="'.$data->id.'" class="add_employee btn btn-primary btn-sm"><i class="fa fa-user-plus"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>&nbsp;';
+                    return auth()->user()->role_id===1?$actions.'<button title="Login As This User" type="button" name="login_user" id="'.$data->id.'" class="login_user btn btn-danger btn-sm"><i class="fa fa-user"></i></button>':$actions;
+                }
+                if($data->acc_type==='individual'){
+                    $actions='<button title="View" type="button" name="view" id="' . $data->id . '" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Show Devices" type="button" name="device" id="' . $data->id . '" class="device btn btn-primary btn-sm"><i class="fa fa-laptop"></i></button>&nbsp;<button title="Add Devices" type="button" name="add_device" id="' . $data->id . '"  class="add_device btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                    return auth()->user()->role_id===1?$actions.'<button title="Login As This User" type="button" name="login_user" id="'.$data->id.'" class="login_user btn btn-danger btn-sm"><i class="fa fa-user"></i></button>':$actions;
+                }
+
+            })->addColumn('account_type', function ($data) {
 //                $checked=$data->overridden_profile===1?'checked':'';
 //                $actions='<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Show Devices" type="button" name="device" id="'.$data->id.'" class="device btn btn-primary btn-sm"><i class="fa fa-laptop"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
 //                $actions = '<button title="View" type="button" name="view" id="' . $data->id . '" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
-                //
+                    //
 //                $company=auth()->user()->role_id===5?$actions.'<button title="Edit" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-success btn-sm"><i class="fa fa-pencil"></i></button>&nbsp;<button title="Link Profile" type="button" name="link_profile" id="' . $data->id . '" class="link_profile btn btn-primary btn-sm"><i class="fa fa-chain"></i></button>
 //                                                                   <div class="custom-control custom-switch">
 //                                                                      <input type="checkbox" class="custom-control-input override" '.$checked.' id="switch:'.$data->id.'">
 //                                                                      <label class="custom-control-label" for="switch:'.$data->id.'">Switch Off For Employee</label>
 //                                                                    </div>': $actions;
 //                $upgrade=auth()->user()->role_id===1?$company.'<button title="Upgrade To Multi Device Profile" type="button" name="upgrade" id="'.$data->id.'" class="upgrade btn btn-dark btn-sm"><i class="fa fa-users"></i></button>&nbsp;<button title="Login As This User" type="button" name="login_user" id="'.$data->id.'" class="login_user btn btn-danger btn-sm"><i class="fa fa-user"></i></button>':$company;
-   //             return $actions;
-                $role='';
-                $color='';
-                switch($data->role_id){
-                    case 2:
-                        $role='Basic';
-                        $color='primary';
-                        break;
-                    case 5:
-                        $role='Company';
-                        $color='secondary';
-                        break;
-                    case 7:
-                        $role='Multi Device';
-                        $color='success';
-                        break;
-                }
-                $badge='<h4 class="badge badge-'.$color.' badge-pill">'.$role.'</h4>';
-                return $badge;
-            })->rawColumns(['checkbox', 'account_type', 'image', 'profile_link', 'views'])->make(true);
-        }
-
-        return view('admin.'.request()->segment(2).'.list')->with($content);
-    }
-
-    public function delete_all(Request $request)
-    {
-        if (!in_array('deleteUserProfile',\Request::get('permission'))) {
-            return redirect('admin');
-        }
-        if ($request->input('checkbox_value')) {
-            $id = $request->input('checkbox_value');
-            for ($i=0; $i < count($id); $i++) {
-                $data = User::findorFail($id[$i]);
-                $data->delete();
+                    //             return $actions;
+                    $role = '';
+                    $color = '';
+                    switch ($data->role_id) {
+                        case 2:
+                            $role = 'Basic';
+                            $color = 'primary';
+                            break;
+                        case 5:
+                            $role = 'Company';
+                            $color = 'secondary';
+                            break;
+                        case 7:
+                            $role = 'Multi Device';
+                            $color = 'success';
+                            break;
+                    }
+                    $badge = '<h4 class="badge badge-' . $color . ' badge-pill">' . $role . '</h4>';
+                    return $badge;
+                })->rawColumns(['checkbox','account_type', 'image', 'profile_link', 'views','action'])->make(true);
             }
-            echo "Selected records Deleted Successfully.";
-        }
+
+        return view('admin.' . request()->segment(2) . '.list')->with($content);
     }
 
-}
+        public
+        function delete_all(Request $request)
+        {
+            if (!in_array('deleteUserProfile', \Request::get('permission'))) {
+                return redirect('admin');
+            }
+            if ($request->input('checkbox_value')) {
+                $id = $request->input('checkbox_value');
+                for ($i = 0; $i < count($id); $i++) {
+                    $data = User::findorFail($id[$i]);
+                    $data->delete();
+                }
+                echo "Selected records Deleted Successfully.";
+            }
+        }
+
+    }

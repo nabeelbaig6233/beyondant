@@ -28,6 +28,8 @@ class DashboardController extends Controller
             $content['profile'] = User::where('role_id', 2)->count();
             $content['user'] = User::where('role_id', '<>', 2)->count();
         }
+
+
         $content['downloads']=auth()->user()->role_id===1?downloads::count():downloads::where("user_id",auth()->user()->id)->count();
         return view('admin.welcome',$content);
     }
@@ -36,55 +38,59 @@ class DashboardController extends Controller
         if($request->ajax()){
             $filterData=auth()->user()->role_id===1?
                 views::select('google_dated','views_count')
-                ->whereBetween('google_dated',[$request->get('startDate'),$request->get('endDate')])
-                ->get()->groupBy('google_dated')
-                ->map(function($data){return $data->sum('views_count');}):
+                    ->whereBetween('google_dated',[$request->get('startDate'),$request->get('endDate')])
+                    ->get()->groupBy('google_dated')
+                    ->map(function($data){return $data->sum('views_count');}):
                 views::select('google_dated','views_count')
-                ->where('path','/public/profile/'.auth()->user()->id)
-                ->whereBetween('google_dated',[$request->get('startDate'),$request->get('endDate')])
-                ->get()->groupBy('google_dated')
-                ->map(function($data){return $data->sum('views_count');});
+                    ->where('path','/public/profile/'.auth()->user()->id)
+                    ->whereBetween('google_dated',[$request->get('startDate'),$request->get('endDate')])
+                    ->get()->groupBy('google_dated')
+                    ->map(function($data){return $data->sum('views_count');});
             $data=[];
             foreach ($filterData as $key => $value) {
-                    array_push($data, [$value, $key]);
+                array_push($data, [$value, $key]);
             }
-            echo json_encode($data);
-            return ;
+
+            return $data;
         }
     }
 
     public function getAnalyticsData($id){
-        if(request()->ajax()){
+        if($id){
 //        $analyticsClass=new AnalyticsData();
 //        $analytics=$analyticsClass->initializeAnalytics();
 //        $profile = $analyticsClass->getFirstProfileId($analytics);
 //        $results = $analyticsClass->getResults($analytics, $profile,$id.'');
-          $collection=auth()->user()->role_id===1?views::select('views_count','google_dated')
-                          ->get()->groupBy('google_dated')
-                          ->map(function($ss){return $ss->sum('views_count');})
-                          ->sort(function ($data){return $data;})
-                          :views::select('views_count','google_dated')
-                          ->where('path','/public/profile/'.$id)
-                          ->latest('google_dated')->limit(30)->get();
-          $data=[];
-          $count=1;
-          if(auth()->user()->role_id===1) {
-              foreach ($collection as $key => $value) {
-                  if($count<=30) {
-                      array_push($data, [$value, $key]);
-                  }
-                  else {
-                      return;
-                  }
-                  $count++;
-              }
-              echo json_encode($data);
-          }else{
-              foreach ($collection as $item) {
-                  array_push($data, [$item->views_count, $item->google_dated]);
-              }
-              echo json_encode($data);
-          }
+            $collection=auth()->user()->role_id===1?views::select('views_count','google_dated')
+                ->get()->groupBy('google_dated')
+                ->map(function($ss){return $ss->sum('views_count');})
+                ->sort(function ($data){return $data;})
+                :views::select('views_count','google_dated')
+                    ->where('path','/public/profile/'.$id)
+                    ->latest('google_dated')->limit(30)->get();
+            $data=[];
+            $count=1;
+
+            if(auth()->user()->role_id===1) {
+                foreach ($collection as $key => $value) {
+                    if ($key >=  date('Y-m-d',strtotime('-7 day'))) {
+
+
+                        if ($count <= 30) {
+                            array_push($data, [$value, $key]);
+                        } else {
+                            break;
+                        }
+                        $count++;
+                    }
+                }
+                return  $data;
+            }else{
+                foreach ($collection as $item) {
+                    array_push($data, [$item->views_count, $item->google_dated]);
+                }
+                $data;
+            }
         }
         else{
             return abort(404);

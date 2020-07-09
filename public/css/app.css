@@ -17851,3 +17851,8 @@ input:checked + .slider:before {
   color: #ff0000a8;
 }
 
+div#u-card-body {
+  min-height: 450px;
+  /* background: red; */
+}
+

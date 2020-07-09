@@ -29,7 +29,7 @@
                                     <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                                 @endguest
 
-                                <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all">Buy Now</a>
+                                <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all/">Buy Now</a>
 
                                     <div class="trans-u float-right">
                                         <div id="google_translate_element">
