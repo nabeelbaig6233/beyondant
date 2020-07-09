@@ -30,15 +30,18 @@ class ProfileController extends Controller
     public function index($id)
     {
         $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->orWhere([['role_id','=',5],['id','=',$id]])->orWhere([['role_id','=',7],['id','=',$id]])->first();
-//        dd($content['record']->parent_id);
+
         if (!empty($content['record'])) {
             if (Auth::check()) {
+
                 if(auth()->user()->id!=$id){
+
                     return redirect()->route('pro',auth()->user()->id);
                 }
                 if(auth()->user()->parent_id==0){
                     $content["companyInfo"]=User::find(User::find($id)->parent_id);
-                    return view('front.profile',$content);}
+                    return view('front.profile',$content);
+                }
                 else{
                     $content["companyInfo"]=User::find(User::find($id)->parent_id);
                     return view('front.profile',$content);
@@ -527,6 +530,65 @@ class ProfileController extends Controller
         $meeting->delete();
         return $this->user_contacts();
     }
+    protected function upgrade_profile_front($id, Request $req)
+    {
+        $user = User::find($id);
+        if ($req->input('profile_name') === 'multi' || $req->input('only-company-user')==='multi') {
+            if(auth()->user()->role_id===5){
+
+                $content=array(
+                    'profile_status'=>'changed'
+                );
+                \DB::table('users')->where('parent_id',$id)->update($content);
+
+            }
+
+            $user->role_id = 7;
+            $user->acc_type = 'individual';
+            $user->save();
+
+            if($req->input('only-company-user')) {
+                User::where('parent_id', $id)->delete();
+
+            }
+            //  Mail::to($user->email)->send(new UpgradeNotification($user->first_name, "Multi Device Beyondant Account"));
+            return redirect('/admin')->with('Account Upgraded Successfully. The User Will Receive An Email Shortly.');
+        } else if ($req->input('profile_name') === 'company') {
+            //auth()->logout();
+
+            $user->role_id = 5;
+            $user->acc_type = 'company';
+            if($user->save()) {
+
+                $content = array(
+                    'profile_status' => 'none'
+                );
+                \DB::table('users')->where('parent_id', $id)->update($content);
+            }
+
+            return redirect('/admin')->with('Account Upgraded Successfully. Login Again');
+
+        } else if ($req->input('profile_name') === 'personal' || $req->input('only-company-user')==='personal') {
+            if(auth()->user()->role_id===5){
+
+                $content=array(
+                    'profile_status'=>'changed'
+                );
+                \DB::table('users')->where('parent_id',$id)->update($content);
+
+            }
+
+            $user->role_id = 2;
+            $user->acc_type = 'personal';
+            $user->save();
+            if($req->input('only-company-user')) {
+                User::where('parent_id', $id)->delete();
+            }
+            return redirect('/admin')->with('Account Upgraded Successfully. Login Again');
+
+        }
+    }
+
 
 
 
