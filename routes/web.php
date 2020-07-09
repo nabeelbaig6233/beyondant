@@ -111,6 +111,8 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::get('/reseller/view/{id}','ResellerController@view');
     Route::delete('/reseller/destroy/{id}','ResellerController@destroy');
     Route::post('/reseller/delete_all','ResellerController@delete_all')->name('reseller.delete_all');
+    Route::get('/reseller/update/{id}',"ResellerController@edit")->name('reseller.edit');
+    Route::patch('/reseller/update/{id}',"ResellerController@update")->name('reseller.update');
 
     // Entrepreneurs
     Route::get('/entrepreneurs','EntrepreneursController@index')->name('admin.entrepreneurs');
@@ -153,7 +155,9 @@ Route::middleware(['allowguest'])->group(function (){
 
     Route::get('/profile/{user_id?}/devices/{id?}','ProfileController@device_profile')->name('device_profile');
     //shorten url for redirecting device
-    Route::get('/profile/{user_id}/D{id}','ProfileController@device_profile_new_shorten')->name('device_profile_shorten');
+    Route::get('/profile/{user_id}/D{id}','ProfileController@device_profile_shorten')->name('device_profile_shorten');
+    //more shorten url for redirecting device
+    Route::get('/pro/{user_id}/D{id}','ProfileController@device_profile_new_shorten')->name('device_profile_new_shorten');
     Route::post('/profile/{id}/meet','ProfileController@meet_email')->name("meet");
     Route::get('/vcards','ProfileController@vcards')->name('vcards');
     Route::post('/profile/register','ProfileController@register')->name('profile-register');
@@ -164,6 +168,12 @@ Route::middleware(['allowguest'])->group(function (){
     Route::post('/upload-profile-pic/{id}','ProfileController@uploadProfilePic')->name('upload-profile-pic');
     Route::view('/reseller','front.reseller')->name('reseller');
     Route::post('/reseller-submit', 'ResellerController@index')->name('reseller.submit');
+    //Reseller Profile
+    Route::get("/reseller/profile/{id}","ResellerController@profile")->name('reseller.profile');
+    //nfc-android
+    Route::get('/nfc-android-service', 'HomeController@nfc_android')->name('nfc-android');
+    //nfc-business cards
+    Route::get('/nfc-business-cards', 'HomeController@nfc_business_cards')->name('nfc-business-cards');
 });
 
 Route::middleware(['customer'])->group(function () {

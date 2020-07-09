@@ -7,6 +7,7 @@
     <meta content="Beyondant" name="description">
     <meta content="Beyondant" name="keywords">
     <meta content="Beyondant" name="author">
+    @yield('pageMeta')
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $setting->title ?? '' }}</title>
@@ -14,7 +15,7 @@
     <!-- Fav icon -->
     <link href="{{asset( $setting->favico ?? '' )}}" rel="shortcut icon">
     <!-- Animate -->
-    <link href="{{asset('assets/front/css/animate.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/front/css/animate.min.css')}}" rel="stylesheet" type="text/css">
     <!--bootstrap css-->
     <link href="{{asset('assets/front/css/bootstrap.css')}}" rel="stylesheet" type="text/css">
     <!-- Globally css -->
@@ -22,6 +23,17 @@
     <link href="{{asset('assets/front/css/translate.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
     <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144906877-36"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-144906877-36');
+    </script>
+
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166321286-1"></script>

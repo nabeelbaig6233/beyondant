@@ -16,6 +16,15 @@ class HomeController extends Controller
     }
 
 
+    public function nfc_android(){
+        $home = home::findOrFail(1);
+        return view('front.nfc-android',["home"=>$home]);
+    }
+
+    public function nfc_business_cards(){
+        $home = home::findOrFail(1);
+        return view('front.business-cards',["home"=>$home]);
+    }
 
     public function select_account(){
         request()->validate([

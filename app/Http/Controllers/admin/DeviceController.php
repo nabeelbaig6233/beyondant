@@ -79,7 +79,7 @@ class DeviceController extends Controller
             $device->user_id = $request->get("id");
             $device->redirected_url = route('pro',$device->user_id);
             $device_no=$countDevices+1;
-            $device->profile_url = route('device_profile_shorten',['user_id'=>$device->user_id,'id'=>$device_no]);
+            $device->profile_url = route('device_profile_new_shorten',['user_id'=>$device->user_id,'id'=>$device_no]);
             //route('device_profile',["user_id"=>$device->user_id,"id"=>$device_no]);
             $device->save();
             echo 1;

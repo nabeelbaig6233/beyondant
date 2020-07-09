@@ -61,6 +61,7 @@ class DashboardController extends Controller
 //        $analytics=$analyticsClass->initializeAnalytics();
 //        $profile = $analyticsClass->getFirstProfileId($analytics);
 //        $results = $analyticsClass->getResults($analytics, $profile,$id.'');
+
             $collection=auth()->user()->role_id===1?views::select('views_count','google_dated')
                 ->get()->groupBy('google_dated')
                 ->map(function($ss){return $ss->sum('views_count');})
@@ -89,8 +90,9 @@ class DashboardController extends Controller
                 foreach ($collection as $item) {
                     array_push($data, [$item->views_count, $item->google_dated]);
                 }
-                $data;
+               return $data;
             }
+
         }
         else{
             return abort(404);

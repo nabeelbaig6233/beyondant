@@ -1,0 +1,245 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
+/*Header*/
+.header{
+    height: 175px;
+    background-color: #032545;
+}
+
+.header .language{
+    color: #bcc5cd;
+}
+
+.header #google_translate_element{
+    display: inline-flex;
+}
+
+.header .goog-te-gadget .goog-te-combo{
+    !important;
+    background-color: #032545;
+    border: none;
+    margin: 0;
+}
+
+.header .authorized-reseller{
+    display: inline-flex;
+}
+
+.header .authorized-reseller img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.header .authorized-reseller .contact p{
+    color: white;
+}
+
+.header .authorized-reseller .contact a,a:hover{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.header .shop-button-section{
+    display: inline-flex;
+}
+/*Header Ends*/
+
+.button-red{
+    background-color: #bd1e2c;
+    color: white;
+    border-radius: 0px;
+    padding: 12px 35px;
+    font-weight: 400;
+}
+
+.button-blue{
+    background-color: #032545;
+    color: white;
+    border-radius: 0px;
+    padding: 12px 35px;
+    font-weight: 300;
+}
+
+.button-white{
+    background-color: white;
+    color: black;
+    border-radius: 0px;
+    padding: 12px 35px;
+    font-weight: 400;
+}
+
+.button-red:hover{
+    font-weight: 400;
+}
+
+.button-blue:hover{
+    font-weight: 300;
+}
+
+.button-white:hover{
+    font-weight: 400;
+}
+
+/*Navbar*/
+
+.navbar-section{
+    padding: 0px 0px 25px 0px;
+    background-color: #08325a;
+    border-bottom: 10px solid #bd1e2c;
+    position: absolute;
+    z-index: 3;
+    margin-top: -3%;
+}
+
+.navbar-section .navbar{
+    background: none;
+}
+
+.navbar-section .navbar .navbar-collapse{
+    margin-top: 14px;
+}
+
+.navbar-section .navbar-nav{
+    margin-left: 20%;
+}
+
+.navbar-section .navbar-nav .nav-link{
+    font-weight: bold;
+    color: white;
+    margin-right: 40px;
+}
+/* Navbar Ends*/
+
+/*Carousel*/
+.carousel-inner .carousel-item .overlay{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    background-color: #716a72;
+    opacity: 0.4;
+}
+
+.carousel-inner .carousel-caption{
+    justify-content: center;
+    align-items: center;
+    top: 43%;
+}
+
+.carousel-inner .carousel-caption h1{
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.carousel-inner .carousel-caption .carousel-caption-buttons{
+    margin-top: 20px;
+}
+
+.carousel .carousel-control-next,.carousel-control-prev{
+    width: 30%;
+    opacity: 1;
+}
+
+.carousel .carousel-control-prev-icon,.carousel-control-next-icon{
+    height: 45px;
+    width: 45px;
+}
+/*Carousel End's*/
+
+/*Quick Links*/
+.quick-links-section{
+    padding-top: 25px;
+    background-color: #032545;
+}
+
+.quick-links-section .divider-white{
+    height: 30px;
+}
+
+.quick-links-section .links-section{
+    padding-top: 80px;
+    padding-bottom: 90px;
+}
+
+.quick-links-section .links-section .link-heading{
+    text-transform: uppercase;
+    color: black;
+}
+
+.quick-links-section .links-section .quick-box{
+    list-style-type: none;
+    padding: 0;
+}
+
+.quick-links-section .links-section .quick-box li{
+    padding: 13px 0px;
+}
+
+.quick-links-section .links-section .quick-box li a{
+    color: black;
+    font-weight: 600;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.quick-links-section .links-section .email-subsec{
+    padding-top: 20px;
+}
+
+.quick-links-section .links-section .email-subsec img{
+    padding-bottom: 15px;
+}
+
+.quick-links-section .links-section .email-subsec .email{
+    text-transform: uppercase;
+    font-size: 12px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.quick-links-section .links-section .email-subsec .phone-number{
+    font-size: 19px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.quick-links-section .links-section .follow-us-subsec{
+    padding-top: 25px;
+    color: #cd1b17;
+}
+
+.quick-links-section .links-section .follow-us-subsec p{
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.quick-links-section .links-section .follow-us-subsec ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+.quick-links-section .links-section .follow-us-subsec ul li{
+    float: left;
+    padding: 0px 7px;
+}
+
+.quick-links-section .links-section .follow-us-subsec ul li a{
+    color: #cd1b17;
+}
+/*Quick Links End'*/
+/*Footer*/
+.footer{
+    background-color: #032545;
+    padding: 10px 0px;
+}
+
+.footer .footer-content{
+    padding-top: 22px;
+    font-size: 13px;
+    color: #ffffff;
+}
+/*Footer End's*/
