@@ -33,13 +33,13 @@
                                     <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                                 @endguest
 
-                                <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all">Buy Now</a>
+                                <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all/">Buy Now</a>
 
-                                    <div class="trans-u float-right">
-                                        <div id="google_translate_element">
+                                <div class="trans-u float-right">
+                                    <div id="google_translate_element">
 
-                                        </div>
                                     </div>
+                                </div>
                             </ul>
                         </div>
 
@@ -86,7 +86,7 @@
                                         <h1 class="mainheadtop wow fadeInLeft link">{{ $home->heading1 ?? '' }}</h1>
                                     </div>
                                     <div class="wow fadeInRight link">
-                                        
+
                                     </div>
                                     <div class="wow fadeInDown m-b-40 m-t-40">
                                         <a class="btn btn-default watchVideo link" href="#myModal" data-toggle="modal">
@@ -111,7 +111,7 @@
             </div>
         </div>
     </section>
-{{--Modal For Selection--}}
+    {{--Modal For Selection--}}
 
     <!-- Button trigger modal -->
     <!-- Modal -->
@@ -125,7 +125,7 @@
                     </button>
                 </div>
                 <form method="post" action="{{route("account_select")}}" >
-                <div class="modal-body">
+                    <div class="modal-body">
 
                         {{csrf_field()}}
                         <div class="form-check form-check-inline p-3">
@@ -135,12 +135,12 @@
                             <label class="form-check-label">Company Account</label>
                         </div>
 
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103" value="Continue" />
-{{--                    <button type="button" form="type" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103">Continue</button>--}}
-{{--                    <a class="btn transparent btn-danger " style="background-color: #be0103" href="{{route('register')}}">Continue</a>--}}
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103" value="Continue" />
+                        {{--                    <button type="button" form="type" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103">Continue</button>--}}
+                        {{--                    <a class="btn transparent btn-danger " style="background-color: #be0103" href="{{route('register')}}">Continue</a>--}}
+                    </div>
                 </form>
             </div>
         </div>
@@ -172,11 +172,12 @@
                     <img src="{{asset( $home->section_image4 ?? '' )}}" class="pro_img ">
                 </div>
                 <div class="col-lg-6">
-                    <!--<h2 class="wow fadeInLeft">{{ $home->section_heading4 ?? '' }}</h2>-->
+
+                <!--<h2 class="wow fadeInLeft">{{ $home->section_heading4 ?? '' }}</h2>-->
                     <h2 class="wow fadeInLeft">About Us</h2>
                     <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
                     <p class="wow fadeInRight">{{ $home->text1 ?? '' }}</p>
-                    
+
                 </div>
             </div>
         </div>
@@ -289,11 +290,11 @@
                         </div>
                         <div class="pt-4">
                             @error("email")
-                                <h4 class="text-danger">{{$message}}</h4>
+                            <h4 class="text-danger">{{$message}}</h4>
                             @enderror
 
                             @if (session("subscribed"))
-                                    <h4 class="text-success">{{session("subscribed")}}</h4>
+                                <h4 class="text-success">{{session("subscribed")}}</h4>
 
                             @endif
                         </div>
@@ -340,6 +341,12 @@
                 <div class="col-lg-6 ">
                     <img alt="" class="wow fadeInRight" src="{{asset( $setting->logo ?? '' )}}">
                     <p class="wow fadeInRight">{{ $setting->footer_text ?? '' }} </p>
+                    <div class="row col-12 wow bounceInRight footer_links" >
+                        <ul>
+                            <li><a href="{{route('nfc-android')}}" target="_blank">NFC Android</a></li>
+                            <li><a href="{{route('nfc-business-cards')}}" target="_blank">Business Cards</a></li>
+                        </ul>
+                    </div>
                     <img alt="" class="wow fadeInRight m-t-40" src="{{asset('assets/front/images/')}}/email-icon.png">
                     <p class="wow fadeInRight contactDetails">{{ $setting->email ?? '' }} <span>{{ $setting->phone ?? '' }}</span></p>
                     <p class="wow fadeInRight contactDetails">{{ $setting->address ?? '' }}</p>
@@ -377,21 +384,21 @@
     <script src="{{asset('assets/front/js/')}}/main.js"></script>
     <script>
         $(document).ready(function(){
-    /* Get iframe src attribute value i.e. YouTube video url
-    and store it in a variable */
-    var url = $("#Vids").attr('src');
+            /* Get iframe src attribute value i.e. YouTube video url
+            and store it in a variable */
+            var url = $("#Vids").attr('src');
 
-    /* Assign empty url value to the iframe src attribute when
-    modal hide, which stop the video playing */
-    $("#myModal").on('hide.bs.modal', function(){
-        $("#Vids").attr('src', '');
-    });
+            /* Assign empty url value to the iframe src attribute when
+            modal hide, which stop the video playing */
+            $("#myModal").on('hide.bs.modal', function(){
+                $("#Vids").attr('src', '');
+            });
 
-    /* Assign the initially stored url back to the iframe src
-    attribute when modal is displayed again */
-    $("#myModal").on('show.bs.modal', function(){
-        $("#Vids").attr('src', url);
-    });
-});
+            /* Assign the initially stored url back to the iframe src
+            attribute when modal is displayed again */
+            $("#myModal").on('show.bs.modal', function(){
+                $("#Vids").attr('src', url);
+            });
+        });
     </script>
 @endsection

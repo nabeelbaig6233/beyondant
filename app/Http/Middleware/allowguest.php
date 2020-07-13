@@ -20,6 +20,7 @@ class allowguest
         view()->share(
             'setting',$setting
         );
+
         return $next($request);
     }
 }

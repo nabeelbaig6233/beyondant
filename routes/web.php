@@ -136,6 +136,8 @@ Route::post('/save_account', "ProfileController@save_account")->name("save_accou
 Route::get('/profile/contacts','ProfileController@user_contacts')->name('my_contacts');
 Route::delete('/profile/contacts/destroy/{id}','ProfileController@delete_contact');
 
+
+
 Auth::routes(["register"=>false]);
 
 
@@ -146,7 +148,11 @@ Route::middleware(['allowguest'])->group(function (){
     Route::post('/subscribe', 'HomeController@subscribe')->name("subscribe");
     Route::get('/entrepreneurs','EntrepreneursController@index')->name("entrepreneurs");
     Route::post('/entrepreneurs','EntrepreneursController@store')->name("entrepreneurs.submit");
+    //basic profile route or others
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
+    //upgrade profile
+    Route::get('/upgrade-front-profile/{id?}','ProfileController@upgrade_profile_front')->name('upgrade-front-profile');
+
     Route::get('/profile/{user_id?}/devices/{id?}','ProfileController@device_profile')->name('device_profile');
     //shorten url for redirecting device
     Route::get('/profile/{user_id}/D{id}','ProfileController@device_profile_shorten')->name('device_profile_shorten');
