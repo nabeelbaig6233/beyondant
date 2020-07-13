@@ -1,3 +1,8 @@
 .env
 .env.backup
 index.php
+public/sitemap.xml
+dev
+.idea
+.well-known
+desktop

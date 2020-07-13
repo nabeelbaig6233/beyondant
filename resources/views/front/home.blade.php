@@ -86,7 +86,7 @@
                                         <h1 class="mainheadtop wow fadeInLeft link">{{ $home->heading1 ?? '' }}</h1>
                                     </div>
                                     <div class="wow fadeInRight link">
-                                        <p>{{ $home->text1 ?? '' }} </p>
+                                        
                                     </div>
                                     <div class="wow fadeInDown m-b-40 m-t-40">
                                         <a class="btn btn-default watchVideo link" href="#myModal" data-toggle="modal">
@@ -163,6 +163,25 @@
             </div>
         </div>
     </div>
+
+    <!-- More about us -->
+    <div class="ourProducts more-about-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="{{asset( $home->section_image4 ?? '' )}}" class="pro_img ">
+                </div>
+                <div class="col-lg-6">
+                    <!--<h2 class="wow fadeInLeft">{{ $home->section_heading4 ?? '' }}</h2>-->
+                    <h2 class="wow fadeInLeft">About Us</h2>
+                    <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
+                    <p class="wow fadeInRight">{{ $home->text1 ?? '' }}</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- More about us End -->
 
 
     <!-- Grow Your Business Start -->
