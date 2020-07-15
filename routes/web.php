@@ -103,6 +103,7 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
 
     // Reseller
     Route::get('/reseller','ResellerController@index')->name('admin.reseller');
+    Route::post('/reseller','ResellerController@save')->name('admin.create.reseller');
     Route::get('/reseller/view/{id}','ResellerController@view');
     Route::delete('/reseller/destroy/{id}','ResellerController@destroy');
     Route::post('/reseller/delete_all','ResellerController@delete_all')->name('reseller.delete_all');
