@@ -51,6 +51,35 @@ class ResellerController extends Controller
     }
 
 
+    public function save(){
+        if(request()->ajax()){
+            $validator=Validator::make(request()->all(),[
+                "first_name"=>'required',
+                "last_name"=>'required',
+                "reseller_level"=>"required",
+                "status"=>"required",
+                "email"=>"unique:reseller,email"
+            ]);
+            if($validator->fails()){
+                return response()->json($validator->getMessageBag()->toArray());
+            }
+            else{
+                $reseller=new reseller();
+                $reseller->f_name=request()->get('first_name')??"";
+                $reseller->l_name=request()->get('last_name')??"";
+                $reseller->reseller_level=request()->get("reseller_level")??"";
+                $reseller->discount_code=request()->get('discount_code')??"";
+                $reseller->business_phone=request()->get('phone_number')??"";
+                $reseller->email=request()->get('email')??"";
+                $reseller->status=request()->get('status')??"";
+                $reseller->sponsor_name=request()->get("sponsor_name")??"";
+                $reseller->save();
+                return 1;
+            }
+        }
+    }
+
+
     public function update($id){
         if(request()->ajax()){
             $validator=Validator::make(request()->all(),[
@@ -74,6 +103,8 @@ class ResellerController extends Controller
                 $reseller->business_phone=request()->get('phone_number')??"";
                 $reseller->email=request()->get('email')??"";
                 $reseller->business_status=request()->get('business_status')??"";
+                $reseller->status=request()->get('status')??"";
+                $reseller->reseller_level=request()->get("reseller_level")??"";
                 $reseller->save();
                 return 1;
             }
