@@ -45,6 +45,21 @@
                     <div class="col-12 form-group">
                         <input type="text" name="business_status" placeholder="Enter Business Status" class="form-control">
                     </div>
+                    <div class="col-12 form-group">
+                        <select class="form-control" name="status" required>
+                            <option value="">Select Status</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-12 form-group">
+                        <select class="form-control" name="reseller_level" required>
+                            <option value="">Select Level for Reseller</option>
+                            @foreach(['Platinum','Gold','Silver','Bronze','Copper','Stainless','Iron'] as $level)
+                                <option value="{{$level}}">{{$level}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="row col-12 form-group">
                     <h6 id="master_email_error" class="text-danger"></h6>
@@ -60,6 +75,80 @@
 </div>
 
 {{--  Edit Modal  --}}
+
+{{--  Add Modal  --}}
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="addResellerForm">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title text-white">Create New Reseller</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 text-center p-2" id="addResellerLoader" style="display: none">
+                            <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <input type="text" name="first_name" placeholder="Enter First Name." required class="form-control">
+                        </div>
+                        <div class="col-12 form-group">
+                            <input type="text" name="last_name" placeholder="Enter Last Name." required class="form-control">
+                        </div>
+                        <div class="col-12 form-group">
+                            <input type="email" name="email" placeholder="Enter Reseller Email." required class="form-control">
+                        </div>
+                        <div class="col-12 form-group">
+                            <input type="text" name="phone_number" placeholder="Enter Phone Number." required class="form-control">
+                        </div>
+                        <div class="col-12 form-group">
+                            <input type="text" name="discount_code" placeholder="Enter Reseller Discount Code."  class="form-control">
+                        </div>
+                        <div class="col-12 form-group">
+                            <input type="text" name="sponsor_name" placeholder="Enter Sponsor Name."  class="form-control">
+                        </div>
+                        <div class="col-12 form-group">
+                            <select class="form-control" name="status" required>
+                                <option value="">Select Status</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="col-12 form-group">
+                            <select class="form-control" name="reseller_level" required>
+                                <option value="">Select Level for Reseller</option>
+                                @foreach(['Platinum','Gold','Silver','Bronze','Copper','Stainless','Iron'] as $level)
+                                    <option value="{{$level}}">{{$level}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row col-12 form-group" id="errors">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" id="addResellerBtn">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{--  Add Modal  --}}
+
+
+
+
+
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
@@ -94,6 +183,7 @@
                                         <table id="example1" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <button type="button" class="btn btn-danger btn-xs" id="delete_all">Delete</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" id="add_resller">Add Reseller</button>
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
@@ -106,6 +196,8 @@
                                                 <th>{{ucwords(str_replace('_',' ','country'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','state'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','city'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','level'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','status'))}}</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -330,11 +422,22 @@
                     {data: 'country', name: 'country'},
                     {data: 'state', name: 'state'},
                     {data: 'city', name: 'city'},
+                    {data: 'reseller_level', name: 'level'},
+                    {data: 'status', name: 'status',render:function (data, type, row, meta) {
+                        var status=data==0?["danger","Inactive"]:["success","Active"];
+                        return '<span class="badge badge-'+status[0]+'">'+status[1]+'</span>';
+                    }},
                     {data: 'action', name: 'action', orderable: false}
                 ]
             });
 
             //Update Reseller
+
+
+            $('#editModal').on('hidden.bs.modal', function () {
+                $("#editResellerForm").trigger('reset');
+            });
+
             var reseller_id;
 
             $(document).on('click','.edit',function () {
@@ -393,6 +496,69 @@
             });
 
             //End Update Reseller
+
+            //Add Reseller
+
+            $('#addModal').on('shown.bs.modal', function () {
+                $('#addResellerForm').trigger('reset');
+            });
+
+            $('#addModal').on('hidden.bs.modal', function () {
+                $("#errors").empty("");
+                $("#addResellerLoader").css({display:'none'});
+                $("#addResellerBtn").text("Create");
+                $("#addResellerBtn").attr('disabled',false);
+                $("#addResellerForm").trigger('reset');
+            });
+
+
+            $("#addResellerForm").submit(function (e) {
+                e.preventDefault();
+                $("#addResellerBtn").text("Creating...");
+                $("#addResellerBtn").attr('disabled',true);
+                $("#addResellerLoader").css({display:'block'});
+                var values={};
+                $(this).serializeArray().forEach((item)=>{
+                    values[item.name]=item.value;
+                });
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    url: `{{route("admin.create.reseller")}}`,
+                    data: {...values},
+                    success:function (response) {
+                        if(response==1){
+                            $("#addModal").modal('hide');
+                            DataTable.ajax.reload();
+                            js_success('Reseller Created Successfully.');
+                        }else{
+                            $("#addResellerBtn").text("Create");
+                            $("#addResellerBtn").attr('disabled',false);
+                            $("#addResellerLoader").css({display:'none'});
+                            var errorDiv=$("#errors");
+                            if(response.email){
+                                errorDiv.append('<p class="text-danger">'+response.email[0]+'</p>');
+                            }
+                            if(response.first_name){
+                                errorDiv.append('<p class="text-danger">'+response.first_name[0]+'</p>');
+                            }
+                            if(response.last_name){
+                                errorDiv.append('<p class="text-danger">'+response.last_name[0]+'</p>');
+                            }
+                            if(response.reseller_level){
+                                errorDiv.append('<p class="text-danger">'+response.reseller_level[0]+'</p>');
+                            }
+                            if(response.status){
+                                errorDiv.append('<p class="text-danger">'+response.status[0]+'</p>');
+                            }
+                        }
+                    }
+                });
+            });
+            //End's Add Reseller
+
 
             // View Records
             $(document,this).on('click','.view',function(){

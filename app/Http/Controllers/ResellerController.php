@@ -23,11 +23,11 @@ class ResellerController extends Controller
 
     public function profile($id){
         $reseller=reseller::find($id);
-        if(!empty($reseller)) {
+        if(!empty($reseller)&&$reseller->status==1) {
             return view('reseller.front.profile', ["reseller" => $reseller]);
         }
         else{
-            return redirect()->route('home');
+            return redirect()->route('home')->with("error","Your Profile Is Under Process.");
         }
     }
 
