@@ -200,13 +200,12 @@
 
                             <th>{{ucwords(str_replace('_',' ','id'))}}</th>
                             <th>{{ucwords(str_replace('_',' ','f_name'))}}</th>
-                            <th>{{ucwords(str_replace('_',' ','email'))}}</th>
-                            <th>{{ucwords(str_replace('_',' ','website'))}}</th>
-                            <th>{{ucwords(str_replace('_',' ','address'))}}</th>
-                            <th>{{ucwords(str_replace('_',' ','address_line_two'))}}</th>
-                            <th>{{ucwords(str_replace('_',' ','country'))}}</th>
-                            <th>{{ucwords(str_replace('_',' ','state'))}}</th>
                             <th>{{ucwords(str_replace('_',' ','city'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','state'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','Discount Code'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','level'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','link'))}}</th>
+
 
                         </tr>
                         </thead>
@@ -484,13 +483,12 @@
                     {data: 'id', name: 'id'},
                     {data: 'f_name', name: 'f_name'},
 
-                    {data: 'email', name: 'email'},
-                    {data: 'website', name: 'website'},
-                    {data: 'address', name: 'address'},
-                    {data: 'address_line_two', name: 'address_line_two'},
-                    {data: 'country', name: 'country'},
-                    {data: 'state', name: 'state'},
                     {data: 'city', name: 'city'},
+                    {data: 'state', name: 'state'},
+                    {data: 'discount_code', name: 'discount_code'},
+                    {data: 'reseller_level', name: 'reseller_level'},
+                    {data: 'link', name: 'link'},
+
 
                 ]
             });
