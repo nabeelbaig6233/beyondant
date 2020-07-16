@@ -37,6 +37,15 @@
                         <input type="text" name="phone_number" placeholder="Enter Phone Number." class="form-control">
                     </div>
                     <div class="col-12 form-group">
+                        <input type="text" name="city" placeholder="Enter City." class="form-control">
+                    </div>
+                    <div class="col-12 form-group">
+                        <input type="text" name="state" placeholder="Enter State." class="form-control">
+                    </div>
+                    <div class="col-12 form-group">
+                        <textarea name="address" row="2" placeholder="Enter Address." class="form-control"></textarea>
+                    </div>
+                    <div class="col-12 form-group">
                         <input type="text" name="discount_code" placeholder="Enter Reseller Discount Code." class="form-control">
                     </div>
                     <div class="col-12 form-group">
@@ -107,6 +116,15 @@
                         </div>
                         <div class="col-12 form-group">
                             <input type="text" name="phone_number" placeholder="Enter Phone Number." required class="form-control">
+                        </div>
+                        <div class="col-12 form-group">
+                            <input type="text" name="city" placeholder="Enter City." class="form-control">
+                        </div>
+                        <div class="col-12 form-group">
+                            <input type="text" name="state" placeholder="Enter State." class="form-control">
+                        </div>
+                        <div class="col-12 form-group">
+                            <textarea name="address" rows="2" placeholder="Enter Address." class="form-control"></textarea>
                         </div>
                         <div class="col-12 form-group">
                             <input type="text" name="discount_code" placeholder="Enter Reseller Discount Code."  class="form-control">
@@ -198,6 +216,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','city'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','level'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','status'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','profile_url'))}}</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -427,6 +446,7 @@
                         var status=data==0?["danger","Inactive"]:["success","Active"];
                         return '<span class="badge badge-'+status[0]+'">'+status[1]+'</span>';
                     }},
+                    {data: 'profile_url', name: 'profile_url'},
                     {data: 'action', name: 'action', orderable: false}
                 ]
             });
@@ -452,6 +472,9 @@
                         $("[name=first_name]").val(response.f_name);
                         $("[name=last_name]").val(response.l_name);
                         $("[name=email]").val(response.email);
+                        $("[name=city]").val(response.city);
+                        $("[name=state]").val(response.state);
+                        $("[name=address]").val(response.address);
                         $("[name=master_email]").val(response.master_email);
                         $("[name=phone_number]").val(response.business_phone);
                         $("[name=discount_code]").val(response.discount_code);
