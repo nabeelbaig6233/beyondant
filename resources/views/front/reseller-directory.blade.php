@@ -9,6 +9,12 @@
     <!--owl carousel css-->
     <link href="{{asset('assets/front/css/')}}/owl.carousel.min.css" rel="stylesheet">
     <link href="{{asset('assets/front/css/')}}/owl.theme.default.min.css" rel="stylesheet">
+
+    <link href="{{ asset('assets/admin/datatables/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/datatables/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/datatables/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/datatables/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/datatables/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
     <!-- Nav Start -->
@@ -124,20 +130,20 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="{{route("account_select")}}" >
+                <form method="post" action="{{route("account_select")}}">
                     <div class="modal-body">
 
                         {{csrf_field()}}
                         <div class="form-check form-check-inline p-3">
-                            <input type="radio" class="form-check-input" name="account_type" value="personal" checked />
-                            <label class="form-check-label" >Personal Account</label>
-                            <input type="radio" name="account_type" class="form-check-input ml-2" value="company" />
+                            <input type="radio" class="form-check-input" name="account_type" value="personal" checked/>
+                            <label class="form-check-label">Personal Account</label>
+                            <input type="radio" name="account_type" class="form-check-input ml-2" value="company"/>
                             <label class="form-check-label">Company Account</label>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <input type="submit" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103" value="Continue" />
+                        <input type="submit" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103" value="Continue"/>
                         {{--                    <button type="button" form="type" class="btn transparent btn-danger pl-5 pr-5" style="background-color: #be0103">Continue</button>--}}
                         {{--                    <a class="btn transparent btn-danger " style="background-color: #be0103" href="{{route('register')}}">Continue</a>--}}
                     </div>
@@ -165,25 +171,52 @@
     </div>
 
     <!-- More about us -->
-    <div class="ourProducts more-about-us">
+    {{--    <div class="ourProducts more-about-us">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="row">--}}
+    {{--                <div class="col-lg-6">--}}
+    {{--                    <img src="{{asset( $home->section_image4 ?? '' )}}" class="pro_img ">--}}
+    {{--                </div>--}}
+    {{--                <div class="col-lg-6">--}}
+    {{--                <!--<h2 class="wow fadeInLeft">{{ $home->section_heading4 ?? '' }}</h2>-->--}}
+    {{--                    <h2 class="wow fadeInLeft">About Us</h2>--}}
+    {{--                    <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">--}}
+    {{--                    <p class="wow fadeInRight">{{ $home->text1 ?? '' }}</p>--}}
+
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
+    <!-- More about us End -->
+    <section class="growYourBusiness-slider">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
-                    <img src="{{asset( $home->section_image4 ?? '' )}}" class="pro_img ">
-                </div>
-                <div class="col-lg-6">
+                <div class="col-lg-12">
+                    <h2 class="wow fadeInLeft">Reseller Directory</h2>
+                    <table id="example1" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
 
-                <!--<h2 class="wow fadeInLeft">{{ $home->section_heading4 ?? '' }}</h2>-->
-                    <h2 class="wow fadeInLeft">About Us</h2>
-                    <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
-                    <p class="wow fadeInRight">{{ $home->text1 ?? '' }}</p>
+                        <tr>
+
+                            <th>{{ucwords(str_replace('_',' ','id'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','f_name'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','city'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','state'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','Discount Code'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','level'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','link'))}}</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
 
                 </div>
             </div>
         </div>
-    </div>
-    <!-- More about us End -->
-
+    </section>
 
     <!-- Grow Your Business Start -->
     <section class="growYourBusiness-slider">
@@ -192,7 +225,7 @@
                 <div class="col-md-10 offset-md-1">
                     <div class="title">
                         <div class="main-title">
-                            <h2 class="wow fadeInDown">{{ $home->heading2 ?? '' }}</span></h2>
+                            <h2 class="wow fadeInDown"><span>{{ $home->heading2 ?? '' }}</span></h2>
                             <img src="{{asset('assets/front/images/')}}/red-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
                             <p class="wow fadeInRight">{{ $home->text2 ?? '' }}</p>
                         </div>
@@ -278,7 +311,7 @@
                     <img src="{{asset('assets/front/images/')}}/white-line.jpg" class="m-t-20 m-b-20 wow fadeInLeft">
                     <p class="wow fadeInRight">Subscribe to our newsletter for Updates & Offers</p>
 
-                    <form  class="wow fadeInDown" method="post" action="{{route("subscribe")}}">
+                    <form class="wow fadeInDown" method="post" action="{{route("subscribe")}}">
                         {{csrf_field()}}
                         <div class="input-group">
                             <input type="email" name="email" class="form-control" placeholder="Email Address" required="">
@@ -341,7 +374,7 @@
                 <div class="col-lg-6 ">
                     <img alt="" class="wow fadeInRight" src="{{asset( $setting->logo ?? '' )}}">
                     <p class="wow fadeInRight">{{ $setting->footer_text ?? '' }} </p>
-                    <div class="row col-12 wow bounceInRight footer_links" >
+                    <div class="row col-12 wow bounceInRight footer_links">
                         <ul>
                             <li><a href="{{route('nfc-android')}}" target="_blank">NFC Android</a></li>
                             <li><a href="{{route('nfc-business-cards')}}" target="_blank">Business Cards</a></li>
@@ -384,22 +417,83 @@
     <!-- script js-->
     <script src="{{asset('assets/front/js/')}}/main.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             /* Get iframe src attribute value i.e. YouTube video url
             and store it in a variable */
             var url = $("#Vids").attr('src');
 
             /* Assign empty url value to the iframe src attribute when
             modal hide, which stop the video playing */
-            $("#myModal").on('hide.bs.modal', function(){
+            $("#myModal").on('hide.bs.modal', function () {
                 $("#Vids").attr('src', '');
             });
 
             /* Assign the initially stored url back to the iframe src
             attribute when modal is displayed again */
-            $("#myModal").on('show.bs.modal', function(){
+            $("#myModal").on('show.bs.modal', function () {
                 $("#Vids").attr('src', url);
             });
         });
     </script>
+
+    <script src="{{asset('assets/admin/datatables/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{asset('assets/admin/datatables/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
+    <script src="{{asset('assets/admin/jszip/dist/jszip.min.js')}}"></script>
+    <script src="{{asset('assets/admin/pdfmake/build/pdfmake.min.js')}}"></script>
+    <script src="{{asset('assets/admin/pdfmake/build/vfs_fonts.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            var DataTable = $("#example1").DataTable({
+                dom: "Blfrtip",
+                buttons: [{
+                    extend: "copy",
+                    className: "btn-sm"
+                }, {
+                    extend: "csv",
+                    className: "btn-sm"
+                }, {
+                    extend: "excel",
+                    className: "btn-sm"
+                }, {
+                    extend: "pdfHtml5",
+                    className: "btn-sm"
+                }, {
+                    extend: "print",
+                    className: "btn-sm"
+                }],
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                pageLength: 10,
+                ajax: {
+                    url: `{{route('reseller-directory')}}`,
+                },
+                columns: [
+
+                    {data: 'id', name: 'id'},
+                    {data: 'f_name', name: 'f_name'},
+
+                    {data: 'city', name: 'city'},
+                    {data: 'state', name: 'state'},
+                    {data: 'discount_code', name: 'discount_code'},
+                    {data: 'reseller_level', name: 'reseller_level'},
+                    {data: 'link', name: 'link'},
+
+
+                ]
+            });
+        });
+    </script>
+
+
 @endsection

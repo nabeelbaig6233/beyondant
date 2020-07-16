@@ -15,11 +15,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
-
-
-
-
 Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(function(){
     Route::get('/', 'DashboardController@index');
     Route::get('/analytics/{id}', 'DashboardController@getAnalyticsData')->name('google-analytics');
@@ -108,6 +103,7 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
 
     // Reseller
     Route::get('/reseller','ResellerController@index')->name('admin.reseller');
+    Route::post('/reseller','ResellerController@save')->name('admin.create.reseller');
     Route::get('/reseller/view/{id}','ResellerController@view');
     Route::delete('/reseller/destroy/{id}','ResellerController@destroy');
     Route::post('/reseller/delete_all','ResellerController@delete_all')->name('reseller.delete_all');
@@ -174,6 +170,9 @@ Route::middleware(['allowguest'])->group(function (){
     Route::get('/nfc-android-service', 'HomeController@nfc_android')->name('nfc-android');
     //nfc-business cards
     Route::get('/nfc-business-cards', 'HomeController@nfc_business_cards')->name('nfc-business-cards');
+    //reseller-directory
+    Route::get('/reseller-directory', 'ResellerDirectoryController@index')->name('reseller-directory');
+
 });
 
 Route::middleware(['customer'])->group(function () {
