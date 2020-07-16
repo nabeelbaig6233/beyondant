@@ -192,17 +192,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2 class="wow fadeInLeft">Reseller Directory</h2>
+                    <h2 class="wow fadeInLeft">Authorized Reseller Directory </h2>
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">
                         <thead>
 
                         <tr>
 
-                            <th>{{ucwords(str_replace('_',' ','id'))}}</th>
-                            <th>{{ucwords(str_replace('_',' ','f_name'))}}</th>
+
+                            <th>{{ucwords(str_replace('_',' ','Name'))}}</th>
                             <th>{{ucwords(str_replace('_',' ','city'))}}</th>
                             <th>{{ucwords(str_replace('_',' ','state'))}}</th>
-                            <th>{{ucwords(str_replace('_',' ','Discount Code'))}}</th>
+                            <th>{{ucwords(str_replace('_',' ','Reseller Code'))}}</th>
                             <th>{{ucwords(str_replace('_',' ','level'))}}</th>
                             <th>{{ucwords(str_replace('_',' ','link'))}}</th>
 
@@ -480,7 +480,7 @@
                 },
                 columns: [
 
-                    {data: 'id', name: 'id'},
+
                     {data: 'f_name', name: 'f_name'},
 
                     {data: 'city', name: 'city'},
