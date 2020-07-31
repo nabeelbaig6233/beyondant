@@ -26,12 +26,20 @@
 
                                 <li><i class="fas fa-phone-volume"></i> {{ $setting->phone ?? '' }} <span class="lineSep">|</span></li>
                                 @guest
-                                    <li><a href="{{route('login')}}" class="link linkNav">LOGIN</a></li>
+                                @if (\Illuminate\Support\Facades\Auth::guard('reseller')->check())
+                                        <li><a href="{{route('reseller.profile',auth()->guard('reseller')->user()->id)}}" class="link linkNav">View Profile</a></li>
+                                        <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="link linkNav">Logout</a></li>
+                                        <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
+                                @else
+                                        <li><a href="{{route('login')}}" class="link linkNav">LOGIN</a></li>
+                                @endif
                                 @else
                                     <li><a href="{{route('pro',auth()->user()->id)}}" class="link linkNav">View Profile</a></li>
                                     <li><a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="link linkNav">Logout</a></li>
                                     <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
                                 @endguest
+
+
 
                                 <a class="btn btn-default buyNow link" href="https://beyondant-products.com/collections/all/">Buy Now</a>
 

@@ -135,7 +135,8 @@ Route::delete('/profile/contacts/destroy/{id}','ProfileController@delete_contact
 
 
 Auth::routes(["register"=>false]);
-
+Route::get('/login/reseller', 'Auth\LoginController@showResellerLoginForm');
+Route::post('/login/reseller', 'Auth\LoginController@resellerLogin')->name("reseller.login");
 
 
 Route::middleware(['allowguest'])->group(function (){
@@ -181,6 +182,13 @@ Route::middleware(['customer'])->group(function () {
     Route::get('/changepassword/{id}','ProfileController@viewChangePassword')->name('changepassword');
     Route::put('/change-password/{id}', 'ProfileController@changePassword')->name('change-password');
 });
+
+Route::middleware('reseller')->group(function (){
+    Route::get('/edit-reseller-profile','ResellerController@edit_reseller_profile')->name('edit-reseller-profile');
+    Route::patch('/update-reseller-profile','ResellerController@update_reseller_profile')->name('update-reseller-profile');
+    Route::post('/update-reseller-profile-pic','ResellerController@uploadProfilePic')->name('reseller.profile.pic');
+});
+
 Route::fallback(function(){
     return "404 not found";
 });

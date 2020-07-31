@@ -17,6 +17,9 @@ class admin
      */
     public function handle($request, Closure $next)
     {
+        if(!empty(Auth::guard("reseller")->user())){
+            return redirect()->route('reseller.profile',auth()->guard('reseller')->user()->id);
+        }
         if (!empty(Auth::user()->id)) {
             $id = Auth::user()->id;
             $role = \DB::table('roles')->select('roles.name','roles.permission')->whereIn('roles.id',function ($query) use ($id) {

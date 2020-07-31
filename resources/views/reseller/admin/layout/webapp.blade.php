@@ -21,17 +21,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{asset(($setting->favico ?? '')? $setting->favico ?? '' :'assets/admin/images/favicon.ico')}}"
-          type="image/ico"/>
 
-    <title>{{$setting->title ?? ''}}</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link href="{{asset('assets/admin/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/sweetalert.css') }}">
     <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
-    @if(auth()->user()->role_id!==1)
+{{--    @if(auth()->user()->role_id!==1)--}}
         <link rel="stylesheet" href="{{ asset('assets/admin/css/translate-admin.css') }}">
-    @endif
+{{--    @endif--}}
     @yield('page_css')
 
 
@@ -44,7 +41,7 @@
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
                     <a href="{{url('/')}}" class="site_title"><i class="fa fa-paw"></i>
-                        <span>{{$setting->title ?? ''}}</span></a>
+{{--                        <span>{{$setting->title??""}}</span></a>--}}
                 </div>
 
                 <div class="clearfix"></div>
@@ -52,11 +49,11 @@
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="{{asset(Auth::user()->profile_picture)}}" alt="..." class="img-circle profile_img">
+{{--                        <img src="{{asset(Auth::user()->profile_picture)}}" alt="..." class="img-circle profile_img">--}}
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2>{{Auth::user()->first_name." ".Auth::user()->last_name}}</h2>
+                        <h2>{{Auth::user()->f_name." ".Auth::user()->l_name}}</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -116,24 +113,24 @@
 
                     @endif
 
-                    @if (auth()->user()->role_id===5 || auth()->user()->role_id===7)
-                        <div class="menu_section">
-                            <h3>Profile</h3>
-                            <ul class="nav side-menu">
+{{--                    @if (auth()->user()->role_id===5 || auth()->user()->role_id===7)--}}
+{{--                        <div class="menu_section">--}}
+{{--                            <h3>Profile</h3>--}}
+{{--                            <ul class="nav side-menu">--}}
 
-                                <li><a><i class="fa fa-eye"></i> {{auth()->user()->role_id===5?"Company Profile":"My Public Profile"}} <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        @if(in_array('viewContact',\Request::get('permission')))
-                                            <li><a href="{{route('pro',auth()->user()->id)}}" target="_blank">View Profile</a></li>
-                                        @endif
-                                    </ul>
+{{--                                <li><a><i class="fa fa-eye"></i> {{auth()->user()->role_id===5?"Company Profile":"My Public Profile"}} <span class="fa fa-chevron-down"></span></a>--}}
+{{--                                    <ul class="nav child_menu">--}}
+{{--                                        @if(in_array('viewContact',\Request::get('permission')))--}}
+{{--                                            <li><a href="{{route('pro',auth()->user()->id)}}" target="_blank">View Profile</a></li>--}}
+{{--                                        @endif--}}
+{{--                                    </ul>--}}
 
-                                </li>
+{{--                                </li>--}}
 
 
-                            </ul>
-                        </div>
-                    @endif
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
 
 
                     @if (in_array('viewDevice',\Request::get('permission')))
@@ -288,13 +285,13 @@
                         <li class="nav-item dropdown open" style="padding-left: 15px;">
                             <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
                                id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                <img
-                                    src="{{ !empty(Auth::user()->profile_picture)?asset(Auth::user()->profile_picture):asset('assets/admin/images/img.png')}}"
-                                    alt="">{{Auth::user()->name}}
+{{--                                <img--}}
+{{--                                    src="{{ !empty(Auth::user()->profile_picture)?asset(Auth::user()->profile_picture):asset('assets/admin/images/img.png')}}"--}}
+{{--                                    alt="">{{Auth::user()->name}}--}}
                             </a>
                             <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{url('admin/user/edit/'.Auth::user()->id)}}">
-                                    {{auth()->user()->role_id===5?"Company Profile":"My Profile"}}</a>
+{{--                                <a class="dropdown-item" href="{{url('admin/user/edit/'.Auth::user()->id)}}">--}}
+{{--                                    {{auth()->user()->role_id===5?"Company Profile":"My Profile"}}</a>--}}
 
                                 @if(in_array('updateSetting',\Request::get('permission')))
                                     <a class="dropdown-item" href="{{route('setting')}}">Settings</a>
@@ -306,9 +303,9 @@
                                       style="display: none">@csrf</form>
                             </div>
                         </li>
-                        @if(auth()->user()->role_id!==1)
-                            <li id="google_translate_element"></li>
-                        @endif
+{{--                        @if(auth()->user()->role_id!==1)--}}
+{{--                            <li id="google_translate_element"></li>--}}
+{{--                        @endif--}}
 
 
                     </ul>
@@ -324,7 +321,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                {{$setting->title ?? ''}} <a href="{{url('/')}}">Developed by mnb.</a>
+{{--                {{$setting->title??""}} <a href="{{url('/')}}">Developed by mnb.</a>--}}
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -344,7 +341,7 @@
 @if(session()->has('error'))
     <script type="text/javascript">js_error("{{ session('error') }}")</script>
 @endif
-@if(auth()->user()->role_id!==1)
+{{--@if(auth()->user()->role_id!==1)--}}
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script>
 
@@ -352,6 +349,6 @@
             new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
         }
     </script>
-@endif
+{{--@endif--}}
 </body>
 </html>

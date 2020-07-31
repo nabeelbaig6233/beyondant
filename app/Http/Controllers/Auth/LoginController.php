@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -37,10 +39,29 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:reseller')->except('logout');
+    }
+
+    public function showResellerLoginForm()
+    {
+        return view('reseller.front.resellerlogin', ['url' => 'reseller']);
+    }
+
+    public function resellerLogin(Request $request)
+    {
+        $this->validate($request,[
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+        if (Auth::guard('reseller')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+            return redirect()->route('reseller.profile',auth()->guard('reseller')->user()->id);
+        }
+        else {
+            return $this->sendFailedLoginResponse($request);
+        }
     }
 
     public function redirectTo() {
-
         if (!empty(Auth::user()->id)) {
             $id = Auth::user()->id;
             $role = \DB::table('roles')->select('roles.name')->whereIn('roles.id',function ($query) use ($id) {
