@@ -24,8 +24,8 @@
 <script type="text/javascript" src="{{asset('assets/front/js/wow.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/alert.js')}}"></script>
-@if(session()->has('success')) <script type="text/javascript">js_success({{session()->get('success')}})</script>
-@elseif(session()->has('error'))<script type="text/javascript">js_error({{session()->get('error')}})</script>@endif
+@if(session()->has('success')) <script type="text/javascript">js_success('{{session()->get('success')}}')</script>
+@elseif(session()->has('error'))<script type="text/javascript">js_error('{{session()->get('error')}}')</script>@endif
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script>
 

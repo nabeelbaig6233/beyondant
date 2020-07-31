@@ -2,12 +2,38 @@
 @section('title') Reseller Profile @endsection
 @section('pageCss')
     <link href="{{asset('assets/admin/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link rel='stylesheet prefetch' href='https://foliotek.github.io/Croppie/croppie.css'>
     <link rel="stylesheet" href="{{asset('assets/reseller/front/css/profile.css')}}">
 @endsection
 {{--Content--}}
 @section('content')
     <div class="container-fluid asd">
         {{--    Header --}}
+
+        <!--Cropping Modal -->
+            <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="cropModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #be0103;">
+                            <h5 class="modal-title text-light" id="croptitle">Drag To Adjust</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="padding: 0px">
+                            <img  id="cropper" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary back_profile_pic" data-dismiss="modal">Back</button>
+                            <button type="button" class="btn btn-danger save_profile_pic"  style="background-color: #be0103;">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    {{--END Cropping Modal--}}
+
+
         <div class="row header">
             {{-- Language Selection --}}
             <div class="offset-lg-1 col-lg-2">
@@ -17,7 +43,12 @@
             {{-- Authorized Reseller Column--}}
             <div class="offset-lg-3 col-lg-6 pt-3">
                 <div class="authorized-reseller">
-                    <img src="{{asset('assets/reseller/front/images/profile.jpg')}}">
+                    <img src="{{asset($reseller->profile_picture?$reseller->profile_picture:'assets/reseller/front/images/profile.jpg')}}" id="pro_pic" />
+                    @if(auth()->guard('reseller')->user())
+                        <form id="fileprofile_picture" action="" method="post" enctype="multipart/form-data" style="display: none">
+                            <input class="file-upload" type="file" id="profile_picture" name="profile_picture" accept="image/*">
+                        </form>
+                    @endif
                     <div class="contact ml-3">
                         <p>
                             <strong>{{ucfirst($reseller->f_name)." ".ucfirst($reseller->l_name)}}</strong>
@@ -57,6 +88,11 @@
                     </div>
                     <span class="navbar-text text-white">
                       <i class="fa fa-phone p-2 mr-2"></i>{{$reseller->business_phone}}
+                      @if(auth()->guard('reseller')->check())
+                          <a class="btn btn-light button-white text-dark" href="{{route('edit-reseller-profile')}}"><span class="font-weight-bold">Edit Profile</span></a>
+                          <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-danger button-red text-white"><span class="font-weight-bold">Logout</span></a>
+                            <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none"><input type="hidden" name="_token" value="{{csrf_token()}}"></form>
+                      @endif
                     </span>
                 </nav>
             </div>
@@ -244,4 +280,78 @@
 @endsection
 {{--End Content--}}
 @section('pageJs')
+    @if(auth()->guard('reseller')->user())
+<script src="{{asset('assets/front/js/jquery.ui.touch-punch.min.js')}}"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js'></script>
+    <script>
+        $(document).ready(function () {
+            var rawImage;
+            var profile_crop=$("#cropper").croppie();
+            $('#cropModal').on('shown.bs.modal', function(){
+                profile_crop.croppie('destroy');
+                profile_crop=$("#cropper").croppie({
+                    enableExif: true,
+                    mouseWheelZoom:'ctrl',
+                    boundary:{
+                        height:400
+                    },
+                    viewport:{
+                        height:300,
+                        width:300,
+                        type:'circle'
+                    }
+                });
+                    profile_crop.croppie('bind',{
+                        url:rawImage
+                    });
+            });
+
+            $(document).on('change', '.file-upload', function () {
+                setImage();
+                $("#cropModal").modal('show');
+            });
+
+            function setImage(){
+                var reader=new FileReader();
+                reader.onload=function(eve){
+                    // image.attr("src",eve.target.result);
+                    rawImage=eve.target.result;
+                };
+                reader.readAsDataURL($(".file-upload")[0].files[0]);
+            }
+
+            $("#pro_pic").click(function () {
+                $(".file-upload").trigger("click");
+            });
+
+            $('.save_profile_pic').on('click',function () {
+                $("#croptitle").text("Saving....");
+                $(this).attr("disabled",true);
+                $('.back_profile_pic').attr("disabled",true);
+                //let forms = document.querySelector('#fileprofile_picture');
+
+                    profile_crop.croppie("result").then((data) => {
+                        $.ajax({
+                            url: "{{ route('reseller.profile.pic') }}",
+                            type: "POST",
+                            headers: {
+                                'X-CSRF-TOKEN': '{{csrf_token()}}'
+                            },
+                            data: {"profile_picture": data},
+                            // contentType: false,
+                            // processData: false,
+                            success: function (data) {
+                                window.location.reload();
+                            },
+                            error:function (err) {
+                                console.log(err);
+                            }
+                        });
+                    });
+                });
+
+        });
+    </script>
+    @endif
 @endsection

@@ -9,164 +9,6 @@
 @endsection
 
 @section('content')
-
-{{--  Edit Modal  --}}
-
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form id="editResellerForm">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title text-white">Edit Reseller</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12 form-group">
-                        <input type="text" name="first_name" placeholder="Enter First Name." class="form-control">
-                    </div>
-                    <div class="col-12 form-group">
-                        <input type="text" name="last_name" placeholder="Enter Last Name." class="form-control">
-                    </div>
-                    <div class="col-12 form-group">
-                        <input type="email" name="email" placeholder="Enter Reseller Email." class="form-control">
-                    </div>
-                    <div class="col-12 form-group">
-                        <input type="text" name="phone_number" placeholder="Enter Phone Number." class="form-control">
-                    </div>
-                    <div class="col-12 form-group">
-                        <input type="text" name="city" placeholder="Enter City." class="form-control">
-                    </div>
-                    <div class="col-12 form-group">
-                        <input type="text" name="state" placeholder="Enter State." class="form-control">
-                    </div>
-                    <div class="col-12 form-group">
-                        <textarea name="address" row="2" placeholder="Enter Address." class="form-control"></textarea>
-                    </div>
-                    <div class="col-12 form-group">
-                        <input type="text" name="discount_code" placeholder="Enter Reseller Discount Code." class="form-control">
-                    </div>
-                    <div class="col-12 form-group">
-                        <input type="email" name="master_email" placeholder="Enter Master Reseller Email." class="form-control">
-                    </div>
-                    <div class="col-12 form-group">
-                        <input type="text" name="business_status" placeholder="Enter Business Status" class="form-control">
-                    </div>
-                    <div class="col-12 form-group">
-                        <select class="form-control" name="status" required>
-                            <option value="">Select Status</option>
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
-                        </select>
-                    </div>
-                    <div class="col-12 form-group">
-                        <select class="form-control" name="reseller_level" required>
-                            <option value="">Select Level for Reseller</option>
-                            @foreach(['Platinum','Gold','Silver','Bronze','Copper','Stainless','Iron'] as $level)
-                                <option value="{{$level}}">{{$level}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="row col-12 form-group">
-                    <h6 id="master_email_error" class="text-danger"></h6>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-danger" id="updstResellerBtn">Save changes</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-{{--  Edit Modal  --}}
-
-{{--  Add Modal  --}}
-
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form id="addResellerForm">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title text-white">Create New Reseller</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12 text-center p-2" id="addResellerLoader" style="display: none">
-                            <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
-
-                        <div class="col-12 form-group">
-                            <input type="text" name="first_name" placeholder="Enter First Name." required class="form-control">
-                        </div>
-                        <div class="col-12 form-group">
-                            <input type="text" name="last_name" placeholder="Enter Last Name." required class="form-control">
-                        </div>
-                        <div class="col-12 form-group">
-                            <input type="email" name="email" placeholder="Enter Reseller Email." required class="form-control">
-                        </div>
-                        <div class="col-12 form-group">
-                            <input type="text" name="phone_number" placeholder="Enter Phone Number." required class="form-control">
-                        </div>
-                        <div class="col-12 form-group">
-                            <input type="text" name="city" placeholder="Enter City." class="form-control">
-                        </div>
-                        <div class="col-12 form-group">
-                            <input type="text" name="state" placeholder="Enter State." class="form-control">
-                        </div>
-                        <div class="col-12 form-group">
-                            <textarea name="address" rows="2" placeholder="Enter Address." class="form-control"></textarea>
-                        </div>
-                        <div class="col-12 form-group">
-                            <input type="text" name="discount_code" placeholder="Enter Reseller Discount Code."  class="form-control">
-                        </div>
-                        <div class="col-12 form-group">
-                            <input type="text" name="sponsor_name" placeholder="Enter Sponsor Name."  class="form-control">
-                        </div>
-                        <div class="col-12 form-group">
-                            <select class="form-control" name="status" required>
-                                <option value="">Select Status</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                        </div>
-                        <div class="col-12 form-group">
-                            <select class="form-control" name="reseller_level" required>
-                                <option value="">Select Level for Reseller</option>
-                                @foreach(['Platinum','Gold','Silver','Bronze','Copper','Stainless','Iron'] as $level)
-                                    <option value="{{$level}}">{{$level}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row col-12 form-group" id="errors">
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger" id="addResellerBtn">Create</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-{{--  Add Modal  --}}
-
-
-
-
-
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
@@ -201,7 +43,6 @@
                                         <table id="example1" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                             <button type="button" class="btn btn-danger btn-xs" id="delete_all">Delete</button>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" id="add_resller">Add Reseller</button>
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
@@ -209,14 +50,12 @@
                                                 <th>{{ucwords(str_replace('_',' ','company'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','email'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','website'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','current_primary_web_url'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','address'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','address_line_two'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','country'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','state'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','city'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','level'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','status'))}}</th>
-                                                <th>{{ucwords(str_replace('_',' ','profile_url'))}}</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -321,8 +160,8 @@
                                 <td id="about_beyondant" align="center"></td>
                             </tr>
                             <tr>
-                                <th>{{ucwords(str_replace('_',' ','num_of_locations'))}}</th>
-                                <td id="num_of_locations" align="center"></td>
+                                <th>{{ucwords(str_replace('_',' ','num_of_websites'))}}</th>
+                                <td id="num_of_websites" align="center"></td>
                             </tr>
                             <tr>
                                 <th>{{ucwords(str_replace('_',' ','total_employees'))}}</th>
@@ -333,8 +172,8 @@
                                 <td id="sales_employees" align="center"></td>
                             </tr>
                             <tr>
-                                <th>{{ucwords(str_replace('_',' ','preferred_territory'))}}</th>
-                                <td id="preferred_territory" align="center"></td>
+                                <th>{{ucwords(str_replace('_',' ','current_primary_web_url'))}}</th>
+                                <td id="current_primary_web_url" align="center"></td>
                             </tr>
                             <tr>
                                 <th>{{ucwords(str_replace('_',' ','brands'))}}</th>
@@ -427,7 +266,7 @@
                 serverSide: true,
                 pageLength: 10,
                 ajax: {
-                    url: `{{route('admin.reseller')}}`,
+                    url: `{{route('admin.entrepreneurs')}}`,
                 },
                 columns: [
                     {data: 'checkbox', name: 'checkbox', orderable: false},
@@ -436,152 +275,15 @@
                     {data: 'company', name: 'company'},
                     {data: 'email', name: 'email'},
                     {data: 'website', name: 'website'},
+                    {data: 'current_primary_web_url', name: 'current_primary_web_url'},
                     {data: 'address', name: 'address'},
                     {data: 'address_line_two', name: 'address_line_two'},
                     {data: 'country', name: 'country'},
                     {data: 'state', name: 'state'},
                     {data: 'city', name: 'city'},
-                    {data: 'reseller_level', name: 'level'},
-                    {data: 'status', name: 'status',render:function (data, type, row, meta) {
-                        var status=data==0?["danger","Inactive"]:["success","Active"];
-                        return '<span class="badge badge-'+status[0]+'">'+status[1]+'</span>';
-                    }},
-                    {data: 'profile_url', name: 'profile_url'},
                     {data: 'action', name: 'action', orderable: false}
                 ]
             });
-
-            //Update Reseller
-
-
-            $('#editModal').on('hidden.bs.modal', function () {
-                $("#editResellerForm").trigger('reset');
-            });
-
-            var reseller_id;
-
-            $(document).on('click','.edit',function () {
-                reseller_id=$(this).attr('id');
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'GET',
-                    url: `{{url('admin/'.request()->segment(2).'/update')}}/${reseller_id}`,
-                    success:function (response) {
-                        $("[name=first_name]").val(response.f_name);
-                        $("[name=last_name]").val(response.l_name);
-                        $("[name=email]").val(response.email);
-                        $("[name=city]").val(response.city);
-                        $("[name=state]").val(response.state);
-                        $("[name=address]").val(response.address);
-                        $("[name=master_email]").val(response.master_email);
-                        $("[name=phone_number]").val(response.business_phone);
-                        $("[name=discount_code]").val(response.discount_code);
-                        $("[name=business_status]").val(response.business_status);
-                        $("#editModal").modal('show');
-                    }
-                });
-            });
-
-            $("#editResellerForm").submit(function (e) {
-                e.preventDefault();
-                $("#master_email_error").text("");
-                var text=$("#updstResellerBtn").text();
-                $("#updstResellerBtn").text("Saving...");
-                $("#updstResellerBtn").attr('disabled',true);
-                var values={};
-                $(this).serializeArray().forEach((item)=>{
-                    values[item.name]=item.value;
-                });
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'patch',
-                    url: `{{url('admin/'.request()->segment(2).'/update')}}/${reseller_id}`,
-                    data: {...values},
-                    success:function (response) {
-                        if(response==1){
-                            $("#editModal").modal('hide');
-                            $("#updstResellerBtn").text(text);
-                            $("#updstResellerBtn").attr('disabled',false);
-                            DataTable.ajax.reload();
-                            js_success('Reseller Updated Successfully.');
-                        }else{
-                            $("#updstResellerBtn").text(text);
-                            $("#updstResellerBtn").attr('disabled',false);
-                            var message=response.master_email[0];
-                            $("#master_email_error").text(message);
-                        }
-                    }
-                });
-            });
-
-            //End Update Reseller
-
-            //Add Reseller
-
-            $('#addModal').on('shown.bs.modal', function () {
-                $('#addResellerForm').trigger('reset');
-            });
-
-            $('#addModal').on('hidden.bs.modal', function () {
-                $("#errors").empty("");
-                $("#addResellerLoader").css({display:'none'});
-                $("#addResellerBtn").text("Create");
-                $("#addResellerBtn").attr('disabled',false);
-                $("#addResellerForm").trigger('reset');
-            });
-
-
-            $("#addResellerForm").submit(function (e) {
-                e.preventDefault();
-                $("#addResellerBtn").text("Creating...");
-                $("#addResellerBtn").attr('disabled',true);
-                $("#addResellerLoader").css({display:'block'});
-                var values={};
-                $(this).serializeArray().forEach((item)=>{
-                    values[item.name]=item.value;
-                });
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'post',
-                    url: `{{route("admin.create.reseller")}}`,
-                    data: {...values},
-                    success:function (response) {
-                        if(response==1){
-                            $("#addModal").modal('hide');
-                            DataTable.ajax.reload();
-                            js_success('Reseller Created Successfully.');
-                        }else{
-                            $("#addResellerBtn").text("Create");
-                            $("#addResellerBtn").attr('disabled',false);
-                            $("#addResellerLoader").css({display:'none'});
-                            var errorDiv=$("#errors");
-                            if(response.email){
-                                errorDiv.append('<p class="text-danger">'+response.email[0]+'</p>');
-                            }
-                            if(response.first_name){
-                                errorDiv.append('<p class="text-danger">'+response.first_name[0]+'</p>');
-                            }
-                            if(response.last_name){
-                                errorDiv.append('<p class="text-danger">'+response.last_name[0]+'</p>');
-                            }
-                            if(response.reseller_level){
-                                errorDiv.append('<p class="text-danger">'+response.reseller_level[0]+'</p>');
-                            }
-                            if(response.status){
-                                errorDiv.append('<p class="text-danger">'+response.status[0]+'</p>');
-                            }
-                        }
-                    }
-                });
-            });
-            //End's Add Reseller
-
 
             // View Records
             $(document,this).on('click','.view',function(){
@@ -608,10 +310,10 @@
                         $("#date_organized").html(data.date_organized);
                         $("#name_of_owner").html(data.name_of_owner);
                         $("#about_beyondant").html(data.about_beyondant);
-                        $("#num_of_locations").html(data.num_of_locations);
+                        $("#num_of_websites").html(data.num_of_websites);
                         $("#total_employees").html(data.total_employees);
                         $("#sales_employees").html(data.sales_employees);
-                        $("#preferred_territory").html(data.preferred_territory);
+                        $("#current_primary_web_url").html(data.current_primary_web_url);
                         $("#brands").html(data.brands);
                         $("#approx_turnover").html(data.approx_turnover);
                         $("#approx_turnover_description").html(data.approx_turnover_description);
@@ -620,7 +322,7 @@
                         $("#viewModal").modal('show');
                     }
                 })
-            });
+            })
 
             var delete_id;
             $(document,this).on('click','.delete',function(){
