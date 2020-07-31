@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\models\reseller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
@@ -53,6 +54,10 @@ class LoginController extends Controller
             'email'   => 'required|email',
             'password' => 'required|min:6'
         ]);
+        $reseller=reseller::where('email','=',$request->get('email'))->first();
+        if($reseller->status!=1){
+            return redirect()->route('home')->with("error","Your Profile Is Under Process.");
+        }
         if (Auth::guard('reseller')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
             return redirect()->route('reseller.profile',auth()->guard('reseller')->user()->id);
         }
