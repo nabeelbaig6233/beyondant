@@ -120,6 +120,14 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::get('/login_diff_user/{id}','ProfileController@login_user_account')->name('login_as_user');
 
 });
+
+Route::middleware(['reseller_admin'])->prefix('reseller/admin')->namespace('reseller_admin')->group(function(){
+    Route::get('/', 'DashboardController@index');
+    Route::get('/edit','UserController@edit')->name('reseller.admin.edit');
+    Route::put('/update', 'UserController@update')->name('reseller.admin.update');
+});
+
+
 Route::get("register",function (){
     return redirect("/");
 })->name("register");
@@ -184,7 +192,7 @@ Route::middleware(['customer'])->group(function () {
 });
 
 Route::middleware('reseller')->group(function (){
-    Route::get('/edit-reseller-profile','ResellerController@edit_reseller_profile')->name('edit-reseller-profile');
+//    Route::get('/edit-reseller-profile','ResellerController@edit_reseller_profile')->name('edit-reseller-profile');
     Route::patch('/update-reseller-profile','ResellerController@update_reseller_profile')->name('update-reseller-profile');
     Route::post('/update-reseller-profile-pic','ResellerController@uploadProfilePic')->name('reseller.profile.pic');
 });

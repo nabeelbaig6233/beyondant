@@ -59,7 +59,7 @@ class LoginController extends Controller
             return redirect()->route('home')->with("error","Your Profile Is Under Process.");
         }
         if (Auth::guard('reseller')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-            return redirect()->route('reseller.profile',auth()->guard('reseller')->user()->id);
+            return redirect('/reseller/admin');
         }
         else {
             return $this->sendFailedLoginResponse($request);
