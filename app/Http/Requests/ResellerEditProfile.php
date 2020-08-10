@@ -35,7 +35,7 @@ class ResellerEditProfile extends FormRequest
             'city' => 'required|string',
             'state' => 'required|string',
             'country' => 'required|string',
-            'postal_code' => 'required|string',
+            'post_code' => 'required',
             'fed_tax_id' => 'string|min:4|max:4',
             'business_status' => 'required|string',
             'business_status_description' => $business_status_description_validation,
