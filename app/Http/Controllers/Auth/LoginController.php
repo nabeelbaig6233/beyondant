@@ -55,7 +55,7 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ]);
         $reseller=reseller::where('email','=',$request->get('email'))->first();
-        if($reseller->status!=1){
+        if(!empty($reseller) && $reseller->status!=1){
             return redirect()->route('home')->with("error","Your Profile Is Under Process.");
         }
         if (Auth::guard('reseller')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {

@@ -70,11 +70,11 @@
                     </div>
 
                     <div class="menu_section">
-                        <h3>Orders</h3>
+                        <h3>Orders (Coming Soon)</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-line-chart"></i>Reseller Sales<span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-line-chart" ></i>Reseller Sales<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="{{route('allProfiles')}}">Sales</a></li>
+                                    <li><a href="">Sales</a></li>
                                 </ul>
                             </li>
                         </ul>
