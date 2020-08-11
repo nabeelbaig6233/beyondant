@@ -1,10 +1,10 @@
-@extends('admin.layout.webapp')
+@extends('reseller.admin.layout.webapp')
 @section('content')
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Edit {{ !empty($title)?$title:'' }}</h3>
+                    <h3>Edit Profile</h3>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -13,59 +13,55 @@
                 <div class="col-md-12 col-sm-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{{ !empty($title)?$title:'' }} <small>{{ __('Register') }}</small></h2>
+                            <h2><small>Reseller</small></h2>
                             <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                                <li><a class="close-link" @if(auth()->user()->role_id===5) href="{{route('profile')}}" @endif><i class="fa fa-close"></i></a>
-                                </li>
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             </ul>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-{{--                            @if (auth()->user()->role_id===5)--}}
-{{--                                <a href="{{route('pro',auth()->user()->id)}}">Visit Profile</a>--}}
-{{--                            @endif--}}
-                            <form class="form-horizontal form-label-left" method="POST" action="{{ route('post.update',$record->id) }}" enctype="multipart/form-data" novalidate>
+                            <form class="form-horizontal form-label-left" method="POST" action="{{ route('reseller.admin.update') }}" enctype="multipart/form-data" novalidate>
                                 @csrf
-                                <input type="hidden" name="_method" value="PUT">
-                                @if(auth()->user()->role_id!==1)
-                                    <input type="hidden" name="role_id" value='{{auth()->user()->role_id}}' />
-                                    @else
-                                    <div class="item form-group">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="role_id">Select Role <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <select name="role_id" id="role_id" class="form-control @error('role_id') is-invalid @enderror" required="required">
-                                                <option value="">Select Role</option>
-                                                @if (!empty($role))
-                                                    @foreach($role as $roles)
-                                                        <option value="{{$roles->id}}" {{(!empty($record->role_id == $roles->id)?"selected":"")}}>{{$roles->name}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                            @error('role_id')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                @endif
-
+                                @method('PUT')
                                 <div class="item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Name <span class="required">*</span>
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="f_name">First Name <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $record->first_name." ".$record->last_name ?? "" }}" data-validate-length-range="6" data-validate-words="2" placeholder="both name(s) e.g Jon Doe" required="required" autocomplete="name" autofocus type="text">
-                                        @error('name')
+                                        <input id="f_name" class="form-control @error('f_name') is-invalid @enderror" name="f_name" value="{{ $record->f_name ?? "" }}" data-validate-length-range="6" data-validate-words="2" placeholder="Enter First Name" required="required" autocomplete="f_name" autofocus type="text">
+                                        @error('f_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="l_name">Last Name <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="l_name" class="form-control @error('l_name') is-invalid @enderror" name="l_name" value="{{ $record->l_name ?? "" }}" data-validate-length-range="3" data-validate-words="1" placeholder="Enter Last Name" required="required" autocomplete="l_name" autofocus type="text">
+                                        @error('l_name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="company">Company <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="company" class="form-control @error('company') is-invalid @enderror" name="company" value="{{ $record->company ?? "" }}" data-validate-length-range="2" data-validate-words="1" placeholder="Enter Company Name" required="required" autocomplete="company" autofocus type="text">
+                                        @error('company')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="item form-group">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="email">{{ __('E-Mail Address') }} <span class="required">*</span>
                                     </label>
@@ -78,239 +74,218 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="email">Confirm Email <span class="required">*</span>
-                                    </label>
+
+                                <div class="item form-group @error('password') bad @enderror">
+                                    <label for="password" class="col-form-label col-md-3 label-align">{{ __('Password') }}</label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input type="email" id="email2" name="confirm_email" data-validate-linked="email" required="required" value="{{ $record->email ?? "" }}" class="form-control" autocomplete="email">
+                                        <input id="password" type="password" name="password"  class="form-control @error('password') is-invalid @enderror" required="required" autocomplete="new-password">
+                                    </div>
+                                    @error('password')
+                                    <div class="alert">{{$message}}</div>
+                                    @enderror
+                                </div>
+
+
+                                <div class="item form-group @error('website') bad @enderror">
+                                    <label for="website" class="col-form-label col-md-3 label-align">{{ __('Website') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="website" type="text" name="website" value="{{$record->website}}"  class="form-control @error('website') is-invalid @enderror" required="required" autocomplete="website">
+                                    </div>
+                                    @error('website')
+                                    <div class="alert">{{$message}}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="item form-group @error('address') bad @enderror">
+                                    <label for="address" class="col-form-label col-md-3 label-align">{{ __('Address') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="address" type="text" name="address" value="{{$record->address}}"  class="form-control @error('address') is-invalid @enderror" required="required" autocomplete="address">
+                                    </div>
+                                    @error('website')
+                                    <div class="alert">{{$message}}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="address_line_two" class="col-form-label col-md-3 label-align">{{ __('Address 2') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="address_line_two" type="text" name="address_line_two" value="{{$record->address_line_two}}"  class="form-control"  autocomplete="address_line_two">
                                     </div>
                                 </div>
+
+                                <div class="item form-group @error('city') bad @enderror">
+                                    <label for="city" class="col-form-label col-md-3 label-align">{{ __('City') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="city" type="text" name="city" value="{{$record->city}}"  class="form-control @error('city') is-invalid @enderror" required="required" autocomplete="city">
+                                    </div>
+                                    @error('city')
+                                    <div class="alert">{{$message}}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="item form-group @error('state') bad @enderror">
+                                    <label for="state" class="col-form-label col-md-3 label-align">{{ __('State') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="state" type="text" name="state" value="{{$record->state}}"  class="form-control @error('state') is-invalid @enderror" required="required" autocomplete="state">
+                                    </div>
+                                    @error('state')
+                                    <div class="alert">{{$message}}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="item form-group @error('country') bad @enderror">
+                                    <label for="country" class="col-form-label col-md-3 label-align">{{ __('Country') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="country" type="text" name="country" value="{{$record->country}}"  class="form-control @error('country') is-invalid @enderror" required="required" autocomplete="country">
+                                    </div>
+                                    @error('country')
+                                    <div class="alert">{{$message}}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="item form-group @error('post_code') bad @enderror">
+                                    <label for="post_code" class="col-form-label col-md-3 label-align">{{ __('Postal Code') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="post_code" type="number" name="post_code" value="{{$record->postal_code}}"  class="form-control @error('post_code') is-invalid @enderror" required="required" autocomplete="post_code">
+                                    </div>
+                                    @error('post_code')
+                                    <div class="alert">{{$message}}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="item form-group @error('fed_tax_id') bad @enderror">
+                                    <label for="fed_tax_id" class="col-form-label col-md-3 label-align">{{ __('Fed Tax Id') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="fed_tax_id" type="number" name="fed_tax_id" placeholder="Fed Tax ID Number Only last 4 digits" value="{{$record->fed_tax_id}}"  class="form-control @error('fed_tax_id') is-invalid @enderror" required="required" autocomplete="fed_tax_id">
+                                    </div>
+                                    @error('fed_tax_id')
+                                    <div class="alert">{{$message}}</div>
+                                    @enderror
+                                </div>
+
                                 <div class="item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="contact_number">{{auth()->user()->role_id===5?__('Phone Number'):__('Contact Number')}} <span class="required">*</span>
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="business_phone">{{__('Business Number')}} <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="contact_number" name="contact_number" required="required" data-validate-length-range="10,15" value="{{ $record->contact_number ?? "" }}" class="form-control @error('contact_number') is-invalid @enderror">
-                                        @error('contact_number')
+                                        <input type="text" id="business_phone" name="business_phone" required="required" data-validate-length-range="10,15" value="{{ $record->business_phone ?? "" }}" class="form-control @error('business_phone') is-invalid @enderror">
+                                        @error('business_phone')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
                                     </div>
                                 </div>
-                                @if (auth()->user()->role_id!==1)
 
-                                    <div class="item form-group">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="mobile_number">{{__('Mobile Or Office Number')}} <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input type="text" id="mobile_number" name="mobile_number" required="required" data-validate-length-range="10,19" value="{{ $record->mobile_number ?? "" }}" class="form-control @error('mobile_number') is-invalid @enderror">
-                                            @error('mobile_number')
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="item form-group">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align">{{__('Select To Display')}} <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 form-check-inline">
-
-                                                <input type="radio" class="form-check-input" name="mobile_check" id="phone_number" value="Phone" checked @php echo $record->mobile_check=="Phone"?"checked":"" @endphp />
-                                                <label for="phone_number" class="form-check-label pr-2">PHONE NUMBER</label>
-                                                <input type="radio" class="form-check-input" name="mobile_check" id="mobile_number" value="Mobile"  @php echo $record->mobile_check=="Mobile"?"checked":"" @endphp />
-                                                <label for="mobile_number" class="form-check-label pr-2">MOBILE NUMBER</label>
-                                                <input type="radio" class="form-check-input" name="mobile_check" id="office_number" value="Office Number"  @php echo $record->mobile_check=="Office Number"?"checked":"" @endphp />
-                                                <label for="office_number" class="form-check-label pr-2">OFFICE NUMBER</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="item form-group @error('company_name') bad @enderror">
-                                        <label for="company_name" class="col-form-label col-md-3 label-align">{{ __('Company Name') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="company_name" type="text" name="company_name" value="{{$record->company_name}}"  class="form-control @error('company_name') is-invalid @enderror" required="required" autocomplete="company_name">
-                                        </div>
-                                        @error('company_name')
-                                        <div class="alert">{{$message}}</div>
+                                <div class="item form-group @error('business_status') bad @enderror">
+                                    <label for="business_status" class="col-form-label col-md-3 label-align">{{ __('Business Status') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <select autocomplete="business_status" class="input-text" data-validation="required" id="business_status" name="business_status" required>
+                                            <option value="">Business Status *</option>
+                                            <option @if($record->business_status === 'Corporation') selected @endif value="Corporation">Corporation</option>
+                                            <option @if($record->business_status === 'Partnership') selected @endif value="Partnership">Partnership</option>
+                                            <option @if($record->business_status === 'Individual') selected @endif value="Individual">Individual</option>
+                                            <option @if($record->business_status === 'No Business Formed') selected @endif value="No Business Formed">No Business Formed</option>
+                                            <option @if($record->business_status === 'Other (Please Specify)') selected @endif value="Other (Please Specify)">Other (Please Specify)</option>
+                                        </select>
+                                        @error('business_status')
+                                        <p style="color: red; text-align: left">{{ $message }}</p>
                                         @enderror
                                     </div>
-
-
-                                    <div class="item form-group @error('company_description') bad @enderror">
-                                        <label for="company_description" class="col-form-label col-md-3 label-align">{{ __('Company Description') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="company_description" type="text" name="company_description" value="{{$record->company_description}}"  class="form-control @error('company_description') is-invalid @enderror" required="required" autocomplete="company_description">
-                                        </div>
-                                        @error('company_description')
-                                        <div class="alert">{{$message}}</div>
-                                        @enderror
-                                    </div>
-
-
-
-                                    <div class="item form-group">
-                                        <label for="address" class="col-form-label col-md-3 label-align">{{ __('Address') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="address" type="text" name="address" value="{{$record->address}}"  class="form-control autocomplete="address">
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="item form-group">
-                                        <label for="state" class="col-form-label col-md-3 label-align">{{ __('State') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="state" type="text" name="state" value="{{$record->state}}"  class="form-control"  autocomplete="state">
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="item form-group">
-                                        <label for="city" class="col-form-label col-md-3 label-align">{{ __('City') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="city" type="text" name="city" value="{{$record->city}}"  class="form-control"  autocomplete="city">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="item form-group">
-                                        <label for="province" class="col-form-label col-md-3 label-align">{{ __('Province') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="province" type="text" name="province" value="{{$record->province}}"  class="form-control"  autocomplete="province">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="item form-group">
-                                        <label for="zipcode" class="col-form-label col-md-3 label-align">{{ __('Zip Code') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="zipcode" type="text" name="zipcode" value="{{$record->zipcode}}"  class="form-control"  autocomplete="zipcode">
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="item form-group @error('website') bad @enderror">
-                                        <label for="website" class="col-form-label col-md-3 label-align">{{ __('Website') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="website" type="text" name="website" value="{{$record->website}}"  class="form-control @error('website') is-invalid @enderror" required="required" autocomplete="website">
-                                        </div>
-                                        @error('website')
-                                        <div class="alert">{{$message}}</div>
-                                        @enderror
-                                    </div>
-
-
-                                    <div class="item form-group">
-                                        <label for="linkedin" class="col-form-label col-md-3 label-align">{{ __('Linkedin') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="linkdin" type="text" name="linkdin" value="{{$record->linkedin}}"  class="form-control" autocomplete="linkedin">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="item form-group">
-                                        <label for="facebook" class="col-form-label col-md-3 label-align">{{ __('Facebook') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="facebook" type="text" name="facebook" value="{{$record->facebook}}"  class="form-control" autocomplete="facebook">
-                                        </div>
-                                    </div>
-
-                                    <div class="item form-group">
-                                        <label for="instagram" class="col-form-label col-md-3 label-align">{{ __('Instagram') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="instagram" type="text" name="instagram" value="{{$record->instagram}}"  class="form-control" autocomplete="instagram">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="item form-group">
-                                        <label for="tiktok" class="col-form-label col-md-3 label-align">{{ __('Tiktok') }}</label>
-                                        <div class="col-md-6 col-sm-6">
-                                            <input id="tiktok" type="text" name="tiktok" value="{{$record->tiktok}}"  class="form-control" autocomplete="tiktok">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="item form-group">
-                                        <label class="col-form-label col-md-3 label-align">Select What Should Be Your Default Profile (Optional)?</label>
-                                        <div class="col-md-6 col-sm-6 form-check-inline">
-                                            <input id="web" type="radio" name="check" value="website"  class="form-check-input" {{$record->website_check==1?"checked":""}} >
-                                            <label for="web" class="form-check-label pr-2">Website</label>
-                                            <input id="linkdin" type="radio" name="check" value="linkdin"  class="form-check-input" {{$record->linkedin_check==1?"checked":"" }}>
-                                            <label for="linkdin" class="form-check-label pr-2">Linkedin</label>
-                                            <input id="facebook" type="radio" name="check" value="facebook"  class="form-check-input" {{$record->facebook_check==1?"checked":""}}>
-                                            <label for="facebook" class="form-check-label pr-2">Facebook</label>
-                                            <input id="instagram" type="radio" name="check" value="instagram"  class="form-check-input " {{$record->instagram_check==1?"checked":"" }}>
-                                            <label for="instagram" class="form-check-label pr-2">Instagram</label>
-                                            <input id="tiktok" type="radio" name="check" value="tiktok"  class="form-check-input " {{$record->tiktok_check==1?"checked":""}}>
-                                            <label for="tiktok" class="form-check-label pr-2">Tiktok</label>
-                                            <input id="default" type="radio" name="check" value=""  class="form-check-input " {{$record->website_check!=1&&$record->linkedin_check!=1&&$record->facebook_check!=1&&$record->instagram_check!=1&&$record->tiktok_check!=1?"checked":""}}>
-                                            <label for="default" class="form-check-label pr-2">Default</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="item form-group">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="cover_image">Cover Picture <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class="input-group-btn">
-                                                <div class="image-upload">
-                                                    <img src="{{asset(!empty($record->cover_image)?$record->cover_image:'assets/admin/images/placeholder.png')}}" class="img-responsive">
-                                                    <div class="file-btn">
-                                                        <input type="file" id="cover_image" name="cover_image" accept=".jpg,.png">
-                                                        <input type="text" id="cover_image" name="cover_image" value="" hidden="">
-                                                        <label class="btn btn-info">Upload</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                @endif
+                                </div>
 
                                 <div class="item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="occupation">Occupation <span class="required">*</span>
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="business_status_description">{{__('Business Status Description (Optional)')}}
                                     </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="occupation" type="text" name="occupation" value="{{ $record->occupation ?? "" }}" data-validate-length-range="5,20" class="optional form-control">
+                                        <textarea id="business_status_description" name="business_status_description" class="form-control @error('business_status_description') is-invalid @enderror" rows="2"></textarea>
+                                        @error('business_status_description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
-{{--                                <div class="item form-group @error('password') bad @enderror">--}}
-{{--                                    <label for="password" class="col-form-label col-md-3 label-align">{{ __('Password') }}</label>--}}
-{{--                                    <div class="col-md-6 col-sm-6">--}}
-{{--                                        <input id="password" type="password" name="password"  class="form-control @error('password') is-invalid @enderror" required="required" autocomplete="new-password">--}}
-{{--                                    </div>--}}
-{{--                                    @error('password')--}}
-{{--                                    <div class="alert">{{$message}}</div>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                                <div class="item form-group">--}}
-{{--                                    <label for="password-confirm" class="col-form-label col-md-3 col-sm-3 label-align ">Repeat Password</label>--}}
-{{--                                    <div class="col-md-6 col-sm-6">--}}
-{{--                                        <input id="password-confirm" type="password" name="password_confirmation" data-validate-linked="password" class="form-control" required="required" autocomplete="new-password">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
 
-                                <div class="item form-group @error('password') bad @enderror">
-                                    <label for="password" class="col-form-label col-md-3 label-align">{{ __('Password') }}</label>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="name_of_owner">{{__('Name of Owner')}}
+                                    </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="password" type="password" name="password"  class="form-control @error('password') is-invalid @enderror" autocomplete="new-password">
+                                        <input autocomplete="name_of_owner" value="{{$record->name_of_owner}}" class="input-text" id="name_of_owner" name="name_of_owner" placeholder="Name Of Owner / Principal" type="text">
                                     </div>
-                                    @error('password')
-                                    <div class="text-danger">{{$message}}</div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="total_employees">{{__('Total Employees')}}
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input value="{{$record->total_employees}}" autocomplete="total_employees" class="input-text" id="total_employees" name="total_employees" placeholder="Number Of Employees" type="number">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="sales_employees">{{__('Sales Employees')}}
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input autocomplete="sales_employees" value="{{$record->sales_employees}}" class="input-text" id="sales_employees" name="sales_employees" placeholder="Number Of Sales Employees" type="number">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="approx_turnover_description">{{__('Approx Turnover Description')}}
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <textarea autocomplete="approx_turnover_description" class="form-control" id="approx_turnover_description" name="approx_turnover_description" placeholder="Please Specify *" rows="2">{{ $record->approx_turnover_description }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group @error('beyondant_promotion') bad @enderror">
+                                    <label for="beyondant_promotion" class="col-form-label col-md-3 label-align">{{ __('Beyondant Promotion') }}</label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <input id="beyondant_promotion" type="date" name="beyondant_promotion" value="{{$record->beyondant_promotion}}"  class="form-control @error('beyondant_promotion') is-invalid @enderror" required="required" autocomplete="beyondant_promotion">
+                                    </div>
+                                    @error('beyondant_promotion')
+                                    <div class="alert">{{$message}}</div>
                                     @enderror
                                 </div>
-                                <div class="item form-group">
-                                    <label for="password-confirm" class="col-form-label col-md-3 col-sm-3 label-align ">Repeat Password</label>
+
+                                <div class="item form-group @error('preferred_territory') bad @enderror">
+                                    <label for="preferred_territory" class="col-form-label col-md-3 label-align">{{ __('Preferred Territory') }}</label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="password-confirm" type="password" name="password_confirmation" data-validate-linked="password" class="form-control" autocomplete="new-password">
+                                        <input id="preferred_territory" type="text" name="preferred_territory" value="{{$record->preferred_territory}}"  class="form-control @error('preferred_territory') is-invalid @enderror" required="required" autocomplete="country">
+                                    </div>
+                                    @error('preferred_territory')
+                                    <div class="alert">{{$message}}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="about_beyondant">{{__('About Beyondant')}}
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <textarea id="about_beyondant" required name="about_beyondant" class="form-control @error('about_beyondant') is-invalid @enderror" rows="2">{{$record->about_beyondant}}</textarea>
+                                        @error('about_beyondant')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
+
+
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="short_paragraph">{{__('Short Paragraph')}}
+                                    </label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <textarea id="short_paragraph" required name="short_paragraph" class="form-control @error('short_paragraph') is-invalid @enderror" rows="2">{{$record->short_paragraph}}</textarea>
+                                        @error('short_paragraph')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
 
                                 <div class="item form-group">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="profile_picture">Profile Picture <span class="required">*</span>
@@ -331,13 +306,6 @@
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-3">
-                                        @if (auth()->user()->role_id===5)
-                                            <p class="font-weight-bold">Company Admin Profile URL:</p>
-                                            <a href="{{route('pro',auth()->user()->id)}}" target="_blank">{{route('pro',auth()->user()->id)}}</a>
-                                        @elseif (auth()->user()->role_id===7)
-                                            <p class="font-weight-bold">Profile URL:</p>
-                                            <a href="{{route('pro',auth()->user()->id)}}" target="_blank">{{route('pro',auth()->user()->id)}}</a>
-                                        @endif
                                     </div>
                                     <div class="col-md-6">
                                         <button type="submit" class="btn btn-primary">Cancel</button>

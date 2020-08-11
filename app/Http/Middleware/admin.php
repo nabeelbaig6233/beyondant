@@ -18,7 +18,7 @@ class admin
     public function handle($request, Closure $next)
     {
         if(!empty(Auth::guard("reseller")->user())){
-            return redirect()->route('reseller.profile',auth()->guard('reseller')->user()->id);
+            return redirect('/reseller/admin');
         }
         if (!empty(Auth::user()->id)) {
             $id = Auth::user()->id;

@@ -89,7 +89,7 @@
                     <span class="navbar-text text-white">
                       <i class="fa fa-phone p-2 mr-2"></i>{{$reseller->business_phone}}
                       @if(auth()->guard('reseller')->check())
-                          <a class="btn btn-light button-white text-dark" href="{{route('edit-reseller-profile')}}"><span class="font-weight-bold">Edit Profile</span></a>
+                          <a class="btn btn-light button-white text-dark" href="{{route('reseller.admin.edit')}}"><span class="font-weight-bold">Edit Profile</span></a>
                           <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-danger button-red text-white"><span class="font-weight-bold">Logout</span></a>
                             <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none"><input type="hidden" name="_token" value="{{csrf_token()}}"></form>
                       @endif
