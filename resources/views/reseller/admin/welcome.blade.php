@@ -15,8 +15,8 @@
                 </div>
 
                 <div class="col-md-3 col-sm-6  tile_stats_count">
-                    <span class="count_top"><i class="fa fa-user"></i> Total Sales</span>
-                    <div><a class="count green" href="">$100000</a></div>
+                    <span class="count_top" disabled="disabled"><i class="fa fa-user"></i> Total Sales (Coming Soon)</span>
+                    <div><a class="count green" disabled="disabled" >$100000</a></div>
                 </div>
 
                 <div class="col-md-3 col-sm-6  tile_stats_count">
