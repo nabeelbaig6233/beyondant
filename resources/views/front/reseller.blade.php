@@ -189,6 +189,16 @@
                                                 <input autocomplete="sales_employees" class="input-text" id="sales_employees" name="sales_employees" placeholder="Number Of Sales Employees" type="number">
                                             </div>
                                         </div>
+
+                                        <div class="col-lg-6 col-lr">
+                                            <div class="form-group">
+                                                <input type="password" data-validation="required" class="input-text" data-validate-minmax="8,20" id="password" name="password" placeholder="Password" >
+                                                @error('password')
+                                                <p style="color: red; text-align: left">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+
 {{--                                        <div class="col-lg-6 col-lr">--}}
 {{--                                            <div class="form-group">--}}
 {{--                                                <input autocomplete="brands" class="input-text" id="brands" name="brands" placeholder="What Brands Do You Deal With?" type="text">--}}

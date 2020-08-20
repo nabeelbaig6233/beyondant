@@ -15,6 +15,7 @@ class ResellerForm extends FormRequest
             'f_name' => 'required|string',
             'l_name' => 'required|string',
             'email' => 'required|string|unique:reseller',
+            'password' => 'required|min:8',
             'address' => 'required|string',
             'city' => 'required|string',
             'state' => 'required|string',

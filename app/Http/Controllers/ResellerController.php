@@ -20,7 +20,9 @@ class ResellerController extends Controller
     {
         $reseller_email = DB::table('setting')->where('id',1)->first()->reseller_email;
         $request->request->remove('_token');
-        DB::table('reseller')->insert($request->all());
+        $data=$request->all();
+        $data['password']=Hash::make($request->get('password'));
+        DB::table('reseller')->insert($data);
         Mail::to($reseller_email)->send(new ResellerMail($request));
         return redirect()->route('home')->with('success','Thank you for your submission! Please allow 5 to 7 business days for processing.');
     }
