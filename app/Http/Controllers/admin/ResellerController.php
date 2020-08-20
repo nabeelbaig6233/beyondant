@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ResellerProfile;
 use App\models\reseller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class ResellerController extends Controller
@@ -67,6 +71,7 @@ class ResellerController extends Controller
                 return response()->json($validator->getMessageBag()->toArray());
             }
             else{
+                $password=Str::random(rand(8,20));
                 $reseller=new reseller();
                 $reseller->f_name=request()->get('first_name')??"";
                 $reseller->l_name=request()->get('last_name')??"";
@@ -79,7 +84,11 @@ class ResellerController extends Controller
                 $reseller->city=request()->get("city")??"";
                 $reseller->state=request()->get("state")??"";
                 $reseller->address=request()->get("address")??"";
+                $reseller->password=Hash::make($password);
                 $reseller->save();
+                Mail::to(request()->get('email'))->send(new ResellerProfile(array("Congratulation!","Your Reseller Profile Is Created."),
+                                               array("email"=>request()->get('email'),"password"=>$password),
+                                               route('reseller.profile',$reseller->id)));
                 return 1;
             }
         }
@@ -102,6 +111,7 @@ class ResellerController extends Controller
                     $master_id=reseller::where("email","=",request()->get('master_email'))->first()->id;
                 }
                 $reseller=reseller::find($id);
+                $change_status=$reseller->status==request()->get('status')?false:true;
                 $reseller->f_name=request()->get('first_name')??"";
                 $reseller->l_name=request()->get('last_name')??"";
                 $reseller->master_id=$master_id;
@@ -115,6 +125,12 @@ class ResellerController extends Controller
                 $reseller->state=request()->get("state")??"";
                 $reseller->address=request()->get("address")??"";
                 $reseller->save();
+                if($change_status) {
+                    $statusText=$reseller->status?"Active":"Blocked";
+                    Mail::to(request()->get('email'))->send(new ResellerProfile(array("Account Notification", "Your Profile Is ".$statusText.' By Admin.'),
+                        array(),
+                        route('reseller.profile', $reseller->id)));
+                }
                 return 1;
             }
         }
