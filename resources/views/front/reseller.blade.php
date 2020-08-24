@@ -245,7 +245,10 @@
                                         </div>
                                         <div class="col-lg-12 col-lr">
                                             <div class="form-group">
-                                                <textarea autocomplete="about_beyondant" class="input-text" data-validation="required" id="about_beyondant" name="about_beyondant" placeholder="How Did You Hear About Beyondant? (Enter Code If Provided)*" required style="height: 30vh">{{ old('about_beyondant') }}</textarea>
+                                                @if(session()->has("master_id"))
+                                                    <input type="hidden" value="{{session()->get("master_id")}}" name="master_info" />
+                                                @endif
+                                                <textarea autocomplete="about_beyondant" class="input-text " {{session()->get("master_id")?'readonly':''}}  data-validation="required" id="about_beyondant" name="about_beyondant" placeholder="How Did You Hear About Beyondant? (Enter Code If Provided)*" required style="height: 30vh">{{session()->get("master_id")?'Referred by: ('.session()->get('first_name').' '.session()->get('last_name').' & Reseller Code ('.session()->get('discount_code').')).':old('about_beyondant') }}</textarea>
                                                 @error('about_beyondant')
                                                     <p style="color: red; text-align: left">{{ $message }}</p>
                                                 @enderror

@@ -20,7 +20,10 @@ class ResellerController extends Controller
     {
         $reseller_email = DB::table('setting')->where('id',1)->first()->reseller_email;
         $request->request->remove('_token');
+        $master_id=$request->get('master_info')?$request->get('master_info'):0;
+        $request->request->remove('master_info');
         $data=$request->all();
+        $data['master_id']=$master_id;
         $data['password']=Hash::make($request->get('password'));
         DB::table('reseller')->insert($data);
         Mail::to($reseller_email)->send(new ResellerMail($request));
@@ -46,6 +49,15 @@ class ResellerController extends Controller
     public function edit_reseller_profile(){
         $reseller=reseller::find(auth()->guard('reseller')->user()->id);
         return view('reseller.front.edit',['reseller'=>$reseller]);
+    }
+
+    public function referral_customers($id){
+        $reseller=reseller::find($id);
+        return redirect('/reseller')
+                ->with('master_id',$reseller->id)
+                ->with('first_name',$reseller->f_name)
+                ->with('last_name',$reseller->last_name)
+                ->with('discount_code',$reseller->discount_code);
     }
 
     public function update_reseller_profile(ResellerEditProfile $request)
