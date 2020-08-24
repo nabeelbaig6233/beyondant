@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ResellerEditProfile;
+use App\Mail\MasterReseller;
 use App\models\home;
 use App\models\reseller;
 use App\User;
@@ -23,6 +24,11 @@ class ResellerController extends Controller
         $master_id=$request->get('master_info')?$request->get('master_info'):0;
         $request->request->remove('master_info');
         $data=$request->all();
+        if($master_id!=0){
+            $master_email=reseller::find($master_id)->email;
+            $name=$request->get('f_name').' '.$request->get('l_name');
+            Mail::to($master_email)->send(new MasterReseller(array("Customer ".$name." has just applied to become a Reseller from your page.")));
+        }
         $data['master_id']=$master_id;
         $data['password']=Hash::make($request->get('password'));
         DB::table('reseller')->insert($data);
