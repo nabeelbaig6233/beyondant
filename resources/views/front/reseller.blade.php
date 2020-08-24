@@ -135,7 +135,7 @@
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input value="{{ old('business_phone') }}" autocomplete="business_phone" class="input-text" id="business_phone" name="business_phone" placeholder="Business Phone" type="number">
+                                                <input value="{{ old('business_phone') }}" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" autocomplete="business_phone" class="input-text" id="business_phone" name="business_phone" placeholder="Business Phone" type="text">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-lr">
@@ -282,8 +282,12 @@
 
 @section('pageJs')
     <script src="{{asset('assets/front/js/jquery.form-validator.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+    <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
     <script>
         $(() => $.validate({lang: 'en'}));
+        $('[data-mask]').inputmask();
         document.getElementById('business_status').addEventListener('change', event => {
             if (event.target.value === 'Other (Please Specify)') {
                 document.getElementById('business_status_description_box').style.display = '';

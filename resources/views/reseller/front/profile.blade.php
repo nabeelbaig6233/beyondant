@@ -99,9 +99,9 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Shop Devices</a>
-                            </li>
+{{--                            <li class="nav-item active">--}}
+{{--                                <a class="nav-link" href="#">Shop Devices</a>--}}
+{{--                            </li>--}}
                             <li class="nav-item">
                                 <a class="nav-link {{auth()->guard('reseller')->check()?'disabled':''}}" href="#" id="startBusinessTrigger">Start a Business</a>
                             </li>
@@ -216,8 +216,8 @@
                             </ul>
                             <div class="email-subsec">
                                 <img src="{{asset('assets/reseller/front/images/email-marketing.png')}}">
-                                <p class="email">Info@Beyondant.com</p>
-                                <p class="phone-number">908.242.3056</p>
+                                <p class="email">{{$reseller->email}}</p>
+                                <p class="phone-number">{{$reseller->business_phone}}</p>
                             </div>
                             <div class="follow-us-subsec">
                                 <p>Follow Us On</p>
