@@ -27,7 +27,7 @@
                                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="f_name">First Name <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input id="f_name" class="form-control @error('f_name') is-invalid @enderror" name="f_name" value="{{ $record->f_name ?? "" }}" data-validate-length-range="6" data-validate-words="2" placeholder="Enter First Name" required="required" autocomplete="f_name" autofocus type="text">
+                                        <input id="f_name" class="form-control @error('f_name') is-invalid @enderror" name="f_name" value="{{ $record->f_name ?? "" }}" data-validate-length-range="3" data-validate-words="1" placeholder="Enter First Name" required="required" autocomplete="f_name" autofocus type="text">
                                         @error('f_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
