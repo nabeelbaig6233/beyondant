@@ -33,6 +33,30 @@
 
     {{--END Cropping Modal--}}
 
+     @if(!Auth::guard('reseller')->check())
+        {{-- Start a Business Modal --}}
+                <!-- Modal -->
+                <div class="modal fade" id="businessModal" tabindex="-1" role="dialog" aria-labelledby="businessModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="businessModalTitle">Start a Business</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <a href="{{route('referral.reseller',$reseller->id)}}" class="btn btn-danger button-red text-white" >Become a Reseller</a>
+                                <a href="https://beyondant-products.com/collections/all?discount={{$reseller->discount_code}}" target="_blank" class="btn btn-danger button-red text-white">Buy Our Products</a>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {{-- Start a Business Modal --}}
+    @endif
 
         <div class="row header">
             {{-- Language Selection --}}
@@ -75,11 +99,11 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Shop Devices</a>
-                            </li>
+{{--                            <li class="nav-item active">--}}
+{{--                                <a class="nav-link" href="#">Shop Devices</a>--}}
+{{--                            </li>--}}
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Start a Business</a>
+                                <a class="nav-link {{auth()->guard('reseller')->check()?'disabled':''}}" href="#" id="startBusinessTrigger">Start a Business</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Why Beyondant</a>
@@ -192,8 +216,8 @@
                             </ul>
                             <div class="email-subsec">
                                 <img src="{{asset('assets/reseller/front/images/email-marketing.png')}}">
-                                <p class="email">Info@Beyondant.com</p>
-                                <p class="phone-number">908.242.3056</p>
+                                <p class="email">{{$reseller->email}}</p>
+                                <p class="phone-number">{{$reseller->business_phone}}</p>
                             </div>
                             <div class="follow-us-subsec">
                                 <p>Follow Us On</p>
@@ -280,12 +304,20 @@
 @endsection
 {{--End Content--}}
 @section('pageJs')
+    <script>
+        $(document).ready(function(){
+            $("#startBusinessTrigger").click(function () {
+                $("#businessModal").modal('show');
+            });
+        });
+    </script>
     @if(auth()->guard('reseller')->user())
 <script src="{{asset('assets/front/js/jquery.ui.touch-punch.min.js')}}"></script>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js'></script>
     <script>
         $(document).ready(function () {
+            //Profile Cropping Code
             var rawImage;
             var profile_crop=$("#cropper").croppie();
             $('#cropModal').on('shown.bs.modal', function(){
@@ -350,6 +382,8 @@
                         });
                     });
                 });
+
+        //    End Profile Cropping Code
 
         });
     </script>

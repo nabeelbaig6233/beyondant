@@ -167,7 +167,7 @@
                                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="business_phone">{{__('Business Number')}} <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6">
-                                        <input type="text" id="business_phone" name="business_phone" required="required" data-validate-length-range="10,15" value="{{ $record->business_phone ?? "" }}" class="form-control @error('business_phone') is-invalid @enderror">
+                                        <input type="text" id="business_phone" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" name="business_phone" required="required" data-validate-length-range="10,15" value="{{ $record->business_phone ?? "" }}" class="form-control @error('business_phone') is-invalid @enderror">
                                         @error('business_phone')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -322,4 +322,12 @@
 @endsection
 @section('page_js')
     <script src="{{asset('assets/admin/validator/validator.js')}}"></script>
+    <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+    <script src="{{asset('assets/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
+    <script>
+        $(document).ready(() => {
+            $('[data-mask]').inputmask()
+        })
+    </script>
 @endsection

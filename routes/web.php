@@ -181,7 +181,8 @@ Route::middleware(['allowguest'])->group(function (){
     Route::get('/nfc-business-cards', 'HomeController@nfc_business_cards')->name('nfc-business-cards');
     //reseller-directory
     Route::get('/reseller-directory', 'ResellerDirectoryController@index')->name('reseller-directory');
-
+    //Referral Reseller
+    Route::get('/referral/reseller/{id}', 'ResellerController@referral_customers')->name('referral.reseller');
 });
 
 Route::middleware(['customer'])->group(function () {
