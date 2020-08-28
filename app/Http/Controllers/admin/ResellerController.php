@@ -86,7 +86,7 @@ class ResellerController extends Controller
                 $reseller->address=request()->get("address")??"";
                 $reseller->password=Hash::make($password);
                 $reseller->save();
-                Mail::to(request()->get('email'))->send(new ResellerProfile(array("Congratulation!","Your Reseller Profile Is Created."),
+                Mail::to(request()->get('email'))->send(new ResellerProfile(array("Congratulations!","Your Reseller Profile Is Created."),
                                                array("email"=>request()->get('email'),"password"=>$password),
                                                route('reseller.profile',$reseller->id)));
                 return 1;
