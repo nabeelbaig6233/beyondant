@@ -202,6 +202,17 @@
                                         <div class="alert">{{$message}}</div>
                                         @enderror
                                     </div>
+                                       
+                                    <div class="item form-group @error('https') bad @enderror">
+                                        <label for="website" class="col-form-label col-md-3 label-align">Hypertext Transfer Protocol</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input id="https" type="text" name="https" value="{{$record->https}}"  class="form-control @error('https') is-invalid @enderror" required="required" autocomplete="https">
+                                        </div>
+                                        @error('https')
+                                        <div class="alert">{{$message}}</div>
+                                        @enderror
+                                    </div>
+                                    
 
 
                                     <div class="item form-group">

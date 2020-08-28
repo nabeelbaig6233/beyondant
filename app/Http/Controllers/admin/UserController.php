@@ -106,6 +106,7 @@ class UserController extends Controller
         $profile_check=$data["check"];
         $profiles=[];
         $profiles["website"]=[0,$data["website"]??""];
+         $profiles['https']=[0,$data['https']??""];
         $profiles["linkdin"]=[0,$data["linkdin"]??""];
         $profiles["facebook"]=[0,$data["facebook"]??""];
         $profiles["instagram"]=[0,$data["instagram"]??""];
@@ -154,6 +155,7 @@ class UserController extends Controller
                     'province'=>$data["province"]??"",
                     'zipcode'=>$data["zipcode"]??"",
                     'website'=>$this->check_https($data["website"]),
+                    'https'=>$data['https']??"",
                     'website_check'=>$profiles["website"][0],
                     'linkedin_check'=>$profiles["linkdin"][0],
                     'linkedin'=>$this->check_https($profiles["linkdin"][1]),

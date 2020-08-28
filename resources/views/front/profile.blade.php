@@ -571,10 +571,17 @@
                                             <div class="col-lg-2 col-md-2 col-1 col-R-paddN">
                                                 <img alt="" src="{{asset('assets/front/images/')}}/globe-icon-red.png" class="img-fluid coliCon">
                                             </div>
+                                             @if(!empty($record->https) && $record->https=='http')
                                             <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 <span class="title">Company Website</span>
-                                                <span class="Subtitle" style="word-wrap: break-word">{{ $companyInfo->website??$record->website  }}</span>
+                                                <span class="Subtitle" style="word-wrap: break-word">{{ !empty($record->website)?str_replace('https://','http://',$record->website):''  }}</span>
                                             </div>
+                                            @else
+                                                <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
+                                                <span class="title">Company Website</span>
+                                                <span class="Subtitle" style="word-wrap: break-word">{{ !empty($record->website)?str_replace('http://','https://',$record->website):''  }}</span>
+                                            </div>
+                                              @endif
                                         </div>
                                     </div>
 
