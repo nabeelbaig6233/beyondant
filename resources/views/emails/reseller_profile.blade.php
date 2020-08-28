@@ -17,7 +17,10 @@
     @endif
     <p>Click This URL <a href="{{route("reseller.login")}}">{{route("reseller.login")}}</a> To Login.</p>
     <p>Your Dedicated Profile: <a href="{{$profile_link}}">{{$profile_link}}</a></p>
-    <p>Feel Free To Share Your Dedicated Profile via Email or Text</p>
+    @if(!empty($credentials))
+    <p>Please be sure to update your temporary password once you have successfully logged into the platform.</p>
+    @endif
+    <p>Feel Free To Share Your Dedicated Reseller Landing Page via Email or Text</p>
     @slot('footer')
         @component('mail::footer')
             © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
