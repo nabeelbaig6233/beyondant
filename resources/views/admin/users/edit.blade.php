@@ -202,7 +202,8 @@
                                         <div class="alert">{{$message}}</div>
                                         @enderror
                                     </div>
-                                       
+
+
                                     <div class="item form-group @error('https') bad @enderror">
                                         <label for="website" class="col-form-label col-md-3 label-align">Hypertext Transfer Protocol</label>
                                         <div class="col-md-6 col-sm-6">
@@ -212,7 +213,7 @@
                                         <div class="alert">{{$message}}</div>
                                         @enderror
                                     </div>
-                                    
+
 
 
                                     <div class="item form-group">

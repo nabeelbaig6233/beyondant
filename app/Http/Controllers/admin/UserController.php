@@ -52,6 +52,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+       
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->updated($request->all(),$id)));
@@ -106,7 +107,7 @@ class UserController extends Controller
         $profile_check=$data["check"];
         $profiles=[];
         $profiles["website"]=[0,$data["website"]??""];
-         $profiles['https']=[0,$data['https']??""];
+        $profiles['https']=[0,$data['https']??""];
         $profiles["linkdin"]=[0,$data["linkdin"]??""];
         $profiles["facebook"]=[0,$data["facebook"]??""];
         $profiles["instagram"]=[0,$data["instagram"]??""];

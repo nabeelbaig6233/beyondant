@@ -565,7 +565,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                   
                                     <div class="col-lg-6 col-md-6">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-2 col-1 col-R-paddN">
@@ -584,6 +584,7 @@
                                               @endif
                                         </div>
                                     </div>
+                                  
 
 
                                 </div>
