@@ -202,6 +202,7 @@
                                             <thead>
                                             <button type="button" class="btn btn-danger btn-xs" id="delete_all">Delete</button>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal" id="add_resller">Add Reseller</button>
+                                            <button type="button" class="btn btn-success btn-xs" id="reset_password">Reset Password</button>
                                             <tr>
                                                 <th width="10"><input type="checkbox" id="select_all">All</th>
                                                 <th>{{ucwords(str_replace('_',' ','id'))}}</th>
@@ -365,6 +366,25 @@
         </div>
     </div>
 
+<!-- Loading Modal -->
+<div class="modal fade" id="resetLoading" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="spinner-border text-danger" style="height: 3rem; width: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <br/><br/>
+                    <h6 class="text-dark"><strong>Sending Emails........</strong></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -383,6 +403,9 @@
             </div>
         </div>
     </div>
+
+
+
 @endsection
 
 @section('page_js')
@@ -685,7 +708,35 @@
                 } else {
                     js_error('Select atleast one record');
                 }
+            });
+
+            //Reset Password
+            //Delete Selected Records
+            $(document).on('click','#reset_password',function () {
+                let checkbox = $('.delete_checkbox:checked');
+                if (checkbox.length > 0) {
+                    var checkbox_value = [];
+                    $(checkbox).each(function(){
+                        checkbox_value.push($(this).val());
+                    });
+                    $("#resetLoading").modal('show');
+                    $.ajax({
+                        url:`{{route(request()->segment(2).'.reset_all')}}`,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data:{checkbox_value:checkbox_value},
+                        method:`post`,
+                        success: function (data) {
+                            $("#resetLoading").modal('hide');
+                            js_success(data);
+                        }
+                    });
+                } else {
+                    js_error('Select atleast one record');
+                }
             })
+
         })
     </script>
 @endsection

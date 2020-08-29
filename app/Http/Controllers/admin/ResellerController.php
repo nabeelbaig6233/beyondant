@@ -94,6 +94,23 @@ class ResellerController extends Controller
         }
     }
 
+    public function resetResellerPassword(Request $request){
+        if ($request->input('checkbox_value')) {
+            $id = $request->input('checkbox_value');
+            for ($i=0; $i < count($id); $i++) {
+                $password=Str::random(rand(8,16));
+                $reseller=reseller::findorFail($id[$i]);
+                $reseller->password=Hash::make($password);
+                $reseller->save();
+
+                Mail::to($reseller->email)->send(new ResellerProfile(array('Password Reset Notification'),
+                    array("email"=>$reseller->email,"password"=>$password),
+                    route('reseller.profile',$reseller->id)));
+            }
+            echo "Selected Resellers Will Receive New Password Email.";
+        }
+    }
+
 
     public function update($id){
         if(request()->ajax()){

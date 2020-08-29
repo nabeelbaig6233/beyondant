@@ -109,6 +109,7 @@ Route::middleware(['admin'])->prefix('admin')->namespace('admin')->group(functio
     Route::post('/reseller/delete_all','ResellerController@delete_all')->name('reseller.delete_all');
     Route::get('/reseller/update/{id}',"ResellerController@edit")->name('reseller.edit');
     Route::patch('/reseller/update/{id}',"ResellerController@update")->name('reseller.update');
+    Route::post('/reseller/reset_all','ResellerController@resetResellerPassword')->name('reseller.reset_all');
 
     // Entrepreneurs
     Route::get('/entrepreneurs','EntrepreneursController@index')->name('admin.entrepreneurs');
