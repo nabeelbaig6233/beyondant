@@ -2,7 +2,8 @@
 .env.backup
 index.php
 public/sitemap.xml
-dev
+/.well-known
+/dev
 .idea
 .well-known
 desktop

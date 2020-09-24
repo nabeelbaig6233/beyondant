@@ -29,6 +29,7 @@ class ProfileController extends Controller
 {
     public function index($id)
     {
+      
         $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->orWhere([['role_id','=',5],['id','=',$id]])->orWhere([['role_id','=',7],['id','=',$id]])->first();
 
         if (!empty($content['record'])) {
@@ -54,13 +55,19 @@ class ProfileController extends Controller
             }
             //End
         if ((int)$content['record']->facebook_check == 1) {
+            
             return redirect($content['record']->facebook);
         } elseif ((int)$content['record']->website_check == 1) {
-            return redirect($content['record']->website);
+             
+            // return redirect($content['record']->website);
+            if(!empty($content['record']->https)){
+                return redirect($content['record']->https."://".$content['record']->website);
+            }
         } elseif ((int)$content['record']->linkedin_check == 1) {
             return redirect($content['record']->linkedin);
         }
         elseif ((int)$content['record']->instagram_check == 1) {
+           
             return redirect($content['record']->instagram);
         } elseif ((int)$content['record']->tiktok_check == 1) {
             return redirect($content['record']->tiktok);

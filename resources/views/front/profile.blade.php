@@ -574,13 +574,19 @@
                                              @if(!empty($record->https) && $record->https=='http')
                                             <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 <span class="title">Company Website</span>
-                                                <span class="Subtitle" style="word-wrap: break-word">{{ !empty($record->website)?str_replace('https://','http://',$record->website):''  }}</span>
+                                                <span class="Subtitle" style="word-wrap: break-word">{{ !empty($record->website)?'http://'.$record->website:''  }}</span>
                                             </div>
-                                            @else
+                                            @elseif(!empty($record->https) && $record->https=='https')
                                                 <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
                                                 <span class="title">Company Website</span>
-                                                <span class="Subtitle" style="word-wrap: break-word">{{ !empty($record->website)?str_replace('http://','https://',$record->website):''  }}</span>
+                                                <span class="Subtitle" style="word-wrap: break-word">{{ !empty($record->website)?'https://'.$record->website:''  }}</span>
                                             </div>
+                                            @else
+                                              <div class="col-lg-10 col-md-10 col-11 col-L-paddN">
+                                                <span class="title">Company Website</span>
+                                                <span class="Subtitle" style="word-wrap: break-word">{{ !empty($record->website)?$record->website:''  }}</span>
+                                            </div>
+                                            
                                               @endif
                                         </div>
                                     </div>

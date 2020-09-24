@@ -155,7 +155,7 @@ class UserController extends Controller
                     'city'=>$data["city"]??"",
                     'province'=>$data["province"]??"",
                     'zipcode'=>$data["zipcode"]??"",
-                    'website'=>$this->check_https($data["website"]),
+                    'website'=>$data["website"],
                     'https'=>$data['https']??"",
                     'website_check'=>$profiles["website"][0],
                     'linkedin_check'=>$profiles["linkdin"][0],

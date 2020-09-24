@@ -196,7 +196,7 @@
                                     <div class="item form-group @error('website') bad @enderror">
                                         <label for="website" class="col-form-label col-md-3 label-align">{{ __('Website') }}</label>
                                         <div class="col-md-6 col-sm-6">
-                                            <input id="website" type="text" name="website" value="{{$record->website}}"  class="form-control @error('website') is-invalid @enderror" required="required" autocomplete="website">
+                                            <input id="website" type="text" name="website" value="{{$record->website}}"  class="form-control @error('website') is-invalid @enderror"  autocomplete="website">
                                         </div>
                                         @error('website')
                                         <div class="alert">{{$message}}</div>
@@ -205,9 +205,9 @@
 
 
                                     <div class="item form-group @error('https') bad @enderror">
-                                        <label for="website" class="col-form-label col-md-3 label-align">Hypertext Transfer Protocol</label>
+                                        <label for="website" class="col-form-label col-md-3 label-align">Http Web Site & Https Web Site</label>
                                         <div class="col-md-6 col-sm-6">
-                                            <input id="https" type="text" name="https" value="{{$record->https}}"  class="form-control @error('https') is-invalid @enderror" required="required" autocomplete="https">
+                                            <input id="https" type="text" name="https" value="{{$record->https}}"  class="form-control @error('https') is-invalid @enderror"  autocomplete="https">
                                         </div>
                                         @error('https')
                                         <div class="alert">{{$message}}</div>
