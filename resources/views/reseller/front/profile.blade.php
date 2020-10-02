@@ -8,66 +8,97 @@
 {{--Content--}}
 @section('content')
     <div class="container-fluid asd">
-        {{--    Header --}}
+    {{--    Header --}}
 
-        <!--Cropping Modal -->
-            <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="cropModalTitle" aria-hidden="true">
+    <!--Cropping Modal -->
+        <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="cropModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #be0103;">
+                        <h5 class="modal-title text-light" id="croptitle">Drag To Adjust</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="padding: 0px">
+                        <img id="cropper"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary back_profile_pic" data-dismiss="modal">Back</button>
+                        <button type="button" class="btn btn-danger save_profile_pic" style="background-color: #be0103;">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Share your QR Code</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <form method="post" id="qrcode">
+                        @csrf
+                    <div class="modal-body">
+                        <input type="hidden" value="{{ $reseller->id ?? '' }}" id="reseller_id" name="reseller_id">
+                        <input type="hidden" id="qrcode" value="{{ asset('assets/uploads/reseller/'.$reseller->id.'.png') ?? '' }}" name="qrcode">
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" placeholder="Email" required name="qr_email" id="qr_email">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_individual" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger" id="share">Share</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    {{--END Cropping Modal--}}
+
+    @if(!Auth::guard('reseller')->check())
+        {{-- Start a Business Modal --}}
+        <!-- Modal -->
+            <div class="modal fade" id="businessModal" tabindex="-1" role="dialog" aria-labelledby="businessModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header" style="background-color: #be0103;">
-                            <h5 class="modal-title text-light" id="croptitle">Drag To Adjust</h5>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="businessModalTitle">Start a Business</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body" style="padding: 0px">
-                            <img  id="cropper" />
+                        <div class="modal-body">
+                            <a href="{{route('referral.reseller',$reseller->id)}}" class="btn btn-danger button-red text-white">Become a Reseller</a>
+                            <a href="https://beyondant-products.com/collections/all?discount={{$reseller->discount_code}}" target="_blank" class="btn btn-danger button-red text-white">Buy Our Products</a>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary back_profile_pic" data-dismiss="modal">Back</button>
-                            <button type="button" class="btn btn-danger save_profile_pic"  style="background-color: #be0103;">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-    {{--END Cropping Modal--}}
-
-     @if(!Auth::guard('reseller')->check())
-        {{-- Start a Business Modal --}}
-                <!-- Modal -->
-                <div class="modal fade" id="businessModal" tabindex="-1" role="dialog" aria-labelledby="businessModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="businessModalTitle">Start a Business</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <a href="{{route('referral.reseller',$reseller->id)}}" class="btn btn-danger button-red text-white" >Become a Reseller</a>
-                                <a href="https://beyondant-products.com/collections/all?discount={{$reseller->discount_code}}" target="_blank" class="btn btn-danger button-red text-white">Buy Our Products</a>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        {{-- Start a Business Modal --}}
-    @endif
+            {{-- Start a Business Modal --}}
+        @endif
 
         <div class="row header">
             {{-- Language Selection --}}
             <div class="offset-lg-1 col-lg-2">
-                <div class="language"><i class="fa fa-globe"></i> <p id="google_translate_element" class="translate"></p></div>
+                <div class="language"><i class="fa fa-globe"></i>
+                    <p id="google_translate_element" class="translate"></p></div>
+            </div>
+            <div class="col-lg">
+                <a href="{{ asset('assets/uploads/reseller/'.$reseller->id.'.png') ?? '' }}" download="QR" class="btn bg-danger text-light"><i class="fa fa-download"></i></a>
+                <button type="button" data-toggle="modal" data-target="#myModal" class="btn bg-light text-dark"><i class="fa fa-share"></i></button>
             </div>
             {{-- End Language Selection --}}
             {{-- Authorized Reseller Column--}}
-            <div class="offset-lg-3 col-lg-6 pt-3">
+            <div class="offset-lg-3 col-lg-5 pt-3">
                 <div class="authorized-reseller">
-                    <img src="{{asset($reseller->profile_picture?$reseller->profile_picture:'assets/reseller/front/images/profile.jpg')}}" id="pro_pic" />
+                    <img src="{{asset($reseller->profile_picture?$reseller->profile_picture:'assets/reseller/front/images/profile.jpg')}}" id="pro_pic"/>
                     @if(auth()->guard('reseller')->user())
                         <form id="fileprofile_picture" action="" method="post" enctype="multipart/form-data" style="display: none">
                             <input class="file-upload" type="file" id="profile_picture" name="profile_picture" accept="image/*">
@@ -99,9 +130,9 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
-{{--                            <li class="nav-item active">--}}
-{{--                                <a class="nav-link" href="#">Shop Devices</a>--}}
-{{--                            </li>--}}
+                            {{--                            <li class="nav-item active">--}}
+                            {{--                                <a class="nav-link" href="#">Shop Devices</a>--}}
+                            {{--                            </li>--}}
                             <li class="nav-item">
                                 <a class="nav-link {{auth()->guard('reseller')->check()?'disabled':''}}" href="#" id="startBusinessTrigger">Start a Business</a>
                             </li>
@@ -112,11 +143,11 @@
                     </div>
                     <span class="navbar-text text-white">
                       <i class="fa fa-phone p-2 mr-2"></i>{{$reseller->business_phone}}
-                      @if(auth()->guard('reseller')->check())
-                          <a class="btn btn-light button-white text-dark" href="{{route('reseller.admin.edit')}}"><span class="font-weight-bold">Edit Profile</span></a>
-                          <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-danger button-red text-white"><span class="font-weight-bold">Logout</span></a>
+                        @if(auth()->guard('reseller')->check())
+                            <a class="btn btn-light button-white text-dark" href="{{route('reseller.admin.edit')}}"><span class="font-weight-bold">Edit Profile</span></a>
+                            <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-danger button-red text-white"><span class="font-weight-bold">Logout</span></a>
                             <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none"><input type="hidden" name="_token" value="{{csrf_token()}}"></form>
-                      @endif
+                        @endif
                     </span>
                 </nav>
             </div>
@@ -142,21 +173,21 @@
                                 </div>
                             </div>
                         </div>
-{{--                        <div class="carousel-item">--}}
-{{--                            <div class="overlay"></div>--}}
-{{--                            <img class="img-fluid" src="{{asset('assets/reseller/front/images/slider.jpg')}}" alt="Third slide">--}}
-{{--                            <div class="carousel-caption">--}}
-{{--                                <h1 class="display-1 text-uppercase">Let’s Put In The Work & Build Business Success!</h1>--}}
-{{--                                <div class="carousel-caption-buttons">--}}
-{{--                                    <a class="btn button-red font-weight-bold" href="#">--}}
-{{--                                        <span class="pl-2 pr-2">Join Free</span>--}}
-{{--                                    </a>--}}
-{{--                                    <a class="btn button-blue" href="#">--}}
-{{--                                        <span class="pl-4 pr-4">Log In</span>--}}
-{{--                                    </a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="carousel-item">--}}
+                        {{--                            <div class="overlay"></div>--}}
+                        {{--                            <img class="img-fluid" src="{{asset('assets/reseller/front/images/slider.jpg')}}" alt="Third slide">--}}
+                        {{--                            <div class="carousel-caption">--}}
+                        {{--                                <h1 class="display-1 text-uppercase">Let’s Put In The Work & Build Business Success!</h1>--}}
+                        {{--                                <div class="carousel-caption-buttons">--}}
+                        {{--                                    <a class="btn button-red font-weight-bold" href="#">--}}
+                        {{--                                        <span class="pl-2 pr-2">Join Free</span>--}}
+                        {{--                                    </a>--}}
+                        {{--                                    <a class="btn button-blue" href="#">--}}
+                        {{--                                        <span class="pl-4 pr-4">Log In</span>--}}
+                        {{--                                    </a>--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -245,22 +276,26 @@
             </div>
         </div>
         <style>
-            @media (max-width:767px){
+            @media (max-width: 767px) {
                 .header .language {
                     text-align: right;
                 }
+
                 .header .authorized-reseller {
                     display: inline-block;
                 }
+
                 .header .authorized-reseller {
                     display: inline-block;
                     text-align: center;
                 }
+
                 .header .authorized-reseller a.btn.btn-light,
-                .header .button-red{
+                .header .button-red {
                     width: 100%;
                     margin: 10px 0;
                 }
+
                 .navbar-section {
                     padding: 0px 0px 25px 0px;
                     background-color: #08325a;
@@ -269,13 +304,16 @@
                     z-index: 3;
                     margin-top: 0%;
                 }
+
                 .carousel .carousel-control-next, .carousel-control-prev {
                     width: 5%;
                     opacity: 1;
                 }
+
                 .carousel-caption-buttons {
                     display: none;
                 }
+
                 .carousel-inner .carousel-caption {
                     justify-content: center;
                     align-items: center;
@@ -283,18 +321,21 @@
                     padding: 10px;
                     width: 75%;
                 }
+
                 .header {
                     height: 100%;
                 }
+
                 .display-1 {
                     font-size: 1rem;
                 }
+
                 .links-section h1.link-heading {
                     font-size: 30px;
                 }
             }
 
-            .navbar-toggler{
+            .navbar-toggler {
                 border: 1px solid #ffffff;
             }
 
@@ -305,63 +346,89 @@
 {{--End Content--}}
 @section('pageJs')
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("#startBusinessTrigger").click(function () {
                 $("#businessModal").modal('show');
             });
+
+            let form = document.getElementById('qrcode');
+            //     async function postData(url = '', data = {})
+            form.addEventListener('submit',(e) => {
+                e.preventDefault();
+                let email = form.elements['qr_email'].value;
+                let reseller_id = form.elements['reseller_id'].value;
+                let qrcode = form.elements['qrcode'].value;
+                async function QrCode(url = '', data = {}) {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        cache: 'no-cache',
+                        //credentials: 'same-origin', //include, * same-origin, omit
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    return response.json();
+                }
+                QrCode("{{ route('reseller.qrcode',request()->segment(3)) }}",{ email: email, reseller_id: reseller_id, qrcode: qrcode})
+                    .then(data => {
+                        console.log(data);
+                    })
+            })
         });
     </script>
     @if(auth()->guard('reseller')->user())
-<script src="{{asset('assets/front/js/jquery.ui.touch-punch.min.js')}}"></script>
+        <script src="{{asset('assets/front/js/jquery.ui.touch-punch.min.js')}}"></script>
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js'></script>
-    <script>
-        $(document).ready(function () {
-            //Profile Cropping Code
-            var rawImage;
-            var profile_crop=$("#cropper").croppie();
-            $('#cropModal').on('shown.bs.modal', function(){
-                profile_crop.croppie('destroy');
-                profile_crop=$("#cropper").croppie({
-                    enableExif: true,
-                    mouseWheelZoom:'ctrl',
-                    boundary:{
-                        height:400
-                    },
-                    viewport:{
-                        height:300,
-                        width:300,
-                        type:'circle'
-                    }
-                });
-                    profile_crop.croppie('bind',{
-                        url:rawImage
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js'></script>
+        <script>
+            $(document).ready(function () {
+                //Profile Cropping Code
+                var rawImage;
+                var profile_crop = $("#cropper").croppie();
+                $('#cropModal').on('shown.bs.modal', function () {
+                    profile_crop.croppie('destroy');
+                    profile_crop = $("#cropper").croppie({
+                        enableExif: true,
+                        mouseWheelZoom: 'ctrl',
+                        boundary: {
+                            height: 400
+                        },
+                        viewport: {
+                            height: 300,
+                            width: 300,
+                            type: 'circle'
+                        }
                     });
-            });
+                    profile_crop.croppie('bind', {
+                        url: rawImage
+                    });
+                });
 
-            $(document).on('change', '.file-upload', function () {
-                setImage();
-                $("#cropModal").modal('show');
-            });
+                $(document).on('change', '.file-upload', function () {
+                    setImage();
+                    $("#cropModal").modal('show');
+                });
 
-            function setImage(){
-                var reader=new FileReader();
-                reader.onload=function(eve){
-                    // image.attr("src",eve.target.result);
-                    rawImage=eve.target.result;
-                };
-                reader.readAsDataURL($(".file-upload")[0].files[0]);
-            }
+                function setImage() {
+                    var reader = new FileReader();
+                    reader.onload = function (eve) {
+                        // image.attr("src",eve.target.result);
+                        rawImage = eve.target.result;
+                    };
+                    reader.readAsDataURL($(".file-upload")[0].files[0]);
+                }
 
-            $("#pro_pic").click(function () {
-                $(".file-upload").trigger("click");
-            });
+                $("#pro_pic").click(function () {
+                    $(".file-upload").trigger("click");
+                });
 
-            $('.save_profile_pic').on('click',function () {
-                $("#croptitle").text("Saving....");
-                $(this).attr("disabled",true);
-                $('.back_profile_pic').attr("disabled",true);
-                //let forms = document.querySelector('#fileprofile_picture');
+                $('.save_profile_pic').on('click', function () {
+                    $("#croptitle").text("Saving....");
+                    $(this).attr("disabled", true);
+                    $('.back_profile_pic').attr("disabled", true);
+                    //let forms = document.querySelector('#fileprofile_picture');
 
                     profile_crop.croppie("result").then((data) => {
                         $.ajax({
@@ -376,16 +443,20 @@
                             success: function (data) {
                                 window.location.reload();
                             },
-                            error:function (err) {
+                            error: function (err) {
                                 console.log(err);
                             }
                         });
                     });
                 });
 
-        //    End Profile Cropping Code
+                //    End Profile Cropping Code
 
-        });
-    </script>
+
+
+
+
+            });
+        </script>
     @endif
 @endsection

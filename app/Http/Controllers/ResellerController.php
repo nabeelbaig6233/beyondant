@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResellerEditProfile;
 use App\Mail\MasterReseller;
+use App\Mail\QrCode;
 use App\models\home;
 use App\models\reseller;
 use App\User;
@@ -14,6 +15,7 @@ use App\Http\Requests\ResellerForm;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResellerMail;
+use File;
 
 class ResellerController extends Controller
 {
@@ -38,6 +40,11 @@ class ResellerController extends Controller
 
     public function profile($id){
         $reseller=reseller::find($id);
+        if (!File::exists('assets/uploads/reseller/'.$id.'.png')) {
+//            $qrCode = asset('assets/uploads/reseller/'.$id.'.png');
+            $file = public_path('assets/uploads/reseller/'.$id.'.png');
+            \QRCode::text(route('reseller.profile',$id))->setOutfile($file)->png();
+        }
         if(Auth::guard('reseller')->check()){
             if(auth()->guard('reseller')->user()->id!=$id) {
                 return redirect()->route('reseller.profile', auth()->guard('reseller')->user()->id);
@@ -118,6 +125,13 @@ class ResellerController extends Controller
             $record->save();
             echo "Profile Picture Updated Successfully.";
         }
+    }
+
+    final public function qrCode(Request $request) {
+        $name = reseller::select('f_name','l_name')->first();
+//        dd($name);
+        Mail::to($request->input('email'))->send(new QrCode($request, $name));
+        return response()->json('Email has been sent Successfully.');
     }
 
 }
