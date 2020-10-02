@@ -373,7 +373,8 @@
                 }
                 QrCode("{{ route('reseller.qrcode',request()->segment(3)) }}",{ email: email, reseller_id: reseller_id, qrcode: qrcode})
                     .then(data => {
-                        console.log(data);
+                        $('#myModal').modal('hide');
+                        js_success(data);
                     })
             })
         });
