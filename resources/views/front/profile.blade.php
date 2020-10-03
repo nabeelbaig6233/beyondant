@@ -119,11 +119,40 @@
 
         /*    }*/
         /*}*/
+        .download-btn {
+            font-size: 19px;
+            color: #be0103;
+            padding: 0 12px;
+        }
         </style>
 @endsection
 @section('content')
 
-
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Share your QR Code</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <form method="post" id="qrcode">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" value="{{ request()->segment(2) }}" id="customer_id" name="customer_id">
+                        <input type="hidden" id="qrcode" value="{{ asset('assets/uploads/customer/'.request()->segment(2).'.png') ?? '' }}" name="qrcode">
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" placeholder="Email" required name="qr_email" id="qr_email">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="close_individual" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger" id="share">Share</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!--Cropping Modal -->
     <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="cropModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -166,6 +195,9 @@
 
                             <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-inline-block m-r-auto user-logout">Logout</a>
                             <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">@csrf</form>
+
+                            <a href="{{ asset('assets/uploads/customer/'.request()->segment(2).'.png') ?? '' }}" download="QR" class="download-btn"><i class="fa fa-download"></i></a>
+                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn bg-light text-dark"><i class="fa fa-share"></i></button>
                         @endguest
                     </div>
                 </div>
@@ -565,7 +597,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-lg-6 col-md-6">
                                         <div class="row">
                                             <div class="col-lg-2 col-md-2 col-1 col-R-paddN">
@@ -586,11 +618,11 @@
                                                 <span class="title">Company Website</span>
                                                 <span class="Subtitle" style="word-wrap: break-word">{{ !empty($record->website)?$record->website:''  }}</span>
                                             </div>
-                                            
+
                                               @endif
                                         </div>
                                     </div>
-                                  
+
 
 
                                 </div>
@@ -1121,6 +1153,33 @@
 
 
         $(document).ready(function () {
+
+            let form = document.getElementById('qrcode');
+            //     async function postData(url = '', data = {})
+            form.addEventListener('submit',(e) => {
+                e.preventDefault();
+                let email = form.elements['qr_email'].value;
+                let customer_id = form.elements['customer_id'].value;
+                let qrcode = form.elements['qrcode'].value;
+                async function QrCode(url = '', data = {}) {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        cache: 'no-cache',
+                        //credentials: 'same-origin', //include, * same-origin, omit
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    return response.json();
+                }
+                QrCode("{{ route('customer.qrcode',request()->segment(2)) }}",{ email: email, customer_id: customer_id, qrcode: qrcode})
+                    .then(data => {
+                        $('#myModal').modal('hide');
+                        js_success(data);
+                    })
+            })
 
             $('.dropdown-toggle').dropdown();
             $('.carousel').carousel();

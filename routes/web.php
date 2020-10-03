@@ -156,6 +156,7 @@ Route::middleware(['allowguest'])->group(function (){
     Route::post('/entrepreneurs','EntrepreneursController@store')->name("entrepreneurs.submit");
     //basic profile route or others
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
+    Route::post("/customer/qrcode/{id}","ProfileController@qrCode")->name('customer.qrcode');
     //upgrade profile
     Route::get('/upgrade-front-profile/{id?}','ProfileController@upgrade_profile_front')->name('upgrade-front-profile');
 

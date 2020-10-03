@@ -8,12 +8,13 @@ use App\Mail\CreateEmployeeMail;
 use App\Mail\IntroductionEmail;
 use App\Mail\MeetMail;
 use App\Mail\NewContactAlert;
+use App\Mail\QrCode;
 use App\models\device;
 use App\models\downloads;
 use App\models\meeting;
+use App\models\reseller;
 use App\Notifications\AccountNotification;
 use App\User;
-use Faker\Provider\File;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Http\Requests\PasswordValidationForm;
@@ -24,16 +25,20 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ViewErrorBag;
 use Psy\Util\Str;
+use File;
 
 class ProfileController extends Controller
 {
     public function index($id)
     {
-      
         $content['record'] = User::where([['role_id','=',2],['id','=',$id]])->orWhere([['role_id','=',5],['id','=',$id]])->orWhere([['role_id','=',7],['id','=',$id]])->first();
 
         if (!empty($content['record'])) {
             if (Auth::check()) {
+                if (!File::exists('assets/uploads/customer/'.$id.'.png')) {
+                    $file = public_path('assets/uploads/customer/'.$id.'.png');
+                    \QRCode::text(route('pro',$id))->setOutfile($file)->png();
+                }
 
                 if(auth()->user()->id!=$id){
 
@@ -55,10 +60,10 @@ class ProfileController extends Controller
             }
             //End
         if ((int)$content['record']->facebook_check == 1) {
-            
+
             return redirect($content['record']->facebook);
         } elseif ((int)$content['record']->website_check == 1) {
-             
+
             // return redirect($content['record']->website);
             if(!empty($content['record']->https)){
                 return redirect($content['record']->https."://".$content['record']->website);
@@ -67,7 +72,7 @@ class ProfileController extends Controller
             return redirect($content['record']->linkedin);
         }
         elseif ((int)$content['record']->instagram_check == 1) {
-           
+
             return redirect($content['record']->instagram);
         } elseif ((int)$content['record']->tiktok_check == 1) {
             return redirect($content['record']->tiktok);
@@ -595,7 +600,15 @@ class ProfileController extends Controller
 
         }
     }
-
+    final public function qrCode(Request $request) {
+        $name = \DB::table('users')->select('first_name','last_name')->where('id',$request->input('customer_id'))->first();
+        $name = [
+            'f_name' => $name->first_name,
+            'l_name' => $name->last_name,
+        ];
+        Mail::to($request->input('email'))->send(new QrCode($request, $name));
+        return response()->json('Email has been sent Successfully.');
+    }
 
 
 

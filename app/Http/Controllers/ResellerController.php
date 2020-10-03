@@ -41,7 +41,6 @@ class ResellerController extends Controller
     public function profile($id){
         $reseller=reseller::find($id);
         if (!File::exists('assets/uploads/reseller/'.$id.'.png')) {
-//            $qrCode = asset('assets/uploads/reseller/'.$id.'.png');
             $file = public_path('assets/uploads/reseller/'.$id.'.png');
             \QRCode::text(route('reseller.profile',$id))->setOutfile($file)->png();
         }
@@ -128,7 +127,7 @@ class ResellerController extends Controller
     }
 
     final public function qrCode(Request $request) {
-        $name = reseller::select('f_name','l_name')->first();
+        $name = reseller::select('f_name','l_name')->where('id',$request->input('reseller_id'))->first();
 //        dd($name);
         Mail::to($request->input('email'))->send(new QrCode($request, $name));
         return response()->json('Email has been sent Successfully.');
