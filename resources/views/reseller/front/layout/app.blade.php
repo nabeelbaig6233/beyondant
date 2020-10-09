@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{asset('css/alert.css')}}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link href="{{asset('assets/front/css/translate.css')}}" rel="stylesheet" type="text/css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('pageCss')
 </head>
 <body>

@@ -18,4 +18,18 @@
 [29-Jul-2020 15:42:52 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
 [29-Jul-2020 15:45:13 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
 [29-Jul-2020 15:46:22 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
-[31-Jul-2020 21:44:37 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[31-Jul-2020 21:44:37 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0[26-Sep-2020 03:09:41 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[26-Sep-2020 03:11:25 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[02-Oct-2020 18:40:41 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[02-Oct-2020 19:29:15 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[02-Oct-2020 19:37:56 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[02-Oct-2020 19:39:08 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[07-Oct-2020 17:44:21 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[07-Oct-2020 17:45:22 UTC] PHP Fatal error:  Allowed memory size of 1610612736 bytes exhausted (tried to allocate 4096 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/RuleWatchGraph.php on line 52
+[07-Oct-2020 17:47:10 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[07-Oct-2020 17:48:10 UTC] PHP Fatal error:  Allowed memory size of 1610612736 bytes exhausted (tried to allocate 4096 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/Solver.php on line 223
+[07-Oct-2020 18:17:33 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[07-Oct-2020 18:18:17 UTC] PHP Fatal error:  Allowed memory size of 1610612736 bytes exhausted (tried to allocate 4096 bytes) in phar:///opt/cpanel/composer/bin/composer/src/Composer/DependencyResolver/RuleWatchGraph.php on line 52
+[07-Oct-2020 18:23:05 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[07-Oct-2020 18:27:07 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[07-Oct-2020 18:27:58 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0

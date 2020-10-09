@@ -3,3 +3,4 @@
 [20-Mar-2020 04:06:36 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/beyondant/public_html/beyondant/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
 [20-Mar-2020 04:06:37 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/beyondant/public_html/beyondant/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 500
 [20-Mar-2020 04:08:41 UTC] PHP Fatal error:  Declaration of Symfony\Component\Translation\TranslatorInterface::setLocale($locale) must be compatible with Symfony\Contracts\Translation\LocaleAwareInterface::setLocale(string $locale) in /home/beyondant/public_html/beyondant/vendor/symfony/translation/TranslatorInterface.php on line 24
+[07-Oct-2020 18:17:12 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0

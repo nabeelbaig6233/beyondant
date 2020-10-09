@@ -156,6 +156,7 @@ Route::middleware(['allowguest'])->group(function (){
     Route::post('/entrepreneurs','EntrepreneursController@store')->name("entrepreneurs.submit");
     //basic profile route or others
     Route::get('/profile/{id?}','ProfileController@index')->name('pro');
+    Route::post("/customer/qrcode/{id}","ProfileController@qrCode")->name('customer.qrcode');
     //upgrade profile
     Route::get('/upgrade-front-profile/{id?}','ProfileController@upgrade_profile_front')->name('upgrade-front-profile');
 
@@ -176,6 +177,7 @@ Route::middleware(['allowguest'])->group(function (){
     Route::post('/reseller-submit', 'ResellerController@index')->name('reseller.submit');
     //Reseller Profile
     Route::get("/reseller/profile/{id}","ResellerController@profile")->name('reseller.profile');
+    Route::post("/reseller/qrcode/{id}","ResellerController@qrCode")->name('reseller.qrcode');
     //nfc-android
     Route::get('/nfc-android-service', 'HomeController@nfc_android')->name('nfc-android');
     //nfc-business cards
@@ -184,6 +186,12 @@ Route::middleware(['allowguest'])->group(function (){
     Route::get('/reseller-directory', 'ResellerDirectoryController@index')->name('reseller-directory');
     //Referral Reseller
     Route::get('/referral/reseller/{id}', 'ResellerController@referral_customers')->name('referral.reseller');
+
+    Route::get('qr-code', function ()
+    {
+        $file = public_path('qr.png');
+        return QRCode::text('QR Code Generator for Laravel!')->setOutfile($file)->png();
+    });
 });
 
 Route::middleware(['customer'])->group(function () {
