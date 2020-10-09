@@ -218,6 +218,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','level'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','status'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','profile_url'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','download_QR_code'))}}</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -470,6 +471,7 @@
                         return '<span class="badge badge-'+status[0]+'">'+status[1]+'</span>';
                     }},
                     {data: 'profile_url', name: 'profile_url'},
+                    {data: 'qrcode', name: 'qrcode'},
                     {data: 'action', name: 'action', orderable: false}
                 ]
             });

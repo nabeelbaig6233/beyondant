@@ -25,13 +25,19 @@ class ResellerController extends Controller
             return datatables()->of(reseller::latest()->get())
                 ->addColumn('checkbox',function($data){
                     return '<input type="checkbox" class="delete_checkbox flat" value="'.$data->id.'">';
+                })->addColumn('qrcode', function($data) {
+                    if (!\File::exists('assets/uploads/reseller/'.$data->id.'.png')) {
+                        $file = public_path('assets/uploads/reseller/'.$data->id.'.png');
+                        \QRCode::text(route('reseller.profile',$data->id))->setOutfile($file)->png();
+                    }
+                    return '<a href="'.asset('assets/uploads/reseller/'.$data->id.'.png').'" download="QR"><img width="65" src="'.asset('assets/uploads/reseller/'.$data->id.'.png').'"></a>';
                 })->addColumn('profile_url',function($data){
                     return '<a href="'.route("reseller.profile",$data->id).'" class="text-primary"><i class="fa fa-external-link"></i> Profile</a>';
                 })
                 ->addColumn('action',function($data){
                     return '<button title="View" type="button" name="view" id="'.$data->id.'" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>'
                             .'&nbsp;<button title="Edit" type="button" name="edit" id="'.$data->id.'" class="edit btn btn-success btn-sm"><i class="fa fa-edit"></i></button>';
-                })->rawColumns(['checkbox','action','profile_url'])->make(true);
+                })->rawColumns(['checkbox','action','profile_url', 'qrcode'])->make(true);
         }
         return view('admin.'.request()->segment(2).'.list')->with($content);
     }

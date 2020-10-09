@@ -29,8 +29,13 @@ class ProfileController extends Controller
             return datatables()->of(User::latest()->where($where)->get())
                 ->addColumn('image',function ($data){
                     return '<img width="65" src="'.asset(!empty($data->profile_picture)?$data->profile_picture:'assets/admin/images/placeholder.png').'">';
-                })
-                ->addColumn('checkbox',function($data){
+                })->addColumn('qrcode', function($data) {
+                    if (!\File::exists('assets/uploads/customer/'.$data->id.'.png')) {
+                        $file = public_path('assets/uploads/customer/'.$data->id.'.png');
+                        \QRCode::text(route('pro',$data->id))->setOutfile($file)->png();
+                    }
+                    return '<a href="'.asset('assets/uploads/customer/'.$data->id.'.png').'" download="QR"><img width="65" src="'.asset('assets/uploads/customer/'.$data->id.'.png').'"></a>';
+                })->addColumn('checkbox',function($data){
                     return '<input type="checkbox" class="delete_checkbox flat" value="'.$data->id.'">';
                 })->addColumn('views',function($data){
                     return auth()->user()->subscription_status===1?'<h4 class="text-center font-weight-bold text-danger">'.$this->getProfileViews($data->id).'</h4>':'<h4 class="text-center font-weight-bold text-danger"> - </h4>';
@@ -47,7 +52,7 @@ class ProfileController extends Controller
                                                                     </div>': $actions;
                     $upgrade=auth()->user()->role_id===1?$company.'<button title="Upgrade To Multi Device Profile" type="button" name="upgrade" id="'.$data->id.'" class="upgrade btn btn-dark btn-sm"><i class="fa fa-users"></i></button>&nbsp;<button title="Login As This User" type="button" name="login_user" id="'.$data->id.'" class="login_user btn btn-danger btn-sm"><i class="fa fa-user"></i></button>':$company;
                     return $upgrade;
-                })->rawColumns(['checkbox','action','image','profile_link','views'])->make(true);
+                })->rawColumns(['checkbox','action','image','profile_link','views','qrcode'])->make(true);
         }
         return view('admin.'.request()->segment(2).'.list')->with($content);
     }
