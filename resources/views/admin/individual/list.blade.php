@@ -55,7 +55,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','email'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','contact_number'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','mobile_number'))}}</th>
-{{--                                                <th>{{ucwords(str_replace('_',' ','profile_link'))}}</th>--}}
+                                                <th>{{ucwords(str_replace('_',' ','download_QR_code'))}}</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -527,7 +527,7 @@
                     // {data: 'company_name', name: 'company_name'},
                     {data: 'contact_number', name: 'contact_number'},
                     {data: 'mobile_number', name: 'mobile_number'},
-                    // {data: 'profile_link', name: 'profile_link', orderable: false},
+                    {data: 'qrcode', name: 'qrcode'},
                     {data: 'action', name: 'action', orderable: false}
                 ]
             });

@@ -23,15 +23,20 @@ class IndividualController extends Controller
             return datatables()->of(User::latest()->where([['role_id', "=", 7], ['acc_type', "=", "individual"]])->get())
                 ->addColumn('image', function ($data) {
                     return '<img width="65" src="' . asset(!empty($data->profile_picture) ? $data->profile_picture : 'assets/admin/images/placeholder.png') . '">';
-                })
-                ->addColumn('checkbox', function ($data) {
+                })->addColumn('qrcode', function($data) {
+                    if (!\File::exists('assets/uploads/customer/'.$data->id.'.png')) {
+                        $file = public_path('assets/uploads/customer/'.$data->id.'.png');
+                        \QRCode::text(route('pro',$data->id))->setOutfile($file)->png();
+                    }
+                    return '<a href="'.asset('assets/uploads/customer/'.$data->id.'.png').'" download="QR"><img width="65" src="'.asset('assets/uploads/customer/'.$data->id.'.png').'"></a>';
+                })->addColumn('checkbox', function ($data) {
                     return '<input type="checkbox" class="delete_checkbox flat" value="' . $data->id . '">';
                 })
                 ->addColumn('action', function ($data) {
 //                    <button title="Add Employee" type="button" name="add_employee" id="'.$data->id.'" class="add_employee btn btn-primary btn-sm"><i class="fa fa-user-plus"></i></button>&nbsp;
                     $actions='<button title="View" type="button" name="view" id="' . $data->id . '" class="view btn btn-info btn-sm"><i class="fa fa-eye"></i></button>&nbsp;<button title="Show Devices" type="button" name="device" id="' . $data->id . '" class="device btn btn-primary btn-sm"><i class="fa fa-laptop"></i></button>&nbsp;<button title="Add Devices" type="button" name="add_device" id="' . $data->id . '"  class="add_device btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i></button>&nbsp;<button title="Reset Password" type="button" name="reset_password" id="'.$data->id.'" class="reset_password btn btn-warning btn-sm"><i class="fa fa-key"></i></button>&nbsp;<button title="Delete" type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
                     return auth()->user()->role_id===1?$actions.'<button title="Login As This User" type="button" name="login_user" id="'.$data->id.'" class="login_user btn btn-danger btn-sm"><i class="fa fa-user"></i></button>':$actions;
-                })->rawColumns(['checkbox', 'action', 'image'])->make(true);
+                })->rawColumns(['checkbox', 'action', 'image', 'qrcode'])->make(true);
         }
         return view('admin.' . request()->segment(2) . '.list')->with($content);
     }
