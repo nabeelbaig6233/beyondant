@@ -247,6 +247,17 @@
                                     </div>
 
 
+
+
+
+                                    <div class="item form-group">
+                                        <label for="tiktok" class="col-form-label col-md-3 label-align">{{ __('Google Review') }}</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input id="google_review" type="text" name="google_review" value="{{ $record->google_review }}"  class="form-control" autocomplete="google_review">
+                                        </div>
+                                    </div>
+                                    
+
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-3 label-align">Select What Should Be Your Default Profile (Optional)?</label>
                                         <div class="col-md-6 col-sm-6 form-check-inline">
@@ -260,8 +271,15 @@
                                             <label for="instagram" class="form-check-label pr-2">Instagram</label>
                                             <input id="tiktok" type="radio" name="check" value="tiktok"  class="form-check-input " {{$record->tiktok_check==1?"checked":""}}>
                                             <label for="tiktok" class="form-check-label pr-2">Tiktok</label>
-                                            <input id="default" type="radio" name="check" value=""  class="form-check-input " {{$record->website_check!=1&&$record->linkedin_check!=1&&$record->facebook_check!=1&&$record->instagram_check!=1&&$record->tiktok_check!=1?"checked":""}}>
+
+                                            <input id="google_review" type="radio" name="check" value="google_review"  class="form-check-input " {{$record->google_review_check==1?"checked":""}}>
+                                            <label for="google_review" class="form-check-label pr-2">GoogleReview</label>
+                                            
+                                            <input id="default" type="radio" name="check" value=""  class="form-check-input " {{$record->website_check!=1&&$record->linkedin_check!=1&&$record->facebook_check!=1&&$record->instagram_check!=1&&$record->tiktok_check!=1&&$record->google_review_check!=1?"checked":""}}>
                                             <label for="default" class="form-check-label pr-2">Default</label>
+                                            
+                                            
+                                            
                                         </div>
                                     </div>
 

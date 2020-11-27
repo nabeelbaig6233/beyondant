@@ -52,12 +52,12 @@
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input type="text" class="input-text @error('job_title') is-invalid @enderror" id="job_title" name="job_title" data-validation="required" placeholder="Title *" value="{{ old('job_title') }}" required autocomplete="job_title">
-                                                @error('job_title')
-                                                <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                                <input type="text" class="input-text" id="job_title" name="job_title" placeholder="Title" value="{{ old('job_title') }}" autocomplete="job_title">
+                                                <!--@error('job_title')-->
+                                                <!--<span class="text-danger" role="alert">-->
+                                                <!--        <strong>{{ $message }}</strong>-->
+                                                <!--    </span>-->
+                                                <!--@enderror-->
                                             </div>
                                         </div>
 

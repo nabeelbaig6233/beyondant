@@ -141,6 +141,9 @@ Route::post('/save_account', "ProfileController@save_account")->name("save_accou
 Route::get('/profile/contacts','ProfileController@user_contacts')->name('my_contacts');
 Route::delete('/profile/contacts/destroy/{id}','ProfileController@delete_contact');
 
+Route::post('/profile/contacts/edit/{id}','ProfileController@edit_contact');
+Route::post('/profile/contacts/update','ProfileController@update_contact')->name('update_contact');
+
 
 
 Auth::routes(["register"=>false]);

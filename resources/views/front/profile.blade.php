@@ -1076,6 +1076,57 @@
             </div>
         </div>
     </div>
+    
+
+
+    <!--Edit Meet Modal -->
+        <div class="modal fade" id="editMeetForm" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form id="editMeet" class='editMeet' method="POST">
+                        <input type="hidden" name="meeting_id" id="meeting_id" value="0">
+                        <div class="modal-header" style="background-color: #be0103;">
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle">do You Want to Edit?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Enter Our 1st Meeting Location" name="edit_meeting_location" id="edit_meeting_location" class="form-control" readonly="" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Your First Name"  id='edit_first_name' name="edit_first_name" class="form-control" readonly="" />
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Your Last Name" name="edit_last_name" id="edit_last_name" class="form-control" readonly=""/>
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="email" placeholder="Your E-mail" name="edit_email" id="edit_email" class="form-control" readonly=""/>
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Your Phone Number" name="edit_phone_number" id="edit_phone_number" class="form-control" readonly=""/>
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <input type="text" placeholder="Edit date" name="edit_created_at" id="edit_created_at" class="form-control" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-lg mr-auto close_meet" data-dismiss="modal" >Close</button>
+                            <button type="submit" class="btn btn-danger btn-lg e_contact" id='e_contact' data-id="{{$record->id}}" style="background-color: #be0103;">edit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    
+    
+    
+    
 {{--    //end upgrade profile modal--}}
 {{--    alert for delete company user record--}}
     <div class="modal fade" id="company-user-alert" tabindex="-1" role="dialog" aria-hidden="true">
@@ -1288,6 +1339,70 @@
                     }
                 })
             });
+            
+            
+            //End MyContacts
+            $(document).on('click','.edit_contact',function() {
+                var id = $(this).attr("id");
+
+                //altafkorejo
+                $.ajax({
+                    type:"post",
+                    url:`{{url("profile/contacts/edit")}}/${id}`,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success:function (data) {
+                        $("#edit_meeting_location").val(data.meeting_location);
+                        $("#edit_first_name").val(data.first_name);
+                        $("#edit_last_name").val(data.last_name);
+                        $("#edit_email").val(data.email);
+                        $("#edit_phone_number").val(data.phone);
+                        $("#edit_created_at").val(data.created_at);
+                        $("#meeting_id").val(id);
+
+                        $('#editMeetForm').modal('show');
+                    },
+                    error:function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+            
+            
+            $('#e_contact').on('click', function(e) {
+                    e.preventDefault();
+                    $("#e_contact").addClass("disabled");
+                    var text=$("#e_contact").text();
+                    $("#e_contact").text("Please Wait...");
+
+                    //altafkorejo
+                    var id = $("#e_contact").attr("data-id");
+                    var formdata=$("#editMeet").serializeArray();
+
+                    var data={};
+                    formdata.forEach((item)=>{
+                        data[item.name]=item.value;
+                    });
+                    data['id'] = id;
+
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': `{{csrf_token()}}`
+                        }
+                    });
+
+                    $.post(`{{route('update_contact')}}`,data,function (response) {
+                        $("#e_contact").removeClass("disabled");
+                        $("#e_contact").text(text);
+                        $("#editMeetForm").modal('hide');
+                        window.location.reload();
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+            });
+            
+
 
             //End MyContacts
 

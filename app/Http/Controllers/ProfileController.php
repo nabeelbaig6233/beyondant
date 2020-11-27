@@ -45,6 +45,13 @@ class ProfileController extends Controller
 
                     return redirect()->route('pro',auth()->user()->id);
                 }
+
+                if(in_array((int)$content['record']->role_id, array(7,5))) {
+                    if ((int)$content['record']->google_review_check == 1) {
+                        return redirect()->away($content['record']->google_review);
+                    }
+                }
+                
                 if(auth()->user()->parent_id==0){
                     $content["companyInfo"]=User::find(User::find($id)->parent_id);
                     return view('front.profile',$content);
@@ -61,8 +68,11 @@ class ProfileController extends Controller
             }
             //End
         if ((int)$content['record']->facebook_check == 1) {
-
             return redirect($content['record']->facebook);
+        } else if(in_array((int)$content['record']->role_id, array(7,5)) && $content['record']->google_review_check == 1) {
+            if ((int)$content['record']->google_review_check == 1) {
+                return redirect()->away($content['record']->google_review);
+            }
         } elseif ((int)$content['record']->website_check == 1) {
 
             // return redirect($content['record']->website);
@@ -281,7 +291,7 @@ class ProfileController extends Controller
     {
         return Validator::make($data,[
             'first_name' => ['required', 'string', 'max:255'],
-            'job_title' => ['required','string','max:255'],
+            //'job_title' => ['required','string','max:255'],
             'company_name' => ['required','string','max:255'],
             'company_description' => ['required','string'],
             'mobile_number' => ['required','string','max:255'],
@@ -532,7 +542,11 @@ class ProfileController extends Controller
                 $date=new \DateTime($data->created_at,$userTimezone);
                 return $date->format('h:i A');
             })->addColumn('action',function ($data){
-                $actions='<button title="Delete Contact" type="button" name="delete_contact" id="'.$data->id.'" class="delete_contact btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                $actions='
+                <button title="Delete Contact" type="button" name="delete_contact" id="'.$data->id.'" class="delete_contact btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
+                <button title="Edit Contact" type="button" name="edit_contact" id="'.$data->id.'" class="edit_contact btn btn-outline-info btn-sm"><i class="fa fa-edit"></i></button>
+                
+                ';
                 return $actions;
             })->rawColumns(['date','action'])
             ->make(true);
@@ -543,6 +557,37 @@ class ProfileController extends Controller
         $meeting->delete();
         return $this->user_contacts();
     }
+    
+    public function edit_contact($id) {
+        $meeting_edit = meeting::find($id);
+        return $meeting_edit;
+    }
+    
+    public function update_contact(Request $request){
+        if($request->ajax()) {
+            $first_name=$request->get("edit_first_name");
+            $last_name=$request->get("edit_last_name");
+            $email=$request->get("edit_email");
+            $updated_meeting_at=$request->get("edit_created_at");
+            $user_id=$request->get("id");
+            $updated_meeting_at=$request->get("edit_created_at");
+            $meeting_location=$request->get("edit_meeting_location");
+
+            $meeting_id=$request->get("meeting_id");
+
+            $updated = meeting::where(["id"=>$meeting_id,"user_id"=>$user_id])->update([
+                "created_at"=>$updated_meeting_at,
+            ]);
+            if($updated){
+                //Mail::to($email)->send(new UpdateMeetingEmail($first_name,$last_name,$email,$updated_meeting_at,$meeting_location));
+            }
+            return 1;
+        }
+    }
+
+    
+    
+    
     protected function upgrade_profile_front($id, Request $req)
     {
         $user = User::find($id);

@@ -112,6 +112,8 @@ class UserController extends Controller
         $profiles["facebook"]=[0,$data["facebook"]??""];
         $profiles["instagram"]=[0,$data["instagram"]??""];
         $profiles["tiktok"]=[0,$data["tiktok"]??""];
+        $profiles["google_review"]=[0,$data['google_review']??""];
+        
         if($profile_check=="website"){
             $profiles["website"]=[1,$data["website"]];
         }else if($profile_check=="linkdin"){
@@ -122,6 +124,8 @@ class UserController extends Controller
             $profiles["instagram"]=[1,$data["instagram"]];
         }else if($profile_check=="tiktok") {
             $profiles["tiktok"] = [1, $data["tiktok"]];
+        }else if($profile_check=="google_review") {
+            $profiles["google_review"] = [1, $data["google_review"]];
         }
 
 
@@ -166,6 +170,9 @@ class UserController extends Controller
                     'instagram'=>$this->check_https($profiles["instagram"][1]),
                     'tiktok_check'=>$profiles["tiktok"][0],
                     'tiktok'=>$this->check_https($profiles["tiktok"][1]),
+                    
+                    'google_review_check'=>$profiles["google_review"][0],
+                    'google_review'=>$this->check_https($profiles["google_review"][1]),                    
                 ]);
 
         if(trim($data['password'])!=''){
