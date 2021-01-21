@@ -50,6 +50,7 @@ class LoginController extends Controller
 
     public function resellerLogin(Request $request)
     {
+        //dd($request->all());
         $this->validate($request,[
             'email'   => 'required|email',
             'password' => 'required|min:6'

@@ -70,13 +70,34 @@ class ProfileController extends Controller
             return response()->json($data);
         }
     }
-
+    
+    public static function deletedData($data,$section="",$action="",$deleted_by=0) {
+        if(!empty($data)){
+            $deleted_data['name'] = $data->first_name." ".$data->last_name;
+            $deleted_data['role_id'] = $data->role_id;
+            $deleted_data['email'] = $data->email;
+            $deleted_data['company_name'] = $data->company_name;
+            $deleted_data['phone_number'] = $data->contact_number;
+            $deleted_data['mobile_number'] = $data->mobile_number;
+            $deleted_data['section'] = $section;
+            $deleted_data['action'] = $action;
+            $deleted_data['deleted_by'] = $deleted_by;
+            return $deleted_data;
+        } else {
+            return 0;
+        }
+    }
+    
     public function destroy($id)
     {
         if (!in_array('deleteUserProfile',\Request::get('permission'))) {
             return redirect('admin');
         }
         $data = User::findOrFail($id);
+        $retData = $this->deletedData($data,"Users_basic_profile","deleted",auth()->user()->id);
+        if($retData){
+            event(new \App\Events\LogTableEvent($retData));    
+        }
         $data->delete();
         echo "Deleted Successfully.";
     }
@@ -90,6 +111,11 @@ class ProfileController extends Controller
             $id = $request->input('checkbox_value');
             for ($i=0; $i < count($id); $i++) {
                 $data = User::findorFail($id[$i]);
+                
+                $retData = $this->deletedData($data,"Users_basic_profile","deleted",auth()->user()->id);
+                if($retData){
+                    event(new \App\Events\LogTableEvent($retData));
+                }
                 $data->delete();
             }
             echo "Selected records Deleted Successfully.";

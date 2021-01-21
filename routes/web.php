@@ -143,6 +143,7 @@ Route::delete('/profile/contacts/destroy/{id}','ProfileController@delete_contact
 
 Route::post('/profile/contacts/edit/{id}','ProfileController@edit_contact');
 Route::post('/profile/contacts/update','ProfileController@update_contact')->name('update_contact');
+Route::post('meeting_alert','ProfileController@meetingAlert')->name('meeting_alert');
 
 
 

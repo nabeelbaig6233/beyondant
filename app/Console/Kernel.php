@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command('google:data')->daily();
         $schedule->command('google:trash')->yearly();
-        $schedule->command('email:send')->daily();
+        $schedule->command('email:send')->daily()->timezone('America/New_York');
     }
 
     /**

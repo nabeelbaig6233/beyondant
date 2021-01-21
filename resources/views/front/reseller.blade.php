@@ -127,14 +127,6 @@
                                         </div>
                                         <div class="col-lg-6 col-lr">
                                             <div class="form-group">
-                                                <input value="{{ old('fed_tax_id') }}" data-validation="length number" data-validation-length="4" autocomplete="fed_tax_id" class="input-text" id="fed_tax_id" name="fed_tax_id" placeholder="Fed Tax ID Number Only last 4 digits" type="text">
-                                                @error('fed_tax_id')
-                                                    <p style="color: red; text-align: left">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-lr">
-                                            <div class="form-group">
                                                 <input value="{{ old('business_phone') }}" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" autocomplete="business_phone" class="input-text" id="business_phone" name="business_phone" placeholder="Business Phone" type="text">
                                             </div>
                                         </div>
@@ -149,6 +141,14 @@
                                                     <option @if(old('business_status') === 'Other (Please Specify)') selected @endif value="Other (Please Specify)">Other (Please Specify)</option>
                                                 </select>
                                                 @error('business_status')
+                                                    <p style="color: red; text-align: left">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-lr" id="fed_tax_id_box" @if(old('business_status') === 'No Business Formed') style="display: none" @endif>
+                                            <div class="form-group">
+                                                <input value="{{ old('fed_tax_id') }}" data-validation="length number" data-validation-length="4" autocomplete="fed_tax_id" class="input-text" id="fed_tax_id" name="fed_tax_id" placeholder="Fed Tax ID Number Only last 4 digits" type="text">
+                                                @error('fed_tax_id')
                                                     <p style="color: red; text-align: left">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -289,11 +289,37 @@
         $(() => $.validate({lang: 'en'}));
         $('[data-mask]').inputmask();
         document.getElementById('business_status').addEventListener('change', event => {
+            
+            // if(document.getElementById('business_status').value === "No Business Formed"){
+            //     document.getElementById('fed_tax_id').value = '';
+            //     document.getElementById('fed_tax_id').removeAttribute("data-validation");
+            //     document.getElementById('fed_tax_id').removeAttribute("data-validation-length");
+            //     document.getElementById('fed_tax_id').setAttribute("readonly",true);
+            // } else {
+            //     document.getElementById('fed_tax_id').removeAttribute("readonly");
+            //     document.getElementById('fed_tax_id').value = '';
+            //     document.getElementById('fed_tax_id').setAttribute("data-validation","length number");
+            //     document.getElementById('fed_tax_id').setAttribute("data-validation-length",4);
+            // }
+
+            
+            
             if (event.target.value === 'Other (Please Specify)') {
                 document.getElementById('business_status_description_box').style.display = '';
             } else {
                 document.getElementById('business_status_description_box').style.display = 'none';
             }
+            
+            if (event.target.value === 'No Business Formed') {
+                document.getElementById('fed_tax_id_box').style.display = 'none';                
+            } else {
+                document.getElementById('fed_tax_id_box').style.display = '';
+            }
+            
+            
+            
+            
+            
         });
         document.getElementById('approx_turnover').addEventListener('change', event => {
             if (event.target.value === 'Other (Please Specify)') {

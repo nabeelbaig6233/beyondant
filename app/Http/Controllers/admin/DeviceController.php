@@ -72,7 +72,7 @@ class DeviceController extends Controller
             return redirect('admin');
         }
         $countDevices=device::where("user_id",$request->get("id"))->count();
-        if ($countDevices<15) {
+        if ($countDevices<100) {
             $device = new device();
             $device->device_name = $request->get('device_name');
             $device->device_description = $request->get('device_description');
@@ -92,9 +92,17 @@ class DeviceController extends Controller
         if (!in_array('updateDevice',\Request::get('permission'))) {
             return redirect('admin');
         }
-        request()->validate([
-            'profile_url'=>'url'
-        ]);
+
+        if(!empty(request()->get('profile_url'))){
+            request()->validate([
+                'profile_url'=>'url'
+            ]);
+        }
+        
+        // request()->validate([
+        //     'profile_url'=>'url'
+        // ]);
+        
         $device=device::find($id);
         $device->redirected_url=request()->get('profile_url');
         $device->save();

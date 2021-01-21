@@ -34,3 +34,6 @@
 [07-Oct-2020 18:27:07 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
 [07-Oct-2020 18:27:58 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
 [25-Nov-2020 18:57:49 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[31-Dec-2020 13:37:28 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[31-Dec-2020 13:38:48 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0
+[05-Jan-2021 09:08:43 UTC] PHP Warning:  Module 'pdo_mysql' already loaded in Unknown on line 0

@@ -63,7 +63,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="form-group col-12">
-                                <input type="url" class="form-control" name="profile_url" placeholder="Primary Web Page: http://www.example.com" required />
+                                <input type="url" class="form-control" name="profile_url" placeholder="Primary Web Page: http://www.example.com"/>
                             </div>
                         </div>
                     </div>

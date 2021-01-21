@@ -261,7 +261,6 @@
                     <div class="modal-header" style="background-color: #be0103;">
                         <h4 class="modal-title text-white">View {{ucwords(str_replace('_',' ','Contacts'))}}</h4>
                         <button type="button" class="close" data-dismiss="modal" style="    color: #fff;">&times;</button>
-
                     </div>
                     <div class="modal-body">
 
@@ -272,6 +271,30 @@
                                     <div class="card-box table-responsive">
                                         <table id="contactsTable" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
+
+
+                                                <div class="container">
+                                                    <div class="row pull-right" style="margin: 5px">
+                                                        <div class="cols-sm-4">
+                                                            @if(!empty($record))
+                                                                @php
+                                                                    $m_alert_var = ($record->default_meeting_alert!=0)?explode("-",$record->default_meeting_alert):0;
+                                                                    $selected_val=$m_alert_var[1]??0;
+                                                                @endphp
+                                                            @endif
+                                                            <select class="form-control" meetingtimeframe="{{ (!empty($record))?$record->default_meeting_alert:'' }}" id="selected-option">
+                                                                <option {{ !empty($selected_val)?(($selected_val === "Weeks")?"selected":''):''}}  value="Weeks">Weeks</option>
+                                                                <option {{ !empty($selected_val)?(($selected_val === "Days")?"selected":''):''}}  value="Days"> Days</option>
+                                                            </select>                                                  
+                                                        </div>
+                                                        &nbsp;
+                                                        <div class="cols-sm-4">
+                                                            <select class="form-control" id="selected-timeframe"></select>
+                                                        </div>                                               
+                                                    </div>
+                                                </div>
+                                                
+                                            
 
                                             <tr>
                                                 <th>{{ucwords(str_replace('_',' ','First Name'))}}</th>
@@ -1401,6 +1424,100 @@
                         console.log(err);
                     });
             });
+            
+            
+            
+            
+            function retArr(selectedOption) {
+                var arr=[];
+                var selectedValue = selectedOption=='Weeks'?7:30;
+                for(let i=0; i<selectedValue; i++){
+                    arr.push(i+1);
+                }
+                return arr;
+            }
+
+            function genOpt__10122020(selectedOption) {
+                optHtml='';
+                var t = $('#selected-option').attr('meetingtimeframe');
+
+                retArr(selectedOption).forEach(element => {
+                    var v = element +'-'+(selectedOption);
+                    optHtml +='<option value='+v+'>'+(v)+'</option>';
+                });
+                return optHtml;
+            }
+            
+            function genOpt(selectedOption) {
+                optHtml='';
+                var t = $('#selected-option').attr('meetingtimeframe');
+                retArr(selectedOption).forEach(element => {
+                    var v = element +'-'+(selectedOption);
+                    
+                    var status = '';
+                    var db_val =  $('#selected-option').attr('meetingtimeframe');
+                    if(v === db_val){
+                        status = 'selected ';
+                    }
+                    optHtml +="<option "+((v===db_val)?status:'')+" value="+(v)+ ">" +(v) + "</option>";
+                });
+                return optHtml;
+            }            
+
+            var flag = false;
+            $('#selected-option').on('change', function() {
+                var flag = true;
+                let selectedOption = $(this).val();
+                var opt='';
+                (function(selectedOption) {
+                        opt ='select'+' '+selectedOption;
+                        opt += (selectedOption==='Weeks')?opt += genOpt(selectedOption):genOpt(selectedOption);
+                }(selectedOption));
+                $('#selected-timeframe').html(opt);
+            });
+
+            if(flag===false) {
+                var s_val = $('#selected-option option:selected').val();
+                var opt = '';
+                if(s_val==="Days" || s_val==="Weeks"){
+                    var opt ='select '+s_val;
+                    opt += genOpt(s_val);
+                    $('#selected-timeframe').html(opt);
+                } else {
+                    opt ='select Weeks';
+                    opt += genOpt('Weeks');
+                    $('#selected-timeframe').html(opt);
+                }
+                
+            }
+
+            $("#selected-timeframe").change( function() {
+                var selVal = $(this).val();
+                $('#selected-option').attr('disabled','disabled');
+               $.ajax({
+                    url :'{{route("meeting_alert")}}',
+                    type:'post',
+                    data: {
+                        '_token' : "{{ csrf_token() }}",
+                        "selVal" : selVal,
+                    },
+                    success : function(retStatus) {
+                        if(retStatus==='success'){
+                            js_success('Default meeting alert updated');
+                        }
+                        $('#selected-option').attr('disabled', false);                        
+                    },
+                    error: function(error) {
+                        js_error('Error while processing');
+                        $('#selected-option').attr('disabled', false);
+                    }
+                    
+                });
+                
+            });
+            
+            
+            
             
 
 

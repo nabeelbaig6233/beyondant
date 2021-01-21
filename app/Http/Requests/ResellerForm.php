@@ -11,6 +11,9 @@ class ResellerForm extends FormRequest
     {
         $business_status_description_validation = $request->input('business_status') === 'Other (Please Specify)' ? 'required|string' : '';
         $approx_turnover_description_validation = $request->input('approx_turnover') === 'Other (Please Specify)' ? 'required|string' : '';
+        $fed_tax_id = $request->input("business_status") === 'No Business Formed'?'':'string|min:4|max:4'; 
+        
+        
         return [
             'f_name' => 'required|string',
             'l_name' => 'required|string',
@@ -21,7 +24,7 @@ class ResellerForm extends FormRequest
             'state' => 'required|string',
             'country' => 'required|string',
             'postal_code' => 'required|string',
-            'fed_tax_id' => 'string|min:4|max:4',
+            'fed_tax_id' => $fed_tax_id,
             'business_status' => 'required|string',
             'business_status_description' => $business_status_description_validation,
             //'num_of_locations' => 'numeric',

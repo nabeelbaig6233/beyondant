@@ -102,7 +102,10 @@ class UserController extends Controller
         $name=explode(' ',$data["name"]);
         $f_name=$name[0];
         $l_name='';
-        for($n=1;$n<count($name);$n++){$l_name.=$name[$n];}
+        for($n=1;$n<count($name);$n++){
+            $l_name.=$name[$n]." ";
+        }
+        $l_name = trim($l_name);
 
         $profile_check=$data["check"];
         $profiles=[];

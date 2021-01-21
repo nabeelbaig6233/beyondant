@@ -38,7 +38,7 @@ class ProfileController extends Controller
                     $file = public_path('assets/uploads/customer/'.$id.'.png');
                     
                     \QRCode::text(route('pro',$id))->setOutfile($file)->png();
-                    dd($content['record']);
+                    //dd($content['record']);
                 }
 
                 if(auth()->user()->id!=$id){
@@ -73,19 +73,19 @@ class ProfileController extends Controller
             if ((int)$content['record']->google_review_check == 1) {
                 return redirect()->away($content['record']->google_review);
             }
-        } elseif ((int)$content['record']->website_check == 1) {
+        } else if ((int)$content['record']->website_check == 1) {
 
-            // return redirect($content['record']->website);
-            if(!empty($content['record']->https)){
-                return redirect($content['record']->https."://".$content['record']->website);
-            }
-        } elseif ((int)$content['record']->linkedin_check == 1) {
+            return redirect($content['record']->website);
+            // if(!empty($content['record']->https)){
+            //     return redirect($content['record']->https."://".$content['record']->website);
+            // }
+        } else if ((int)$content['record']->linkedin_check == 1) {
             return redirect($content['record']->linkedin);
         }
-        elseif ((int)$content['record']->instagram_check == 1) {
+        else if ((int)$content['record']->instagram_check == 1) {
 
             return redirect($content['record']->instagram);
-        } elseif ((int)$content['record']->tiktok_check == 1) {
+        } else if ((int)$content['record']->tiktok_check == 1) {
             return redirect($content['record']->tiktok);
         } else {
             $parent_id=User::find($id)->parent_id;
@@ -95,6 +95,23 @@ class ProfileController extends Controller
         } else {
             return redirect('/');
         }
+    }
+
+    public function meetingAlert(Request $request){
+        $ret = 'error';        
+        if($request->ajax()) {
+            $userId = Auth::user()->id;
+            if($userId){
+                $meeting_default_time = $request->selVal;
+                $updated = User::where(["id"=>$userId])->update([
+                    'default_meeting_alert'=>$meeting_default_time
+                ]);
+                if($updated){
+                    $ret='success';
+                }
+            }
+        }
+        return $ret;
     }
 
     public function vcards()
