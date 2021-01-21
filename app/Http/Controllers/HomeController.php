@@ -11,6 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // Nabeel
         $home = home::findOrFail(1);
         return view('front.home')->with('home',$home);
     }
