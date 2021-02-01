@@ -24,9 +24,9 @@
                             <div class="row">
                                 <div class="form-group col-12">
                                     <select class="form-control" style="border-radius:5%" id="can_edit" name="can_edit" required="">
-                                        <option value="">Choose from following</option>
-                                        <option value="0">Allow All</option>
-                                        <option value="1">Restrict All</option>
+                                        <option value="">Profile Access Control</option>
+                                        <option value="0">Allow Employee To Edit Profile</option>
+                                        <option value="1">Restrict Employee From Editing</option>
                                     </select>
                                 </div>
                             </div>
