@@ -122,6 +122,30 @@ class ProfileController extends Controller
         }
     }
 
+    public function editProfileSetting(Request $request) {
+        try {
+            if($request->ajax()){
+                $optionVal = $request->input('canEdit');
+                $user_id = auth()->user()->id;
+                $data = User::where([["parent_id","=",$user_id],["acc_type","=","personal"]])->get();
+                if(count($data) > 0 && auth()->user()->role_id===5){
+                    if($optionVal===1){
+                        User::where([["parent_id","=",$user_id],["acc_type","=","personal"]])->update([
+                            "can_edit_profile"=>$optionVal,
+                        ]);
+                    } else {
+                        User::where([["parent_id","=",$user_id],["acc_type","=","personal"]])->update([
+                            "can_edit_profile"=>$optionVal,
+                        ]);
+                    }
+                    echo "Record Updated successfully";
+                }
+            }
+        } catch(Exception $e){
+            echo "Error While Processing";
+        }
+    }
+
     public function reset_account_password(){
         //Fetch User
         $id=request()->get("id");

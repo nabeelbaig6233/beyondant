@@ -462,6 +462,7 @@
                 @else
                     <div class="overlay">
                         <form id="filecover_image" action="" method="post" enctype="multipart/form-data">
+                        @if($record->can_edit_profile===0)
                             <div class="icon dropdown">
                                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownCover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-pencil"></i> Edit Cover
@@ -477,6 +478,7 @@
                                     @endforeach
                                 </div>
                             </div>
+                        @endif
                             <span class="icon" title="User Profile" style="display: none">
                                 <i class="fas fa-image upload-buttonOne"></i>
                                 <input class="file-uploadOne" id="cover_image" name="cover_image" type="file" accept="image/*">
@@ -499,7 +501,9 @@
                     @if($record->role_id==5||$record->role_id==7)
                         <a class="edit-profile-btn text-white" style="bottom: 50px" href="{{action("admin\DashboardController@index")}}"><i class="fas fa-arrow-left" ></i>  Back To Admin View</a>
                     @endif
+                    @if($record->can_edit_profile===0)
                     <a class="edit-profile-btn" id="edit_profile" href="{{$record->role_id==5||$record->role_id==7?route('user.edit',$record->id):route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i> Edit Public Profile </a>
+                    @endif
 {{--                    <button class="edit-profile-btn" id="pos" style="display: none; color: #fff" >Save Changes </button>--}}
                 @endguest
             </div>
@@ -514,6 +518,7 @@
                             @guest
                             @else
                                 <div class="overlay">
+                                @if($record->can_edit_profile === 0)
                                     <form id="fileprofile_picture" action="" method="post" enctype="multipart/form-data">
                                 <span class="icon" title="User Profile">
                                     <i class="fas fa-image upload-button"></i>
@@ -522,6 +527,7 @@
                                 </span>
                                         {{--                                    <button class="btn btn-info" type="submit">upload</button>--}}
                                     </form>
+                                @endif
                                 </div>
                             @endguest
                         </div>
@@ -927,6 +933,7 @@
 {{--                </div>--}}
                     @guest
                 @else
+                @if($record->can_edit_profile===0)                
                     <form id="filecover_imageTwo" action="" method="post" enctype="multipart/form-data">
                     <span class="icon" style="z-index: 1000" title="User Cover" id="upload">
                         <i class="fas fa-image" data-toggle="modal" data-target="#uploadSelection"></i>
@@ -934,7 +941,7 @@
                          <input id="cover_top2" name="cover_top" type="hidden" value="0" />
                     </span>
                     </form>
-
+                @endif
                 {{--Modal Upload--}}
 
                     <div class="modal fade" id="uploadSelection" tabindex="-1" role="dialog" aria-hidden="true">
@@ -963,8 +970,9 @@
                     </div>
 
                 {{--End Upload--}}
-
+                    @if($record->can_edit_profile ===0)
                     <a class="edit-profile-btn" id="edit_profile2" href="{{$record->role_id==5||$record->role_id==7?route('user.edit',$record->id):route('edit-profile',$record->id)}}"><i class="fas fa-edit"></i></a>
+                    @endif
 {{--                    <a class="edit-profile-btn save" id="pos2" style="display:none;float: right"><i class="fas fa-save"></i></a>--}}
                 @endguest
             </div>
@@ -979,6 +987,7 @@
                             <img src="{{asset(($record->profile_picture?$record->profile_picture:'assets/admin/images/profile.jpg'))}}" class="profile-picThree">
                             @guest
                             @else
+                            @if($record->can_edit_profile === 0)
                                 <form id="fileprofile_picture" action="" method="post" enctype="multipart/form-data">
                             <span class="icon" title="User Profile">
                                 <i class="fas fa-image upload-buttonThree"></i>
@@ -986,6 +995,7 @@
                                 <!--<span class="text">Upload</span>-->
                             </span>
                                 </form>
+                            @endif
                             @endguest
                         </div>
                     </div>
