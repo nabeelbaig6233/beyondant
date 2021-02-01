@@ -329,6 +329,7 @@
                                                 <th>{{ucwords(str_replace('_',' ','title'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','email'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','company_name'))}}</th>
+                                                <th>{{ucwords(str_replace('_',' ','profile_access_control'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','contact_number'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','mobile_number'))}}</th>
                                                 <th>{{ucwords(str_replace('_',' ','profile_link'))}}</th>
@@ -574,6 +575,7 @@
                     {data: 'job_title', name: 'job_title'},
                     {data: 'email', name: 'email'},
                     {data: 'company_name', name: 'company_name'},
+                    {data: 'can_edit_profile', name: 'can_edit_profile'},
                     {data: 'contact_number', name: 'contact_number'},
                     {data: 'mobile_number', name: 'mobile_number'},
                     {data: 'profile_link', name: 'profile_link', orderable: false},

@@ -39,8 +39,9 @@ class ProfileController extends Controller
                     return '<input type="checkbox" class="delete_checkbox flat" value="'.$data->id.'">';
                 })->addColumn('views',function($data){
                     return auth()->user()->subscription_status===1?'<h4 class="text-center font-weight-bold text-danger">'.$this->getProfileViews($data->id).'</h4>':'<h4 class="text-center font-weight-bold text-danger"> - </h4>';
-                })
-                ->addColumn('profile_link', function ($data) {
+                })->addColumn('can_edit_profile', function($data){
+                    return $data->can_edit_profile===1?'Restricted':'Allowed';
+                })->addColumn('profile_link', function ($data) {
                     return '<a target="_blank" href="' . route('pro',$data->id) . '">'. $data->first_name .'</a>';
                 })->addColumn('action',function($data){
                     $checked=$data->overridden_profile===1?'checked':'';

@@ -19,6 +19,7 @@ class DashboardController extends Controller
         if (auth()->user()->role_id===5){
             $where=[['parent_id','=', auth()->user()->id],['role_id',"=",2],["acc_type","=","personal"]];
             $content["employees"]=User::where($where)->count();
+            $content["views_count"]=views::where('path','/public/profile/'.auth()->user()->id)->sum("views_count");
         }
         else if (auth()->user()->role_id===7){
             $where=[['user_id','=', auth()->user()->id]];
@@ -28,6 +29,7 @@ class DashboardController extends Controller
             $content['profile'] = User::where('role_id', 2)->count();
             $content['user'] = User::where('role_id', '<>', 2)->count();
         }
+
 
 
         $content['downloads']=auth()->user()->role_id===1?downloads::count():downloads::where("user_id",auth()->user()->id)->count();

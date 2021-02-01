@@ -30,18 +30,17 @@
                     <div><a class="count green" href="{{route('profile')}}">{{$employees??$profile??$devices??''}}</a></div>
                 </div>
 
-                {{--            Graph And Downloads--}}
+                {{--Graph And Downloads--}}
                 @if(auth()->check())
-                    @if(auth()->user()->role_id===1||auth()->user()->subscription_status===1)
+                    @if(in_array(auth()->user()->role_id, array(1,5))||auth()->user()->subscription_status===1)
                         <div class="col-md-3 col-sm-6 tile_stats_count">
                             <span class="count_top"><i class="fa fa-eye"></i> Total Profile Views</span>
-                            <div><a class="count green" id="total_views" href="{{action('admin\DashboardController@index')}}">0</a></div>
+                            <div><a class="count green" id="total_views" href="{{action('admin\DashboardController@index')}}">{{ $views_count ?? 0}}</a></div>
                         </div>
                         <div class="col-md-3 col-sm-6 tile_stats_count">
                             <span class="count_top"><i class="fa fa-download"></i> Total Contact Downloads</span>
                             <div><a class="count green" id="total_downloads" href="{{action('admin\DashboardController@index')}}">{{$downloads}}</a></div>
                         </div>
-
                     @endif
                 @endif
 
