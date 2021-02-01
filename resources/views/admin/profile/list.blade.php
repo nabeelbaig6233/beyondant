@@ -318,7 +318,7 @@
                                                 <button type="submit" class="btn btn-info btn-xs" data-toggle="modal" data-target="#confirmOverrideModal">Override Employee Profiles</button>
 
                                             @endcan
-                                            <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#editProfileModal">Edit Profile</button> 
+                                            <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#editProfileModal">Profile Access Control</button> 
 
 
                                             <tr>
