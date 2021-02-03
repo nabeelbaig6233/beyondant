@@ -24,7 +24,6 @@
                             <div class="row">
                                 <div class="form-group col-12">
                                     <select class="form-control" style="border-radius:5%" id="can_edit" name="can_edit" required="">
-                                        <option value="">Profile Access Control</option>
                                         <option value="0">Allow Employee To Edit Profile</option>
                                         <option value="1">Restrict Employee From Editing</option>
                                     </select>
@@ -1322,10 +1321,6 @@
 
         $(document).on('click','#edit_profile_btn',(e)=>{
             e.preventDefault();
-            if($("#can_edit").val()===""){
-                js_error("please select value");
-                return false;
-            }
             let btnTxt = $('#edit_profile_btn').text();
             $('#edit_profile_btn').text("saving...");
             $('#edit_profile_btn').attr("disabled",false);
